@@ -1860,3 +1860,8 @@ button > * {
 	margin:0;
 	padding:0;
 }
+.alchtext {
+	color: transparent;
+	background: linear-gradient(to bottom, black 20%, purple 80%);
+	background-clip: text;
+}
