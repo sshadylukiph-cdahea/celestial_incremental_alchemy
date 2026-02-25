@@ -29,6 +29,7 @@
 		"Black Heart/depth2.js", "Black Heart/depth3.js", "Black Heart/matosLair.js", "Black Heart/darkTemple.js", "Black Heart/bulletHell.js",
 		"Black Heart/stagnantSynestia.js", "Black Heart/depth4.js", "Black Heart/alephsChamber.js", "Black Heart/laboratory.js", "DarkU1/grassJump.js",
 		"Hive/nest.js", "Check Back/gwaTemple.js", "Zar/zarDungeon.js", "Black Heart/creation.js", "DarkU1/rerollPoints.js",
+		"Alchemy/knowledgeTable.js", "Alchemy/tomeLibrary.js",
 
 		"Ordinal/ordinal.js", "Ordinal/markup.js",
 	],
@@ -613,9 +614,10 @@ function updateStyles() {
 	    }
 	} else {
 		const grid = document.getElementById("grid-bg");
-    	if (grid) grid.remove();
+    	if (grid) {grid.remove();
+		}
 	}
-
+	
 	// ===------   SIDE BACKGROUND   ------=== //
 	let sideBG = ""
 
@@ -1808,7 +1810,9 @@ var doNotCallTheseFunctionsEveryTick = [
 	"startCutscene38", "startCutscene39", "cookieClick", "generateFlower", "generateMult", "flowerClick",
 	"selectCelestialites", "petDeath", "celestialiteDeath", "petAbility", "celestialiteAbility",
 	"arriveAtStar", "spaceEnergyReset", "coinFlip", "randomizeSegments", "spinWheel", "spinSlots", "evaluateRewards",
-	"slotReset", "enhanceReset", "cardReset", "cardDraw", "startGame", "endGame", "resetCreation"
+	"slotReset", "enhanceReset", "cardReset", "cardDraw", "startGame", "endGame", "resetCreation",
+
+	"alchemicalSymbolsReset",
 ]
 
 function getStartPoints(){
