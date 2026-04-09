@@ -25,7 +25,7 @@
 		"Hive/honey.js", "Hive/wax.js", "Hive/aleph.js", "AltU2/spaceBuildings.js", "DarkU1/spaceEnergy.js",
 		"mining.js", "DarkU1/punchcards.js", "cutsceneNew.js", "Check Back/fighting.js", "Check Back/battle.js", "AltU2/spaceBuildings.js", "DarkU1/spaceEnergy.js", "DarkU1/blood.js", "Zar/zar.js", "Zar/coinFlip.js",
  		"Zar/wheelOfFortune.js", "Check Back/singularityPet.js", "Zar/slotMachine.js", "Zar/checkBackShrine.js", "Zar/cards.js", "Cantepocalypse/enhance.js",
-		"Alchemy/knowledgeTable.js", "Alchemy/blueprintTable.js", "Alchemy/tomeLibrary.js", "Alchemy/alchemyAltar.js",
+		"Alchemy/knowledgeTable.js", "Alchemy/blueprintTable.js", "Alchemy/elementFusion.js", "Alchemy/tomeLibrary.js", "Alchemy/alchemyAltar.js", "Alchemy/philozoth.js",
 
 		"Ordinal/ordinal.js", "Ordinal/markup.js",
 	],
