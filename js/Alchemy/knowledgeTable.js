@@ -1,6 +1,6 @@
 addLayer("ktb", {
     name: "The Knowledge Table",
-    symbol: "🕮",
+    symbol: "⚿",
     row: 1,
     universe: "LU",
     position: 0,
@@ -16,18 +16,19 @@ addLayer("ktb", {
             backgroundOrigin: "border-box",
             borderColor: "#F8C898",
             color: "#F8C898",
+            boxShadow: "0 0 3px 1px black inset",
             borderRadius: "0px",
             transform: "translateY(-0px)",
         }
     },
     tooltip: "The Knowledge Table",
-    branches: ["tl", "btb", "aal"],
-    color: "white",
+    branches: ["tl", "btb"],
+    color: "#8b609c",
 
     update(delta) {
 
         // Start of Alchemical Symbol Gain
-        player.ktb.alchemicalSymbolsGain = player.points.add(1).log10(player.points).div(100000)
+        player.ktb.alchemicalSymbolsGain = player.points.add(1).log10(player.points).div(1000000)
 
         // Flooring Alchemical Symbol Gain
         player.ktb.alchemicalSymbolsGain = player.ktb.alchemicalSymbolsGain.floor()
@@ -38,7 +39,7 @@ addLayer("ktb", {
         if (hasUpgrade("ktb", 203)) player.ktb.alchemicalSymbolsGain = player.ktb.alchemicalSymbolsGain.mul(upgradeEffect("ktb", 203))
         if (hasUpgrade("ktb", 204)) player.ktb.alchemicalSymbolsGain = player.ktb.alchemicalSymbolsGain.mul(upgradeEffect("ktb", 204))
         if (hasUpgrade("ktb", 205)) player.ktb.alchemicalSymbolsGain = player.ktb.alchemicalSymbolsGain.mul(upgradeEffect("ktb", 205))
-        if (hasUpgrade("ktb", 210)) player.ktb.alchemicalSymbolsGain = player.ktb.alchemicalSymbolsGain.mul(upgradeEffect("ktb", 205))
+        // if (hasUpgrade("ktb", 210)) player.ktb.alchemicalSymbolsGain = player.ktb.alchemicalSymbolsGain.mul(upgradeEffect("ktb", 205))
     },
 
     // Alchemical Symbol Reset mechanism
@@ -50,8 +51,8 @@ addLayer("ktb", {
 
     clickables: {
         1: {
-            title() {return "<h3>Condense all of your Celestial Points into<br>🝪 Alchemical Symbols 🝪.<br> Requires: 1e100,000 Celestial Points</h3>"},
-            canClick() {return player.ktb.alchemicalSymbolsGain.gte(1) & player.points.gte("1e100000")},
+            title() {return "<h3>Condense all of your Celestial Points into<br>🝪 Alchemical Symbols 🝪.<br> Requires: e1,000,000 Celestial Points</h3>"},
+            canClick() {return player.ktb.alchemicalSymbolsGain.gte(1) & player.points.gte("1e1000000")},
             unlocked() {return true},
             onClick() { 
                 layers.ktb.alchemicalSymbolsReset()
@@ -70,8 +71,8 @@ addLayer("ktb", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }}
-        
+            }
+        }
     },
 
     bars: {},
@@ -94,9 +95,9 @@ addLayer("ktb", {
         },
         102: {
             title: "Starmetal Alteration",
-            unlocked() {return hasUpgrade("ktb", 101) && player.btb.alcNodePartConverter.gte(4) && player.btb.alcNodePartCondenser.gte(4) && player.btb.alcNodePartGuider.gte(4)},
+            unlocked() {return hasUpgrade("ktb", 101)},
             description: "Unlocks Altered Starmetal Alloy and Altered Starmetal Essence.",
-            cost: new Decimal(300),
+            cost: new Decimal(10000),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
             currencyInternalName: "alchemicalSymbols",
@@ -108,9 +109,12 @@ addLayer("ktb", {
         },
         103: {
             title: "Voidigenesis",
-            unlocked() {return false}, // hasUpgrade("ktb", 102)
+            unlocked() {
+                if (player.eft.voidigenesisUnlocked == true) return true
+                else return false
+            },
             description: "Unlocks the Particle Accelerator blueprint.",
-            cost: new Decimal(750),
+            cost: new Decimal(20000),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
             currencyInternalName: "alchemicalSymbols",
@@ -122,9 +126,9 @@ addLayer("ktb", {
         },
         104: {
             title: "Alkahest Creation",
-            unlocked() {return hasUpgrade("ktb", 103)},
+            unlocked() {return hasUpgrade("ktb", 103) }, // 
             description: "Unlocks the Nexus of Unification blueprint.",
-            cost: new Decimal(2000),
+            cost: new Decimal(30000),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
             currencyInternalName: "alchemicalSymbols",
@@ -138,7 +142,7 @@ addLayer("ktb", {
             title: "Aetherogenesis",
             unlocked() {return hasUpgrade("ktb", 104)},
             description: "Unlocks the Astrological Construct blueprint.",
-            cost: new Decimal(4000),
+            cost: new Decimal(40000),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
             currencyInternalName: "alchemicalSymbols",
@@ -152,7 +156,7 @@ addLayer("ktb", {
             title: "Infernal Theory",
             unlocked() {return hasUpgrade("ktb", 105)},
             description: "Unlocks the Plasma Chamber blueprint.",
-            cost: new Decimal(8000),
+            cost: new Decimal(50000),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
             currencyInternalName: "alchemicalSymbols",
@@ -166,7 +170,7 @@ addLayer("ktb", {
             title: "Photon Manipulation",
             unlocked() {return hasUpgrade("ktb", 106)},
             description: "Unlocks the Illusionary Mirror blueprint.",
-            cost: new Decimal(16000),
+            cost: new Decimal(62500),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
             currencyInternalName: "alchemicalSymbols",
@@ -180,7 +184,7 @@ addLayer("ktb", {
             title: "Universal Extraction",
             unlocked() {return hasUpgrade("ktb", 107)},
             description: "Unlocks the Dimension Slicer blueprint.",
-            cost: new Decimal(32000),
+            cost: new Decimal(75000),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
             currencyInternalName: "alchemicalSymbols",
@@ -191,10 +195,10 @@ addLayer("ktb", {
             },
         },
         109: {
-            title: "Higher Order Elements",
+            title: "Blessed Symbols",
             unlocked() {return hasUpgrade("ktb", 108)},
-            description: "Unlocks the Higher Order Machines.",
-            cost: new Decimal(64000),
+            description: "Unlocks one QoL AlSys-related and three AAL/EFT-related AlSy upgrades.",
+            cost: new Decimal(87500),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
             currencyInternalName: "alchemicalSymbols",
@@ -224,7 +228,7 @@ addLayer("ktb", {
             title: "Heightened Practice",
             unlocked() {return true},
             description: "Triple base AlSy gain.",
-            cost: new Decimal(200),
+            cost: new Decimal(100),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
             currencyInternalName: "alchemicalSymbols",
@@ -238,7 +242,7 @@ addLayer("ktb", {
             title: "Symbol of Strength",
             unlocked() {return true},
             description: "Boosts AlSy gain based on total power.",
-            cost: new Decimal(500),
+            cost: new Decimal(250),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
             currencyInternalName: "alchemicalSymbols",
@@ -258,7 +262,7 @@ addLayer("ktb", {
             title: "Symbol of Courage",
             unlocked() {return true},
             description: "Boosts AlSy gain based on stars.",
-            cost: new Decimal(1000),
+            cost: new Decimal(500),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
             currencyInternalName: "alchemicalSymbols",
@@ -278,7 +282,7 @@ addLayer("ktb", {
             title: "Symbol of Wisdom",
             unlocked() {return true},
             description: "Boosts AlSy gain based on highest CB Level.",
-            cost: new Decimal(3500),
+            cost: new Decimal(1000),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
             currencyInternalName: "alchemicalSymbols",
@@ -298,12 +302,12 @@ addLayer("ktb", {
             title: "Page Accumulation",
             unlocked() {return true},
             description: "Boosts AlSy gain based on itself.",
-            cost: new Decimal(5000),
+            cost: new Decimal(2500),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
             currencyInternalName: "alchemicalSymbols",
             effect() {
-                return player.ktb.alchemicalSymbolsMult.add(Decimal.log10(player.ktb.alchemicalSymbols)).div(2).add(1)
+                return player.ktb.alchemicalSymbolsMult.add(Decimal.log10(player.ktb.alchemicalSymbols.add(1))).div(2).add(1)
             },
             effectDisplay() {
                 return "x" + formatSimple(upgradeEffect(this.layer, this.id), 2)
@@ -331,7 +335,7 @@ addLayer("ktb", {
         207: {
             title: "Symbol of the Gifts",
             unlocked() {return hasUpgrade("ktb", 109)},
-            description: "Starmetal Alteration rates are 100% more effective.",
+            description: "Basic Altered SM alteration rates in AAL are 100% more effective.",
             cost: new Decimal(100000),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
@@ -345,7 +349,7 @@ addLayer("ktb", {
         208: {
             title: "Symbol of the Signs",
             unlocked() {return hasUpgrade("ktb", 109)},
-            description: "Divides the Alchemical Reaction times by 2.",
+            description: "Divides the four basic Altered SMs' charge times by 2.",
             cost: new Decimal(100000),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
@@ -359,7 +363,7 @@ addLayer("ktb", {
         209: {
             title: "Symbol of the Miracles",
             unlocked() {return hasUpgrade("ktb", 109)},
-            description: "1st Order Alchemical Reactions are 100% more effective.",
+            description: "1st Order Altered SM Fusions in EFT are 100% more effective.",
             cost: new Decimal(100000),
             currencyLocation() {return player.ktb},
             currencyDisplayName: "Alchemical Symbols",
@@ -395,20 +399,21 @@ addLayer("ktb", {
     infoboxes: {
     1: {
             title: "Alchemical Symbols",
-            body() { return "The Alchemical Symbols are interesting superphysical values. Unlike the superphysical values made by the Novasent, the Alchemical Symbols are made by a new Developer, Louki-syhda Sabaetta. The Alchemical Symbols are a way for Louki to gather, spread and read information. She used them during her own controlled experiments to achieve almost unlimited potential.<br><br>They are made up of Celestial Points which constitute the Overworld Universe. However, creating Alchemical Symbols and altering their properties both require an eternity worth of collected Celestial Points and very specific superphysical values.<br><br>Currently, there are almost no Foresight users able to effectively make and control the Alchemical Symbols. The cause of the decreased numbers is due to a threshold problem. Philozoth, the Celestial of Alchemy and the arch-rival of Louki, changed the threshold so he could be the only one to steal, use and sabotage Louki’s knowledge.<br><br>To set a threshold even higher than Tav’s Limit is a disgrace. Thanks to that, learning the art of Alchemy from Louki is extremely hard for new Foresight users. At least I have found her in her weakened state at the right time. Maybe I should talk to her often to find out more about the incident."},
+            body() { return "The Alchemical Symbols are interesting superphysical values. Unlike the superphysical values made by the Novasent, the Alchemical Symbols are made by a new Developer, Louki-syhda Sabaetta. The Alchemical Symbols are a way for Louki to gather, spread and read information. She used them during her own controlled experiments to achieve almost unlimited potential.<br><br>They are made up of Celestial Points which constitute the Overworld Universe. However, creating Alchemical Symbols and altering their properties both require an eternity worth of collected Celestial Points and very specific superphysical values.<br><br>Currently, there are almost no students of Louki's Universe able to effectively make and control the Alchemical Symbols. The cause of the decreased numbers is due to a Celestial threatening to take over Louki's Universe. Philozoth, the Celestial of Alchemy and the arch-rival of Louki, changed the threshold and modified most if not all of her knowledge so he could be the only one to steal, use and sabotage the art of Alchemy.<br><br>To set a threshold even higher than Tav’s Limit is a disgrace. Thanks to that, learning the art of Alchemy from Louki is extremely hard for new students. At least I have found her in her weakened state at the right time. Maybe I should talk to her often to find out more about the incident."},
             unlocked() { return true },
             style: { "color": "pink", "backgroundColor": "#4f3658", "border": "2px solid #8b609c", "borderRadius": "10px 10px 0 0" }
     },
     2: {
             title: "Alchemical Nodes",
-            body() { return "The Alchemical Nodes are machines capable of transforming irregular Starmetal Alloys and their Essences into their altered versions by forcibly combining Core Fragments, Pylon Energy and Radiation.<br><br>They are built using Space Rocks and Space Dust as framing, Eclipse Shards and Space Gems as conductors, and Starmetal Alloys and Starmetal Essence as catalysts. Why Starmetal and why not other components?<br><br>Turns out that photons stored inside Starmetal are capable of travelling at the speed of light, which can be used like a pressure washer to combine superphysical values. But be careful, concentrating too much energy into an individual can be catastrophic.<br><br>No wonder why this dangerous knowledge was locked away by Philozoth. The capability to harm life using this technology has to be a factor for setting the limits too high."},
+            body() { return "The Alchemical Nodes are machines capable of transforming regular Starmetal Alloys and their Essences into their altered versions by forcibly combining Core Fragments and their Pylon Energies.<br><br>They are built using Space Rocks and Space Dust as framings, Eclipse Shards and Space Gems as conductors, and Starmetal Alloys and Starmetal Essence as catalysts. Why Starmetal Alloy/Essence and why not other components?<br><br>Turns out that photons stored inside Starmetal Alloy/Essence are capable of travelling at the speed of light, which can be used like a pressure washer to combine superphysical values. But be careful, concentrating too much energy into an individual can be catastrophic.<br><br>No wonder why this dangerous knowledge was locked away by Philozoth. The capability to harm life using this technology has to be a factor for setting the limits too high."},
             unlocked() { return player.btb.alcNodePartConverter.gte(1) },
             style: { "color": "pink", "backgroundColor": "#4f3658", "border": "2px solid #8b609c", "borderRadius": "10px 10px 0 0" }
     },
     3: {
             title: "The Basic Alchemical Elements, Classical",
-            body() { return "???" },
-            unlocked() { return false },
+            body() { return "<h1>❖ Earth | Water | Air | Fire ❖</h1><br><br>Four classical elements used by the students of Louki's Universe to represent and explain natural phenomena. In the context of Alchemy, they are used to create secondary elements and, with the assistance of the three primes, the seven classical metals and the arcane knowledge, eventually make the infamous Philosopher’s Stone. It is said by many members of Louki's Universe that its function is to transmute basic metals into gold or other materials. Such creation of a substance like the Philosopher's Stone requires multiple alchemical procedures which use a multitude of resources.<br><br>Modern scientific methods disprove the concept of Alchemy and the Philosopher's Stone completely, but some students, including Philozoth and Louki-syhda, are able to retain that knowledge inside of their minds for research reasons.<br><br>So, why haven’t the students of Louki's Universe appeared as the main attackers of the Celestial Hunting Corporation? Other than the problems caused by Philozoth, there are numerous reasons why they are not being exploited by the corporation. I don't know why, but I need to know more. I must uncover the truth of this universe's past." },
+            unlocked() { return hasUpgrade("ktb", 102) },
+            style: { "color": "pink", "backgroundColor": "#4f3658", "border": "2px solid #8b609c", "borderRadius": "10px 10px 0 0" }
     },
     4: {
             title: "The Void Element, Elusive",
@@ -453,7 +458,8 @@ addLayer("ktb", {
                 buttonStyle() {return {color: "#F8C898", backgroundColor: "#6B4423", backgroundImage: "linear-gradient(0deg, #6B4423, #9b541a)", borderColor: "#F8C898", borderRadius: "0px", boxShadow: "0 0 3px 1px black inset"}},
                 unlocked() {return true},
                 content: [
-                    ["blank", "5px"],
+                    ["blank", "305px"],
+                    ["style-column", [], {width: "800px", height: "290px", background:"transparent", backgroundImage: "radial-gradient(circle, black 70%, transparent 100%), repeating-linear-gradient(-45deg, #772277 10px, #551155 20px)", border:"3px solid #330033", boxShadow: "0 0 5px 5px #330033a6 inset, 0 0 8px 8px #551155 inset, 0 0 20px 20px #00000050 inset", marginBottom: "-600px"}], 
                     ["style-row", [
                         ["style-column", [
                             ["top-column", [
@@ -470,10 +476,10 @@ addLayer("ktb", {
                                 ["row", [["upgrade", 201], ["upgrade", 202], ["upgrade", 203], ["upgrade", 204], ["upgrade", 205]]],
                                 ["row", [["upgrade", 206], ["upgrade", 207], ["upgrade", 208], ["upgrade", 209], ["upgrade", 210]]],
                             ], {width: "700px", height: "290px", background: "#382413", backgroundImage: "linear-gradient(180deg, #382413, #523116)", borderTop: "3px solid #330033", borderLeft: "3px solid #b18961", borderRight: "3px solid #b18961", borderBottom: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}]]
-                            ]
-                        ]
+                        ],
                     ]
-                ]
+                ],
+            ]
             },
             "Lore": {
                 buttonStyle() {return {color: "black", background: "linear-gradient(to bottom, #8b609c, magenta, pink)", borderColor: "transparent", borderImage: "linear-gradient(to bottom, chartreuse, #00ff9d) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px black inset"}},
