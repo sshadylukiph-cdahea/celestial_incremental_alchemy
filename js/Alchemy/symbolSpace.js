@@ -40,14 +40,14 @@ addLayer("ssp", {
     branches: [],
     clickables: {
         1: {
-            title() {return "Symbol Encoder<hr><small>Gain <h3>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h3> Alchemical Symbols.<br> Requires: e1,000,000 Celestial Points<small>"},
+            title() {return "<h2>Symbol Encoder</h1><hr><small>Gain <h2>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h3> Alchemical Symbols.<br> Requires: e1,000,000 Celestial Points<small>"},
             canClick() {return player.ssp.alchemicalSymbolsGain.gte(1) & player.points.gte("1e1000000")},
             unlocked() {return true},
             onClick() { 
                 layers.ssp.alchemicalSymbolsReset()
             },
             style() {
-            let look = {fontSize: '13px', width: '500px', minHeight: '150px', maxHeight: "150px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: '45px'}
+            let look = {fontSize: "12px", width: "250px", height: "150px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px"}
             if (this.canClick()) {
                 look.background = "linear-gradient(0deg, #6B4423, #9b541a)"
                 look.border = "3px solid #F8C898"
@@ -76,8 +76,10 @@ addLayer("ssp", {
                 unlocked() { return true },
                 content: [
                     ["raw-html", () => {return "You have " + formatWhole(player.ssp.alchemicalSymbols) + " 🝪 Alchemical Symbols 🝪."}, {"color": "white", "font-size": "24px", "font-family": "monospace"}],
+                    ["blank", "10px"],
                     ["clickable", 1],
-                    ["raw-html", function () { return "You have <h3>" + format(player.points) + "</h3> celestial points." }, {"color": "white", "font-size": "24px", "font-family": "monospace"}],
+                    ["blank", "10px"],
+                    ["raw-html", () => { return "You have <h3>" + format(player.points) + "</h3> celestial points." }, {"color": "white", "font-size": "24px", "font-family": "monospace"}],
                 ]
             },
         },
