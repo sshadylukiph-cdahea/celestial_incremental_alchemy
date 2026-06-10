@@ -1,4 +1,4 @@
-addLayer("tl", {
+addLayer("tlb", {
     name: "Tome Library",
     symbol: "🕮",
     row: 1,
@@ -6,6 +6,47 @@ addLayer("tl", {
     position: 1,
     startData() {return {
         unlocked: true,
+
+        // tomes and revelation points
+        tomes: new Decimal (0),
+        tomesTotal: new Decimal (0),
+        revelationPoints: new Decimal (0),
+        revelationPointsGain: new Decimal (0),
+        revelationPointsMult: new Decimal (1),
+
+        // base symbols
+        crimsonSymbols: new Decimal(0),
+        goldSymbols: new Decimal(0),
+        jadeSymbols: new Decimal(0),
+        celesteSymbols: new Decimal(0),
+        cobaltSymbols: new Decimal(0),
+        amethystSymbols: new Decimal(0),
+
+        // base symbols' powers
+        crimsonSymbolPower: new Decimal(0),
+        goldSymbolPower: new Decimal(0),
+        jadeSymbolPower: new Decimal(0),
+        celesteSymbolPower: new Decimal(0),
+        cobaltSymbolPower: new Decimal(0),
+        amethystSymbolPower: new Decimal(0),
+
+        // 1st order symbols
+        arcaneSymbols: new Decimal (0),
+        starmetalAlloySymbols: new Decimal (0),
+        starmetalEssenceSymbols: new Decimal (0),
+        eclipseShardSymbols: new Decimal (0),
+        spaceGemSymbols: new Decimal (0),
+        planetSymbols: new Decimal (0),
+        spaceRockSymbols: new Decimal (0),
+
+        // 1st order symbols' powers
+        arcaneSymbolPower: new Decimal (0),
+        starmetalAlloySymbolPower: new Decimal (0),
+        starmetalEssenceSymbolPower: new Decimal (0),
+        eclipseShardSymbolPower: new Decimal (0),
+        spaceGemSymbolPower: new Decimal (0),
+        planetSymbolPower: new Decimal (0),
+        spaceRockSymbolPower: new Decimal (0),
     }},
     nodeStyle: {
         background: "radial-gradient(circle, #343434 25%, dimgrey 50%, silver 75%)",
@@ -18,8 +59,8 @@ addLayer("tl", {
         transform: "translateY(-0px)"
     },
     tooltip: "Tome Library",
-    color: "white",
-    branches: ["ktb"],
+    color: "silver",
+    branches: ["ssp"],
     bars: {},
-    layerShown() { return false } // player.startedGame == true && hasUpgrade("ktb", 210)
+    layerShown() {return player.startedGame == true && hasUpgrade("ssp", 101)}
 })
