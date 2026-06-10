@@ -35,6 +35,9 @@
 		// delete later, these are the old code that somehow remained intact
 		// "Alchemy/knowledgeTable.js", "Alchemy/blueprintTable.js", "Alchemy/elementFusion.js", "Alchemy/tomeLibrary.js", "Alchemy/alchemyAltar.js", "Alchemy/philozoth.js",
 
+		// delete later, these are the old code that somehow remained intact
+		// "Alchemy/knowledgeTable.js", "Alchemy/blueprintTable.js", "Alchemy/elementFusion.js", "Alchemy/tomeLibrary.js", "Alchemy/alchemyAltar.js", "Alchemy/philozoth.js",
+
 		"Ordinal/ordinal.js", "Ordinal/markup.js",
 	],
 
@@ -1823,7 +1826,7 @@ var doNotCallTheseFunctionsEveryTick = [
 	"selectCelestialites", "petDeath", "celestialiteDeath", "petAbility", "celestialiteAbility",
 	"arriveAtStar", "spaceEnergyReset", "coinFlip", "randomizeSegments", "spinWheel", "spinSlots", "evaluateRewards",
 	"slotReset", "enhanceReset", "cardReset", "cardDraw", "startGame", "endGame", "resetCreation",
-
+	
 	"alchemicalSymbolsReset",
 ]
 
