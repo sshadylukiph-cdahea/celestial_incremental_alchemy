@@ -70,7 +70,7 @@ addLayer("ssp", {
     upgrades: {
         // Upgrades that affect the main progression of the Alchemy Universe.
         101: {
-            title () {return (player.ssp.alchemicalSymbols >= 50) ? "<h3>Symbolcraft</h3>" : "<h3>??????</h3>"},
+            title () {return (player.ssp.alchemicalSymbols >= 50) ? "<h3>Symbolicraft</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
             description () {return (player.ssp.alchemicalSymbols >= 50) ? "<hr>Unlocks the ability to transmute Alchemical Symbols and bargain for Symbols/Tomes." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(50),
@@ -89,13 +89,18 @@ addLayer("ssp", {
             },
         },
         102: {
-            title () {return (player.ssp.alchemicalSymbols >= 100 && player.tlb.revelationPoints >= 1000) ? "<h3>Alchemiafactorim</h3>" : "<h3>??????</h3>"},
+            title () {return (player.ssp.alchemicalSymbols >= 100 && player.tlb.revelationPoints >= 1000) ? "<h3>Alchemfactory</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
             description () {return (player.ssp.alchemicalSymbols >= 100 && player.tlb.revelationPoints >= 1000) ? "<hr>Unlocks the art of Alchemical Node Crafting and Assembling." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(100),
             currencyLocation() {return player.ssp},
             currencyDisplayName: "Al.Sys and 1000 Rev.Pts",
             currencyInternalName: "alchemicalSymbols",
+            branches() {
+                if (hasUpgrade("ssp", 102))
+                    return [[101, "#ffdb8e"]]
+            },
+            // branches: [[101, "linear-gradient(to right, #ffffff, #0000ff)"]],
             canAfford() {return player.tlb.revelationPoints >= 1000},
             style() {
                 let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
@@ -191,7 +196,7 @@ addLayer("ssp", {
         107: {
             title () {return (player.ssp.alchemicalSymbols >= 350 && player.tlb.revelationPoints >= 3500) ? "<h3>Voidigenesis</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
-            description () {return (player.ssp.alchemicalSymbols >= 350 && player.tlb.revelationPoints >= 3500) ? "<hr>You can transmutate previous SPVs into their symbol forms and exchange them for tomes." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
+            description () {return (player.ssp.alchemicalSymbols >= 350 && player.tlb.revelationPoints >= 3500) ? "<hr>Unlocks the Orb of Nothingness and the Void Starmetal." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(350),
             currencyLocation() {return player.ssp},
             currencyDisplayName: "Al.Sys and 3500 Rev.Pts",
@@ -211,7 +216,7 @@ addLayer("ssp", {
         108: {
             title () {return (player.ssp.alchemicalSymbols >= 400 && player.tlb.revelationPoints >= 4000) ? "<h3>Aetherogenesis</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
-            description () {return (player.ssp.alchemicalSymbols >= 400 && player.tlb.revelationPoints >= 4000) ? "<hr>You can transmutate previous SPVs into their symbol forms and exchange them for tomes." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
+            description () {return (player.ssp.alchemicalSymbols >= 400 && player.tlb.revelationPoints >= 4000) ? "<hr>Unlocks the Astrological Construct and the Aether Starmetal." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(400),
             currencyLocation() {return player.ssp},
             currencyDisplayName: "Al.Sys and 4000 Rev.Pts",
@@ -231,7 +236,7 @@ addLayer("ssp", {
         109: {
             title () {return (player.ssp.alchemicalSymbols >= 450 && player.tlb.revelationPoints >= 4500) ? "<h3>Infernalism</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
-            description () {return (player.ssp.alchemicalSymbols >= 450 && player.tlb.revelationPoints >= 4500) ? "<hr>You can transmutate previous SPVs into their symbol forms and exchange them for tomes." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
+            description () {return (player.ssp.alchemicalSymbols >= 450 && player.tlb.revelationPoints >= 4500) ? "<hr>Unlocks the Plasma Core and the Inferno Starmetal." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(450),
             currencyLocation() {return player.ssp},
             currencyDisplayName: "Al.Sys and 4500 Rev.Pts",
@@ -249,9 +254,9 @@ addLayer("ssp", {
             },
         },
         110: {
-            title () {return (player.ssp.alchemicalSymbols >= 500 && player.tlb.revelationPoints >= 5000) ? "<h3>Shadowmancy</h3>" : "<h3>??????</h3>"},
+            title () {return (player.ssp.alchemicalSymbols >= 500 && player.tlb.revelationPoints >= 5000) ? "<h3>Shadeseeking</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
-            description () {return (player.ssp.alchemicalSymbols >= 500 && player.tlb.revelationPoints >= 5000) ? "<hr>You can transmutate previous SPVs into their symbol forms and exchange them for tomes." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
+            description () {return (player.ssp.alchemicalSymbols >= 500 && player.tlb.revelationPoints >= 5000) ? "<hr>Unlocks the Dark Room and the Darkness Starmetal." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(500),
             currencyLocation() {return player.ssp},
             currencyDisplayName: "Al.Sys and 5000 Rev.Pts",
@@ -269,9 +274,9 @@ addLayer("ssp", {
             },
         },
         111: {
-            title () {return (player.ssp.alchemicalSymbols >= 550 && player.tlb.revelationPoints >= 5500) ? "<h3>Lightweaving</h3>" : "<h3>??????</h3>"},
+            title () {return (player.ssp.alchemicalSymbols >= 550 && player.tlb.revelationPoints >= 5500) ? "<h3>Rayweaving</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
-            description () {return (player.ssp.alchemicalSymbols >= 550 && player.tlb.revelationPoints >= 5500) ? "<hr>You can transmutate previous SPVs into their symbol forms and exchange them for tomes." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
+            description () {return (player.ssp.alchemicalSymbols >= 550 && player.tlb.revelationPoints >= 5500) ? "<hr>Unlocks the Refraction Mirror and the Light Starmetal." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(550),
             currencyLocation() {return player.ssp},
             currencyDisplayName: "Al.Sys and 5500 Rev.Pts",
@@ -291,7 +296,7 @@ addLayer("ssp", {
         112: {
             title () {return (player.ssp.alchemicalSymbols >= 600 && player.tlb.revelationPoints >= 6000) ? "<h3>Arcanium Forging</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
-            description () {return (player.ssp.alchemicalSymbols >= 600 && player.tlb.revelationPoints >= 6000) ? "<hr>You can transmutate previous SPVs into their symbol forms and exchange them for tomes." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
+            description () {return (player.ssp.alchemicalSymbols >= 600 && player.tlb.revelationPoints >= 6000) ? "<hr>Unlocks the Secret Forge and the Arcane Starmetal." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(600),
             currencyLocation() {return player.ssp},
             currencyDisplayName: "Al.Sys and 6000 Rev.Pts",
@@ -329,7 +334,7 @@ addLayer("ssp", {
                                             ["upgrade", 101]
                                         ], () => {
                                             if (hasUpgrade("ssp", 101)) 
-                                                return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdB8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
+                                                return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdb8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
                                             else
                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
                                         }
@@ -344,7 +349,7 @@ addLayer("ssp", {
                                             ["upgrade", 106]
                                         ], () => {
                                             if (hasUpgrade("ssp", 106)) 
-                                                return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdB8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
+                                                return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffd8be", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
                                             else
                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
                                         }
@@ -355,7 +360,7 @@ addLayer("ssp", {
                                             ["upgrade", 108]
 					                        ], () => {
                                             if (hasUpgrade("ssp", 108)) 
-                                                return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid magenta", boxShadow: "0 0 10px pink, 0 0 10px pink inset", borderRadius: "156px"}
+                                                return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid magenta", boxShadow: "0 0 10px #ffc0cb, 0 0 10px #ffc0cb inset", borderRadius: "156px"}
                                             else
                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
                                         }
@@ -366,7 +371,7 @@ addLayer("ssp", {
                                             ["upgrade", 109]
 					                    ], () => {
                                             if (hasUpgrade("ssp", 109)) 
-                                                return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid magenta", boxShadow: "0 0 10px pink, 0 0 10px pink inset", borderRadius: "156px"}
+                                                return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid magenta", boxShadow: "0 0 10px #ffc0cb, 0 0 10px #ffc0cb inset", borderRadius: "156px"}
                                             else
                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
                                         }
@@ -377,7 +382,7 @@ addLayer("ssp", {
                                             ["upgrade", 102]
                                         ], () => {
                                             if (hasUpgrade("ssp", 102)) 
-                                                return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdB8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
+                                                return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdb8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
                                             else
                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
                                         }
@@ -392,7 +397,7 @@ addLayer("ssp", {
                                             ["upgrade", 107]
 					                    ], () => {
                                             if (hasUpgrade("ssp", 107)) 
-                                                return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid magenta", boxShadow: "0 0 10px pink, 0 0 10px pink inset", borderRadius: "156px"}
+                                                return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid magenta", boxShadow: "0 0 10px #ffc0cb, 0 0 10px #ffc0cb inset", borderRadius: "156px"}
                                             else
                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
                                         }
@@ -409,7 +414,7 @@ addLayer("ssp", {
                                             ["upgrade", 110]
 					                    ], () => {
                                             if (hasUpgrade("ssp", 110)) 
-                                                return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid magenta", boxShadow: "0 0 10px pink, 0 0 10px pink inset", borderRadius: "156px"}
+                                                return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid magenta", boxShadow: "0 0 10px #ffc0cb, 0 0 10px #ffc0cb inset", borderRadius: "156px"}
                                             else
                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
                                         }
@@ -424,7 +429,7 @@ addLayer("ssp", {
                                             ["upgrade", 105]
                                         ], () => {
                                             if (hasUpgrade("ssp", 105)) 
-                                                return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdB8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
+                                                return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdb8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
                                             else
                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
                                         }
@@ -435,7 +440,7 @@ addLayer("ssp", {
                                             ["upgrade", 112]
 					                    ], () => {
                                             if (hasUpgrade("ssp", 112)) 
-                                                return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid magenta", boxShadow: "0 0 10px pink, 0 0 10px pink inset", borderRadius: "156px"}
+                                                return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid magenta", boxShadow: "0 0 10px #ffc0cb, 0 0 10px #ffc0cb inset", borderRadius: "156px"}
                                             else
                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
                                         }
@@ -446,7 +451,7 @@ addLayer("ssp", {
                                             ["upgrade", 111]
 					                    ], () => {
                                             if (hasUpgrade("ssp", 111)) 
-                                                return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid magenta", boxShadow: "0 0 10px pink, 0 0 10px pink inset", borderRadius: "156px"}
+                                                return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid magenta", boxShadow: "0 0 10px #ffc0cb, 0 0 10px #ffc0cb inset", borderRadius: "156px"}
                                             else
                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
                                         }
@@ -457,7 +462,7 @@ addLayer("ssp", {
                                             ["upgrade", 103]
                                         ], () => {
                                             if (hasUpgrade("ssp", 103)) 
-                                                return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdB8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
+                                                return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdb8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
                                             else
                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
                                         }
@@ -472,7 +477,7 @@ addLayer("ssp", {
                                             ["upgrade", 104]
                                         ], () => {
                                             if (hasUpgrade("ssp", 104)) 
-                                                return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdB8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
+                                                return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdb8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
                                             else
                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
                                         }
