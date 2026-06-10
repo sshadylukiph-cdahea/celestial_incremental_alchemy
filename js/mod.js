@@ -25,7 +25,9 @@
 		"Hive/honey.js", "Hive/wax.js", "Hive/aleph.js", "AltU2/spaceBuildings.js", "DarkU1/spaceEnergy.js",
 		"mining.js", "DarkU1/punchcards.js", "cutsceneNew.js", "Check Back/fighting.js", "Check Back/battle.js", "AltU2/spaceBuildings.js", "DarkU1/spaceEnergy.js", "DarkU1/blood.js", "Zar/zar.js", "Zar/coinFlip.js",
  		"Zar/wheelOfFortune.js", "Check Back/singularityPet.js", "Zar/slotMachine.js", "Zar/checkBackShrine.js", "Zar/cards.js", "Cantepocalypse/enhance.js",
-		"Alchemy/knowledgeTable.js", "Alchemy/blueprintTable.js", "Alchemy/elementFusion.js", "Alchemy/tomeLibrary.js", "Alchemy/alchemyAltar.js", "Alchemy/philozoth.js",
+
+		// delete later, these are the old code that somehow remained intact
+		// "Alchemy/knowledgeTable.js", "Alchemy/blueprintTable.js", "Alchemy/elementFusion.js", "Alchemy/tomeLibrary.js", "Alchemy/alchemyAltar.js", "Alchemy/philozoth.js",
 
 		"Ordinal/ordinal.js", "Ordinal/markup.js",
 	],
@@ -261,12 +263,12 @@ function updateStyles() {
 		case "leg":
 			layerBG = "#eed200"
 			break;
-		case "ktb":
-			layerBG = "linear-gradient(0deg, #140d07, #2c1807)"
-			break;
-		case "btb":
-			layerBG = "linear-gradient(0deg, #000033, #000055)"
-			break;
+		// case "ktb": // return later
+		// 	layerBG = "linear-gradient(0deg, #140d07, #2c1807)"
+		// 	break;
+		// case "btb":
+		// 	layerBG = "linear-gradient(0deg, #000033, #000055)"
+		// 	break;
 		default:
 			layerBG = "var(--layerBackground)"
 			break;
