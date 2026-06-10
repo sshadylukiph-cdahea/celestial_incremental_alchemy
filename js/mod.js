@@ -29,8 +29,9 @@
 		"Black Heart/depth2.js", "Black Heart/depth3.js", "Black Heart/matosLair.js", "Black Heart/darkTemple.js", "Black Heart/bulletHell.js",
 		"Black Heart/stagnantSynestia.js", "Black Heart/depth4.js", "Black Heart/alephsChamber.js", "Black Heart/laboratory.js", "DarkU1/grassJump.js",
 		"Hive/nest.js", "Check Back/gwaTemple.js", "Zar/zarDungeon.js", "Black Heart/creation.js", "DarkU1/rerollPoints.js",
-		
-		"Alchemy/knowledgeTable.js", "Alchemy/blueprintTable.js", "Alchemy/elementFusion.js", "Alchemy/tomeLibrary.js", "Alchemy/alchemyAltar.js", "Alchemy/philozoth.js",
+
+		// delete later, these are the old code that somehow remained intact
+		// "Alchemy/knowledgeTable.js", "Alchemy/blueprintTable.js", "Alchemy/elementFusion.js", "Alchemy/tomeLibrary.js", "Alchemy/alchemyAltar.js", "Alchemy/philozoth.js",
 
 		"Ordinal/ordinal.js", "Ordinal/markup.js",
 	],
@@ -330,12 +331,12 @@ function updateStyles() {
 		case "gwaTemple":
 			layerBG = "#676742"
 			break
-		case "ktb":
-			layerBG = "linear-gradient(0deg, #140d07, #2c1807)"
-			break;
-		case "btb":
-			layerBG = "linear-gradient(0deg, #000033, #000055)"
-			break;
+		// case "ktb": // return later
+		// 	layerBG = "linear-gradient(0deg, #140d07, #2c1807)"
+		// 	break;
+		// case "btb":
+		// 	layerBG = "linear-gradient(0deg, #000033, #000055)"
+		// 	break;
 		default:
 			layerBG = "var(--layerBackground)"
 			break;
