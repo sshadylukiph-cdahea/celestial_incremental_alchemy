@@ -49,12 +49,12 @@ addLayer("tlb", {
         spaceRockSymbolPower: new Decimal (0),
     }},
     nodeStyle: {
-        background: "radial-gradient(circle, #343434 25%, dimgrey 50%, silver 75%)",
+        background: "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)",
         backgroundOrigin: "border-box",
         borderColor: "transparent",
-        color: "silver",
-        borderImage: "radial-gradient(circle, dimgrey, white) 1",
-        boxShadow: "0 0 3px 1px black inset",
+        color: "#000000",
+        borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1",
+        boxShadow: "0 0 3px 1px #000000 inset",
         borderRadius: "30px",
         transform: "translateY(-0px)"
     },
@@ -62,5 +62,32 @@ addLayer("tlb", {
     color: "silver",
     branches: ["ssp"],
     bars: {},
+    upgrades: {},
+    buyables: {},
+    milestones: {},
+    challenges: {},
+    infoboxes: {},
+    microtabs: {
+        stuff: {
+            "Transmutations": {
+                buttonStyle() {return {color: "#000000", backgroundColor: "#787878", backgroundImage: "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)", borderColor: "#F8C898", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset"}},
+                unlocked() {return true},
+                content: [
+                    
+                ]
+            },
+            "Bargaining": {
+                buttonStyle() {return {color: "#000000", backgroundColor: "#787878", backgroundImage: "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)", borderColor: "#F8C898", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset"}},
+                unlocked() {return true},
+                content: [
+                    
+                ]
+            },
+        },
+    },
+    tabFormat: [
+        ["microtabs", "stuff", { 'border-width': '0px' }],
+        ["blank", "25px"],
+    ],
     layerShown() {return player.startedGame == true && hasUpgrade("ssp", 101)}
 })
