@@ -62,7 +62,7 @@ addLayer("ssp", {
                 look.textShadow = "#ffffff"
                 look.textStroke = "1px #ffffffab"
             } else {
-                look.backgroundImage = "linear-gradient(to bottom, #382413)"
+                look.backgroundImage = "linear-gradient(to bottom, #382413, #382413)"
                 look.border = "3px solid #97795b"
                 look.color = "#97795b"
                 look.textShadow = "#97795b"
@@ -95,7 +95,7 @@ addLayer("ssp", {
                 look.textShadow = "#ffffff"
                 look.textStroke = "1px #ffffffab"
             } else {
-                look.backgroundImage = "linear-gradient(to bottom, #382413)"
+                look.backgroundImage = "linear-gradient(to bottom, #382413, #382413)"
                 look.border = "3px solid #97795b"
                 look.color = "#97795b"
                 look.textShadow = "#97795b"
