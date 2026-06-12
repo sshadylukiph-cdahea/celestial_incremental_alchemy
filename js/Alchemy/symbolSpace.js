@@ -54,15 +54,19 @@ addLayer("ssp", {
                 layers.ssp.alchemicalSymbolsReset()
             },
             style() {
-            let look = {fontSize: "7px", width: "170px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", 'text-shadow': "0 0 5px #ffffff", textStroke: "1px #ffffffab", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
+            let look = {fontSize: "7px", width: "170px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
             if (this.canClick()) {
                 look.backgroundImage = "radial-gradient(ellipse, #000000cd, transparent 90%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #00ff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #00ff0067 90%), repeating-linear-gradient(45deg, transparent, transparent 9%, #00ff0067 9%, #00ff0067 10%), repeating-linear-gradient(135deg, transparent, transparent 9%, #00ff0067 9%, #00ff0067 10%), repeating-radial-gradient(circle at 50% 200%, #00ff0067, #00ff0067 5%, transparent 5%, transparent 10%, #00ff0067 10%), linear-gradient(to bottom, #00000078 10%, transparent 40%, transparent 60%, #00000078 90%), linear-gradient(to bottom, #00000078, #00000078), linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)"
                 look.border = "3px solid #00ff00"
                 look.color = "#00ff00"
+                look.textShadow = "#ffffff"
+                look.textStroke = "1px #ffffffab"
             } else {
-                look.backgroundImage = "#382413"
+                look.backgroundImage = "linear-gradient(to bottom, #382413)"
                 look.border = "3px solid #97795b"
                 look.color = "#97795b"
+                look.textShadow = "#97795b"
+                look.textStroke = "1px #97795bab"
             }
             return look
             }
@@ -83,15 +87,19 @@ addLayer("ssp", {
             unlocked() {return true},
             onClick() {},
             style() {
-            let look = {fontSize: "7px", width: "170px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", 'text-shadow': "0 0 5px #ffffff", textStroke: "1px #ffffffab", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
+            let look = {fontSize: "7px", width: "170px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
             if (this.canClick()) {
                 look.backgroundImage = "radial-gradient(ellipse, #000000cd, transparent 90%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ff00ff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ff00ff67 90%), repeating-linear-gradient(45deg, transparent, transparent 9%, #ff00ff67 9%, #ff00ff67 10%), repeating-linear-gradient(135deg, transparent, transparent 9%, #ff00ff67 9%, #ff00ff67 10%), repeating-radial-gradient(circle at 50% -200%, #ff00ff67, #ff00ff67 5%, transparent 5%, transparent 10%, #ff00ff67 10%), linear-gradient(to bottom, #00000078 10%, transparent 40%, transparent 60%, #00000078 90%), linear-gradient(to bottom, #00000078, #00000078), linear-gradient(to bottom, #8b609c, #ff00ff, #ffc0cb)"
                 look.border = "3px solid #ff00ff"
                 look.color = "#ff00ff"
+                look.textShadow = "#ffffff"
+                look.textStroke = "1px #ffffffab"
             } else {
-                look.backgroundImage = "#382413"
+                look.backgroundImage = "linear-gradient(to bottom, #382413)"
                 look.border = "3px solid #97795b"
                 look.color = "#97795b"
+                look.textShadow = "#97795b"
+                look.textStroke = "1px #97795bab"
             }
             return look
             }
