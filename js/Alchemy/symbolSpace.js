@@ -10,7 +10,12 @@ addLayer("ssp", {
         // alchemical symbol generation
         alchemicalSymbols: new Decimal (0),
         alchemicalSymbolsGain: new Decimal (0),
-        alchemicalSymbolsMult: new Decimal (1)
+        alchemicalSymbolsMult: new Decimal (1),
+
+        // advanced alchemical symbol generation
+        advAlchemicalSymbols: new Decimal(0),
+        advAlchemicalSymbolsGain: new Decimal (0),
+        advAlchemicalSymbolsMult: new Decimal (0)
     }},
     automate() {},
     nodeStyle() {
@@ -42,15 +47,45 @@ addLayer("ssp", {
     branches: ["ssp"],
     clickables: {
         1: {
-            title() {return "<h2>Symbol Encoder</h2><hr>Encode <h3>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h3> 🝪 Alchemical Symbols 🝪."},
+            title() {return "<h2>Symbol Encoder</h2><hr>Encode <h2>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h2><br>🝪 Al.Sys 🝪.<br><br><small>(Req.: e1,000,000 Cel.Pts.)</small>"},
             canClick() {return player.ssp.alchemicalSymbolsGain.gte(1) & player.points.gte("1e1000000")},
             unlocked() {return true},
             onClick() { 
                 layers.ssp.alchemicalSymbolsReset()
             },
-            tooltip: "(Requires e1,000,000 Celestial Points.)",
             style() {
-            let look = {fontSize: "8px", width: "136px", minHeight: "136px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px"}
+            let look = {fontSize: "7px", width: "170px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px"}
+            if (this.canClick()) {
+                look.background = "linear-gradient(0deg, #6b4423, #9b541a)"
+                look.border = "3px solid #f8Cc98"
+                look.color = "#f8c898"
+                look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"
+            } else {
+                look.backgroundColor = "#382413"
+                look.border = "3px solid #97795b"
+                look.color = "#97795b"
+                look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"
+            }
+            return look
+            }
+        },
+        2: {
+            title() {
+                if (hasUpgrade("ssp", 104))
+                    return "<h2>Symbol Combiner</h2><hr>Make <h2>" + formatWhole(player.ssp.advAlchemicalSymbolsGain) + "</h2><br>✩🝪 Adv.Al.Sys 🝪✩.<br><br><small>(Req.: ??? 🝪 Al.Sys 🝪.)</small>"
+                else
+                    return "<h2>You haven't unlocked this button yet!</h2>"
+            },
+            canClick() {
+                if (hasUpgrade("ssp", 104))
+                    return true
+                else
+                    return false
+            },
+            unlocked() {return true},
+            onClick() {},
+            style() {
+            let look = {fontSize: "7px", width: "170px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px"}
             if (this.canClick()) {
                 look.background = "linear-gradient(0deg, #6b4423, #9b541a)"
                 look.border = "3px solid #f8Cc98"
@@ -98,14 +133,6 @@ addLayer("ssp", {
             currencyLocation() {return player.ssp},
             currencyDisplayName: "Al.Sys",
             currencyInternalName: "alchemicalSymbols",
-            branches() {
-                if (hasUpgrade("ssp", 106))
-                    return [[106, "#ffdb8e"]]
-                else if (!hasUpgrade("ssp", 106) && player.tlb.revelationPoints >= 300)
-                    return [[106, "#ffffff"]]
-                else
-                    return [[106, "#ff0000"]]
-            },
             style() {
                 let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
                 hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
@@ -123,17 +150,18 @@ addLayer("ssp", {
             description () {return (player.ssp.alchemicalSymbols >= 100 && player.tlb.revelationPoints >= 1000) || hasUpgrade("ssp", 102) ? "<hr>Unlocks the art of Alchemical Node Crafting and Assembling." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(100),
             currencyLocation() {return player.ssp},
-            currencyDisplayName: "Al.Sys and 1000 Rev.Pts",
-            currencyInternalName: "alchemicalSymbols",
-            branches() {
-                if (hasUpgrade("ssp", 102))
-                    return [[101, "#ffdb8e"]]
-                else if (!hasUpgrade("ssp", 102) && player.ssp.alchemicalSymbols >= 100 && player.tlb.revelationPoints >= 1000)
-                    return [[101, "#ffffff"]]
+            currencyDisplayName() {
+                if (hasUpgrade("ssp", 101))
+                    return "Al.Sys and 1000 Rev.Pts"
                 else
-                    return [[101, "#ff0000"]]
+                    return "Al.Sys and 1000 ??????"
             },
-            canAfford() {return player.tlb.revelationPoints >= 1000},
+            currencyInternalName: "alchemicalSymbols",
+            canAfford() {return hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 1000},
+            pay() {
+                player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(100)
+                player.tlb.revelationPoints = player.tlb.revelationPoints.sub(1000)
+            },
             style() {
                 let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
                 hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000055, #0000ff, #5555ff)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
@@ -151,17 +179,14 @@ addLayer("ssp", {
             description () {return (player.ssp.alchemicalSymbols >= 150 && player.tlb.revelationPoints >= 1500) || hasUpgrade("ssp", 103) ? "<hr>Unlocks the ability of Classical Elemental Starmetal Alteration." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(150),
             currencyLocation() {return player.ssp},
-            currencyDisplayName: "Al.Sys and 1500 Rev.Pts",
-            currencyInternalName: "alchemicalSymbols",
-            branches() {
-                if (hasUpgrade("ssp", 103))
-                    return [[102, "#ffdb8e"]]
-                else if (!hasUpgrade("ssp", 103) && player.ssp.alchemicalSymbols >= 150 && player.tlb.revelationPoints >= 1500)
-                    return [[102, "#ffffff"]]
+            currencyDisplayName() {
+                if (hasUpgrade("ssp", 101))
+                    return "Al.Sys and 1500 Rev.Pts"
                 else
-                    return [[102, "#ff0000"]]
+                    return "Al.Sys and 1500 ??????"
             },
-            canAfford() {return player.tlb.revelationPoints >= 1500},
+            currencyInternalName: "alchemicalSymbols",
+            canAfford() {return hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 1500},
             style() {
                 let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
                 hasUpgrade(this.layer, this.id) ? look.background = "transparent" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
@@ -179,16 +204,14 @@ addLayer("ssp", {
             description () {return player.tlb.revelationPoints >= 200 || hasUpgrade("ssp", 104) ? "<hr>Unlocks more transmuting and bargaining mechanics in the Tome Library." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(200),
             currencyLocation() {return player.tlb},
-            currencyDisplayName: "Rev.Pts",
-            currencyInternalName: "revelationPoints",
-            branches() {
-                if (hasUpgrade("ssp", 104))
-                    return [[103, "#ffdb8e"]]
-                else if (!hasUpgrade("ssp", 104) && player.tlb.revelationPoints >= 200)
-                    return [[103, "#ffffff"]]
+            currencyDisplayName() {
+                if (hasUpgrade("ssp", 101))
+                    return "Rev.Pts"
                 else
-                    return [[103, "#ff0000"]]
+                    return "??????"
             },
+            currencyInternalName: "revelationPoints",
+            canAfford() {return hasUpgrade("ssp", 101)},
             style() {
                 let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
                 hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
@@ -203,19 +226,19 @@ addLayer("ssp", {
         105: {
             title () {return hasUpgrade("ssp", 105) ? "<h3>Synthetoner</h3><br>[PURCHASED]" :  player.tlb.revelationPoints >= 250 || hasUpgrade("ssp", 105) ? "<h3>Synthetoner</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
-            description () {return player.tlb.revelationPoints >= 200 || hasUpgrade("ssp", 105) ? "<hr>Unlocks the Syntheton Trinkets, which can be crafted in the Blueprint Table." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
+            description () {return (player.tlb.revelationPoints >= 200 && player.ssp.advAlchemicalSymbols >= 100) || hasUpgrade("ssp", 105) ? "<hr>Unlocks the Syntheton Trinkets, which can be crafted in the Blueprint Table." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(250),
             currencyLocation() {return player.tlb},
-            currencyDisplayName: "Rev.Pts",
-            currencyInternalName: "revelationPoints",
-            branches() {
-                if (hasUpgrade("ssp", 105))
-                    return [[104, "#ffdb8e"]]
-                else if (!hasUpgrade("ssp", 105) && player.tlb.revelationPoints >= 250)
-                    return [[104, "#ffffff"]]
+            currencyDisplayName() {
+                if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 104))
+                    return "Rev.Pts and 100 Adv.Al.Sys"
+                else if (hasUpgrade("ssp", 101) && !hasUpgrade("ssp", 104))
+                    return "Rev.Pts and 100 ??????"
                 else
-                    return [[104, "#ff0000"]]
+                    return "?????? and 100 ??????"
             },
+            currencyInternalName: "revelationPoints",
+            canAfford() {return hasUpgrade("ssp", 101) && hasUpgrade("ssp", 104) && player.ssp.advAlchemicalSymbols >= 100},
             style() {
                 let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
                 hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000055, #0000ff, #5555ff)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
@@ -233,16 +256,14 @@ addLayer("ssp", {
             description () {return player.tlb.revelationPoints >= 300 || hasUpgrade("ssp", 106) ? "<hr>Unlocks the 1st Order Elemental Starmetal Alterations in the Alchemy Altar." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(300),
             currencyLocation() {return player.tlb},
-            currencyDisplayName: "Rev.Pts",
-            currencyInternalName: "revelationPoints",
-            branches() {
-                if (hasUpgrade("ssp", 106))
-                    return [[105, "#ffdb8e"]]
-                else if (!hasUpgrade("ssp", 106) && player.tlb.revelationPoints >= 300)
-                    return [[105, "#ffffff"]]
+            currencyDisplayName() {
+                if (hasUpgrade("ssp", 101))
+                    return "Rev.Pts"
                 else
-                    return [[105, "#ff0000"]]
+                    return "??????"
             },
+            currencyInternalName: "revelationPoints",
+            canAfford() {return hasUpgrade("ssp", 101)},
             style() {
                 let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
                 hasUpgrade(this.layer, this.id) ? look.background = "transparent" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
@@ -268,8 +289,8 @@ addLayer("ssp", {
                     ["blank", "100px"],
                     ["style-column",
                         [
-                            ["blank", "400px"],
-                            ["style-column", [], {width: "800px", height: "250px", background: "transparent", backgroundImage: "radial-gradient(circle, #000000 70%, transparent 100%), repeating-linear-gradient(-45deg, #772277 10px, #551155 20px)", border:"3px solid #330033", boxShadow: "0 0 5px 5px #330033a6 inset, 0 0 8px 8px #551155 inset, 0 0 20px 20px #00000050 inset", marginBottom: "-555px"}], 
+                            ["blank", "300px"],
+                            ["style-column", [], {width: "900px", height: "250px", background: "transparent", backgroundImage: "radial-gradient(circle, #000000 70%, transparent 100%), repeating-linear-gradient(-45deg, #772277 10px, #551155 20px)", border:"3px solid #330033", boxShadow: "0 0 5px 5px #330033a6 inset, 0 0 8px 8px #551155 inset, 0 0 20px 20px #00000050 inset", marginBottom: "-555px"}], 
                             ["style-row",
                                 [
                                     ["style-column",
@@ -306,11 +327,11 @@ addLayer("ssp", {
                                                                         [
                                                                             ["raw-html", () => {
                                                                                 if (hasUpgrade("ssp", 100) && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 else if (player.tlb.revelationPoints >= 1000 && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 else if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 }
                                                                             ]
                                                                         ], {width: "0px", height: "0px", margin: "0px"}
@@ -339,11 +360,11 @@ addLayer("ssp", {
                                                                         [
                                                                             ["raw-html", () => {
                                                                                 if (hasUpgrade("ssp", 100) && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 else if (player.tlb.revelationPoints >= 1000 && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 else if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 }
                                                                             ]
                                                                         ], {width: "0px", height: "0px", margin: "0px"}
@@ -372,11 +393,11 @@ addLayer("ssp", {
                                                                         [
                                                                             ["raw-html", () => {
                                                                                 if (hasUpgrade("ssp", 100) && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 else if (player.tlb.revelationPoints >= 1000 && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 else if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 }
                                                                             ]
                                                                         ], {width: "0px", height: "0px", margin: "0px"}
@@ -411,11 +432,11 @@ addLayer("ssp", {
                                                                                 [
                                                                                     ["raw-html", () => {
                                                                                         if (hasUpgrade("ssp", 100) && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         else if (player.tlb.revelationPoints >= 1000 && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         else if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         }
                                                                                     ]
                                                                                 ], {width: "0px", height: "0px", margin: "0px"}
@@ -444,11 +465,11 @@ addLayer("ssp", {
                                                                                 [
                                                                                     ["raw-html", () => {
                                                                                         if (hasUpgrade("ssp", 100) && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         else if (player.tlb.revelationPoints >= 1000 && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         else if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         }
                                                                                     ]
                                                                                 ], {width: "0px", height: "0px", margin: "0px"}
@@ -477,11 +498,11 @@ addLayer("ssp", {
                                                                                 [
                                                                                     ["raw-html", () => {
                                                                                         if (hasUpgrade("ssp", 100) && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         else if (player.tlb.revelationPoints >= 1000 && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         else if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         }
                                                                                     ]
                                                                                 ], {width: "0px", height: "0px", margin: "0px"}
@@ -517,11 +538,11 @@ addLayer("ssp", {
                                                                                         [
                                                                                             ["raw-html", () => {
                                                                                                 if (hasUpgrade("ssp", 101))
-                                                                                                    return "<img src='resources/alchemyworld/circlePurchased1.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                                    return "<img src='resources/alchemyworld/circlePurchased1.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                                 else if (player.ssp.alchemicalSymbols >= 50)
-                                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                                 else
-                                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                                 }
                                                                                             ]
                                                                                         ], {width: "0px", height: "0px", margin: "0px"}
@@ -547,11 +568,11 @@ addLayer("ssp", {
                                                                                         [
                                                                                             ["raw-html", () => {
                                                                                                 if (hasUpgrade("ssp", 102))
-                                                                                                    return "<img src='resources/alchemyworld/circlePurchased1.png' style='width:166px;height:166px;margin-top:140px'></img>"
-                                                                                                else if (player.ssp.alchemicalSymbols >= 100 && player.tlb.revelationPoints >= 1000)
-                                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                                    return "<img src='resources/alchemyworld/circlePurchased1.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
+                                                                                                else if (hasUpgrade("ssp", 101) && player.ssp.alchemicalSymbols >= 100 && player.tlb.revelationPoints >= 1000)
+                                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                                 else
-                                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                                 }
                                                                                             ]
                                                                                         ], {width: "0px", height: "0px", margin: "0px"}
@@ -562,7 +583,7 @@ addLayer("ssp", {
                                                                         ], () => {
                                                                             if (hasUpgrade("ssp", 102)) 
                                                                                 return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdb8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
-                                                                            else if (player.ssp.alchemicalSymbols >= 100 && player.tlb.revelationPoints >= 1000)
+                                                                            else if (hasUpgrade("ssp", 101) && player.ssp.alchemicalSymbols >= 100 && player.tlb.revelationPoints >= 1000)
                                                                                 return {width: "156px", height: "156px", background: "#abababcc", border: "3px solid #ffffff", boxShadow: "0 0 10px #cdcdcd, 0 0 10px #cdcdcd inset", borderRadius: "156px"}
                                                                             else
                                                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
@@ -570,6 +591,7 @@ addLayer("ssp", {
                                                                     ]
                                                                 ]
                                                             ],
+                                                            ["blank", "10px"],
                                                             ["style-row",
                                                                 [
                                                                     ["style-column",
@@ -580,11 +602,11 @@ addLayer("ssp", {
                                                                                         [
                                                                                             ["raw-html", () => {
                                                                                                 if (hasUpgrade("ssp", 106))
-                                                                                                    return "<img src='resources/alchemyworld/circlePurchased1.png' style='width:166px;height:166px;margin-top:140px'></img>"
-                                                                                                else if (player.tlb.revelationPoints >= 300)
-                                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                                    return "<img src='resources/alchemyworld/circlePurchased1.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
+                                                                                                else if (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 300)
+                                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                                 else
-                                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                                 }
                                                                                             ]
                                                                                         ], {width: "0px", height: "0px", margin: "0px"}
@@ -595,7 +617,7 @@ addLayer("ssp", {
                                                                         ], () => {
                                                                             if (hasUpgrade("ssp", 106)) 
                                                                                 return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffd8be", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
-                                                                            else if (player.tlb.revelationPoints >= 300)
+                                                                            else if (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 300)
                                                                                 return {width: "156px", height: "156px", background: "#abababcc", border: "3px solid #ffffff", boxShadow: "0 0 10px #cdcdcd, 0 0 10px #cdcdcd inset", borderRadius: "156px"}
                                                                             else
                                                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
@@ -614,11 +636,11 @@ addLayer("ssp", {
                                                                                         [
                                                                                             ["raw-html", () => {
                                                                                                 if (hasUpgrade("ssp", 103))
-                                                                                                    return "<img src='resources/alchemyworld/circlePurchased1.png' style='width:166px;height:166px;margin-top:140px'></img>"
-                                                                                                else if (player.ssp.alchemicalSymbols >= 150 && player.tlb.revelationPoints >= 1500)
-                                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                                    return "<img src='resources/alchemyworld/circlePurchased1.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
+                                                                                                else if (hasUpgrade("ssp", 101) && player.ssp.alchemicalSymbols >= 150 && player.tlb.revelationPoints >= 1500)
+                                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                                 else
-                                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                                 }
                                                                                             ]
                                                                                         ], {width: "0px", height: "0px", margin: "0px"}
@@ -629,7 +651,7 @@ addLayer("ssp", {
                                                                         ], () => {
                                                                             if (hasUpgrade("ssp", 103)) 
                                                                                 return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdb8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
-                                                                            else if (player.ssp.alchemicalSymbols >= 150 && player.tlb.revelationPoints >= 1500)
+                                                                            else if (hasUpgrade("ssp", 101) && player.ssp.alchemicalSymbols >= 150 && player.tlb.revelationPoints >= 1500)
                                                                                 return {width: "156px", height: "156px", background: "#abababcc", border: "3px solid #ffffff", boxShadow: "0 0 10px #cdcdcd, 0 0 10px #cdcdcd inset", borderRadius: "156px"}
                                                                             else
                                                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
@@ -637,6 +659,7 @@ addLayer("ssp", {
                                                                     ]
                                                                 ]
                                                             ],
+                                                            ["blank", "10px"],
                                                             ["style-row",
                                                                 [
                                                                     ["style-column",
@@ -647,11 +670,11 @@ addLayer("ssp", {
                                                                                         [
                                                                                             ["raw-html", () => {
                                                                                                 if (hasUpgrade("ssp", 105))
-                                                                                                    return "<img src='resources/alchemyworld/circlePurchased1.png' style='width:166px;height:166px;margin-top:140px'></img>"
-                                                                                                else if (player.tlb.revelationPoints >= 250)
-                                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                                    return "<img src='resources/alchemyworld/circlePurchased1.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
+                                                                                                else if (player.tlb.revelationPoints >= 250 && player.ssp.advAlchemicalSymbols >= 100)
+                                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                                 else
-                                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                                 }
                                                                                             ]
                                                                                         ], {width: "0px", height: "0px", margin: "0px"}
@@ -662,7 +685,7 @@ addLayer("ssp", {
                                                                         ], () => {
                                                                             if (hasUpgrade("ssp", 105)) 
                                                                                 return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdb8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
-                                                                            else if (player.tlb.revelationPoints >= 250)
+                                                                            else if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 104) && player.tlb.revelationPoints >= 250 && player.ssp.advAlchemicalSymbols >= 100)
                                                                                 return {width: "156px", height: "156px", background: "#abababcc", border: "3px solid #ffffff", boxShadow: "0 0 10px #cdcdcd, 0 0 10px #cdcdcd inset", borderRadius: "156px"}
                                                                             else
                                                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
@@ -677,11 +700,11 @@ addLayer("ssp", {
                                                                                         [
                                                                                             ["raw-html", () => {
                                                                                                 if (hasUpgrade("ssp", 104))
-                                                                                                    return "<img src='resources/alchemyworld/circlePurchased1.png' style='width:166px;height:166px;margin-top:140px'></img>"
-                                                                                                else if (player.tlb.revelationPoints >= 200)
-                                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                                    return "<img src='resources/alchemyworld/circlePurchased1.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
+                                                                                                else if (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 200)
+                                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                                 else
-                                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                                 }
                                                                                             ]
                                                                                         ], {width: "0px", height: "0px", margin: "0px"}
@@ -692,7 +715,7 @@ addLayer("ssp", {
                                                                         ], () => {
                                                                             if (hasUpgrade("ssp", 104)) 
                                                                                 return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdb8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
-                                                                            else if (player.tlb.revelationPoints >= 200)
+                                                                            else if (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 200)
                                                                                 return {width: "156px", height: "156px", background: "#abababcc", border: "3px solid #ffffff", boxShadow: "0 0 10px #cdcdcd, 0 0 10px #cdcdcd inset", borderRadius: "156px"}
                                                                             else
                                                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
@@ -713,11 +736,11 @@ addLayer("ssp", {
                                                                                 [
                                                                                     ["raw-html", () => {
                                                                                         if (hasUpgrade("ssp", 100) && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         else if (player.tlb.revelationPoints >= 1000 && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         else if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         }
                                                                                     ]
                                                                                 ], {width: "0px", height: "0px", margin: "0px"}
@@ -746,11 +769,11 @@ addLayer("ssp", {
                                                                                 [
                                                                                     ["raw-html", () => {
                                                                                         if (hasUpgrade("ssp", 100) && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         else if (player.tlb.revelationPoints >= 1000 && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         else if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         }
                                                                                     ]
                                                                                 ], {width: "0px", height: "0px", margin: "0px"}
@@ -779,11 +802,11 @@ addLayer("ssp", {
                                                                                 [
                                                                                     ["raw-html", () => {
                                                                                         if (hasUpgrade("ssp", 100) && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         else if (player.tlb.revelationPoints >= 1000 && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         else if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                            return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                            return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                         }
                                                                                     ]
                                                                                 ], {width: "0px", height: "0px", margin: "0px"}
@@ -818,11 +841,11 @@ addLayer("ssp", {
                                                                         [
                                                                             ["raw-html", () => {
                                                                                 if (hasUpgrade("ssp", 100) && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 else if (player.tlb.revelationPoints >= 1000 && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 else if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 }
                                                                             ]
                                                                         ], {width: "0px", height: "0px", margin: "0px"}
@@ -851,11 +874,11 @@ addLayer("ssp", {
                                                                         [
                                                                             ["raw-html", () => {
                                                                                 if (hasUpgrade("ssp", 100) && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 else if (player.tlb.revelationPoints >= 1000 && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 else if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 }
                                                                             ]
                                                                         ], {width: "0px", height: "0px", margin: "0px"}
@@ -884,11 +907,11 @@ addLayer("ssp", {
                                                                         [
                                                                             ["raw-html", () => {
                                                                                 if (hasUpgrade("ssp", 100) && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circlePurchased2.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 else if (player.tlb.revelationPoints >= 1000 && hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 else if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-top:140px'></img>"
+                                                                                    return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                 }
                                                                             ]
                                                                         ], {width: "0px", height: "0px", margin: "0px"}
@@ -928,21 +951,42 @@ addLayer("ssp", {
     tabFormat: [
             ["row",
                 [
-                    ["row",
+                    ["column",
                         [
-                            ["raw-html", () => {return "You have <h3>" + formatWhole(player.ssp.alchemicalSymbols) + "</h3> 🝪 Alchemical Symbols 🝪."}, {color: "transparent", background: "linear-gradient(to bottom, #8b609c, #ff00ff, #ffc0cb)", fontSize: "15px", textStroke: "1px #ff00ff88", 'text-shadow': "0 0 5px #ff00ff, 0 0 5px #ff00ff", backgroundClip: "text", fontFamily: "monospace"}],
-                            ["raw-html", () => {return "You have <h3>" + formatWhole(player.tlb.revelationPoints) + "</h3> ⚿ Revelation Points ⚿."}, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "15px", textStroke: "1px #f8c89888", 'text-shadow': "0 0 5px #9b541a, 0 0 5px #9b541a", backgroundClip: "text", fontFamily: "monospace"}],
-                            ["raw-html", () => {return "You have <h3>" + format(player.points) + "</h3> ✸ Celestial Points ✸."}, {color: "#ffffff", fontSize: "15px", 'text-shadow': "0 0 5px #ffffff, 0 0 5px #ffffff", fontFamily: "monospace"}]
-                        ], {width: "420px", height: "90px", border: "1px solid #ffdb8e", borderRadius: "20px", backgroundImage: "radial-gradient(ellipse, #000000 30%, transparent), repeating-linear-gradient(45deg, transparent, transparent 9%, #000000ab 9%, #000000ab 10%, #00000067 10%, #00000067 19%, #000000ab 19%, #000000ab 20%, transparent 20%, transparent 29%, #ffffffab 29%, #ffffffab 30%, #ffffff67 30%, #ffffff67 39%, #ffffffab 39%, #ffffffab 40%), linear-gradient(135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(135deg, #ffffff12, #00000012), linear-gradient(135deg, #ff00ff, #9a9a9a, #00ff00)", boxShadow: "0 0 10px #000000, 0 0 10px #000000, 0 0 10px #000000 inset, 0 0 10px #000000 inset"}
-                    ]
-                ], {marginTop:"-75px", width: "900px", height: "150px", backgroundImage: "radial-gradient(ellipse at 50% -40%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 50% -20%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(0deg, #382413, #523116)", border: "3px solid #b18961", borderRadius: "15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}
+                            ["clickable", 1]
+                        ]
+                    ],
+                    ["column", [], {width: "30px"}],
+                    ["column",
+                        [
+                            ["raw-html", () => {return "You have <h3>" + formatWhole(player.ssp.alchemicalSymbols) + "</h3> 🝪 Al.Sys 🝪."}, {color: "transparent", background: "linear-gradient(to bottom, #8b609c, #ff00ff, #ffc0cb)", fontSize: "15px", textStroke: "1px #ff00ff88", 'text-shadow': "0 0 5px #ff00ff, 0 0 5px #ff00ff", backgroundClip: "text", fontFamily: "monospace"}],
+                            ["raw-html", () => {
+                                if (hasUpgrade("ssp", 104))
+                                    return "You have <h3>" + formatWhole(player.ssp.advAlchemicalSymbols) + "</h3> ✩🝪 Adv.Al.Sys 🝪✩."}, {color: "transparent", background: "linear-gradient(to bottom, #8b609c, #ff00ff, #ffc0cb)", fontSize: "15px", textStroke: "1px #ffddff88", 'text-shadow': "0 0 5px #ffddff, 0 0 5px #ffddff", backgroundClip: "text", fontFamily: "monospace"
+                                }
+                            ],
+                            ["raw-html", () => {
+                                if (hasUpgrade("ssp", 101))
+                                    return "You have <h3>" + formatWhole(player.tlb.revelationPoints) + "</h3> ⚿ Rev.Pts ⚿."}, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "15px", textStroke: "1px #f8c89888", 'text-shadow': "0 0 5px #9b541a, 0 0 5px #9b541a", backgroundClip: "text", fontFamily: "monospace"
+                                }
+                            ],
+                            ["raw-html", () => {return "You have <h3>" + format(player.points) + "</h3> ✸ Cel.Pts ✸."}, {color: "#ffffff", fontSize: "15px", 'text-shadow': "0 0 5px #ffffff, 0 0 5px #ffffff", fontFamily: "monospace"}]
+                        ], {width: "420px", height: "90px", border: "1px solid #ffdb8e", borderRadius: "20px", backgroundImage: "radial-gradient(ellipse, #000000de 30%, transparent), repeating-linear-gradient(45deg, transparent, transparent 9%, #000000ab 9%, #000000ab 10%, #00000067 10%, #00000067 19%, #000000ab 19%, #000000ab 20%, transparent 20%, transparent 29%, #ffffffab 29%, #ffffffab 30%, #ffffff67 30%, #ffffff67 39%, #ffffffab 39%, #ffffffab 40%), linear-gradient(135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(135deg, #ffffff12, #00000012), linear-gradient(135deg, #ff00ff, #9a9a9a, #00ff00)", boxShadow: "0 0 10px #000000, 0 0 10px #000000, 0 0 10px #000000 inset, 0 0 10px #000000 inset"}
+                    ],
+                    ["column", [], {width: "30px"}],
+                    ["column",
+                        [
+                            ["clickable", 2]
+                        ]
+                    ],
+                ], {marginTop:"-62px", width: "900px", height: "150px", backgroundImage: "radial-gradient(ellipse at 50% -40%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 50% -20%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(0deg, #382413, #523116)", border: "3px solid #b18961", borderRadius: "15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}
             ],
             ["blank", "10px"],
             ["row",
                 [
                     ["raw-html", () => {return "You are currently in the"}, {color: "#ffffff", fontSize: "18px", 'text-shadow': "0 0 5px #ffffff, 0 0 5px #ffffff", fontFamily: "monospace"}],
                     ["blank", "2px"],
-                    ["raw-html", () => {return "-Symbol Space, Louki's Hideout-."}, {color: "transparent", backgroundImage: "linear-gradient(135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(135deg, #ffffff12, #00000012), linear-gradient(135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "18px", 'text-shadow': " 0 0 5px #ffffffcd", fontFamily: "monospace"}],
+                    ["raw-html", () => {return "-<u>Symbol Space</u>, Louki's Hideout-."}, {color: "transparent", backgroundImage: "linear-gradient(135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(135deg, #ffffff12, #00000012), linear-gradient(135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "18px", 'text-shadow': " 0 0 5px #ffffffcd", fontFamily: "monospace"}],
                 ]
             ],
             ["blank", "10px"],
