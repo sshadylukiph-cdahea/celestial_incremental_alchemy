@@ -132,7 +132,7 @@ addLayer("ssp", {
         101: {
             title () {return hasUpgrade("ssp", 101) ? "<h3>Symbolicraft</h3><br>[PURCHASED]" : player.ssp.alchemicalSymbols >= 50 ? "<h3>Symbolicraft</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
-            description () {return player.ssp.alchemicalSymbols >= 50 || hasUpgrade("ssp", 101) ? "<hr>Unlocks the ability to transmute Alchemical Symbols and bargain for Tomes." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
+            description () {return player.ssp.alchemicalSymbols >= 50 || hasUpgrade("ssp", 101) ? "<hr>Unlocks the ability to alter Alchemical Symbols and bargain for Tomes." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(50),
             currencyLocation() {return player.ssp},
             currencyDisplayName: "Al.Sys",
@@ -205,7 +205,7 @@ addLayer("ssp", {
         104: {
             title () {return hasUpgrade("ssp", 104) ? "<h3>Pagefinder</h3><br>[PURCHASED]" : (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 200) || hasUpgrade("ssp", 104) ? "<h3>Pagefinder</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
-            description () {return (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 200) || hasUpgrade("ssp", 104) ? "<hr>Unlocks more transmuting and bargaining mechanics in the Tome Library." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
+            description () {return (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 200) || hasUpgrade("ssp", 104) ? "<hr>Unlocks more alteration options and bargaining mechanics." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(200),
             currencyLocation() {return player.tlb},
             currencyDisplayName() {
