@@ -361,9 +361,9 @@ addUniverse("LU", {
 	tree: [["ssp"], ["tlb"]], // , ["btb"], ["aal"], ["phl"]
 	nodeStyle() {
 		let style = {
-			background: "linear-gradient(to bottom, #8b609c, magenta, pink)",
+			background: "linear-gradient(to bottom, #8b609c, #ff00ff, #ffc0cb)",
             borderColor: "transparent",
-            borderImage: "linear-gradient(to bottom, chartreuse, #00ff9d) 1",
+            borderImage: "linear-gradient(to bottom, #ddffdd, #7fff00, #00ff9d) 1",
             boxShadow: "0 0 3px 1px black inset",
         }
 		if (player.universe=="LU") {
