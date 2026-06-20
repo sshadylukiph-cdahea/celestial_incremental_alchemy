@@ -203,10 +203,10 @@ addLayer("ssp", {
             }
         },
         104: {
-            title () {return hasUpgrade("ssp", 104) ? "<h3>Pagefinder</h3><br>[PURCHASED]" : (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 125000) || hasUpgrade("ssp", 104) ? "<h3>Pagefinder</h3>" : "<h3>??????</h3>"},
+            title () {return hasUpgrade("ssp", 104) ? "<h3>Pagefinder</h3><br>[PURCHASED]" : (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 37500) || hasUpgrade("ssp", 104) ? "<h3>Pagefinder</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
-            description () {return (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 125000) || hasUpgrade("ssp", 104) ? "<hr>Unlocks more alteration options and bargaining mechanics." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
-            cost: new Decimal(125000),
+            description () {return (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 37500) || hasUpgrade("ssp", 104) ? "<hr>Unlocks more alteration options and bargaining mechanics." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
+            cost: new Decimal(37500),
             currencyLocation() {return player.tlb},
             currencyDisplayName() {
                 if (hasUpgrade("ssp", 101))
@@ -718,7 +718,7 @@ addLayer("ssp", {
                                                                                             ["raw-html", () => {
                                                                                                 if (hasUpgrade("ssp", 104))
                                                                                                     return "<img src='resources/alchemyworld/circlePurchased1.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
-                                                                                                else if (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 125000)
+                                                                                                else if (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 37500)
                                                                                                     return "<img src='resources/alchemyworld/circlePending.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
                                                                                                 else
                                                                                                     return "<img src='resources/alchemyworld/circleProhibited.png' style='width:166px;height:166px;margin-bottom:-140px'></img>"
@@ -732,7 +732,7 @@ addLayer("ssp", {
                                                                         ], () => {
                                                                             if (hasUpgrade("ssp", 104)) 
                                                                                 return {width: "156px", height: "156px", background: "#005500cc", border: "3px solid #ffdb8e", boxShadow: "0 0 10px #c87509, 0 0 10px #c87509 inset", borderRadius: "156px"}
-                                                                            else if (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 125000)
+                                                                            else if (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 37500)
                                                                                 return {width: "156px", height: "156px", background: "#abababcc", border: "3px solid #ffffff", boxShadow: "0 0 10px #cdcdcd, 0 0 10px #cdcdcd inset", borderRadius: "156px"}
                                                                             else
                                                                                 return {width: "156px", height: "156px", background: "#550055cc", border: "3px solid #ff0000", boxShadow: "0 0 10px #000000, 0 0 10px #000000 inset", borderRadius: "156px"}
@@ -952,9 +952,9 @@ addLayer("ssp", {
                                             ],
                                         ], () => {
                                             if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 102) && hasUpgrade("ssp", 103) && hasUpgrade("ssp", 104) && hasUpgrade("ssp", 105) && hasUpgrade("ssp", 106))
-                                                return {width: "900px", height: "900px", backgroundImage: "radial-gradient(circle, transparent 30%, #ffdb8e 30%, #ffdb8e 32%, transparent 32%, transparent 56%, #ffdb8e 56%, #ffdb8e 58%, transparent 58%), radial-gradient(circle, #ffdb8e 20%, #e2ad2f 22%, #c87509 24%, #c87509 26%, transparent 26%), radial-gradient(circle, #ffdb8e78 20%, #c8750978 40%, transparent, transparent), repeating-radial-gradient(circle, transparent, transparent 9%, #ff00ff78 10%, #ff00ff78 11%, transparent 12%), repeating-radial-gradient(circle, transparent, transparent 9%, #88008834 10%, #55005578 11%, transparent 25%), conic-gradient( #bb00bb33, transparent, #ff00ff33, transparent, #bb00bb33, transparent, #ff00ff33, transparent, #bb00bb33, transparent, #ff00ff33, transparent, #bb00bb33, transparent, #ff00ff33, transparent, #bb00bb33)", border: "5px solid #ff00ffab", boxShadow: "0 0 10px #ff00ffab, 0 0 10px #ff00ffab inset", borderRadius: "476px 476px 476px 476px"}
+                                                return {width: "900px", height: "900px", backgroundImage: "radial-gradient(circle, transparent 30%, #ffdb8e 30%, #ffdb8e 32%, transparent 32%, transparent 56%, #ffdb8e 56%, #ffdb8e 58%, transparent 58%), radial-gradient(circle, #ffdb8e78, #ffdb8e78 16%, transparent 26%), radial-gradient(circle, #ffdb8e78 20%, #c8750978 40%, transparent, transparent), repeating-radial-gradient(circle, transparent, transparent 9%, #ff00ff78 10%, #ff00ff78 11%, transparent 12%), repeating-radial-gradient(circle, transparent, transparent 9%, #88008834 10%, #55005578 11%, transparent 25%), conic-gradient( #bb00bb33, transparent, #ff00ff33, transparent, #bb00bb33, transparent, #ff00ff33, transparent, #bb00bb33, transparent, #ff00ff33, transparent, #bb00bb33, transparent, #ff00ff33, transparent, #bb00bb33)", border: "5px solid #ff00ffab", boxShadow: "0 0 10px #ff00ffab, 0 0 10px #ff00ffab inset", borderRadius: "476px 476px 476px 476px"}
                                             else
-                                                return {width: "900px", height: "900px", backgroundImage: "radial-gradient(circle, transparent 30%, #ffdb8e 30%, #ffdb8e 32%, transparent 32%), radial-gradient(circle, #ffdb8e 20%, #e2ad2f 22%, #c87509 24%, #c87509 26%, transparent 26%), radial-gradient(circle, #ffdb8e78 20%, #c8750978 40%, transparent, transparent), repeating-radial-gradient(circle, transparent, transparent 9%, #00ff0078 10%, #00ff0078 11%, transparent 12%), repeating-radial-gradient(circle, transparent, transparent 9%, #00880034 10%, #00550078 11%, transparent 25%), conic-gradient( #00bb0033, transparent, #00ff0033, transparent, #00bb0033, transparent, #00ff0033, transparent, #00bb0033, transparent, #00ff0033, transparent, #00bb0033, transparent, #00ff0033, transparent, #00bb0033)", border: "5px solid #00ff00ab", boxShadow: "0 0 10px #00ff00ab, 0 0 10px #00ff00ab inset", borderRadius: "476px 476px 476px 476px"}
+                                                return {width: "900px", height: "900px", backgroundImage: "radial-gradient(circle, transparent 30%, #ffdb8e 30%, #ffdb8e 32%, transparent 32%), radial-gradient(circle, #ffdb8e78, #ffdb8e78 16%, transparent 26%), radial-gradient(circle, #ffdb8e78 20%, #c8750978 40%, transparent, transparent), repeating-radial-gradient(circle, transparent, transparent 9%, #00ff0078 10%, #00ff0078 11%, transparent 12%), repeating-radial-gradient(circle, transparent, transparent 9%, #00880034 10%, #00550078 11%, transparent 25%), conic-gradient( #00bb0033, transparent, #00ff0033, transparent, #00bb0033, transparent, #00ff0033, transparent, #00bb0033, transparent, #00ff0033, transparent, #00bb0033, transparent, #00ff0033, transparent, #00bb0033)", border: "5px solid #00ff00ab", boxShadow: "0 0 10px #00ff00ab, 0 0 10px #00ff00ab inset", borderRadius: "476px 476px 476px 476px"}
                                         }
                                     ]
                                 ], {marginTop: "-456px"}
