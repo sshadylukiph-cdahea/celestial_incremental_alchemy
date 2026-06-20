@@ -8,9 +8,9 @@ addLayer("ssp", {
         unlocked: true,
 
         // alchemical symbol generation
-        alchemicalSymbols: new Decimal (0),
-        alchemicalSymbolsGain: new Decimal (0),
-        alchemicalSymbolsMult: new Decimal (1),
+        alchemicalSymbols: new Decimal(0),
+        alchemicalSymbolsGain: new Decimal(0),
+        alchemicalSymbolsMult: new Decimal(1),
 
         // advanced alchemical symbol generation
         advAlchemicalSymbols: new Decimal(0),
@@ -60,7 +60,7 @@ addLayer("ssp", {
                         look.border = "3px solid #00ff00"
                         look.color = "#00ff00"
                         look.textShadow = "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000"
-                        look.textStroke = "1px #00ff00ab"
+                        look.textStroke = "1px #aaffaaab"
                     } else {
                         look.backgroundImage = "linear-gradient(to bottom, #382413, #382413)"
                         look.border = "3px solid #97795b"
@@ -93,7 +93,7 @@ addLayer("ssp", {
                         look.border = "3px solid #ff00ff"
                         look.color = "#ff00ff"
                         look.textShadow = "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000"
-                        look.textStroke = "1px #ff00ffab"
+                        look.textStroke = "1px #ffaaffab"
                     } else {
                         look.backgroundImage = "linear-gradient(to bottom, #382413, #382413)"
                         look.border = "3px solid #97795b"
@@ -976,10 +976,10 @@ addLayer("ssp", {
                     ["column", [], {width: "30px"}],
                     ["column",
                         [
-                            ["raw-html", () => {return "You have <h3>" + formatWhole(player.ssp.alchemicalSymbols) + "</h3> 🝪 Al.Sys 🝪."}, {color: "transparent", background: "linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)", fontSize: "15px", textStroke: "1px #00ff00ab", 'text-shadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                            ["raw-html", () => {return "You have <h3>" + formatWhole(player.ssp.alchemicalSymbols) + "</h3> 🝪 Al.Sys 🝪."}, {color: "transparent", background: "linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)", fontSize: "15px", textStroke: "1px #aaffaaab", 'text-shadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                             ["raw-html", () => {
                                 if (hasUpgrade("ssp", 104))
-                                    return "You have <h3>" + formatWhole(player.ssp.advAlchemicalSymbols) + "</h3> ✩🝪 Adv.Al.Sys 🝪✩."}, {color: "transparent", background: "linear-gradient(to bottom, #8b609c, #ff00ff, #ffc0cb)", fontSize: "15px", textStroke: "1px #ff00ffab", 'text-shadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"
+                                    return "You have <h3>" + formatWhole(player.ssp.advAlchemicalSymbols) + "</h3> ✩🝪 Adv.Al.Sys 🝪✩."}, {color: "transparent", background: "linear-gradient(to bottom, #8b609c, #ff00ff, #ffc0cb)", fontSize: "15px", textStroke: "1px #ffaaffab", 'text-shadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"
                                 }
                             ],
                             ["raw-html", () => {

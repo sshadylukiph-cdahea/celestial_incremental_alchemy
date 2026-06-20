@@ -7,6 +7,13 @@ addLayer("tlb", {
     startData() {return {
         unlocked: true,
         buyMaxSymbols: false,
+        alchemicalSymbolsReq: new Decimal(0),
+        crimsonSymbolsReq: new Decimal(0),
+        goldSymbolsReq: new Decimal(0),
+        jadeSymbolsReq: new Decimal(0),
+        celesteSymbolsReq: new Decimal(0),
+        cobaltSymbolsReq: new Decimal(0),
+        amethystSymbolsReq: new Decimal(0),
 
         // tomes and revelation points
         tomes: new Decimal (0),
@@ -24,23 +31,38 @@ addLayer("tlb", {
         amethystSymbols: new Decimal(0),
 
         // base symbols' gains/mults
-        crimsonSymbolGain: new Decimal(0),
-        crimsonSymbolMult: new Decimal(0),
-        goldSymbolGain: new Decimal(0),
-        goldSymbolMult: new Decimal(0),
-        jadeSymbolGain: new Decimal(0),
-        jadeSymbolMult: new Decimal(0),
-        celesteSymbolGain: new Decimal(0),
-        celesteSymbolMult: new Decimal(0),
-        cobaltSymbolGain: new Decimal(0),
-        cobaltSymbolMult: new Decimal(0),
-        amethystSymbolGain: new Decimal(0),
-        amethystSymbolMult: new Decimal(0),
+        crimsonSymbolsGain: new Decimal(0),
+        crimsonSymbolsMult: new Decimal(0),
+        goldSymbolsGain: new Decimal(0),
+        goldSymbolsMult: new Decimal(0),
+        jadeSymbolsGain: new Decimal(0),
+        jadeSymbolsMult: new Decimal(0),
+        celesteSymbolsGain: new Decimal(0),
+        celesteSymbolsMult: new Decimal(0),
+        cobaltSymbolsGain: new Decimal(0),
+        cobaltSymbolsMult: new Decimal(0),
+        amethystSymbolsGain: new Decimal(0),
+        amethystSymbolsMult: new Decimal(0),
 
         // base symbols' parts generated
         crimsonSymbolParts: new Decimal(0),
         crimsonSymbolPartsGain: new Decimal(0),
         crimsonSymbolPartsMult: new Decimal(0),
+        goldSymbolParts: new Decimal(0),
+        goldSymbolPartsGain: new Decimal(0),
+        goldSymbolPartsMult: new Decimal(0),
+        jadeSymbolParts: new Decimal(0),
+        jadeSymbolPartsGain: new Decimal(0),
+        jadeSymbolPartsMult: new Decimal(0),
+        celesteSymbolParts: new Decimal(0),
+        celesteSymbolPartsGain: new Decimal(0),
+        celesteSymbolPartsMult: new Decimal(0),
+        cobaltSymbolParts: new Decimal(0),
+        cobaltSymbolPartsGain: new Decimal(0),
+        cobaltSymbolPartsMult: new Decimal(0),
+        amethystSymbolParts: new Decimal(0),
+        amethystSymbolPartsGain: new Decimal(0),
+        amethystSymbolPartsMult: new Decimal(0),
 
         // 1st order symbols
         arcaneSymbols: new Decimal (0),
@@ -50,15 +72,39 @@ addLayer("tlb", {
         spaceGemSymbols: new Decimal (0),
         planetSymbols: new Decimal (0),
         spaceRockSymbols: new Decimal (0),
+        }
+    },
+    update(delta) {
+        let onepersec = new Decimal(1)
 
-        // 1st order symbols' powers
-        // arcaneSymbolPower: new Decimal (0),
-        // starmetalAlloySymbolPower: new Decimal (0),
-        // starmetalEssenceSymbolPower: new Decimal (0),
-        // eclipseShardSymbolPower: new Decimal (0),
-        // spaceGemSymbolPower: new Decimal (0),
-        // planetSymbolPower: new Decimal (0),
-        // spaceRockSymbolPower: new Decimal (0),
+        // Crimson Symbol Parts generation
+        if(hasUpgrade("ssp", 101)) {
+            player.tlb.crimsonSymbolParts = player.tlb.crimsonSymbolParts.add(onepersec.mul(delta).mul(player.tlb.crimsonSymbolPartsGain))
+            player.tlb.crimsonSymbolPartsGain = player.tlb.crimsonSymbolsGain.add(Decimal.log10(player.cof.coreFragments[4].add(1)))
+        }
+        // Gold Symbol Parts generation
+        if(hasUpgrade("ssp", 101)) {
+            player.tlb.goldSymbolParts = player.tlb.goldSymbolParts.add(onepersec.mul(delta).mul(player.tlb.goldSymbolPartsGain))
+            player.tlb.goldSymbolPartsGain = player.tlb.goldSymbolsGain.add(Decimal.log10(player.cof.coreFragments[2].add(1)))
+        }
+        // Jade Symbol Parts generation
+        if(hasUpgrade("ssp", 101)) {
+            player.tlb.jadeSymbolParts = player.tlb.jadeSymbolParts.add(onepersec.mul(delta).mul(player.tlb.jadeSymbolPartsGain))
+            player.tlb.jadeSymbolPartsGain = player.tlb.jadeSymbolsGain.add(Decimal.log10(player.cof.coreFragments[1].add(1)))
+        }
+        if(hasUpgrade("ssp", 101)) {
+            player.tlb.celesteSymbolParts = player.tlb.celesteSymbolParts.add(onepersec.mul(delta).mul(player.tlb.celesteSymbolPartsGain))
+            player.tlb.celesteSymbolPartsGain = player.tlb.celesteSymbolsGain.add(Decimal.log10(player.cof.coreFragments[0].add(1)))
+        }
+        // Gold Symbol Parts generation
+        if(hasUpgrade("ssp", 101)) {
+            player.tlb.cobaltSymbolParts = player.tlb.cobaltSymbolParts.add(onepersec.mul(delta).mul(player.tlb.cobaltSymbolPartsGain))
+            player.tlb.cobaltSymbolPartsGain = player.tlb.cobaltSymbolsGain.add(Decimal.log10(player.cof.coreFragments[3].add(1)))
+        }
+        // Jade Symbol Parts generation
+        if(hasUpgrade("ssp", 101)) {
+            player.tlb.amethystSymbolParts = player.tlb.amethystSymbolParts.add(onepersec.mul(delta).mul(player.tlb.amethystSymbolPartsGain))
+            player.tlb.amethystSymbolPartsGain = player.tlb.amethystSymbolsGain.add(Decimal.log10(player.cof.coreFragments[5].add(1)))
         }
     },
     nodeStyle: {
@@ -135,7 +181,7 @@ addLayer("tlb", {
                         look.border = "3px solid #00ff00"
                         look.color = "#00ff00"
                         look.textShadow = "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000"
-                        look.textStroke = "1px #00ff00ab"
+                        look.textStroke = "1px #aaffaaab"
                     } else {
                         look.backgroundImage = "linear-gradient(to bottom, #382413, #382413)"
                         look.border = "3px solid #97795b"
@@ -168,7 +214,7 @@ addLayer("tlb", {
                         look.border = "3px solid #ff00ff"
                         look.color = "#ff00ff"
                         look.textShadow = "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000"
-                        look.textStroke = "1px #ff00ffab"
+                        look.textStroke = "1px #ffaaffab"
                     } else {
                         look.backgroundImage = "linear-gradient(to bottom, #382413, #382413)"
                         look.border = "3px solid #97795b"
@@ -181,39 +227,289 @@ addLayer("tlb", {
         },
         crimsonAlter: {
             title() {
-                if (player.tlb.buyMaxSymbols == true)
-                    return "Create " + formatShortWhole(player.tlb.crimsonSymbolGain) + "<br>Crimson Symbol/s."
+                if (player.tlb.buyMaxSymbols == true) {
+                    let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                    let val2 = player.tlb.crimsonSymbolParts.div(1000).floor()
+                    let result = val1
+                    if(val2.lt(val1)) result = val2
+                    return "Create <h3>" + formatShortWhole(player.tlb.crimsonSymbolsGain.add(result)) + "</h3><br>Crimson Symbol/s."
+                }
                 else
-                    return "Create 1<br>Crimson Symbol."
+                    return "Create <h3>1</h3><br>Crimson Symbol."
             },
             canClick() {return player.ssp.alchemicalSymbols >= 100 && player.tlb.crimsonSymbolParts >= 1000},
             unlocked() {return true},
             onClick() { 
-                // if (player.btb.symbolBuyMax == false) {
-                //     player.btb.symbolStarmetalAlloy = player.btb.symbolStarmetalAlloy.add(1);
-                //     player.ktb.alchemicalSymbols = player.ktb.alchemicalSymbols.sub(10);
-                //     player.sma.starmetalAlloy = player.sma.starmetalAlloy.sub(1000000);
-                // } 
-                // else if (player.btb.symbolBuyMax == true) {
-                //     let val1 = player.ktb.alchemicalSymbols.div(10).floor();
-                //     let val2 = player.sma.starmetalAlloy.div(1000000).floor();
-                //     let result = val1;
-                //     if(val2.lt(val1)) result = val2;
+                if (player.tlb.buyMaxSymbols == false) {
+                    player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.add(1)
+                    player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(100)
+                    player.tlb.crimsonSymbolParts = player.tlb.crimsonSymbolParts.sub(1000)
+                } 
+                else if (player.tlb.buyMaxSymbols == true) {
+                    let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                    let val2 = player.tlb.crimsonSymbolParts.div(1000).floor()
+                    let result = val1
+                    if(val2.lt(val1)) result = val2
 
-                //     player.btb.symbolStarmetalAlloy = player.btb.symbolStarmetalAlloy.add(result);
-                //     player.ktb.alchemicalSymbols = player.ktb.alchemicalSymbols.sub(Decimal.mul(10, result));
-                //     player.sma.starmetalAlloy = player.sma.starmetalAlloy.sub(Decimal.mul(1000000, result))
-                // }
+                    player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.add(result)
+                    player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(100, result))
+                    player.tlb.crimsonSymbolParts = player.tlb.crimsonSymbolParts.sub(Decimal.mul(1000, result))
+                }
             },
             style() {
-            let look = {width: '300px', minHeight: '80px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "20px", borderRadius: "0px"}
+            let look = {width: '300px', minHeight: '80px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "18px", borderRadius: "0px"}
             if (this.canClick()) {
-                look.backgroundImage = "radial-gradient(ellipse, transparent 80%, #000000ab), radial-gradient(ellipse, transparent 70%, #330000), radial-gradient(ellipse, #00000045 40%, #000000ab), repeating-linear-gradient(-45deg, transparent, transparent 9%, #550000ab 9%, #550000ab 10%, #55000067 10%, #55000067 19%, #550000ab 19%, #550000ab 20%, transparent 20%, transparent 29%, #aa5555ab 29%, #aa5555ab 30%, #aa555567 30%, #aa555567 39%, #aa5555ab 39%, #aa5555ab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #550000ab 9%, #550000ab 10%, #55000067 10%, #55000067 19%, #550000ab 19%, #550000ab 20%, transparent 20%, transparent 29%, #aa5555ab 29%, #aa5555ab 30%, #aa555567 30%, #aa555567 39%, #aa5555ab 39%, #aa5555ab 40%), radial-gradient(ellipse, transparent, #000000ab), linear-gradient(180deg, #ff7777, #ff0000, #ff0078, #77003b)"
+                look.backgroundImage = "radial-gradient(ellipse, transparent 80%, #000000ab), radial-gradient(ellipse, transparent 70%, #330000), radial-gradient(ellipse, #00000045 40%, #000000ab), repeating-linear-gradient(-45deg, transparent, transparent 9%, #550000ab 9%, #550000ab 10%, #55000067 10%, #55000067 19%, #550000ab 19%, #550000ab 20%, transparent 20%, transparent 29%, #aa5555ab 29%, #aa5555ab 30%, #aa555567 30%, #aa555567 39%, #aa5555ab 39%, #aa5555ab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #550000ab 9%, #550000ab 10%, #55000067 10%, #55000067 19%, #550000ab 19%, #550000ab 20%, transparent 20%, transparent 29%, #aa5555ab 29%, #aa5555ab 30%, #aa555567 30%, #aa555567 39%, #aa5555ab 39%, #aa5555ab 40%), radial-gradient(ellipse, transparent, #000000ab), linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)"
                 look.borderImage = "radial-gradient(ellipse, #550000 70%, #ff0000) 1"
                 look.color = "#770000"
                 look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 5px #ffffff"
                 look.textShadow = "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000"
                 look.textStroke = "1px #ffddddab"
+            } else {
+                look.backgroundImage = "linear-gradient(to bottom, #333333, #333333)"
+                look.borderImage = "linear-gradient(to bottom, #000000, #000000) 1"
+                look.color = "#000000";
+                look.boxShadow = "0 0 3px 1px #000000 inset"
+            }
+            return look
+            }
+        },
+        goldAlter: {
+            title() {
+                if (player.tlb.buyMaxSymbols == true) {
+                    let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                    let val2 = player.tlb.goldSymbolParts.div(1000).floor()
+                    let result = val1
+                    if(val2.lt(val1)) result = val2
+                    return "Create <h3>" + formatShortWhole(player.tlb.goldSymbolsGain.add(result)) + "</h3><br>Gold Symbol/s."
+                }
+                else
+                    return "Create <h3>1</h3><br>Gold Symbol."
+            },
+            canClick() {return player.ssp.alchemicalSymbols >= 100 && player.tlb.goldSymbolParts >= 1000},
+            unlocked() {return true},
+            onClick() { 
+                if (player.tlb.buyMaxSymbols == false) {
+                    player.tlb.goldSymbols = player.tlb.goldSymbols.add(1)
+                    player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(100)
+                    player.tlb.goldSymbolParts = player.tlb.goldSymbolParts.sub(1000)
+                } 
+                else if (player.tlb.buyMaxSymbols == true) {
+                    let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                    let val2 = player.tlb.goldSymbolParts.div(1000).floor()
+                    let result = val1
+                    if(val2.lt(val1)) result = val2
+
+                    player.tlb.goldSymbols = player.tlb.goldSymbols.add(result)
+                    player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(100, result))
+                    player.tlb.goldSymbolParts = player.tlb.goldSymbolParts.sub(Decimal.mul(1000, result))
+                }
+            },
+            style() {
+            let look = {width: '300px', minHeight: '80px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "18px", borderRadius: "0px"}
+            if (this.canClick()) {
+                look.backgroundImage = "radial-gradient(ellipse, transparent 80%, #000000ab), radial-gradient(ellipse, transparent 70%, #333300), radial-gradient(ellipse, #00000045 40%, #000000ab), repeating-linear-gradient(-45deg, transparent, transparent 9%, #555500ab 9%, #555500ab 10%, #55550067 10%, #55550067 19%, #555500ab 19%, #555500ab 20%, transparent 20%, transparent 29%, #aaaa55ab 29%, #aaaa55ab 30%, #aaaa5567 30%, #aaaa5567 39%, #aaaa55ab 39%, #aaaa55ab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #555500ab 9%, #555500ab 10%, #55550067 10%, #55550067 19%, #555500ab 19%, #555500ab 20%, transparent 20%, transparent 29%, #aaaa55ab 29%, #aaaa55ab 30%, #aaaa5567 30%, #aaaa5567 39%, #aaaa55ab 39%, #aaaa55ab 40%), radial-gradient(ellipse, transparent, #000000ab), linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)"
+                look.borderImage = "radial-gradient(ellipse, #555500 70%, #ffff00) 1"
+                look.color = "#777700"
+                look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 5px #ffffff"
+                look.textShadow = "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000"
+                look.textStroke = "1px #ffffddab"
+            } else {
+                look.backgroundImage = "linear-gradient(to bottom, #333333, #333333)"
+                look.borderImage = "linear-gradient(to bottom, #000000, #000000) 1"
+                look.color = "#000000";
+                look.boxShadow = "0 0 3px 1px #000000 inset"
+            }
+            return look
+            }
+        },
+        jadeAlter: {
+            title() {
+                if (player.tlb.buyMaxSymbols == true) {
+                    let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                    let val2 = player.tlb.jadeSymbolParts.div(1000).floor()
+                    let result = val1
+                    if(val2.lt(val1)) result = val2
+                    return "Create <h3>" + formatShortWhole(player.tlb.jadeSymbolsGain.add(result)) + "</h3><br>Jade Symbol/s."
+                }
+                else
+                    return "Create <h3>1</h3><br>Jade Symbol."
+            },
+            canClick() {return player.ssp.alchemicalSymbols >= 100 && player.tlb.jadeSymbolParts >= 1000},
+            unlocked() {return true},
+            onClick() { 
+                if (player.tlb.buyMaxSymbols == false) {
+                    player.tlb.jadeSymbols = player.tlb.jadeSymbols.add(1)
+                    player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(100)
+                    player.tlb.jadeSymbolParts = player.tlb.jadeSymbolParts.sub(1000)
+                } 
+                else if (player.tlb.buyMaxSymbols == true) {
+                    let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                    let val2 = player.tlb.jadeSymbolParts.div(1000).floor()
+                    let result = val1
+                    if(val2.lt(val1)) result = val2
+
+                    player.tlb.jadeSymbols = player.tlb.jadeSymbols.add(result)
+                    player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(100, result))
+                    player.tlb.jadeSymbolParts = player.tlb.jadeSymbolParts.sub(Decimal.mul(1000, result))
+                }
+            },
+            style() {
+            let look = {width: '300px', minHeight: '80px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "18px", borderRadius: "0px"}
+            if (this.canClick()) {
+                look.backgroundImage = "radial-gradient(ellipse, transparent 80%, #000000ab), radial-gradient(ellipse, transparent 70%, #003300), radial-gradient(ellipse, #00000045 40%, #000000ab), repeating-linear-gradient(-45deg, transparent, transparent 9%, #005500ab 9%, #005500ab 10%, #00550067 10%, #00550067 19%, #005500ab 19%, #005500ab 20%, transparent 20%, transparent 29%, #55aa55ab 29%, #55aa55ab 30%, #55aa5567 30%, #55aa5567 39%, #55aa55ab 39%, #55aa55ab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #005500ab 9%, #005500ab 10%, #00550067 10%, #00550067 19%, #005500ab 19%, #005500ab 20%, transparent 20%, transparent 29%, #55aa55ab 29%, #55aa55ab 30%, #55aa5567 30%, #55aa5567 39%, #55aa55ab 39%, #55aa55ab 40%), radial-gradient(ellipse, transparent, #000000ab), linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)"
+                look.borderImage = "radial-gradient(ellipse, #005500 70%, #00ff00) 1"
+                look.color = "#007700"
+                look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 5px #ffffff"
+                look.textShadow = "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000"
+                look.textStroke = "1px #ddffddab"
+            } else {
+                look.backgroundImage = "linear-gradient(to bottom, #333333, #333333)"
+                look.borderImage = "linear-gradient(to bottom, #000000, #000000) 1"
+                look.color = "#000000";
+                look.boxShadow = "0 0 3px 1px #000000 inset"
+            }
+            return look
+            }
+        },
+        celesteAlter: {
+            title() {
+                if (player.tlb.buyMaxSymbols == true) {
+                    let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                    let val2 = player.tlb.celesteSymbolParts.div(1000).floor()
+                    let result = val1
+                    if(val2.lt(val1)) result = val2
+                    return "Create <h3>" + formatShortWhole(player.tlb.celesteSymbolsGain.add(result)) + "</h3><br>Celeste Symbol/s."
+                }
+                else
+                    return "Create <h3>1</h3><br>Celeste Symbol."
+            },
+            canClick() {return player.ssp.alchemicalSymbols >= 100 && player.tlb.celesteSymbolParts >= 1000},
+            unlocked() {return true},
+            onClick() { 
+                if (player.tlb.buyMaxSymbols == false) {
+                    player.tlb.celesteSymbols = player.tlb.celesteSymbols.add(1)
+                    player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(100)
+                    player.tlb.celesteSymbolParts = player.tlb.celesteSymbolParts.sub(1000)
+                } 
+                else if (player.tlb.buyMaxSymbols == true) {
+                    let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                    let val2 = player.tlb.celesteSymbolParts.div(1000).floor()
+                    let result = val1
+                    if(val2.lt(val1)) result = val2
+
+                    player.tlb.celesteSymbols = player.tlb.celesteSymbols.add(result)
+                    player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(100, result))
+                    player.tlb.celesteSymbolParts = player.tlb.celesteSymbolParts.sub(Decimal.mul(1000, result))
+                }
+            },
+            style() {
+            let look = {width: '300px', minHeight: '80px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "18px", borderRadius: "0px"}
+            if (this.canClick()) {
+                look.backgroundImage = "radial-gradient(ellipse, transparent 80%, #000000ab), radial-gradient(ellipse, transparent 70%, #003333), radial-gradient(ellipse, #00000045 40%, #000000ab), repeating-linear-gradient(-45deg, transparent, transparent 9%, #005555ab 9%, #005555ab 10%, #00555567 10%, #00555567 19%, #005555ab 19%, #005555ab 20%, transparent 20%, transparent 29%, #55aaaaab 29%, #55aaaaab 30%, #55aaaa67 30%, #55aaaa67 39%, #55aaaaab 39%, #55aaaaab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #005555ab 9%, #005555ab 10%, #00555567 10%, #00555567 19%, #005555ab 19%, #005555ab 20%, transparent 20%, transparent 29%, #55aaaaab 29%, #55aaaaab 30%, #55aaaa67 30%, #55aaaa67 39%, #55aaaaab 39%, #55aaaaab 40%), radial-gradient(ellipse, transparent, #000000ab), linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)"
+                look.borderImage = "radial-gradient(ellipse, #005555 70%, #00ffff) 1"
+                look.color = "#007777"
+                look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 5px #ffffff"
+                look.textShadow = "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000"
+                look.textStroke = "1px #ddffffab"
+            } else {
+                look.backgroundImage = "linear-gradient(to bottom, #333333, #333333)"
+                look.borderImage = "linear-gradient(to bottom, #000000, #000000) 1"
+                look.color = "#000000";
+                look.boxShadow = "0 0 3px 1px #000000 inset"
+            }
+            return look
+            }
+        },
+        cobaltAlter: {
+            title() {
+                if (player.tlb.buyMaxSymbols == true) {
+                    let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                    let val2 = player.tlb.cobaltSymbolParts.div(1000).floor()
+                    let result = val1
+                    if(val2.lt(val1)) result = val2
+                    return "Create <h3>" + formatShortWhole(player.tlb.cobaltSymbolsGain.add(result)) + "</h3><br>Cobalt Symbol/s."
+                }
+                else
+                    return "Create <h3>1</h3><br>Cobalt Symbol."
+            },
+            canClick() {return player.ssp.alchemicalSymbols >= 100 && player.tlb.cobaltSymbolParts >= 1000},
+            unlocked() {return true},
+            onClick() { 
+                if (player.tlb.buyMaxSymbols == false) {
+                    player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.add(1)
+                    player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(100)
+                    player.tlb.cobaltSymbolParts = player.tlb.cobaltSymbolParts.sub(1000)
+                } 
+                else if (player.tlb.buyMaxSymbols == true) {
+                    let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                    let val2 = player.tlb.cobaltSymbolParts.div(1000).floor()
+                    let result = val1
+                    if(val2.lt(val1)) result = val2
+
+                    player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.add(result)
+                    player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(100, result))
+                    player.tlb.cobaltSymbolParts = player.tlb.cobaltSymbolParts.sub(Decimal.mul(1000, result))
+                }
+            },
+            style() {
+            let look = {width: '300px', minHeight: '80px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "18px", borderRadius: "0px"}
+            if (this.canClick()) {
+                look.backgroundImage = "radial-gradient(ellipse, transparent 80%, #000000ab), radial-gradient(ellipse, transparent 70%, #000033), radial-gradient(ellipse, #00000045 40%, #000000ab), repeating-linear-gradient(-45deg, transparent, transparent 9%, #000055ab 9%, #000055ab 10%, #00005567 10%, #00005567 19%, #000055ab 19%, #000055ab 20%, transparent 20%, transparent 29%, #5555aaab 29%, #5555aaab 30%, #5555aa67 30%, #5555aa67 39%, #5555aaab 39%, #5555aaab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #000055ab 9%, #000055ab 10%, #00005567 10%, #00005567 19%, #000055ab 19%, #000055ab 20%, transparent 20%, transparent 29%, #5555aaab 29%, #5555aaab 30%, #5555aa67 30%, #5555aa67 39%, #5555aaab 39%, #5555aaab 40%), radial-gradient(ellipse, transparent, #000000ab), linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)"
+                look.borderImage = "radial-gradient(ellipse, #000055 70%, #0000ff) 1"
+                look.color = "#000077"
+                look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 5px #ffffff"
+                look.textShadow = "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000"
+                look.textStroke = "1px #ddddffab"
+            } else {
+                look.backgroundImage = "linear-gradient(to bottom, #333333, #333333)"
+                look.borderImage = "linear-gradient(to bottom, #000000, #000000) 1"
+                look.color = "#000000";
+                look.boxShadow = "0 0 3px 1px #000000 inset"
+            }
+            return look
+            }
+        },
+        amethystAlter: {
+            title() {
+                if (player.tlb.buyMaxSymbols == true) {
+                    let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                    let val2 = player.tlb.amethystSymbolParts.div(1000).floor()
+                    let result = val1
+                    if(val2.lt(val1)) result = val2
+                    return "Create <h3>" + formatShortWhole(player.tlb.amethystSymbolsGain.add(result)) + "</h3><br>Amethyst Symbol/s."
+                }
+                else
+                    return "Create <h3>1</h3><br>Amethyst Symbol."
+            },
+            canClick() {return player.ssp.alchemicalSymbols >= 100 && player.tlb.amethystSymbolParts >= 1000},
+            unlocked() {return true},
+            onClick() { 
+                if (player.tlb.buyMaxSymbols == false) {
+                    player.tlb.amethystSymbols = player.tlb.amethystSymbols.add(1)
+                    player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(100)
+                    player.tlb.amethystSymbolParts = player.tlb.amethystSymbolParts.sub(1000)
+                } 
+                else if (player.tlb.buyMaxSymbols == true) {
+                    let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                    let val2 = player.tlb.amethystSymbolParts.div(1000).floor()
+                    let result = val1
+                    if(val2.lt(val1)) result = val2
+
+                    player.tlb.amethystSymbols = player.tlb.amethystSymbols.add(result)
+                    player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(100, result))
+                    player.tlb.amethystSymbolParts = player.tlb.amethystSymbolParts.sub(Decimal.mul(1000, result))
+                }
+            },
+            style() {
+            let look = {width: '300px', minHeight: '80px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "18px", borderRadius: "0px"}
+            if (this.canClick()) {
+                look.backgroundImage = "radial-gradient(ellipse, transparent 80%, #000000ab), radial-gradient(ellipse, transparent 70%, #003300), radial-gradient(ellipse, #00000045 40%, #000000ab), repeating-linear-gradient(-45deg, transparent, transparent 9%, #550055ab 9%, #550055ab 10%, #55005567 10%, #55005567 19%, #550055ab 19%, #550055ab 20%, transparent 20%, transparent 29%, #aa55aaab 29%, #aa55aaab 30%, #aa55aa67 30%, #aa55aa67 39%, #aa55aaab 39%, #aa55aaab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #550055ab 9%, #550055ab 10%, #55005567 10%, #55005567 19%, #550055ab 19%, #550055ab 20%, transparent 20%, transparent 29%, #aa55aaab 29%, #aa55aaab 30%, #aa55aa67 30%, #aa55aa67 39%, #aa55aaab 39%, #aa55aaab 40%), radial-gradient(ellipse, transparent, #000000ab), linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)"
+                look.borderImage = "radial-gradient(ellipse, #550055 70%, #ff00ff) 1"
+                look.color = "#770077"
+                look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 5px #ffffff"
+                look.textShadow = "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000"
+                look.textStroke = "1px #ffddffab"
             } else {
                 look.backgroundImage = "linear-gradient(to bottom, #333333, #333333)"
                 look.borderImage = "linear-gradient(to bottom, #000000, #000000) 1"
@@ -232,7 +528,7 @@ addLayer("tlb", {
     infoboxes: {},
     microtabs: {
         tabs: {
-            "Alteration Room": {
+            "Alterations I": {
                 buttonStyle() {return {color: "#000000", backgroundImage: "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset"}},
                 unlocked() {return true},
                 content: [
@@ -241,7 +537,7 @@ addLayer("tlb", {
                         [
                             ["raw-html", () => {return "You are currently in the"}, {color: "#ffffff", fontSize: "18px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                             ["blank", "2px"],
-                            ["raw-html", () => {return "-<u>Alteration Room</u>-."}, {color: "transparent", backgroundImage: "linear-gradient(-135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(-135deg, #ffffff12, #00000012), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "18px", 'text-shadow': " 0 0 5px #ffffffcd, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                            ["raw-html", () => {return "-<u>Alterations I</u>-."}, {color: "transparent", backgroundImage: "linear-gradient(-135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(-135deg, #ffffff12, #00000012), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "18px", 'text-shadow': " 0 0 5px #ffffffcd, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                         ]
                     ],
                     ["blank", "10px"],
@@ -251,7 +547,7 @@ addLayer("tlb", {
                         ]
                     ],
                     ["blank", "20px"],
-                    ["style-row",
+                    ["style-row", // crimson
                         [
                             ["style-row",
                                 [
@@ -266,31 +562,53 @@ addLayer("tlb", {
                                             ["column",
                                                 [
                                                     ["raw-html", () => {return formatShortWhole(player.tlb.crimsonSymbols)}]
-                                                ], {width: "100px", height: "20px", backgroundImage: "radial-gradient(ellipse, #000000cd, transparent 70%, transparent)"}
+                                                ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "25px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                             ]
-                                        ], {width: "120px", height: "120px", color: "transparent", background: "linear-gradient(180deg, #ff7777, #ff0000, #ff0078, #77003b)", fontSize: "25px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}],
-                                    ["column", [[]], {width: "20px"}],
+                                        ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffdddd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff000023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                    ],
+                                    ["column", [[]], {width: "30px"}],
                                     ["style-column",
                                         [
                                             ["clickable", "crimsonAlter"],
                                             ["blank", "5px"],
                                             ["row",
                                                 [
-                                                    ["raw-html", () => {return "Requires:"}, {color: "#ffffff", fontSize: "18px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                                                    ["raw-html", () => {return "Alteration Cost:"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
                                                 ]
                                             ],
                                             ["row",
                                                 [
-                                                    ["raw-html", () => {return "100 🝪 Al.Sys 🝪"}, {color: "transparent", background: "linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)", fontSize: "16px", textStroke: "1px #00ff00ab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                                    ["raw-html", () => {
+                                                        if (player.tlb.buyMaxSymbols == true) {
+                                                            let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                                                            let val2 = player.tlb.crimsonSymbolParts.div(1000).floor()
+                                                            let result = val1
+                                                            if(val2.lt(val1)) result = val2
+                                                            return "<h3>" + formatShortWhole(player.tlb.alchemicalSymbolsReq.add(result).mul(100)) + "</h3><small> 🝪 Al.Sys 🝪</small>"
+                                                            }
+                                                        else
+                                                            return "<h3>100</h3><small> 🝪 Al.Sys 🝪</small>"
+                                                        }, {color: "transparent", background: "linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)", fontSize: "14px", textStroke: "1px #aaffaaab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                                     ["blank", "2px"],
-                                                    ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                    ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                     ["blank", "2px"],
-                                                    ["raw-html", () => {return "1,000 Cr.Sy.Prts"}, {color: "transparent", background: "linear-gradient(180deg, #ff7777, #ff0000, #ff0078, #77003b)", fontSize: "16px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                                                    ["raw-html", () => {
+                                                        if (player.tlb.buyMaxSymbols == true) {
+                                                            let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                                                            let val2 = player.tlb.crimsonSymbolParts.div(1000).floor()
+                                                            let result = val1
+                                                            if(val2.lt(val1)) result = val2
+                                                            return "<h3>" + formatShortWhole(player.tlb.crimsonSymbolsReq.add(result).mul(1000)) + "</h3><small> Cr.Sy.Prts</small>"
+                                                            }
+                                                        else
+                                                            return "<h3>1,000</h3><small> Cr.Sy.Prts</small>"
+                                                        }, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                    ]
                                                 ]
                                             ]
                                         ]
                                     ]
-                                ], {width: "480px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                ], {width: "560px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffdddd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff000023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
                             ],
                             ["style-row",
                                 [
@@ -298,51 +616,450 @@ addLayer("tlb", {
                                         [
                                             ["raw-html", () => {return "You are gaining"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.crimsonSymbolPartsGain) + "</h3> Cr.Sy.Prts per second."}, {color: "transparent", background: "linear-gradient(180deg, #ff7777, #ff0000, #ff0078, #77003b)", fontSize: "16px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.crimsonSymbolPartsGain) + "</h3> Cr.Sy.Prts per second."}, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "(Based on Radioactive Core Fragments<br>and Radioactive Pylon Energy.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["raw-html", () => {return "(Based on Radioactive Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "20px"],
                                             ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.crimsonSymbolParts) + "</h3> Cr.Sy.Pts."}, {color: "transparent", background: "linear-gradient(180deg, #ff7777, #ff0000, #ff0078, #77003b)", fontSize: "16px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.crimsonSymbolParts) + "</h3> Cr.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "16px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
                                     ]
-                                ], {width: "260px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffdddd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff000023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                            ]
+                        ]
+                    ],
+                    ["style-row", // gold
+                        [
+                            ["style-row",
+                                [
+                                    ["style-column",
+                                        [
+                                            ["column",
+                                                [
+                                                    ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:70px;height:70px'></img>"]
+                                                ], {width: "80px", height: "80px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                            ],
+                                            ["blank", "5px"],
+                                            ["column",
+                                                [
+                                                    ["raw-html", () => {return formatShortWhole(player.tlb.goldSymbols)}]
+                                                ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "25px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                            ]
+                                        ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ffff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                    ],
+                                    ["column", [[]], {width: "30px"}],
+                                    ["style-column",
+                                        [
+                                            ["clickable", "goldAlter"],
+                                            ["blank", "5px"],
+                                            ["row",
+                                                [
+                                                    ["raw-html", () => {return "Alteration Cost:"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                                                ]
+                                            ],
+                                            ["row",
+                                                [
+                                                    ["raw-html", () => {
+                                                        if (player.tlb.buyMaxSymbols == true) {
+                                                            let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                                                            let val2 = player.tlb.goldSymbolParts.div(1000).floor()
+                                                            let result = val1
+                                                            if(val2.lt(val1)) result = val2
+                                                            return "<h3>" + formatShortWhole(player.tlb.alchemicalSymbolsReq.add(result).mul(100)) + "</h3><small> 🝪 Al.Sys 🝪</small>"
+                                                            }
+                                                        else
+                                                            return "<h3>100</h3><small> 🝪 Al.Sys 🝪</small>"
+                                                        }, {color: "transparent", background: "linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)", fontSize: "14px", textStroke: "1px #aaffaaab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                                    ["blank", "2px"],
+                                                    ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                    ["blank", "2px"],
+                                                    ["raw-html", () => {
+                                                        if (player.tlb.buyMaxSymbols == true) {
+                                                            let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                                                            let val2 = player.tlb.goldSymbolParts.div(1000).floor()
+                                                            let result = val1
+                                                            if(val2.lt(val1)) result = val2
+                                                            return "<h3>" + formatShortWhole(player.tlb.goldSymbolsReq.add(result).mul(1000)) + "</h3><small> Gl.Sy.Prts</small>"
+                                                            }
+                                                        else
+                                                            return "<h3>1,000</h3><small> Gl.Sy.Prts</small>"
+                                                        }, {color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "14px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ], {width: "560px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ffff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                            ],
+                            ["style-row",
+                                [
+                                    ["column",
+                                        [
+                                            ["raw-html", () => {return "You are gaining"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.goldSymbolPartsGain) + "</h3> Gl.Sy.Prts per second."}, {color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "14px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "(Based on Technological Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "20px"],
+                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.goldSymbolParts) + "</h3> Gl.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "16px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                                        ]
+                                    ]
+                                ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ffff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                            ]
+                        ]
+                    ],
+                    ["style-row", // jade
+                        [
+                            ["style-row",
+                                [
+                                    ["style-column",
+                                        [
+                                            ["column",
+                                                [
+                                                    ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:70px;height:70px'></img>"]
+                                                ], {width: "80px", height: "80px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                            ],
+                                            ["blank", "5px"],
+                                            ["column",
+                                                [
+                                                    ["raw-html", () => {return formatShortWhole(player.tlb.jadeSymbols)}]
+                                                ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "25px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                            ]
+                                        ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                    ],
+                                    ["column", [[]], {width: "30px"}],
+                                    ["style-column",
+                                        [
+                                            ["clickable", "jadeAlter"],
+                                            ["blank", "5px"],
+                                            ["row",
+                                                [
+                                                    ["raw-html", () => {return "Alteration Cost:"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                                                ]
+                                            ],
+                                            ["row",
+                                                [
+                                                    ["raw-html", () => {
+                                                        if (player.tlb.buyMaxSymbols == true) {
+                                                            let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                                                            let val2 = player.tlb.jadeSymbolParts.div(1000).floor()
+                                                            let result = val1
+                                                            if(val2.lt(val1)) result = val2
+                                                            return "<h3>" + formatShortWhole(player.tlb.alchemicalSymbolsReq.add(result).mul(100)) + "</h3><small> 🝪 Al.Sys 🝪</small>"
+                                                            }
+                                                        else
+                                                            return "<h3>100</h3><small> 🝪 Al.Sys 🝪</small>"
+                                                        }, {color: "transparent", background: "linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)", fontSize: "14px", textStroke: "1px #aaffaaab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                                    ["blank", "2px"],
+                                                    ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                    ["blank", "2px"],
+                                                    ["raw-html", () => {
+                                                        if (player.tlb.buyMaxSymbols == true) {
+                                                            let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                                                            let val2 = player.tlb.jadeSymbolParts.div(1000).floor()
+                                                            let result = val1
+                                                            if(val2.lt(val1)) result = val2
+                                                            return "<h3>" + formatShortWhole(player.tlb.jadeSymbolsReq.add(result).mul(1000)) + "</h3><small> Gl.Sy.Prts</small>"
+                                                            }
+                                                        else
+                                                            return "<h3>1,000</h3><small> Jd.Sy.Prts</small>"
+                                                        }, {color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "14px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ], {width: "560px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                            ],
+                            ["style-row",
+                                [
+                                    ["column",
+                                        [
+                                            ["raw-html", () => {return "You are gaining"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.jadeSymbolPartsGain) + "</h3> Jd.Sy.Prts per second."}, {color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "14px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "(Based on Nature Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "20px"],
+                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.jadeSymbolParts) + "</h3> Jd.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "16px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                                        ]
+                                    ]
+                                ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
                             ]
                         ]
                     ]
-                    // ["style-row", [
-                    //     ["style-column",
-                    //         [
-                    //             ["clickable", 1],
-                    //             ["blank", "10px"],
-                    //             ["raw-html", () => {return "You have " + formatWhole(player.sma.starmetalAlloy) + " Starmetal Alloy."}, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "16px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px white", backgroundClip: "text", fontFamily: "monospace"}],
-                    //             ["blank", "30px"],
-                    //             ["clickable", 2],
-                    //             ["blank", "10px"],
-                    //             ["raw-html", () => {return "You have " + formatWhole(player.sme.starmetalEssence) + " Starmetal Essence."}, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%, #eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "16px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px white", backgroundClip: "text", fontFamily: "monospace"}],
-                    //             ["blank", "30px"],
-                    //             ["clickable", 3],
-                    //             ["blank", "10px"],
-                    //             ["raw-html", () => {return "You have " + formatWhole(player.sma.eclipseShards) + " Eclipse Shards."}, {color: "transparent", background: "linear-gradient(135deg, #ffb700, #ffe866)", fontSize: "16px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px white", backgroundClip: "text", fontFamily: "monospace"}]
-                    //         ], {width: "447px", height: "500px", background: "#000055", backgroundImage: "radial-gradient(circle, transparent, #00000088), repeating-linear-gradient(0deg, transparent, transparent 19px, #ffffff88 20px, #ffffff88 19px), repeating-linear-gradient(90deg, transparent, transparent 19px, #ffffff88 20px, #ffffff88 19px)", border: "3px solid white", borderRadius: "0 0 0 0", boxShadow: "0 0 5px 5px #aaaaff inset, 0 0 10px 10px #0000aa inset, 0 0 10px 10px #ffffff50 inset"}
-                    //     ],
-                    //     ["style-column",
-                    //         [
-                    //             ["clickable", 4],
-                    //             ["blank", "10px"],
-                    //             ["raw-html", () => {return "You have " + formatWhole(player.ir.spaceGem) + " Space Gems."}, {color: "transparent", background: "radial-gradient(circle, #564BCC, #000000)", fontSize: "16px", textStroke: "1px #dbd7ff", 'text-shadow': "0 0 5px white", backgroundClip: "text", fontFamily: "monospace"}],
-                    //             ["blank", "30px"],
-                    //             ["clickable", 5],
-                    //             ["blank", "10px"],
-                    //             ["raw-html", () => {return "You have " + formatWhole(player.pl.spaceDust) + " Space Dust."}, {color: "transparent", background: "linear-gradient(15deg, #34eb86 0%, #279ccf 50%, #411bb3 100%)", fontSize: "16px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px white", backgroundClip: "text", fontFamily: "monospace"}],
-                    //             ["blank", "30px"],
-                    //             ["clickable", 6],
-                    //             ["blank", "10px"],
-                    //             ["raw-html", () => {return "You have " + formatWhole(player.ir.spaceRock) + " Space Rocks."}, {color: "transparent", background: "linear-gradient(15deg, #5f5f5f 0%, #a8a8a8 50%, #5f5f5f 100%)", fontSize: "16px", fontSize: "16px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px white", backgroundClip: "text", fontFamily: "monospace"}],
-                    //         ], {width: "447px", height: "500px", background: "#000055", backgroundImage: "radial-gradient(circle, transparent, #00000088), repeating-linear-gradient(0deg, transparent, transparent 19px, #ffffff88 20px, #ffffff88 19px), repeating-linear-gradient(270deg, transparent, transparent 19px, #ffffff88 20px, #ffffff88 19px)", border: "3px solid white", borderRadius: "0 0 0 0", boxShadow: "0 0 5px 5px #aaaaff inset, 0 0 10px 10px #0000aa inset, 0 0 10px 10px #ffffff50 inset"}]
-                    //     ]
-                    // ],
+                ]
+            },
+            "Alterations II": {
+                buttonStyle() {return {color: "#000000", backgroundImage: "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset"}},
+                unlocked() {return true},
+                content: [
+                    ["blank", "5px"],
+                    ["row",
+                        [
+                            ["raw-html", () => {return "You are currently in the"}, {color: "#ffffff", fontSize: "18px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                            ["blank", "2px"],
+                            ["raw-html", () => {return "-<u>Alterations II</u>-."}, {color: "transparent", backgroundImage: "linear-gradient(-135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(-135deg, #ffffff12, #00000012), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "18px", 'text-shadow': " 0 0 5px #ffffffcd, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                        ]
+                    ],
+                    ["blank", "10px"],
+                    ["style-column",
+                        [
+                            ["row", [["clickable", "buyMaxOff"], ["blank", "5px"], ["clickable", "buyMaxOn"]]]
+                        ]
+                    ],
+                    ["blank", "20px"],
+                    ["style-row", // celeste
+                        [
+                            ["style-row",
+                                [
+                                    ["style-column",
+                                        [
+                                            ["column",
+                                                [
+                                                    ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:70px;height:70px'></img>"]
+                                                ], {width: "80px", height: "80px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                            ],
+                                            ["blank", "5px"],
+                                            ["column",
+                                                [
+                                                    ["raw-html", () => {return formatShortWhole(player.tlb.celesteSymbols)}]
+                                                ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "25px", textStroke: "1px #00ffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                            ]
+                                        ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ffff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                    ],
+                                    ["column", [[]], {width: "30px"}],
+                                    ["style-column",
+                                        [
+                                            ["clickable", "celesteAlter"],
+                                            ["blank", "5px"],
+                                            ["row",
+                                                [
+                                                    ["raw-html", () => {return "Alteration Cost:"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                                                ]
+                                            ],
+                                            ["row",
+                                                [
+                                                    ["raw-html", () => {
+                                                        if (player.tlb.buyMaxSymbols == true) {
+                                                            let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                                                            let val2 = player.tlb.celesteSymbolParts.div(1000).floor()
+                                                            let result = val1
+                                                            if(val2.lt(val1)) result = val2
+                                                            return "<h3>" + formatShortWhole(player.tlb.alchemicalSymbolsReq.add(result).mul(100)) + "</h3><small> 🝪 Al.Sys 🝪</small>"
+                                                            }
+                                                        else
+                                                            return "<h3>100</h3><small> 🝪 Al.Sys 🝪</small>"
+                                                        }, {color: "transparent", background: "linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)", fontSize: "14px", textStroke: "1px #aaffaaab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                                    ["blank", "2px"],
+                                                    ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                    ["blank", "2px"],
+                                                    ["raw-html", () => {
+                                                        if (player.tlb.buyMaxSymbols == true) {
+                                                            let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                                                            let val2 = player.tlb.celesteSymbolParts.div(1000).floor()
+                                                            let result = val1
+                                                            if(val2.lt(val1)) result = val2
+                                                            return "<h3>" + formatShortWhole(player.tlb.celesteSymbolsReq.add(result).mul(1000)) + "</h3><small> Ce.Sy.Prts</small>"
+                                                            }
+                                                        else
+                                                            return "<h3>1,000</h3><small> Ce.Sy.Prts</small>"
+                                                        }, {color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "14px", textStroke: "1px #00ffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ], {width: "560px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ffff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                            ],
+                            ["style-row",
+                                [
+                                    ["column",
+                                        [
+                                            ["raw-html", () => {return "You are gaining"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.celesteSymbolPartsGain) + "</h3> Ce.Sy.Prts per second."}, {color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "14px", textStroke: "1px #00ffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "(Based on Ancient Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "20px"],
+                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.celesteSymbolParts) + "</h3> Ce.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "16px", textStroke: "1px #00ffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                                        ]
+                                    ]
+                                ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ffff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                            ]
+                        ]
+                    ],
+                    ["style-row", // cobalt
+                        [
+                            ["style-row",
+                                [
+                                    ["style-column",
+                                        [
+                                            ["column",
+                                                [
+                                                    ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:70px;height:70px'></img>"]
+                                                ], {width: "80px", height: "80px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                            ],
+                                            ["blank", "5px"],
+                                            ["column",
+                                                [
+                                                    ["raw-html", () => {return formatShortWhole(player.tlb.cobaltSymbols)}]
+                                                ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "25px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                            ]
+                                        ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #0000ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                    ],
+                                    ["column", [[]], {width: "30px"}],
+                                    ["style-column",
+                                        [
+                                            ["clickable", "cobaltAlter"],
+                                            ["blank", "5px"],
+                                            ["row",
+                                                [
+                                                    ["raw-html", () => {return "Alteration Cost:"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                                                ]
+                                            ],
+                                            ["row",
+                                                [
+                                                    ["raw-html", () => {
+                                                        if (player.tlb.buyMaxSymbols == true) {
+                                                            let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                                                            let val2 = player.tlb.cobaltSymbolParts.div(1000).floor()
+                                                            let result = val1
+                                                            if(val2.lt(val1)) result = val2
+                                                            return "<h3>" + formatShortWhole(player.tlb.alchemicalSymbolsReq.add(result).mul(100)) + "</h3><small> 🝪 Al.Sys 🝪</small>"
+                                                            }
+                                                        else
+                                                            return "<h3>100</h3><small> 🝪 Al.Sys 🝪</small>"
+                                                        }, {color: "transparent", background: "linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)", fontSize: "14px", textStroke: "1px #aaffaaab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                                    ["blank", "2px"],
+                                                    ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                    ["blank", "2px"],
+                                                    ["raw-html", () => {
+                                                        if (player.tlb.buyMaxSymbols == true) {
+                                                            let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                                                            let val2 = player.tlb.cobaltSymbolParts.div(1000).floor()
+                                                            let result = val1
+                                                            if(val2.lt(val1)) result = val2
+                                                            return "<h3>" + formatShortWhole(player.tlb.cobaltSymbolsReq.add(result).mul(1000)) + "</h3><small> Co.Sy.Prts</small>"
+                                                            }
+                                                        else
+                                                            return "<h3>1,000</h3><small> Co.Sy.Prts</small>"
+                                                        }, {color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "14px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ], {width: "560px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #0000ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                            ],
+                            ["style-row",
+                                [
+                                    ["column",
+                                        [
+                                            ["raw-html", () => {return "You are gaining"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.cobaltSymbolPartsGain) + "</h3> Co.Sy.Prts per second."}, {color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "14px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "(Based on Paradox Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "20px"],
+                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.cobaltSymbolParts) + "</h3> Co.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "16px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                                        ]
+                                    ]
+                                ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #0000ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                            ]
+                        ]
+                    ],
+                    ["style-row", // amethyst
+                        [
+                            ["style-row",
+                                [
+                                    ["style-column",
+                                        [
+                                            ["column",
+                                                [
+                                                    ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:70px;height:70px'></img>"]
+                                                ], {width: "80px", height: "80px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                            ],
+                                            ["blank", "5px"],
+                                            ["column",
+                                                [
+                                                    ["raw-html", () => {return formatShortWhole(player.tlb.amethystSymbols)}]
+                                                ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "25px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                            ]
+                                        ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff00ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                    ],
+                                    ["column", [[]], {width: "30px"}],
+                                    ["style-column",
+                                        [
+                                            ["clickable", "amethystAlter"],
+                                            ["blank", "5px"],
+                                            ["row",
+                                                [
+                                                    ["raw-html", () => {return "Alteration Cost:"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                                                ]
+                                            ],
+                                            ["row",
+                                                [
+                                                    ["raw-html", () => {
+                                                        if (player.tlb.buyMaxSymbols == true) {
+                                                            let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                                                            let val2 = player.tlb.amethystSymbolParts.div(1000).floor()
+                                                            let result = val1
+                                                            if(val2.lt(val1)) result = val2
+                                                            return "<h3>" + formatShortWhole(player.tlb.alchemicalSymbolsReq.add(result).mul(100)) + "</h3><small> 🝪 Al.Sys 🝪</small>"
+                                                            }
+                                                        else
+                                                            return "<h3>100</h3><small> 🝪 Al.Sys 🝪</small>"
+                                                        }, {color: "transparent", background: "linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)", fontSize: "14px", textStroke: "1px #aaffaaab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                                    ["blank", "2px"],
+                                                    ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                    ["blank", "2px"],
+                                                    ["raw-html", () => {
+                                                        if (player.tlb.buyMaxSymbols == true) {
+                                                            let val1 = player.ssp.alchemicalSymbols.div(100).floor()
+                                                            let val2 = player.tlb.amethystSymbolParts.div(1000).floor()
+                                                            let result = val1
+                                                            if(val2.lt(val1)) result = val2
+                                                            return "<h3>" + formatShortWhole(player.tlb.amethystSymbolsReq.add(result).mul(1000)) + "</h3><small> Am.Sy.Prts</small>"
+                                                            }
+                                                        else
+                                                            return "<h3>1,000</h3><small> Am.Sy.Prts</small>"
+                                                        }, {color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "14px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ], {width: "560px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff00ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                            ],
+                            ["style-row",
+                                [
+                                    ["column",
+                                        [
+                                            ["raw-html", () => {return "You are gaining"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.amethystSymbolPartsGain) + "</h3> Am.Sy.Prts per second."}, {color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "14px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "(Based on Cosmic Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "20px"],
+                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "1px"],
+                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.amethystSymbolParts) + "</h3> Am.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "16px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                                        ]
+                                    ]
+                                ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff00ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                            ]
+                        ]
+                    ]
                 ]
             },
             "The Bookshop": {
@@ -397,7 +1114,7 @@ addLayer("tlb", {
                                             ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #550000, #005555)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}]
                                         ]
                                     ],
-                                    ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(180deg, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}]
+                                    ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}]
                                 ]
                             ],
                             () => {if(hasUpgrade("ssp", 104))
@@ -447,7 +1164,7 @@ addLayer("tlb", {
                                                 ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #000055, #555500)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}]
                                             ]
                                         ],
-                                        ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(180deg, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}]
+                                        ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}]
                                     ]
                                 ]
                             },
@@ -498,7 +1215,7 @@ addLayer("tlb", {
                                                 ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #005500, #550055)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}]
                                             ]
                                         ],
-                                        ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(180deg, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}]
+                                        ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}]
                                     ]
                                 ]
                             },
@@ -521,10 +1238,10 @@ addLayer("tlb", {
                     ["column", [], {width: "30px"}],
                     ["column",
                         [
-                            ["raw-html", () => {return "You have <h3>" + formatWhole(player.ssp.alchemicalSymbols) + "</h3> 🝪 Al.Sys 🝪."}, {color: "transparent", background: "linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)", fontSize: "15px", textStroke: "1px #00ff00ab", 'text-shadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                            ["raw-html", () => {return "You have <h3>" + formatWhole(player.ssp.alchemicalSymbols) + "</h3> 🝪 Al.Sys 🝪."}, {color: "transparent", background: "linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)", fontSize: "15px", textStroke: "1px #aaffaaab", 'text-shadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                             ["raw-html", () => {
                                 if (hasUpgrade("ssp", 104))
-                                    return "You have <h3>" + formatWhole(player.ssp.advAlchemicalSymbols) + "</h3> ✩🝪 Adv.Al.Sys 🝪✩."}, {color: "transparent", background: "linear-gradient(to bottom, #8b609c, #ff00ff, #ffc0cb)", fontSize: "15px", textStroke: "1px #ff00ffab", 'text-shadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"
+                                    return "You have <h3>" + formatWhole(player.ssp.advAlchemicalSymbols) + "</h3> ✩🝪 Adv.Al.Sys 🝪✩."}, {color: "transparent", background: "linear-gradient(to bottom, #8b609c, #ff00ff, #ffc0cb)", fontSize: "15px", textStroke: "1px #ffaaffab", 'text-shadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"
                                 }
                             ],
                             ["raw-html", () => {
