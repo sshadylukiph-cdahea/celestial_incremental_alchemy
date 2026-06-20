@@ -108,17 +108,18 @@ addLayer("tlb", {
         }
     },
     nodeStyle: {
-        background: "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)",
+        backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(-45deg, transparent, #00000022 5%, transparent 10%), repeating-linear-gradient(45deg, transparent, #00000022 5%), repeating-linear-gradient(-45deg, transparent, #00000022 5%), linear-gradient(to top, #787878, #ababab, #ededed)",
         backgroundOrigin: "border-box",
         borderColor: "transparent",
-        color: "#000000",
-        borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1",
+        color: "#ffffff",
+        'text-shadow' : "0 0 5px #ffffffab, 0 0 10px #000000, 0 0 10px #000000",
+        textStroke: "1px #00000033",
+        borderImage: "radial-gradient(circle, #000000 70%, #ffffff) 1",
         boxShadow: "0 0 3px 1px #000000 inset",
-        borderRadius: "30px",
-        transform: "translateY(-0px)"
+        borderRadius: "0px"
     },
     tooltip: "Tome Library",
-    color: "silver",
+    color: "#ababab",
     branches: ["ssp"],
     clickables: {
         buyMaxOff: {

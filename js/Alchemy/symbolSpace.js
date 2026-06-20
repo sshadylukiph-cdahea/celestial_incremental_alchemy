@@ -4,7 +4,7 @@ addLayer("ssp", {
     row: 1,
     universe: "LU",
     position: 0,
-    startData() { return {
+    startData() {return {
         unlocked: true,
 
         // alchemical symbol generation
@@ -20,13 +20,14 @@ addLayer("ssp", {
     automate() {},
     nodeStyle() {
         return {
-            background: "linear-gradient(0deg, #6b4423, #9b541a)",
+            backgroundImage: "radial-gradient(ellipse, #000000ab 30%, transparent), linear-gradient(-135deg, #ffffffcd 10%, transparent 30%, transparent 70%, #000000cd 90%), linear-gradient(-135deg, #ffffff45, #00000045), repeating-linear-gradient(45deg, transparent, transparent 9%, #000000ab 9%, #000000ab 10%, #00000067 10%, #00000067 19%, #000000ab 19%, #000000ab 20%, transparent 20%, transparent 29%, #ffffffab 29%, #ffffffab 30%, #ffffff67 30%, #ffffff67 39%, #ffffffab 39%, #ffffffab 40%), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)",
             backgroundOrigin: "border-box",
-            borderColor: "#f8c898",
-            color: "#f8c898",
-            boxShadow: "0 0 3px 1px black inset",
-            borderRadius: "10px",
-            transform: "translateY(-0px)",
+            border: "1px solid #ffdb8e",
+            borderRadius: "20px",
+            color: "#ffdb8e",
+            'text-shadow' : "0 0 5px #ffdb8eab, 0 0 10px #000000, 0 0 10px #000000",
+            textStroke: "1px #00000033",
+            boxShadow: "0 0 3px 1px #000000 inset"
         }
     },
     tooltip: "Symbol Space",
