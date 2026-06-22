@@ -17,13 +17,37 @@ addLayer("tlb", {
         combinationsUnlocked: false,
 
         // tomes and revelation points
-        tomesStrength: new Decimal(0),
-        tomesWisdom: new Decimal(0),
-        tomesCourage: new Decimal(0),
-        tomesTotal: new Decimal(0),
+        tomesForce: new Decimal(0),
+        pointsForce: new Decimal(0),
+        pointsForceGain: new Decimal(0),
+        pointsForceMult: new Decimal(1),
+        currentPointsForceGainTime: new Decimal(60),
+
+        tomesInsight: new Decimal(0),
+        pointsInsight: new Decimal(0),
+        pointsInsightGain: new Decimal(0),
+        pointsInsightMult: new Decimal(1),
+        currentPointsInsightGainTime: new Decimal(60),
+
+        tomesMerit: new Decimal(0),
+        pointsMerit: new Decimal(0),
+        pointsMeritGain: new Decimal(0),
+        pointsMeritMult: new Decimal(1),
+        currentPointsMeritGainTime: new Decimal(60),
+
+        firstTomeForce: false,
+        firstTomeInsight: false,
+        firstTomeMerit: false,
+        preparationPhaseForce: true,
+        preparationPhaseInsight: true,
+        preparationPhaseMerit: true,
+        gainBlockerForce: false,
+        gainBlockerInsight: false,
+        gainBlockerMerit: false,
         revelationPoints: new Decimal(0),
         revelationPointsGain: new Decimal(0),
         revelationPointsMult: new Decimal(1),
+        stopTime: new Decimal(0),
 
         // base symbols
         crimsonSymbols: new Decimal(0),
@@ -67,6 +91,13 @@ addLayer("tlb", {
         amethystSymbolPartsGain: new Decimal(0),
         amethystSymbolPartsMult: new Decimal(1),
 
+        crimsonSymbolsHardcap: new Decimal(10000),
+        goldSymbolsHardcap: new Decimal(10000),
+        jadeSymbolsHardcap: new Decimal(10000),
+        celesteSymbolsHardcap: new Decimal(10000),
+        cobaltSymbolsHardcap: new Decimal(10000),
+        amethystSymbolsHardcap: new Decimal(10000),
+
         // 1st order symbols
         arcaneSymbols: new Decimal (0),
         starmetalAlloySymbols: new Decimal (0),
@@ -80,21 +111,78 @@ addLayer("tlb", {
     update(delta) {
         let onepersec = new Decimal(1)
 
-        // Crimson Symbol Parts generation
+        // Symbol Parts generation
         if(hasUpgrade("ssp", 101)) {
             player.tlb.crimsonSymbolParts = player.tlb.crimsonSymbolParts.add(onepersec.mul(delta).mul(player.tlb.crimsonSymbolPartsGain))
             player.tlb.crimsonSymbolPartsGain = player.tlb.crimsonSymbolsGain.add(Decimal.log10(player.cof.coreFragments[4].add(1)))
+            if(player.tlb.crimsonSymbolParts >= player.tlb.crimsonSymbolsHardcap) {
+                player.tlb.crimsonSymbolParts = player.tlb.crimsonSymbolsHardcap
+            }
+
             player.tlb.goldSymbolParts = player.tlb.goldSymbolParts.add(onepersec.mul(delta).mul(player.tlb.goldSymbolPartsGain))
             player.tlb.goldSymbolPartsGain = player.tlb.goldSymbolsGain.add(Decimal.log10(player.cof.coreFragments[2].add(1)))
+            if(player.tlb.goldSymbolParts >= player.tlb.goldSymbolsHardcap) {
+                player.tlb.goldSymbolParts = player.tlb.goldSymbolsHardcap
+            }
+
             player.tlb.jadeSymbolParts = player.tlb.jadeSymbolParts.add(onepersec.mul(delta).mul(player.tlb.jadeSymbolPartsGain))
             player.tlb.jadeSymbolPartsGain = player.tlb.jadeSymbolsGain.add(Decimal.log10(player.cof.coreFragments[1].add(1)))
+            if(player.tlb.jadeSymbolParts >= player.tlb.jadeSymbolsHardcap) {
+                player.tlb.jadeSymbolParts = player.tlb.jadeSymbolsHardcap
+            }
+
             player.tlb.celesteSymbolParts = player.tlb.celesteSymbolParts.add(onepersec.mul(delta).mul(player.tlb.celesteSymbolPartsGain))
             player.tlb.celesteSymbolPartsGain = player.tlb.celesteSymbolsGain.add(Decimal.log10(player.cof.coreFragments[0].add(1)))
+            if(player.tlb.celesteSymbolParts >= player.tlb.celesteSymbolsHardcap) {
+                player.tlb.celesteSymbolParts = player.tlb.celesteSymbolsHardcap
+            }
+
             player.tlb.cobaltSymbolParts = player.tlb.cobaltSymbolParts.add(onepersec.mul(delta).mul(player.tlb.cobaltSymbolPartsGain))
             player.tlb.cobaltSymbolPartsGain = player.tlb.cobaltSymbolsGain.add(Decimal.log10(player.cof.coreFragments[3].add(1)))
+            if(player.tlb.cobaltSymbolParts >= player.tlb.cobaltSymbolsHardcap) {
+                player.tlb.cobaltSymbolParts = player.tlb.cobaltSymbolsHardcap
+            }
+
             player.tlb.amethystSymbolParts = player.tlb.amethystSymbolParts.add(onepersec.mul(delta).mul(player.tlb.amethystSymbolPartsGain))
             player.tlb.amethystSymbolPartsGain = player.tlb.amethystSymbolsGain.add(Decimal.log10(player.cof.coreFragments[5].add(1)))
+            if(player.tlb.amethystSymbolParts >= player.tlb.amethystSymbolsHardcap) {
+                player.tlb.amethystSymbolParts = player.tlb.amethystSymbolsHardcap
+            }
         }
+
+        // Secondary Tome Point generation
+        // force
+        if(player.tlb.tomesForce >= 1) {
+            player.tlb.currentPointsForceGainTime = player.tlb.currentPointsForceGainTime.sub(onepersec.mul(delta))
+            player.tlb.pointsForceGain = player.tlb.tomesForce
+        }
+        if(player.tlb.currentPointsForceGainTime <= 0) {
+            player.tlb.currentPointsForceGainTime = player.tlb.stopTime
+            player.tlb.gainBlockerForce = false
+        }
+        // insight
+        if(player.tlb.tomesInsight >= 1) {
+            player.tlb.currentPointsInsightGainTime = player.tlb.currentPointsInsightGainTime.sub(onepersec.mul(delta))
+            player.tlb.pointsInsightGain = player.tlb.tomesInsight
+            
+        }
+        if(player.tlb.currentPointsInsightGainTime <= 0) {
+            player.tlb.currentPointsInsightGainTime = player.tlb.stopTime
+            player.tlb.gainBlockerInsight = false
+        }
+        // merit
+        if(player.tlb.tomesMerit >= 1) {
+            player.tlb.currentPointsMeritGainTime = player.tlb.currentPointsMeritGainTime.sub(onepersec.mul(delta))
+            player.tlb.pointsMeritGain = player.tlb.tomesMerit
+            
+        }
+        if(player.tlb.currentPointsMeritGainTime <= 0) {
+            player.tlb.currentPointsMeritGainTime = player.tlb.stopTime
+            player.tlb.gainBlockerMerit = false
+            
+        }
+
+        
     },
     nodeStyle: {
         backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)",
@@ -158,8 +246,8 @@ addLayer("tlb", {
             }
         },
         encoder1: {
-            title() {return "<h2>Symbol Encoder I</h2><hr>Encode <h2>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h2><br>🝪 Al.Sys 🝪.<br><br><small>(Req.: e1,000,000 Cel.Pts.)</small>"},
-            canClick() {return player.ssp.alchemicalSymbolsGain.gte(1)},
+            title() {return "<h2>Symbol Encoder I</h2><hr>Encode <h2>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h2><br>🝪 Al.Sy/s 🝪.<br><br><small>(Req.: e10,000,000 Cel.Pts.)</small>"},
+            canClick() {return player.ssp.alchemicalSymbolsGain.gte(1) && player.points.gte("1e10000000")},
             unlocked() {return true},
             onClick() { 
                 layers.ssp.alchemicalSymbolsReset()
@@ -185,7 +273,7 @@ addLayer("tlb", {
         encoder2: {
             title() {
                 if (hasUpgrade("ssp", 104))
-                    return "<h2>Symbol Encoder II</h2><hr>Encode <h2>" + formatWhole(player.ssp.advAlchemicalSymbolsGain) + "</h2><br>✩🝪 Adv.Al.Sys 🝪✩.<br><br><small>(Req.: ??? 🝪 Al.Sys 🝪.)</small>"
+                    return "<h2>Symbol Encoder II</h2><hr>Encode <h2>" + formatWhole(player.ssp.advAlchemicalSymbolsGain) + "</h2><br>✩🝪 Adv.Al.Sy/s 🝪✩.<br><br><small>(Req.: ??? 🝪 Al.Sys 🝪.)</small>"
                 else
                     return "<h2>You haven't unlocked this button yet!</h2>"
             },
@@ -509,6 +597,207 @@ addLayer("tlb", {
             return look
             }
         },
+        forceTome: {
+            title() {
+                return "Bargain for <h3>1</h3><br>Tome of Force."
+            },
+            canClick() {return (player.tlb.crimsonSymbols >= 15 && player.tlb.celesteSymbols >= 18)},
+            unlocked() {return true},
+            onClick() { 
+                player.tlb.firstTomeForce = true
+                player.tlb.tomesForce = player.tlb.tomesForce.add(1)
+                player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(15)
+                player.tlb.celesteSymbols = player.tlb.celesteSymbols.sub(18)
+            },
+            style() {
+                let look = {fontSize: "13px", width: "230px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
+                    if (this.canClick()) {
+                        look.backgroundImage = "linear-gradient(150deg, #550000, #555555, #005555)"
+                        look.border = "3px solid #f8c898"
+                        look.color = "#f8c898"
+                        look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #97795bab"
+                    } else {
+                        look.backgroundImage = "linear-gradient(to bottom, #382413, #382413)"
+                        look.border = "3px solid #97795b"
+                        look.color = "#97795b"
+                        look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #00000022"
+                    }
+                return look
+            }
+        },
+        insightTome: {
+            title() {
+                return "Bargain for <h3>1</h3><br>Tome of Insight."
+            },
+            canClick() {return (player.tlb.goldSymbols >= 21 && player.tlb.cobaltSymbols >= 19)},
+            unlocked() {return true},
+            onClick() { 
+                player.tlb.firstTomeInsight = true
+                player.tlb.tomesInsight = player.tlb.tomesInsight.add(1)
+                player.tlb.goldSymbols = player.tlb.goldSymbols.sub(21)
+                player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.sub(19)
+            },
+            style() {
+                let look = {fontSize: "13px", width: "230px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
+                    if (this.canClick()) {
+                        look.backgroundImage = "linear-gradient(150deg, #555500, #555555, #000055)"
+                        look.border = "3px solid #f8c898"
+                        look.color = "#f8c898"
+                        look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #97795bab"
+                    } else {
+                        look.backgroundImage = "linear-gradient(to bottom, #382413, #382413)"
+                        look.border = "3px solid #97795b"
+                        look.color = "#97795b"
+                        look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #00000022"
+                    }
+                return look
+            }
+        },
+        meritTome: {
+            title() {
+                return "Bargain for <h3>1</h3><br>Tome of Merit."
+            },
+            canClick() {return (player.tlb.jadeSymbols >= 23 && player.tlb.amethystSymbols >= 14)},
+            unlocked() {return true},
+            onClick() { 
+                player.tlb.firstTomeMerit = true
+                player.tlb.tomesMerit = player.tlb.tomesMerit.add(1)
+                player.tlb.jadeSymbols = player.tlb.jadeSymbols.sub(21)
+                player.tlb.amethystSymbols = player.tlb.amethystSymbols.sub(19)
+            },
+            style() {
+                let look = {fontSize: "13px", width: "230px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
+                    if (this.canClick()) {
+                        look.backgroundImage = "linear-gradient(150deg, #005500, #555555, #550055)"
+                        look.border = "3px solid #f8c898"
+                        look.color = "#f8c898"
+                        look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #97795bab"
+                    } else {
+                        look.backgroundImage = "linear-gradient(to bottom, #382413, #382413)"
+                        look.border = "3px solid #97795b"
+                        look.color = "#97795b"
+                        look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #00000022"
+                    }
+                return look
+            }
+        },
+        forcePoints: {
+            title() {
+                if(player.tlb.currentPointsForceGainTime > 0 && player.tlb.preparationPhaseForce == false)
+                    return "Reading <h3>" + formatShortWhole(player.tlb.tomesForce) + "</h3> Tome/s of Force.<br>Gaining <h3>" + formatShortWhole(player.tlb.pointsForceGain) + "</h3> Force Point/s in<br><h3>"+ formatTime(player.tlb.currentPointsForceGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsForce) + "</h3> Force Point/s."
+                else if(player.tlb.currentPointsForceGainTime > 0 && player.tlb.preparationPhaseForce == true)
+                    return "Preparing to read <h3>" + formatShortWhole(player.tlb.tomesForce) + "</h3> Tome/s of Force.<br>Gaining <h3>" + formatShortWhole(player.tlb.pointsForceGain) + "</h3> Force Point/s in<br><h3>"+ formatTime(player.tlb.currentPointsForceGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsForce) + "</h3> Force Point/s."
+                else
+                    return "You hold <h3>" + formatShortWhole(player.tlb.tomesForce) + "</h3> Tome/s of Force.<br>Gain <h3>" + formatShortWhole(player.tlb.pointsForceGain) + "</h3> Force Point/s.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsForce) + "</h3> Force Point/s."
+            },
+            canClick() {return player.tlb.currentPointsForceGainTime <= 0 && player.tlb.gainBlockerForce == false && player.tlb.gainBlockerInsight == false && player.tlb.gainBlockerMerit == false},
+            unlocked() {return true},
+            onClick() { 
+                player.tlb.currentPointsForceGainTime = player.tlb.currentPointsForceGainTime.add(60)
+                player.tlb.pointsForce = player.tlb.pointsForce.add(player.tlb.pointsForceGain)
+                player.tlb.preparationPhaseForce = false
+                player.tlb.gainBlockerForce = true
+                player.tlb.gainBlockerInsight = true
+                player.tlb.gainBlockerMerit = true
+            },
+            style() {
+                let look = {fontSize: "8px", width: "270px", minHeight: "80px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
+                    if (this.canClick()) {
+                        look.backgroundImage = "linear-gradient(150deg, #550000, #555555, #005555)"
+                        look.border = "3px solid #f8c898"
+                        look.color = "#f8c898"
+                        look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #97795bab"
+                    } else {
+                        look.backgroundImage = "linear-gradient(to bottom, #382413, #382413)"
+                        look.border = "3px solid #97795b"
+                        look.color = "#97795b"
+                        look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #00000022"
+                    }
+                return look
+            }
+        },
+        insightPoints: {
+            title() {
+                if(player.tlb.currentPointsInsightGainTime > 0 && player.tlb.preparationPhaseInsight == false)
+                    return "Reading <h3>" + formatShortWhole(player.tlb.tomesInsight) + "</h3> Tome/s of Insight.<br>Gaining <h3>" + formatShortWhole(player.tlb.pointsInsightGain) + "</h3> Insight Point/s in<br><h3>"+ formatTime(player.tlb.currentPointsInsightGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsInsight) + "</h3> Insight Point/s."
+                else if(player.tlb.currentPointsInsightGainTime > 0 && player.tlb.preparationPhaseInsight == true)
+                    return "Preparing to read <h3>" + formatShortWhole(player.tlb.tomesInsight) + "</h3> Tome/s of Insight.<br>Gaining <h3>" + formatShortWhole(player.tlb.pointsInsightGain) + "</h3> Insight Point/s in<br><h3>"+ formatTime(player.tlb.currentPointsInsightGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsInsight) + "</h3> Insight Point/s."
+                else
+                    return "You hold <h3>" + formatShortWhole(player.tlb.tomesInsight) + "</h3> Tome/s of Insight.<br>Gain <h3>" + formatShortWhole(player.tlb.pointsInsightGain) + "</h3> Insight Point/s.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsInsight) + "</h3> Insight Point/s."
+            },
+            canClick() {return player.tlb.currentPointsInsightGainTime <= 0 && player.tlb.gainBlockerForce == false && player.tlb.gainBlockerInsight == false && player.tlb.gainBlockerMerit == false},
+            unlocked() {return true},
+            onClick() { 
+                player.tlb.currentPointsInsightGainTime = player.tlb.currentPointsInsightGainTime.add(60)
+                player.tlb.pointsInsight = player.tlb.pointsInsight.add(player.tlb.pointsInsightGain)
+                player.tlb.preparationPhaseInsight = false
+                player.tlb.gainBlockerForce = true
+                player.tlb.gainBlockerInsight = true
+                player.tlb.gainBlockerMerit = true
+            },
+            style() {
+                let look = {fontSize: "8px", width: "270px", minHeight: "80px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
+                    if (this.canClick()) {
+                        look.backgroundImage = "linear-gradient(150deg, #555500, #555555, #000055)"
+                        look.border = "3px solid #f8c898"
+                        look.color = "#f8c898"
+                        look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #97795bab"
+                    } else {
+                        look.backgroundImage = "linear-gradient(to bottom, #382413, #382413)"
+                        look.border = "3px solid #97795b"
+                        look.color = "#97795b"
+                        look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #00000022"
+                    }
+                return look
+            }
+        },
+        meritPoints: {
+            title() {
+                if(player.tlb.currentPointsMeritGainTime > 0 && player.tlb.preparationPhaseMerit == false)
+                    return "Reading <h3>" + formatShortWhole(player.tlb.tomesMerit) + "</h3> Tome/s of Merit.<br>Gaining <h3>" + formatShortWhole(player.tlb.pointsMeritGain) + "</h3> Merit Point/s in<br><h3>"+ formatTime(player.tlb.currentPointsMeritGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsMerit) + "</h3> Merit Point/s."
+                if(player.tlb.currentPointsMeritGainTime > 0 && player.tlb.preparationPhaseMerit == true)
+                    return "Preparing to read <h3>" + formatShortWhole(player.tlb.tomesMerit) + "</h3> Tome/s of Merit.<br>Gaining <h3>" + formatShortWhole(player.tlb.pointsMeritGain) + "</h3> Merit Point/s in<br><h3>"+ formatTime(player.tlb.currentPointsMeritGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsMerit) + "</h3> Merit Point/s."
+                else
+                    return "You hold <h3>" + formatShortWhole(player.tlb.tomesMerit) + "</h3> Tome/s of Merit.<br>Gain <h3>" + formatShortWhole(player.tlb.pointsMeritGain) + "</h3> Merit Point/s.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsMerit) + "</h3> Merit Point/s."
+            },
+            canClick() {return player.tlb.currentPointsMeritGainTime <= 0 && player.tlb.gainBlockerForce == false && player.tlb.gainBlockerInsight == false && player.tlb.gainBlockerMerit == false},
+            unlocked() {return true},
+            onClick() { 
+                player.tlb.currentPointsMeritGainTime = player.tlb.currentPointsMeritGainTime.add(60)
+                player.tlb.pointsMerit = player.tlb.pointsMerit.add(player.tlb.pointsMeritGain)
+                player.tlb.preparationPhaseMerit = false
+                player.tlb.gainBlockerForce = true
+                player.tlb.gainBlockerInsight = true
+                player.tlb.gainBlockerMerit = true
+            },
+            style() {
+                let look = {fontSize: "8px", width: "270px", minHeight: "80px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
+                    if (this.canClick()) {
+                        look.backgroundImage = "linear-gradient(150deg, #005500, #555555, #550055)"
+                        look.border = "3px solid #f8c898"
+                        look.color = "#f8c898"
+                        look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #97795bab"
+                    } else {
+                        look.backgroundImage = "linear-gradient(to bottom, #382413, #382413)"
+                        look.border = "3px solid #97795b"
+                        look.color = "#97795b"
+                        look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #00000022"
+                    }
+                return look
+            }
+        },
         // combinationsUnlocker: { // LATER
         //     title() {return "Unlock the Combinations Tab.<br><small>Requires: 10 of each basic altered symbols<br>and 1000 🝪 Al.Sys 🝪</small>"},
         //     canClick() {return player.tlb.crimsonSymbols >= 10 && player.tlb.goldSymbols >= 10 && player.tlb.jadeSymbols >= 10
@@ -550,8 +839,179 @@ addLayer("tlb", {
         //     }
         // },
     },
-    bars: {},
-    upgrades: {},
+    // bars: {
+    //     forceTomeBar:
+    // },
+    upgrades: {
+        11: {
+            title: "Force of Chromatis",
+            unlocked() {return true},
+            description: "<hr>Al.Sys and the first six basic symbol parts are boosted based on Force Points.",
+            cost: new Decimal(10),
+            currencyLocation() {return player.tlb},
+            currencyDisplayName: "Force Points",
+            currencyInternalName: "pointsForce",
+            style() {
+                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
+                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                return look
+            },
+        },
+        12: {
+            title: "Force of Merchus",
+            unlocked() {return true},
+            description: "<hr>Alteration costs of the first six basic symbols are divided based on Tomes of Force.",
+            cost: new Decimal(50),
+            currencyLocation() {return player.tlb},
+            currencyDisplayName: "Force Points",
+            currencyInternalName: "pointsForce",
+            style() {
+                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
+                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                return look
+            },
+        },
+        13: {
+            title: "Force of Avarita",
+            unlocked() {return true},
+            description: "<hr>Base Al.Sys gain is doubled and then boosted based on itself.",
+            cost: new Decimal(250),
+            currencyLocation() {return player.tlb},
+            currencyDisplayName: "Force Points",
+            currencyInternalName: "pointsForce",
+            style() {
+                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
+                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                return look
+            },
+        },
+        14: {
+            title: "Force of Tyrrium",
+            unlocked() {return true},
+            description: "<hr>Current Realm Essence (Universe α) boosts Force Point gain.",
+            cost: new Decimal(1000),
+            currencyLocation() {return player.tlb},
+            currencyDisplayName: "Force Points",
+            currencyInternalName: "pointsForce",
+            style() {
+                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
+                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                return look
+            },
+        },
+        21: {
+            title: "Insight of Athenia",
+            unlocked() {return true},
+            description: "<hr>Gain a multiplier to the Rev.Pt gain based on Insight Points.",
+            cost: new Decimal(10),
+            currencyLocation() {return player.tlb},
+            currencyDisplayName: "Insight Points",
+            currencyInternalName: "pointsInsight",
+            style() {
+                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
+                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                return look
+            },
+        },
+        22: {
+            title: "Insight of Unitar",
+            unlocked() {return true},
+            description: "<hr>All secondary point types are boosted based on Tomes of Insight.",
+            cost: new Decimal(50),
+            currencyLocation() {return player.tlb},
+            currencyDisplayName: "Insight Points",
+            currencyInternalName: "pointsInsight",
+            style() {
+                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
+                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                return look
+            },
+        },
+        23: {
+            title: "Insight of Cognin",
+            unlocked() {return true},
+            description: "<hr>You can read two different Tome types at the same time.",
+            cost: new Decimal(250),
+            currencyLocation() {return player.tlb},
+            currencyDisplayName: "Insight Points",
+            currencyInternalName: "pointsInsight",
+            style() {
+                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
+                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                return look
+            },
+        },
+        24: {
+            title: "Insight of Hekato",
+            unlocked() {return true},
+            description: "<hr>Current Stars (Alt-Universe 2) boosts Insight Point gain.",
+            cost: new Decimal(1000),
+            currencyLocation() {return player.tlb},
+            currencyDisplayName: "Insight Points",
+            currencyInternalName: "pointsInsight",
+            style() {
+                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
+                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                return look
+            },
+        },
+        31: {
+            title: "Merit of Scholarus",
+            unlocked() {return true},
+            description: "<hr>The first three Tome types are boosted based on Merit Points.",
+            cost: new Decimal(10),
+            currencyLocation() {return player.tlb},
+            currencyDisplayName: "Merit Points",
+            currencyInternalName: "pointsMerit",
+            style() {
+                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
+                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                return look
+            },
+        },
+        32: {
+            title: "Merit of Eternia",
+            unlocked() {return true},
+            description: "<hr>Reading times are divided based on Tomes of Merit.",
+            cost: new Decimal(50),
+            currencyLocation() {return player.tlb},
+            currencyDisplayName: "Merit Points",
+            currencyInternalName: "pointsMerit",
+            style() {
+                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
+                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                return look
+            },
+        },
+        33: {
+            title: "Merit of Studias",
+            unlocked() {return true},
+            description: "<hr>You can bulk buy Tomes in the Bookshop.",
+            cost: new Decimal(250),
+            currencyLocation() {return player.tlb},
+            currencyDisplayName: "Merit Points",
+            currencyInternalName: "pointsMerit",
+            style() {
+                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
+                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                return look
+            },
+        },
+        34: {
+            title: "Merit of Alealya",
+            unlocked() {return true},
+            description: "<hr>Current Card Generators (Universe ε) boosts Merit Point gain.",
+            cost: new Decimal(1000),
+            currencyLocation() {return player.tlb},
+            currencyDisplayName: "Merit Points",
+            currencyInternalName: "pointsMerit",
+            style() {
+                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
+                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                return look
+            },
+        },
+    },
     buyables: {},
     milestones: {},
     challenges: {},
@@ -650,13 +1110,13 @@ addLayer("tlb", {
                                         [
                                             ["raw-html", () => {return "The Crimson Symbol Part<br>Encoder is producing"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.crimsonSymbolPartsGain) + "</h3> Cr.Sy.Prts per second."}, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.crimsonSymbolPartsGain) + "</h3> Cr.Sy.Prt/s per second."}, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "(Based on Radioactive Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "20px"],
                                             ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.crimsonSymbolParts) + "</h3> Cr.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "16px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.crimsonSymbolParts) + "</h3> Cr.Sy.Prt/s."}, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "16px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
                                     ]
                                 ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffdddd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff000023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
@@ -732,13 +1192,13 @@ addLayer("tlb", {
                                         [
                                             ["raw-html", () => {return "The Gold Symbol Part<br>Encoder is producing"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.goldSymbolPartsGain) + "</h3> Gl.Sy.Prts per second."}, {color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "14px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.goldSymbolPartsGain) + "</h3> Gl.Sy.Prt/s per second."}, {color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "14px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "(Based on Technological Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "20px"],
                                             ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.goldSymbolParts) + "</h3> Gl.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "16px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.goldSymbolParts) + "</h3> Gl.Sy.Prt/s."}, {color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "16px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
                                     ]
                                 ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ffff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
@@ -814,13 +1274,13 @@ addLayer("tlb", {
                                         [
                                             ["raw-html", () => {return "The Jade Symbol Part<br>Encoder is producing"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.jadeSymbolPartsGain) + "</h3> Jd.Sy.Prts per second."}, {color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "14px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.jadeSymbolPartsGain) + "</h3> Jd.Sy.Prt/s per second."}, {color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "14px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "(Based on Nature Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "20px"],
                                             ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.jadeSymbolParts) + "</h3> Jd.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "16px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.jadeSymbolParts) + "</h3> Jd.Sy.Prt/s."}, {color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "16px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
                                     ]
                                 ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
@@ -896,13 +1356,13 @@ addLayer("tlb", {
                                         [
                                             ["raw-html", () => {return "The Celeste Symbol Part<br>Encoder is producing"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.celesteSymbolPartsGain) + "</h3> Ce.Sy.Prts per second."}, {color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "14px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.celesteSymbolPartsGain) + "</h3> Ce.Sy.Prt/s per second."}, {color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "14px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "(Based on Ancient Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "20px"],
                                             ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.celesteSymbolParts) + "</h3> Ce.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "16px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.celesteSymbolParts) + "</h3> Ce.Sy.Prt/s."}, {color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "16px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
                                     ]
                                 ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ffff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
@@ -978,13 +1438,13 @@ addLayer("tlb", {
                                         [
                                             ["raw-html", () => {return "The Cobalt Symbol Part<br>Encoder is producing"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.cobaltSymbolPartsGain) + "</h3> Co.Sy.Prts per second."}, {color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "14px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.cobaltSymbolPartsGain) + "</h3> Co.Sy.Prt/s per second."}, {color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "14px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "(Based on Paradox Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "20px"],
                                             ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.cobaltSymbolParts) + "</h3> Co.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "16px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.cobaltSymbolParts) + "</h3> Co.Sy.Prt/s."}, {color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "16px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
                                     ]
                                 ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #0000ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
@@ -1060,13 +1520,13 @@ addLayer("tlb", {
                                         [
                                             ["raw-html", () => {return "The Amethyst Symbol Part<br>Encoder is producing"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.amethystSymbolPartsGain) + "</h3> Am.Sy.Prts per second."}, {color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "14px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                            ["raw-html", () => {return "<h3>" + formatShort(player.tlb.amethystSymbolPartsGain) + "</h3> Am.Sy.Prt/s per second."}, {color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "14px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "(Based on Cosmic Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "20px"],
                                             ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
-                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.amethystSymbolParts) + "</h3> Am.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "16px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                                            ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.amethystSymbolParts) + "</h3> Am.Sy.Prt/s."}, {color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "16px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
                                     ],
                                 ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff00ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
@@ -1258,7 +1718,7 @@ addLayer("tlb", {
             //                 ["row",
             //                     [], {width: "20px"}
             //                 ],
-            //                 ["clickable", "courageAlter"]
+            //                 ["clickable", "meritAlter"]
             //             ], {width: "700px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
             //         ],
             //     ]
@@ -1459,7 +1919,7 @@ addLayer("tlb", {
                                             ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #550000, #005555)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}]
                                         ]
                                     ],
-                                    ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset, 0 20px 10px 0 #00000078"}]
+                                    ["style-row", [["clickable", "forceTome"]], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset, 0 20px 10px 0 #00000078"}]
                                 ]
                             ],
                             ["style-row",[], {width: "10px"}],
@@ -1543,7 +2003,7 @@ addLayer("tlb", {
                                             ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #000055, #555500)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}]
                                         ]
                                     ],
-                                    ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset, 0 20px 10px 0 #00000078"}]
+                                    ["style-row", [["clickable", "insightTome"]], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset, 0 20px 10px 0 #00000078"}]
                                 ]
                             ],
                             ["style-row", [], {width: "10px"}],
@@ -1627,7 +2087,7 @@ addLayer("tlb", {
                                             ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #005500, #550055)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}]
                                             ]
                                     ],
-                                    ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset, 0 20px 10px 0 #00000078"}],
+                                    ["style-row", [["clickable", "meritTome"]], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset, 0 20px 10px 0 #00000078"}],
                                 ]
                             ]
                         ]
@@ -1635,6 +2095,200 @@ addLayer("tlb", {
                     ["style-row", [[]], {width: "1100px", height: "175px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset", marginTop: "-100px"}]
                 ]
             },
+            "Study": {
+                buttonStyle() {return {color: "#000000", backgroundImage: "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset"}},
+                unlocked() {return player.tlb.firstTomeForce == true && player.tlb.firstTomeInsight == true && player.tlb.firstTomeMerit == true},
+                content: [
+                    ["blank", "5px"],
+                    ["row",
+                        [
+                            ["raw-html", () => {return "You are currently in the"}, {color: "#ffffff", fontSize: "18px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                            ["blank", "2px"],
+                            ["raw-html", () => {return "-<u>Study</u>-."}, {color: "transparent", backgroundImage: "linear-gradient(-135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(-135deg, #ffffff12, #00000012), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "18px", 'text-shadow': " 0 0 5px #ffffffcd, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                        ]
+                    ],
+                    ["blank", "10px"],
+                    ["column",
+                        [
+                            ["row",
+                                [
+                                    ["style-column",
+                                        [
+                                            ["style-column",
+                                                [
+                                                    ["clickable", "forcePoints"],
+                                                ], {width: "300px", height: "140px", backgroundColor: "brown"}
+                                            ],
+                                            ["style-column",
+                                                [
+                                                    [],
+                                                ], {width: "10px", height: "10px"}
+                                            ],
+                                            ["style-row",
+                                                [
+                                                    ["style-column",
+                                                        [
+                                                            ["upgrade", 11],
+                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                    ],
+                                                    ["style-column",
+                                                        [
+                                                            [],
+                                                        ], {width: "10px", height: "10px"}
+                                                    ],
+                                                    ["style-column",
+                                                        [
+                                                            ["upgrade", 12],
+                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                    ]
+                                                ]
+                                            ],
+                                            ["style-column",
+                                                [
+                                                    [],
+                                                ], {width: "10px", height: "10px"}
+                                            ],
+                                            ["style-row",
+                                                [
+                                                    ["style-column",
+                                                        [
+                                                            ["upgrade", 13],
+                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                    ],
+                                                    ["style-column",
+                                                        [
+                                                            [],
+                                                        ], {width: "10px", height: "10px"}
+                                                    ],
+                                                    ["style-column",
+                                                        [
+                                                            ["upgrade", 14],
+                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                    ]
+                                                ]
+                                            ]
+                                        ], {width: "340px", height: "480px", backgroundColor: "orange"}
+                                    ],
+                                    ["style-column",
+                                        [
+                                            ["style-column",
+                                                [
+                                                    ["clickable", "insightPoints"],
+                                                ], {width: "300px", height: "140px", backgroundColor: "brown"}
+                                            ],
+                                            ["style-column",
+                                                [
+                                                    [],
+                                                ], {width: "10px", height: "10px"}
+                                            ],
+                                            ["style-row",
+                                                [
+                                                    ["style-column",
+                                                        [
+                                                            ["upgrade", 21],
+                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                    ],
+                                                    ["style-column",
+                                                        [
+                                                            [],
+                                                        ], {width: "10px", height: "10px"}
+                                                    ],
+                                                    ["style-column",
+                                                        [
+                                                            ["upgrade", 22],
+                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                    ]
+                                                ]
+                                            ],
+                                            ["style-column",
+                                                [
+                                                    [],
+                                                ], {width: "10px", height: "10px"}
+                                            ],
+                                            ["style-row",
+                                                [
+                                                    ["style-column",
+                                                        [
+                                                            ["upgrade", 23],
+                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                    ],
+                                                    ["style-column",
+                                                        [
+                                                            [],
+                                                        ], {width: "10px", height: "10px"}
+                                                    ],
+                                                    ["style-column",
+                                                        [
+                                                            ["upgrade", 24],
+                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                    ]
+                                                ]
+                                            ]
+                                        ], {width: "340px", height: "480px", backgroundColor: "orange"}
+                                    ],
+                                    ["style-column",
+                                        [
+                                            ["style-column",
+                                                [
+                                                    ["clickable", "meritPoints"],
+                                                ], {width: "300px", height: "140px", backgroundColor: "brown"}
+                                            ],
+                                            ["style-column",
+                                                [
+                                                    [],
+                                                ], {width: "10px", height: "10px"}
+                                            ],
+                                            ["style-row",
+                                                [
+                                                    ["style-column",
+                                                        [
+                                                            ["upgrade", 31],
+                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                    ],
+                                                    ["style-column",
+                                                        [
+                                                            [],
+                                                        ], {width: "10px", height: "10px"}
+                                                    ],
+                                                    ["style-column",
+                                                        [
+                                                            ["upgrade", 32],
+                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                    ]
+                                                ]
+                                            ],
+                                            ["style-column",
+                                                [
+                                                    [],
+                                                ], {width: "10px", height: "10px"}
+                                            ],
+                                            ["style-row",
+                                                [
+                                                    ["style-column",
+                                                        [
+                                                            ["upgrade", 33],
+                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                    ],
+                                                    ["style-column",
+                                                        [
+                                                            [],
+                                                        ], {width: "10px", height: "10px"}
+                                                    ],
+                                                    ["style-column",
+                                                        [
+                                                            ["upgrade", 34],
+                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                    ]
+                                                ]
+                                            ]
+                                        ], {width: "340px", height: "480px", backgroundColor: "orange"}
+                                    ]
+                                ]
+                            ]
+                        ], {width: "1050px", height: "510px"}
+                    ]
+                ]
+            }
         },
     },
     tabFormat: [
@@ -1648,18 +2302,18 @@ addLayer("tlb", {
                     ["column", [], {width: "30px"}],
                     ["column",
                         [
-                            ["raw-html", () => {return "You have <h3>" + formatWhole(player.ssp.alchemicalSymbols) + "</h3> 🝪 Al.Sys 🝪."}, {color: "transparent", background: "linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)", fontSize: "15px", textStroke: "1px #aaffaaab", 'text-shadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                            ["raw-html", () => {return "You have <h3>" + formatWhole(player.ssp.alchemicalSymbols) + "</h3> 🝪 Al.Sy/s 🝪."}, {color: "transparent", background: "linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)", fontSize: "15px", textStroke: "1px #aaffaaab", 'text-shadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                             ["raw-html", () => {
                                 if (hasUpgrade("ssp", 104))
-                                    return "You have <h3>" + formatWhole(player.ssp.advAlchemicalSymbols) + "</h3> ✩🝪 Adv.Al.Sys 🝪✩."}, {color: "transparent", background: "linear-gradient(to bottom, #8b609c, #ff00ff, #ffc0cb)", fontSize: "15px", textStroke: "1px #ffaaffab", 'text-shadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"
+                                    return "You have <h3>" + formatWhole(player.ssp.advAlchemicalSymbols) + "</h3> ✩🝪 Adv.Al.Sy/s 🝪✩."}, {color: "transparent", background: "linear-gradient(to bottom, #8b609c, #ff00ff, #ffc0cb)", fontSize: "15px", textStroke: "1px #ffaaffab", 'text-shadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"
                                 }
                             ],
                             ["raw-html", () => {
                                 if (hasUpgrade("ssp", 101))
-                                    return "You have <h3>" + formatWhole(player.tlb.revelationPoints) + "</h3> ⚿ Rev.Pts ⚿."}, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "15px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"
+                                    return "You have <h3>" + formatWhole(player.tlb.revelationPoints) + "</h3> ⚿ Rev.Pt/s ⚿."}, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "15px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"
                                 }
                             ],
-                            ["raw-html", () => {return "You have <h3>" + format(player.points) + "</h3> ✸ Cel.Pts ✸."}, {color: "#ffffff", fontSize: "15px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                            ["raw-html", () => {return "You have <h3>" + format(player.points) + "</h3> ✸ Cel.Pt/s ✸."}, {color: "#ffffff", fontSize: "15px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
                         ], {width: "420px", height: "90px", border: "1px solid #ffdb8e", borderRadius: "20px", backgroundImage: "radial-gradient(ellipse, #000000ab 30%, transparent), linear-gradient(-135deg, #ffffffcd 10%, transparent 30%, transparent 70%, #000000cd 90%), linear-gradient(-135deg, #ffffff45, #00000045), repeating-linear-gradient(45deg, transparent, transparent 9%, #000000ab 9%, #000000ab 10%, #00000067 10%, #00000067 19%, #000000ab 19%, #000000ab 20%, transparent 20%, transparent 29%, #ffffffab 29%, #ffffffab 30%, #ffffff67 30%, #ffffff67 39%, #ffffffab 39%, #ffffffab 40%), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", boxShadow: "0 0 10px #000000, 0 0 10px #000000, 0 0 10px #000000 inset, 0 0 10px #000000 inset"}
                     ],
                     ["column", [], {width: "30px"}],
