@@ -91,12 +91,18 @@ addLayer("tlb", {
         amethystSymbolPartsGain: new Decimal(0),
         amethystSymbolPartsMult: new Decimal(1),
 
-        crimsonSymbolsHardcap: new Decimal(10000),
-        goldSymbolsHardcap: new Decimal(10000),
-        jadeSymbolsHardcap: new Decimal(10000),
-        celesteSymbolsHardcap: new Decimal(10000),
-        cobaltSymbolsHardcap: new Decimal(10000),
-        amethystSymbolsHardcap: new Decimal(10000),
+        crimsonSymbolPartsSoftcap: new Decimal(10000),
+        crimsonSymbolPartsSoftcapEffect: new Decimal(0),
+        goldSymbolPartsSoftcap: new Decimal(10000),
+        goldSymbolPartsSoftcapEffect: new Decimal(0),
+        jadeSymbolPartsSoftcap: new Decimal(10000),
+        jadeSymbolPartsSoftcapEffect: new Decimal(0),
+        celesteSymbolPartsSoftcap: new Decimal(10000),
+        celesteSymbolPartsSoftcapEffect: new Decimal(0),
+        cobaltSymbolPartsSoftcap: new Decimal(10000),
+        cobaltSymbolPartsSoftcapEffect: new Decimal(0),
+        amethystSymbolPartsSoftcap: new Decimal(10000),
+        amethystSymbolPartsSoftcapEffect: new Decimal(0),
 
         // 1st order symbols
         arcaneSymbols: new Decimal (0),
@@ -113,40 +119,69 @@ addLayer("tlb", {
 
         // Symbol Parts generation
         if(hasUpgrade("ssp", 101)) {
+            // softcap start
+            let softcapStart = 10000
+
+            // put softcap modifiers in this section
+            
             player.tlb.crimsonSymbolParts = player.tlb.crimsonSymbolParts.add(onepersec.mul(delta).mul(player.tlb.crimsonSymbolPartsGain))
             player.tlb.crimsonSymbolPartsGain = player.tlb.crimsonSymbolsGain.add(Decimal.log10(player.cof.coreFragments[4].add(1)))
-            if(player.tlb.crimsonSymbolParts >= player.tlb.crimsonSymbolsHardcap) {
-                player.tlb.crimsonSymbolParts = player.tlb.crimsonSymbolsHardcap
+            if(player.tlb.crimsonSymbolParts >= softcapStart) {
+                player.tlb.crimsonSymbolPartsSoftcapEffect = player.tlb.crimsonSymbolParts.div(player.tlb.crimsonSymbolPartsSoftcap).sub(1).div(0.05)
+                player.tlb.crimsonSymbolPartsGain = player.tlb.crimsonSymbolsGain.add(Decimal.log10(player.cof.coreFragments[4].add(1))).sub(player.tlb.crimsonSymbolPartsSoftcapEffect)
+                if(player.tlb.crimsonSymbolPartsGain <= 0) {
+                    player.tlb.crimsonSymbolPartsGain = new Decimal(0)
+                }
             }
 
             player.tlb.goldSymbolParts = player.tlb.goldSymbolParts.add(onepersec.mul(delta).mul(player.tlb.goldSymbolPartsGain))
             player.tlb.goldSymbolPartsGain = player.tlb.goldSymbolsGain.add(Decimal.log10(player.cof.coreFragments[2].add(1)))
-            if(player.tlb.goldSymbolParts >= player.tlb.goldSymbolsHardcap) {
-                player.tlb.goldSymbolParts = player.tlb.goldSymbolsHardcap
+            if(player.tlb.goldSymbolParts >= softcapStart) {
+                player.tlb.goldSymbolPartsSoftcapEffect = player.tlb.goldSymbolParts.div(player.tlb.goldSymbolPartsSoftcap).sub(1).div(0.05)
+                player.tlb.goldSymbolPartsGain = player.tlb.goldSymbolsGain.add(Decimal.log10(player.cof.coreFragments[2].add(1))).sub(player.tlb.goldSymbolPartsSoftcapEffect)
+                if(player.tlb.goldSymbolPartsGain <= 0) {
+                    player.tlb.goldSymbolPartsGain = new Decimal(0)
+                }
             }
 
             player.tlb.jadeSymbolParts = player.tlb.jadeSymbolParts.add(onepersec.mul(delta).mul(player.tlb.jadeSymbolPartsGain))
             player.tlb.jadeSymbolPartsGain = player.tlb.jadeSymbolsGain.add(Decimal.log10(player.cof.coreFragments[1].add(1)))
-            if(player.tlb.jadeSymbolParts >= player.tlb.jadeSymbolsHardcap) {
-                player.tlb.jadeSymbolParts = player.tlb.jadeSymbolsHardcap
+            if(player.tlb.jadeSymbolParts >= softcapStart) {
+                player.tlb.jadeSymbolPartsSoftcapEffect = player.tlb.jadeSymbolParts.div(player.tlb.jadeSymbolPartsSoftcap).sub(1).div(0.05)
+                player.tlb.jadeSymbolPartsGain = player.tlb.jadeSymbolsGain.add(Decimal.log10(player.cof.coreFragments[1].add(1))).sub(player.tlb.jadeSymbolPartsSoftcapEffect)
+                if(player.tlb.jadeSymbolPartsGain <= 0) {
+                    player.tlb.jadeSymbolPartsGain = new Decimal(0)
+                }
             }
 
             player.tlb.celesteSymbolParts = player.tlb.celesteSymbolParts.add(onepersec.mul(delta).mul(player.tlb.celesteSymbolPartsGain))
             player.tlb.celesteSymbolPartsGain = player.tlb.celesteSymbolsGain.add(Decimal.log10(player.cof.coreFragments[0].add(1)))
-            if(player.tlb.celesteSymbolParts >= player.tlb.celesteSymbolsHardcap) {
-                player.tlb.celesteSymbolParts = player.tlb.celesteSymbolsHardcap
+            if(player.tlb.celesteSymbolParts >= softcapStart) {
+                player.tlb.celesteSymbolPartsSoftcapEffect = player.tlb.celesteSymbolParts.div(player.tlb.celesteSymbolPartsSoftcap).sub(1).div(0.05)
+                player.tlb.celesteSymbolPartsGain = player.tlb.celesteSymbolsGain.add(Decimal.log10(player.cof.coreFragments[0].add(1))).sub(player.tlb.celesteSymbolPartsSoftcapEffect)
+                if(player.tlb.celesteSymbolPartsGain <= 0) {
+                    player.tlb.celesteSymbolPartsGain = new Decimal(0)
+                }
             }
 
             player.tlb.cobaltSymbolParts = player.tlb.cobaltSymbolParts.add(onepersec.mul(delta).mul(player.tlb.cobaltSymbolPartsGain))
             player.tlb.cobaltSymbolPartsGain = player.tlb.cobaltSymbolsGain.add(Decimal.log10(player.cof.coreFragments[3].add(1)))
-            if(player.tlb.cobaltSymbolParts >= player.tlb.cobaltSymbolsHardcap) {
-                player.tlb.cobaltSymbolParts = player.tlb.cobaltSymbolsHardcap
+            if(player.tlb.cobaltSymbolParts >= softcapStart) {
+                player.tlb.cobaltSymbolPartsSoftcapEffect = player.tlb.cobaltSymbolParts.div(player.tlb.cobaltSymbolPartsSoftcap).sub(1).div(0.05)
+                player.tlb.cobaltSymbolPartsGain = player.tlb.cobaltSymbolsGain.add(Decimal.log10(player.cof.coreFragments[3].add(1))).sub(player.tlb.cobaltSymbolPartsSoftcapEffect)
+                if(player.tlb.cobaltSymbolPartsGain <= 0) {
+                    player.tlb.cobaltSymbolPartsGain = new Decimal(0)
+                }
             }
 
             player.tlb.amethystSymbolParts = player.tlb.amethystSymbolParts.add(onepersec.mul(delta).mul(player.tlb.amethystSymbolPartsGain))
             player.tlb.amethystSymbolPartsGain = player.tlb.amethystSymbolsGain.add(Decimal.log10(player.cof.coreFragments[5].add(1)))
-            if(player.tlb.amethystSymbolParts >= player.tlb.amethystSymbolsHardcap) {
-                player.tlb.amethystSymbolParts = player.tlb.amethystSymbolsHardcap
+            if(player.tlb.amethystSymbolParts >= softcapStart) {
+                player.tlb.amethystSymbolPartsSoftcapEffect = player.tlb.amethystSymbolParts.div(player.tlb.amethystSymbolPartsSoftcap).sub(1).div(0.05)
+                player.tlb.amethystSymbolPartsGain = player.tlb.amethystSymbolsGain.add(Decimal.log10(player.cof.coreFragments[5].add(1))).sub(player.tlb.amethystSymbolPartsSoftcapEffect)
+                if(player.tlb.amethystSymbolPartsGain <= 0) {
+                    player.tlb.amethystSymbolPartsGain = new Decimal(0)
+                }
             }
         }
 
@@ -1113,8 +1148,14 @@ addLayer("tlb", {
                                             ["raw-html", () => {return "<h3>" + formatShort(player.tlb.crimsonSymbolPartsGain) + "</h3> Cr.Sy.Prt/s per second."}, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "(Based on Radioactive Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
-                                            ["blank", "20px"],
-                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "10px"],
+                                            ["raw-html", () => {
+                                                let softcapStart = 10000
+                                                if (player.tlb.crimsonSymbolParts >= softcapStart)
+                                                    return "You have<br><small>[SOFTCAPPED: -<h3>" + formatShort(player.tlb.crimsonSymbolPartsSoftcapEffect) + "</h3> to production</small>]"
+                                                else
+                                                    return "You have"
+                                            }, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.crimsonSymbolParts) + "</h3> Cr.Sy.Prt/s."}, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "16px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
@@ -1195,8 +1236,14 @@ addLayer("tlb", {
                                             ["raw-html", () => {return "<h3>" + formatShort(player.tlb.goldSymbolPartsGain) + "</h3> Gl.Sy.Prt/s per second."}, {color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "14px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "(Based on Technological Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
-                                            ["blank", "20px"],
-                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "10px"],
+                                            ["raw-html", () => {
+                                                let softcapStart = 10000
+                                                if (player.tlb.goldSymbolParts >= softcapStart)
+                                                    return "You have<br><small>[SOFTCAPPED: -<h3>" + formatShort(player.tlb.goldSymbolPartsSoftcapEffect) + "</h3> to production</small>]"
+                                                else
+                                                    return "You have"
+                                            }, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.goldSymbolParts) + "</h3> Gl.Sy.Prt/s."}, {color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "16px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
@@ -1277,8 +1324,14 @@ addLayer("tlb", {
                                             ["raw-html", () => {return "<h3>" + formatShort(player.tlb.jadeSymbolPartsGain) + "</h3> Jd.Sy.Prt/s per second."}, {color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "14px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "(Based on Nature Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
-                                            ["blank", "20px"],
-                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "10px"],
+                                            ["raw-html", () => {
+                                                let softcapStart = 10000
+                                                if (player.tlb.goldSymbolParts >= softcapStart)
+                                                    return "You have<br><small>[SOFTCAPPED: -<h3>" + formatShort(player.tlb.goldSymbolPartsSoftcapEffect) + "</h3> to production</small>]"
+                                                else
+                                                    return "You have"
+                                            }, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.jadeSymbolParts) + "</h3> Jd.Sy.Prt/s."}, {color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "16px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
@@ -1359,8 +1412,14 @@ addLayer("tlb", {
                                             ["raw-html", () => {return "<h3>" + formatShort(player.tlb.celesteSymbolPartsGain) + "</h3> Ce.Sy.Prt/s per second."}, {color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "14px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "(Based on Ancient Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
-                                            ["blank", "20px"],
-                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "10px"],
+                                            ["raw-html", () => {
+                                                let softcapStart = 10000
+                                                if (player.tlb.celesteSymbolParts >= softcapStart)
+                                                    return "You have<br><small>[SOFTCAPPED: -<h3>" + formatShort(player.tlb.celesteSymbolPartsSoftcapEffect) + "</h3> to production</small>]"
+                                                else
+                                                    return "You have"
+                                            }, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.celesteSymbolParts) + "</h3> Ce.Sy.Prt/s."}, {color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "16px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
@@ -1441,8 +1500,14 @@ addLayer("tlb", {
                                             ["raw-html", () => {return "<h3>" + formatShort(player.tlb.cobaltSymbolPartsGain) + "</h3> Co.Sy.Prt/s per second."}, {color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "14px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "(Based on Paradox Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
-                                            ["blank", "20px"],
-                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "10px"],
+                                            ["raw-html", () => {
+                                                let softcapStart = 10000
+                                                if (player.tlb.cobaltSymbolParts >= softcapStart)
+                                                    return "You have<br><small>[SOFTCAPPED: -<h3>" + formatShort(player.tlb.cobaltSymbolPartsSoftcapEffect) + "</h3> to production</small>]"
+                                                else
+                                                    return "You have"
+                                            }, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.cobaltSymbolParts) + "</h3> Co.Sy.Prt/s."}, {color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "16px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
@@ -1523,8 +1588,13 @@ addLayer("tlb", {
                                             ["raw-html", () => {return "<h3>" + formatShort(player.tlb.amethystSymbolPartsGain) + "</h3> Am.Sy.Prt/s per second."}, {color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "14px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "(Based on Cosmic Core Fragments.)"}, {color: "#ffffff", fontSize: "13px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
-                                            ["blank", "20px"],
-                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "16px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "10px"],
+                                            ["raw-html", () => {
+                                                let softcapStart = 10000
+                                                if (player.tlb.amethystSymbolParts >= softcapStart)
+                                                    return "You have<br><small>[SOFTCAPPED: -<h3>" + formatShort(player.tlb.amethystSymbolPartsSoftcapEffect) + "</h3> to production</small>]"
+                                                    return "You have"
+                                            }, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.amethystSymbolParts) + "</h3> Am.Sy.Prt/s."}, {color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "16px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
