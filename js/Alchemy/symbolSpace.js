@@ -34,7 +34,7 @@ addLayer("ssp", {
         // Continuous gains, maybe later
         let onepersec = new Decimal(1)
         // Start of Alchemical Symbol Gain
-        player.ssp.alchemicalSymbolsGain = player.points.add(1).log10(player.points).log10(player.points)
+        player.ssp.alchemicalSymbolsGain = player.points.add(1).log10(player.points).add(1).log10(player.points)
         // Flooring Alchemical Symbol Gain
         player.ssp.alchemicalSymbolsGain = player.ssp.alchemicalSymbolsGain.floor()
 
