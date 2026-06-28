@@ -40,8 +40,8 @@ addLayer("ssp", {
         player.ssp.alchemicalSymbolsGain = player.ssp.alchemicalSymbolsGain.floor()
 
         // Start of Al.Sys modifiers
-        if (hasUpgrade("tlb", 11)) player.ssp.alchemicalSymbolsGain = player.ssp.alchemicalSymbolsGain.mul(upgradeEffect("tlb", 11)).floor()
         if (hasUpgrade("tlb", 13)) player.ssp.alchemicalSymbolsGain = player.ssp.alchemicalSymbolsGain.mul(upgradeEffect("tlb", 13)).floor()
+        if (hasUpgrade("tlb", 31)) player.ssp.alchemicalSymbolsGain = player.ssp.alchemicalSymbolsGain.mul(upgradeEffect("tlb", 11)).floor()
     },
     // Alchemical Symbol Reset mechanism
     alchemicalSymbolsReset() {
@@ -153,7 +153,7 @@ addLayer("ssp", {
             }
         },
         102: {
-            title () {return hasUpgrade("ssp", 102) ? "<h3>Alchemfactory</h3><br>[PURCHASED]" : (hasUpgrade("ssp", 101) && player.ssp.alchemicalSymbols >= 100 && player.tlb.revelationPoints >= 1000) ? "<h3>Alchemfactory</h3>" : "<h3>??????</h3>"},
+            title () {return hasUpgrade("ssp", 102) ? "<h3>Alchemfactory</h3><br>[PURCHASED]" : (hasUpgrade("ssp", 101) && player.ssp.alchemicalSymbols >= 1000 && player.tlb.revelationPoints >= 100) ? "<h3>Alchemfactory</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
             description () {return (hasUpgrade("ssp", 101) && player.ssp.alchemicalSymbols >= 1000 && player.tlb.revelationPoints >= 100) || hasUpgrade("ssp", 102) ? "<hr>Unlocks Crafting, the Assembly and the Apparatus." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(1000),

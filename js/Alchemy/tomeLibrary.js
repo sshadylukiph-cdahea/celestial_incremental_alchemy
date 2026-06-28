@@ -7,6 +7,7 @@ addLayer("tlb", {
     startData() {return {
         unlocked: true,
         buyMaxSymbols: false,
+        buyMaxTomes: false,
         stopTime: new Decimal(0),
 
         // Alteration Costs
@@ -17,6 +18,13 @@ addLayer("tlb", {
         baseCostsCelesteSymbols: new Decimal(1000),
         baseCostsCobaltSymbols: new Decimal(1000),
         baseCostsAmethystSymbols: new Decimal(1000),
+
+        baseCostsForceCr: new Decimal(15),
+        baseCostsInsightGl: new Decimal(21),
+        baseCostsMeritJd: new Decimal(23),
+        baseCostsForceCe: new Decimal(18),
+        baseCostsInsightCo: new Decimal(19),
+        baseCostsMeritAm: new Decimal(14),
 
         // combinationsUnlocked: false, (LATER)
 
@@ -175,13 +183,21 @@ addLayer("tlb", {
         }
 
         // Start of first six symbol and their parts' modifiers
+        if (hasUpgrade("tlb", 31)) {
+            player.tlb.crimsonSymbolPartsGain = player.tlb.crimsonSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+            player.tlb.goldSymbolPartsGain = player.tlb.goldSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+            player.tlb.jadeSymbolPartGain = player.tlb.jadeSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+            player.tlb.celesteSymbolPartsGain = player.tlb.celesteSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+            player.tlb.cobaltSymbolPartsGain = player.tlb.cobaltSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+            player.tlb.amethystSymbolPartsGain = player.tlb.amethystSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+        }
         if (hasUpgrade("tlb", 11)) {
-            player.tlb.crimsonSymbolPartsGain = player.tlb.crimsonSymbolPartsGain.mul(upgradeEffect("tlb", 11))
-            player.tlb.goldSymbolPartsGain = player.tlb.goldSymbolPartsGain.mul(upgradeEffect("tlb", 11))
-            player.tlb.jadeSymbolPartGain = player.tlb.jadeSymbolPartsGain.mul(upgradeEffect("tlb", 11))
-            player.tlb.celesteSymbolPartsGain = player.tlb.celesteSymbolPartsGain.mul(upgradeEffect("tlb", 11))
-            player.tlb.cobaltSymbolPartsGain = player.tlb.cobaltSymbolPartsGain.mul(upgradeEffect("tlb", 11))
-            player.tlb.amethystSymbolPartsGain = player.tlb.amethystSymbolPartsGain.mul(upgradeEffect("tlb", 11))
+            player.tlb.crimsonSymbolPartsGain = player.tlb.crimsonSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+            player.tlb.goldSymbolPartsGain = player.tlb.goldSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+            player.tlb.jadeSymbolPartGain = player.tlb.jadeSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+            player.tlb.celesteSymbolPartsGain = player.tlb.celesteSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+            player.tlb.cobaltSymbolPartsGain = player.tlb.cobaltSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+            player.tlb.amethystSymbolPartsGain = player.tlb.amethystSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
         }
 
         // Secondary Tome Point generation
@@ -218,6 +234,8 @@ addLayer("tlb", {
 
         // Start of first three tome types and their point forms' modifiers
         if(hasUpgrade("tlb", 14)) player.tlb.pointsForceGain = player.tlb.pointsForceGain.mul(upgradeEffect("tlb", 14))
+        if(hasUpgrade("tlb", 14)) player.tlb.pointsInsightGain = player.tlb.pointsInsightGain.mul(upgradeEffect("tlb", 24))
+        if(hasUpgrade("tlb", 34)) player.tlb.pointsMeritGain = player.tlb.pointsMeritGain.mul(upgradeEffect("tlb", 34))
         if(hasUpgrade("tlb", 21)) {
             player.tlb.revelationPointsGainForce = player.tlb.revelationPointsGainForce.mul(upgradeEffect("tlb", 21))
             player.tlb.revelationPointsGainInsight = player.tlb.revelationPointsGainInsight.mul(upgradeEffect("tlb", 21))
@@ -273,6 +291,52 @@ addLayer("tlb", {
             unlocked() {return true},
             onClick() { 
                 player.tlb.buyMaxSymbols = true
+            },
+            style() {
+                let look = {width: '100px', minHeight: '60px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+                    if (this.canClick()) {
+                        look.backgroundImage = "linear-gradient(to bottom, #555555,  #555555)"
+                        look.borderImage = "linear-gradient(to bottom, #000000, #000000) 1"
+                        look.color = "#000000";
+                        look.boxShadow = "0 0 3px 1px #000000 inset"
+                    } else {
+                        look.backgroundImage = "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)"
+                        look.borderImage = "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1"
+                        look.color = "#000000"
+                        look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 10px 1px #ffffff"
+                    }
+                return look
+            }
+        },
+        buyMaxOff2: {
+            title() {return player.tlb.buyMaxTomes == false ? "Buy Max<br>OFF [ACTIVE]" : "Buy Max<br>OFF"},
+            canClick() {return player.tlb.buyMaxTomes == true},
+            unlocked() {return hasUpgrade("tlb", 33)},
+            onClick() { 
+                player.tlb.buyMaxTomes = false
+            },
+            style() {
+                let look = {width: '100px', minHeight: '60px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+                    if (this.canClick()) {
+                        look.backgroundImage = "linear-gradient(to bottom, #555555,  #555555)"
+                        look.borderImage = "linear-gradient(to bottom, #000000, #000000) 1"
+                        look.color = "#000000";
+                        look.boxShadow = "0 0 3px 1px #000000 inset"
+                    } else {
+                        look.backgroundImage = "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)"
+                        look.borderImage = "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1"
+                        look.color = "#000000"
+                        look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 10px 1px #ffffff"
+                    }
+                return look
+            }
+        },
+        buyMaxOn2: {
+            title() {return player.tlb.buyMaxTomes == true ? "Buy Max<br>ON [ACTIVE]" : "Buy Max<br>ON"},
+            canClick() {return player.tlb.buyMaxTomes == false},
+            unlocked() {return hasUpgrade("tlb", 33)},
+            onClick() { 
+                player.tlb.buyMaxTomes = true
             },
             style() {
                 let look = {width: '100px', minHeight: '60px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
@@ -350,8 +414,8 @@ addLayer("tlb", {
         },
         crimsonAlter: {
             title() {
-                let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                let val2 = player.tlb.crimsonSymbolParts.div(1000).floor()
+                let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                let val2 = player.tlb.crimsonSymbolParts.div(player.tlb.baseCostsCrimsonSymbols).floor()
                 let result = val1
                 if(val2.lt(val1)) result = val2
 
@@ -378,13 +442,13 @@ addLayer("tlb", {
                     return player.ssp.alchemicalSymbols.gte(firstReq) && player.tlb.crimsonSymbolParts.gte(secondReq)
                 }
                 else {
-                    return player.ssp.alchemicalSymbols >= 10 && player.tlb.crimsonSymbolParts >= 1000
+                    return player.ssp.alchemicalSymbols >= player.tlb.baseCostsAlchemicalSymbols && player.tlb.crimsonSymbolParts >= player.tlb.baseCostsCrimsonSymbols
                 }  
             },
             unlocked() {return true},
             onClick() { 
-                let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                let val2 = player.tlb.crimsonSymbolParts.div(1000).floor()
+                let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                let val2 = player.tlb.crimsonSymbolParts.div(player.tlb.baseCostsCrimsonSymbols).floor()
                 let result = val1
                 if(val2.lt(val1)) result = val2
 
@@ -402,8 +466,8 @@ addLayer("tlb", {
                         player.tlb.crimsonSymbolParts = player.tlb.crimsonSymbolParts.sub(secondReq)
                     }
                     else {
-                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(10)
-                        player.tlb.crimsonSymbolParts = player.tlb.crimsonSymbolParts.sub(1000)
+                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(player.tlb.baseCostsAlchemicalSymbols)
+                        player.tlb.crimsonSymbolParts = player.tlb.crimsonSymbolParts.sub(player.tlb.baseCostsCrimsonSymbols)
                     }
                 } 
                 else if (player.tlb.buyMaxSymbols == true) {
@@ -414,8 +478,8 @@ addLayer("tlb", {
                     }
                     else {
                         player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.add(result)
-                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(10, result))
-                        player.tlb.crimsonSymbolParts = player.tlb.crimsonSymbolParts.sub(Decimal.mul(1000, result))
+                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(player.tlb.baseCostsAlchemicalSymbols, result))
+                        player.tlb.crimsonSymbolParts = player.tlb.crimsonSymbolParts.sub(Decimal.mul(player.tlb.baseCostsCrimsonSymbols, result))
                     }
                 }
             },
@@ -439,8 +503,8 @@ addLayer("tlb", {
         },
         goldAlter: {
             title() {
-                let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                let val2 = player.tlb.goldSymbolParts.div(1000).floor()
+                let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                let val2 = player.tlb.goldSymbolParts.div(player.tlb.baseCostsGoldSymbols).floor()
                 let result = val1
                 if(val2.lt(val1)) result = val2
 
@@ -467,13 +531,13 @@ addLayer("tlb", {
                     return player.ssp.alchemicalSymbols.gte(firstReq) && player.tlb.goldSymbolParts.gte(secondReq)
                 }
                 else {
-                    return player.ssp.alchemicalSymbols >= 10 && player.tlb.goldSymbolParts >= 1000
+                    return player.ssp.alchemicalSymbols >= player.tlb.baseCostsAlchemicalSymbols && player.tlb.goldSymbolParts >= player.tlb.baseCostsGoldSymbols
                 }  
             },
             unlocked() {return true},
             onClick() { 
-                let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                let val2 = player.tlb.goldSymbolParts.div(1000).floor()
+                let val1 = player.ssp.alchemicalSymbols.div(baseCostsAlchemicalSymbols).floor()
+                let val2 = player.tlb.goldSymbolParts.div(player.tlb.baseCostsGoldSymbols).floor()
                 let result = val1
                 if(val2.lt(val1)) result = val2
 
@@ -491,8 +555,8 @@ addLayer("tlb", {
                         player.tlb.goldSymbolParts = player.tlb.goldSymbolParts.sub(secondReq)
                     }
                     else {
-                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(10)
-                        player.tlb.goldSymbolParts = player.tlb.goldSymbolParts.sub(1000)
+                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(player.tlb.baseCostsAlchemicalSymbols)
+                        player.tlb.goldSymbolParts = player.tlb.goldSymbolParts.sub(player.tlb.baseCostsGoldSymbols)
                     }
                 } 
                 else if (player.tlb.buyMaxSymbols == true) {
@@ -503,8 +567,8 @@ addLayer("tlb", {
                     }
                     else {
                         player.tlb.goldSymbols = player.tlb.goldSymbols.add(result)
-                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(10, result))
-                        player.tlb.goldSymbolParts = player.tlb.goldSymbolParts.sub(Decimal.mul(1000, result))
+                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(player.tlb.baseCostsAlchemicalSymbols, result))
+                        player.tlb.goldSymbolParts = player.tlb.goldSymbolParts.sub(Decimal.mul(player.tlb.baseCostsGoldSymbols, result))
                     }
                 }
             },
@@ -528,8 +592,8 @@ addLayer("tlb", {
         },
         jadeAlter: {
             title() {
-                let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                let val2 = player.tlb.jadeSymbolParts.div(1000).floor()
+                let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                let val2 = player.tlb.jadeSymbolParts.div(player.tlb.baseCostsJadeSymbols).floor()
                 let result = val1
                 if(val2.lt(val1)) result = val2
 
@@ -556,13 +620,13 @@ addLayer("tlb", {
                     return player.ssp.alchemicalSymbols.gte(firstReq) && player.tlb.jadeSymbolParts.gte(secondReq)
                 }
                 else {
-                    return player.ssp.alchemicalSymbols >= 10 && player.tlb.jadeSymbolParts >= 1000
+                    return player.ssp.alchemicalSymbols >= player.tlb.baseCostsAlchemicalSymbols && player.tlb.jadeSymbolParts >= player.tlb.baseCostsJadeSymbols
                 }  
             },
             unlocked() {return true},
             onClick() { 
-                let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                let val2 = player.tlb.jadeSymbolParts.div(1000).floor()
+                let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                let val2 = player.tlb.jadeSymbolParts.div(player.tlb.baseCostsJadeSymbols).floor()
                 let result = val1
                 if(val2.lt(val1)) result = val2
 
@@ -580,8 +644,8 @@ addLayer("tlb", {
                         player.tlb.jadeSymbolParts = player.tlb.jadeSymbolParts.sub(secondReq)
                     }
                     else {
-                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(10)
-                        player.tlb.jadeSymbolParts = player.tlb.jadeSymbolParts.sub(1000)
+                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(player.tlb.baseCostsAlchemicalSymbols)
+                        player.tlb.jadeSymbolParts = player.tlb.jadeSymbolParts.sub(player.tlb.baseCostsJadeSymbols)
                     }
                 } 
                 else if (player.tlb.buyMaxSymbols == true) {
@@ -592,8 +656,8 @@ addLayer("tlb", {
                     }
                     else {
                         player.tlb.jadeSymbols = player.tlb.jadeSymbols.add(result)
-                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(10, result))
-                        player.tlb.jadeSymbolParts = player.tlb.jadeSymbolParts.sub(Decimal.mul(1000, result))
+                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(player.tlb.baseCostsAlchemicalSymbols, result))
+                        player.tlb.jadeSymbolParts = player.tlb.jadeSymbolParts.sub(Decimal.mul(player.tlb.baseCostsJadeSymbols, result))
                     }
                 }
             },
@@ -617,8 +681,8 @@ addLayer("tlb", {
         },
         celesteAlter: {
             title() {
-                let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                let val2 = player.tlb.celesteSymbolParts.div(1000).floor()
+                let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                let val2 = player.tlb.celesteSymbolParts.div(player.tlb.baseCostsCelesteSymbols).floor()
                 let result = val1
                 if(val2.lt(val1)) result = val2
 
@@ -645,13 +709,13 @@ addLayer("tlb", {
                     return player.ssp.alchemicalSymbols.gte(firstReq) && player.tlb.celesteSymbolParts.gte(secondReq)
                 }
                 else {
-                    return player.ssp.alchemicalSymbols >= 10 && player.tlb.celesteSymbolParts >= 1000
+                    return player.ssp.alchemicalSymbols >= player.tlb.baseCostsAlchemicalSymbols && player.tlb.celesteSymbolParts >= player.tlb.baseCostsCelesteSymbols
                 }  
             },
             unlocked() {return true},
             onClick() { 
-                let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                let val2 = player.tlb.celesteSymbolParts.div(1000).floor()
+                let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                let val2 = player.tlb.celesteSymbolParts.div(player.tlb.baseCostsCelesteSymbols).floor()
                 let result = val1
                 if(val2.lt(val1)) result = val2
 
@@ -669,8 +733,8 @@ addLayer("tlb", {
                         player.tlb.celesteSymbolParts = player.tlb.celesteSymbolParts.sub(secondReq)
                     }
                     else {
-                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(10)
-                        player.tlb.celesteSymbolParts = player.tlb.celesteSymbolParts.sub(1000)
+                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(player.tlb.baseCostsAlchemicalSymbols)
+                        player.tlb.celesteSymbolParts = player.tlb.celesteSymbolParts.sub(player.tlb.baseCostsCelesteSymbols)
                     }
                 } 
                 else if (player.tlb.buyMaxSymbols == true) {
@@ -681,8 +745,8 @@ addLayer("tlb", {
                     }
                     else {
                         player.tlb.celesteSymbols = player.tlb.celesteSymbols.add(result)
-                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(10, result))
-                        player.tlb.celesteSymbolParts = player.tlb.celesteSymbolParts.sub(Decimal.mul(1000, result))
+                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(player.tlb.baseCostsAlchemicalSymbols, result))
+                        player.tlb.celesteSymbolParts = player.tlb.celesteSymbolParts.sub(Decimal.mul(player.tlb.baseCostsCelesteSymbols, result))
                     }
                 }
             },
@@ -706,7 +770,7 @@ addLayer("tlb", {
         },
         cobaltAlter: {
             title() {
-                let val1 = player.ssp.alchemicalSymbols.div(10).floor()
+                let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
                 let val2 = player.tlb.cobaltSymbolParts.div(1000).floor()
                 let result = val1
                 if(val2.lt(val1)) result = val2
@@ -734,13 +798,13 @@ addLayer("tlb", {
                     return player.ssp.alchemicalSymbols.gte(firstReq) && player.tlb.cobaltSymbolParts.gte(secondReq)
                 }
                 else {
-                    return player.ssp.alchemicalSymbols >= 10 && player.tlb.cobaltSymbolParts >= 1000
+                    return player.ssp.alchemicalSymbols >= player.tlb.baseCostsAlchemicalSymbols && player.tlb.cobaltSymbolParts >= player.tlb.baseCostsCobaltSymbols
                 }  
             },
             unlocked() {return true},
             onClick() { 
-                let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                let val2 = player.tlb.cobaltSymbolParts.div(1000).floor()
+                let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                let val2 = player.tlb.cobaltSymbolParts.div(player.tlb.baseCostsCobaltSymbols).floor()
                 let result = val1
                 if(val2.lt(val1)) result = val2
 
@@ -758,8 +822,8 @@ addLayer("tlb", {
                         player.tlb.cobaltSymbolParts = player.tlb.cobaltSymbolParts.sub(secondReq)
                     }
                     else {
-                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(10)
-                        player.tlb.cobaltSymbolParts = player.tlb.cobaltSymbolParts.sub(1000)
+                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(player.tlb.baseCostsAlchemicalSymbols)
+                        player.tlb.cobaltSymbolParts = player.tlb.cobaltSymbolParts.sub(player.tlb.baseCostsCobaltSymbols)
                     }
                 } 
                 else if (player.tlb.buyMaxSymbols == true) {
@@ -770,8 +834,8 @@ addLayer("tlb", {
                     }
                     else {
                         player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.add(result)
-                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(10, result))
-                        player.tlb.cobaltSymbolParts = player.tlb.cobaltSymbolParts.sub(Decimal.mul(1000, result))
+                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(player.tlb.baseCostsAlchemicalSymbols, result))
+                        player.tlb.cobaltSymbolParts = player.tlb.cobaltSymbolParts.sub(Decimal.mul(player.tlb.baseCostsCobaltSymbols, result))
                     }
                 }
             },
@@ -795,7 +859,7 @@ addLayer("tlb", {
         },
         amethystAlter: {
             title() {
-                let val1 = player.ssp.alchemicalSymbols.div(10).floor()
+                let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
                 let val2 = player.tlb.amethystSymbolParts.div(1000).floor()
                 let result = val1
                 if(val2.lt(val1)) result = val2
@@ -823,13 +887,13 @@ addLayer("tlb", {
                     return player.ssp.alchemicalSymbols.gte(firstReq) && player.tlb.amethystSymbolParts.gte(secondReq)
                 }
                 else {
-                    return player.ssp.alchemicalSymbols >= 10 && player.tlb.amethystSymbolParts >= 1000
+                    return player.ssp.alchemicalSymbols >= player.tlb.baseCostsAlchemicalSymbols && player.tlb.amethystSymbolParts >= player.tlb.baseCostsAmethystSymbols
                 }  
             },
             unlocked() {return true},
             onClick() { 
-                let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                let val2 = player.tlb.amethystSymbolParts.div(1000).floor()
+                let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                let val2 = player.tlb.amethystSymbolParts.div(player.tlb.baseCostsAmethystSymbols).floor()
                 let result = val1
                 if(val2.lt(val1)) result = val2
 
@@ -847,8 +911,8 @@ addLayer("tlb", {
                         player.tlb.amethystSymbolParts = player.tlb.amethystSymbolParts.sub(secondReq)
                     }
                     else {
-                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(10)
-                        player.tlb.amethystSymbolParts = player.tlb.amethystSymbolParts.sub(1000)
+                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(player.tlb.baseCostsAlchemicalSymbols)
+                        player.tlb.amethystSymbolParts = player.tlb.amethystSymbolParts.sub(player.tlb.baseCostsAmethystSymbols)
                     }
                 } 
                 else if (player.tlb.buyMaxSymbols == true) {
@@ -859,8 +923,8 @@ addLayer("tlb", {
                     }
                     else {
                         player.tlb.amethystSymbols = player.tlb.amethystSymbols.add(result)
-                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(10, result))
-                        player.tlb.amethystSymbolParts = player.tlb.amethystSymbolParts.sub(Decimal.mul(1000, result))
+                        player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(Decimal.mul(player.tlb.baseCostsAlchemicalSymbols, result))
+                        player.tlb.amethystSymbolParts = player.tlb.amethystSymbolParts.sub(Decimal.mul(player.tlb.baseCostsAmethystSymbols, result))
                     }
                 }
             },
@@ -890,7 +954,7 @@ addLayer("tlb", {
             unlocked() {return true},
             onClick() { 
                 player.tlb.firstTomeForce = true
-                player.tlb.tomesForce = player.tlb.tomesForce.add(1)
+                player.tlb.tomesForce = player.tlb.tomesForce.add(player.tlb.tomesForceGain)
                 player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(15)
                 player.tlb.celesteSymbols = player.tlb.celesteSymbols.sub(18)
             },
@@ -920,7 +984,7 @@ addLayer("tlb", {
             unlocked() {return true},
             onClick() { 
                 player.tlb.firstTomeInsight = true
-                player.tlb.tomesInsight = player.tlb.tomesInsight.add(1)
+                player.tlb.tomesInsight = player.tlb.tomesInsight.add(player.tlb.tomesInsightGain)
                 player.tlb.goldSymbols = player.tlb.goldSymbols.sub(21)
                 player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.sub(19)
             },
@@ -950,7 +1014,7 @@ addLayer("tlb", {
             unlocked() {return true},
             onClick() { 
                 player.tlb.firstTomeMerit = true
-                player.tlb.tomesMerit = player.tlb.tomesMerit.add(1)
+                player.tlb.tomesMerit = player.tlb.tomesMerit.add(player.tlb.tomesMeritGain)
                 player.tlb.jadeSymbols = player.tlb.jadeSymbols.sub(21)
                 player.tlb.amethystSymbols = player.tlb.amethystSymbols.sub(14)
             },
@@ -984,16 +1048,25 @@ addLayer("tlb", {
             canClick() {return player.tlb.currentPointsForceGainTime <= 0 && player.tlb.gainBlockerForce == false && player.tlb.gainBlockerInsight == false && player.tlb.gainBlockerMerit == false},
             unlocked() {return true},
             onClick() { 
-                player.tlb.currentPointsForceGainTime = player.tlb.currentPointsForceGainTime.add(60)
+                if(hasUpgrade("tlb", 32)) player.tlb.currentPointsForceGainTime = player.tlb.currentPointsForceGainTime.add(60).div(upgradeEffect("tlb", 32))
+                else player.tlb.currentPointsForceGainTime = player.tlb.currentPointsForceGainTime.add(60)
+
                 player.tlb.pointsForce = player.tlb.pointsForce.add(player.tlb.pointsForceGain)
                 player.tlb.revelationPoints = player.tlb.revelationPoints.add(player.tlb.revelationPointsGainForce)
                 player.tlb.preparationPhaseForce = false
-                player.tlb.gainBlockerForce = true
-                player.tlb.gainBlockerInsight = true
-                player.tlb.gainBlockerMerit = true
+
+                if (hasUpgrade("tlb", 23)) {
+                    player.tlb.gainBlockerInsight = true
+                    player.tlb.gainBlockerMerit = true
+                }
+                else {
+                    player.tlb.gainBlockerForce = true
+                    player.tlb.gainBlockerInsight = true
+                    player.tlb.gainBlockerMerit = true
+                }  
             },
             style() {
-                let look = {fontSize: "9px", width: "270px", minHeight: "120px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
+                let look = {fontSize: "8px", width: "270px", minHeight: "120px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
                     if (this.canClick()) {
                         look.backgroundImage = "linear-gradient(150deg, #550000, #555555, #005555)"
                         look.border = "3px solid #f8c898"
@@ -1022,16 +1095,25 @@ addLayer("tlb", {
             canClick() {return player.tlb.currentPointsInsightGainTime <= 0 && player.tlb.gainBlockerForce == false && player.tlb.gainBlockerInsight == false && player.tlb.gainBlockerMerit == false},
             unlocked() {return true},
             onClick() { 
-                player.tlb.currentPointsInsightGainTime = player.tlb.currentPointsInsightGainTime.add(60)
+                if(hasUpgrade("tlb", 32)) player.tlb.currentPointsInsightGainTime = player.tlb.currentPointsInsightGainTime.add(60).div(upgradeEffect("tlb", 32))
+                else player.tlb.currentPointsInsightGainTime = player.tlb.currentPointsInsightGainTime.add(60)
+
                 player.tlb.pointsInsight = player.tlb.pointsInsight.add(player.tlb.pointsInsightGain)
                 player.tlb.revelationPoints = player.tlb.revelationPoints.add(player.tlb.revelationPointsGainInsight)
                 player.tlb.preparationPhaseInsight = false
-                player.tlb.gainBlockerForce = true
-                player.tlb.gainBlockerInsight = true
-                player.tlb.gainBlockerMerit = true
+
+                if (hasUpgrade("tlb", 23)) {
+                    player.tlb.gainBlockerForce = true
+                    player.tlb.gainBlockerMerit = true
+                }
+                else {
+                    player.tlb.gainBlockerForce = true
+                    player.tlb.gainBlockerInsight = true
+                    player.tlb.gainBlockerMerit = true
+                }  
             },
             style() {
-                let look = {fontSize: "9px", width: "270px", minHeight: "120px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
+                let look = {fontSize: "8px", width: "270px", minHeight: "120px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
                     if (this.canClick()) {
                         look.backgroundImage = "linear-gradient(150deg, #555500, #555555, #000055)"
                         look.border = "3px solid #f8c898"
@@ -1060,16 +1142,25 @@ addLayer("tlb", {
             canClick() {return player.tlb.currentPointsMeritGainTime <= 0 && player.tlb.gainBlockerForce == false && player.tlb.gainBlockerInsight == false && player.tlb.gainBlockerMerit == false},
             unlocked() {return true},
             onClick() { 
-                player.tlb.currentPointsMeritGainTime = player.tlb.currentPointsMeritGainTime.add(60)
+                if(hasUpgrade("tlb", 32)) player.tlb.currentPointsMeritGainTime = player.tlb.currentPointsMeritGainTime.add(60).div(upgradeEffect("tlb", 32))
+                else player.tlb.currentPointsMeritGainTime = player.tlb.currentPointsMeritGainTime.add(60)
+
                 player.tlb.pointsMerit = player.tlb.pointsMerit.add(player.tlb.pointsMeritGain)
                 player.tlb.revelationPoints = player.tlb.revelationPoints.add(player.tlb.revelationPointsGainMerit)
                 player.tlb.preparationPhaseMerit = false
-                player.tlb.gainBlockerForce = true
-                player.tlb.gainBlockerInsight = true
-                player.tlb.gainBlockerMerit = true
+
+                if (hasUpgrade("tlb", 23)) {
+                    player.tlb.gainBlockerForce = true
+                    player.tlb.gainBlockerInsight = true
+                }
+                else {
+                    player.tlb.gainBlockerForce = true
+                    player.tlb.gainBlockerInsight = true
+                    player.tlb.gainBlockerMerit = true
+                }  
             },
             style() {
-                let look = {fontSize: "9px", width: "270px", minHeight: "120px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
+                let look = {fontSize: "8px", width: "270px", minHeight: "120px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
                     if (this.canClick()) {
                         look.backgroundImage = "linear-gradient(150deg, #005500, #555555, #550055)"
                         look.border = "3px solid #f8c898"
@@ -1134,7 +1225,7 @@ addLayer("tlb", {
         11: {
             title: "Force of Chromatis",
             unlocked() {return true},
-            description: "<hr>🝪 Al.Sys 🝪 and the 1st 6 basic symbol parts are boosted based on → For.Pts →.",
+            description: "<hr>The 1st 6 basic symbol parts are boosted based on → For.Pts →.",
             cost: new Decimal(10),
             currencyLocation() {return player.tlb},
             currencyDisplayName: "→ For.Pts →",
@@ -1273,6 +1364,12 @@ addLayer("tlb", {
             currencyLocation() {return player.tlb},
             currencyDisplayName: "👁 Ins.Pts 👁",
             currencyInternalName: "pointsInsight",
+            effect() {
+                return player.au2.stars.add(1).pow(0.5).add(1).log(20).add(1).root(5)
+            },
+            effectDisplay() {
+                return "x" + formatSimple(upgradeEffect(this.layer, this.id), 2)
+            },
             style() {
                 let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
                 hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
@@ -1282,11 +1379,17 @@ addLayer("tlb", {
         31: {
             title: "Merit of Scholarus",
             unlocked() {return true},
-            description: "<hr>The first three Tome types are boosted based on ✶ Mer.Pts ✶.",
+            description: "<hr>🝪 Al.Sy 🝪 gain is boosted based on ✶ Mer.Pts ✶.",
             cost: new Decimal(10),
             currencyLocation() {return player.tlb},
             currencyDisplayName: "✶ Mer.Pts ✶",
             currencyInternalName: "pointsMerit",
+            effect() {
+                return player.tlb.pointsMerit.add(1).root(10)
+            },
+            effectDisplay() {
+                return "x" + formatSimple(upgradeEffect(this.layer, this.id), 2)
+            },
             style() {
                 let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
                 hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
@@ -1301,6 +1404,12 @@ addLayer("tlb", {
             currencyLocation() {return player.tlb},
             currencyDisplayName: "✶ Mer.Pts ✶",
             currencyInternalName: "pointsMerit",
+            effect() {
+                return player.tlb.tomesMerit.add(1).root(20)
+            },
+            effectDisplay() {
+                return "/" + formatSimple(upgradeEffect(this.layer, this.id), 2)
+            },
             style() {
                 let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
                 hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
@@ -1329,6 +1438,12 @@ addLayer("tlb", {
             currencyLocation() {return player.tlb},
             currencyDisplayName: "✶ Mer.Pts ✶",
             currencyInternalName: "pointsMerit",
+            effect() {
+                return player.car.cardGenerators.add(1).pow(0.5).add(1).log(20).add(1).root(5)
+            },
+            effectDisplay() {
+                return "x" + formatSimple(upgradeEffect(this.layer, this.id), 2)
+            },
             style() {
                 let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
                 hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
@@ -1397,8 +1512,8 @@ addLayer("tlb", {
                                             ["row",
                                                 [
                                                     ["raw-html", () => {
-                                                        let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                                                        let val2 = player.tlb.crimsonSymbolParts.div(1000).floor()
+                                                        let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                                                        let val2 = player.tlb.crimsonSymbolParts.div(player.tlb.baseCostsCrimsonSymbols).floor()
                                                         let result = val1
                                                         if(val2.lt(val1)) result = val2
 
@@ -1426,8 +1541,8 @@ addLayer("tlb", {
                                                     ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                     ["blank", "2px"],
                                                     ["raw-html", () => {
-                                                        let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                                                        let val2 = player.tlb.crimsonSymbolParts.div(1000).floor()
+                                                        let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                                                        let val2 = player.tlb.crimsonSymbolParts.div(player.tlb.baseCostsCrimsonSymbols).floor()
                                                         let result = val1
                                                         if(val2.lt(val1)) result = val2
 
@@ -1515,8 +1630,8 @@ addLayer("tlb", {
                                             ["row",
                                                 [
                                                     ["raw-html", () => {
-                                                        let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                                                        let val2 = player.tlb.goldSymbolParts.div(1000).floor()
+                                                        let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                                                        let val2 = player.tlb.goldSymbolParts.div(player.tlb.baseCostsGoldSymbols).floor()
                                                         let result = val1
                                                         if(val2.lt(val1)) result = val2
 
@@ -1544,8 +1659,8 @@ addLayer("tlb", {
                                                     ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                     ["blank", "2px"],
                                                     ["raw-html", () => {
-                                                        let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                                                        let val2 = player.tlb.goldSymbolParts.div(1000).floor()
+                                                        let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                                                        let val2 = player.tlb.goldSymbolParts.div(player.tlb.baseCostsGoldSymbols).floor()
                                                         let result = val1
                                                         if(val2.lt(val1)) result = val2
 
@@ -1633,8 +1748,8 @@ addLayer("tlb", {
                                             ["row",
                                                 [
                                                     ["raw-html", () => {
-                                                        let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                                                        let val2 = player.tlb.jadeSymbolParts.div(1000).floor()
+                                                        let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                                                        let val2 = player.tlb.jadeSymbolParts.div(player.tlb.baseCostsJadeSymbols).floor()
                                                         let result = val1
                                                         if(val2.lt(val1)) result = val2
 
@@ -1662,8 +1777,8 @@ addLayer("tlb", {
                                                     ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                     ["blank", "2px"],
                                                     ["raw-html", () => {
-                                                        let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                                                        let val2 = player.tlb.jadeSymbolParts.div(1000).floor()
+                                                        let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                                                        let val2 = player.tlb.jadeSymbolParts.div(player.tlb.baseCostsJadeSymbols).floor()
                                                         let result = val1
                                                         if(val2.lt(val1)) result = val2
 
@@ -1751,8 +1866,8 @@ addLayer("tlb", {
                                             ["row",
                                                 [
                                                     ["raw-html", () => {
-                                                        let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                                                        let val2 = player.tlb.celesteSymbolParts.div(1000).floor()
+                                                        let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                                                        let val2 = player.tlb.celesteSymbolParts.div(player.tlb.baseCostsCelesteSymbols).floor()
                                                         let result = val1
                                                         if(val2.lt(val1)) result = val2
 
@@ -1780,8 +1895,8 @@ addLayer("tlb", {
                                                     ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                     ["blank", "2px"],
                                                     ["raw-html", () => {
-                                                        let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                                                        let val2 = player.tlb.celesteSymbolParts.div(1000).floor()
+                                                        let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                                                        let val2 = player.tlb.celesteSymbolParts.div(player.tlb.baseCostsCelesteSymbols).floor()
                                                         let result = val1
                                                         if(val2.lt(val1)) result = val2
 
@@ -1869,8 +1984,8 @@ addLayer("tlb", {
                                             ["row",
                                                 [
                                                     ["raw-html", () => {
-                                                        let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                                                        let val2 = player.tlb.cobaltSymbolParts.div(1000).floor()
+                                                        let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                                                        let val2 = player.tlb.cobaltSymbolParts.div(player.tlb.baseCostsCobaltSymbols).floor()
                                                         let result = val1
                                                         if(val2.lt(val1)) result = val2
 
@@ -1898,8 +2013,8 @@ addLayer("tlb", {
                                                     ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                     ["blank", "2px"],
                                                     ["raw-html", () => {
-                                                        let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                                                        let val2 = player.tlb.cobaltSymbolParts.div(1000).floor()
+                                                        let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                                                        let val2 = player.tlb.cobaltSymbolParts.div(player.tlb.baseCostsCobaltSymbols).floor()
                                                         let result = val1
                                                         if(val2.lt(val1)) result = val2
 
@@ -1987,8 +2102,8 @@ addLayer("tlb", {
                                             ["row",
                                                 [
                                                     ["raw-html", () => {
-                                                        let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                                                        let val2 = player.tlb.amethystSymbolParts.div(1000).floor()
+                                                        let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                                                        let val2 = player.tlb.amethystSymbolParts.div(player.tlb.baseCostsAmethystSymbols).floor()
                                                         let result = val1
                                                         if(val2.lt(val1)) result = val2
 
@@ -2016,8 +2131,8 @@ addLayer("tlb", {
                                                     ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                     ["blank", "2px"],
                                                     ["raw-html", () => {
-                                                        let val1 = player.ssp.alchemicalSymbols.div(10).floor()
-                                                        let val2 = player.tlb.amethystSymbolParts.div(1000).floor()
+                                                        let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
+                                                        let val2 = player.tlb.amethystSymbolParts.div(player.tlb.baseCostsAmethystSymbols).floor()
                                                         let result = val1
                                                         if(val2.lt(val1)) result = val2
 
@@ -2274,6 +2389,12 @@ addLayer("tlb", {
                             ["raw-html", () => {return "-<u>Bookshop</u>-."}, {color: "transparent", backgroundImage: "linear-gradient(-135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(-135deg, #ffffff12, #00000012), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "18px", 'text-shadow': " 0 0 5px #ffffffcd, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                         ]
                     ],
+                    ["blank", "10px"],
+                    ["style-column",
+                        [
+                            ["row", [["clickable", "buyMaxOff2"], ["blank", "5px"], ["clickable", "buyMaxOn2"]]]
+                        ]
+                    ],
                     ["blank", "20px"],
                     ["style-row",
                         [
@@ -2408,7 +2529,7 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return "15"}]
+                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.baseCostsForceCr)}]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "22px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2424,7 +2545,7 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return "18"}]
+                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.baseCostsForceCe)}]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "22px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2446,7 +2567,7 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return "1"}]
+                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.tomesForceGain)}]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2493,7 +2614,7 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return "21"}]
+                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.baseCostsInsightGl)}]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "22px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2509,7 +2630,7 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return "19"}]
+                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.baseCostsInsightCo)}]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "22px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2531,7 +2652,7 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return "1"}]
+                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.tomesInsightGain)}]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2577,7 +2698,7 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return "23"}]
+                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.baseCostsMeritJd)}]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "22px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2593,7 +2714,7 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return "14"}]
+                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.baseCostsMeritAm)}]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "22px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2615,7 +2736,7 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return "1"}]
+                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.tomesMeritGain)}]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
