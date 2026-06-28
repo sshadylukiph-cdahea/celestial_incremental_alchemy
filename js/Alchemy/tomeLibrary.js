@@ -30,16 +30,19 @@ addLayer("tlb", {
 
         // tomes and revelation points
         tomesForce: new Decimal(0),
+        tomesForceGain: new Decimal(0),
         pointsForce: new Decimal(0),
         pointsForceGain: new Decimal(0),
         currentPointsForceGainTime: new Decimal(60),
 
         tomesInsight: new Decimal(0),
+        tomesInsightGain: new Decimal(0),
         pointsInsight: new Decimal(0),
         pointsInsightGain: new Decimal(0),
         currentPointsInsightGainTime: new Decimal(60),
 
         tomesMerit: new Decimal(0),
+        tomesMeritGain: new Decimal(0),
         pointsMerit: new Decimal(0),
         pointsMeritGain: new Decimal(0),
         currentPointsMeritGainTime: new Decimal(60),
@@ -186,7 +189,7 @@ addLayer("tlb", {
         if (hasUpgrade("tlb", 31)) {
             player.tlb.crimsonSymbolPartsGain = player.tlb.crimsonSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
             player.tlb.goldSymbolPartsGain = player.tlb.goldSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
-            player.tlb.jadeSymbolPartGain = player.tlb.jadeSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+            player.tlb.jadeSymbolPartsGain = player.tlb.jadeSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
             player.tlb.celesteSymbolPartsGain = player.tlb.celesteSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
             player.tlb.cobaltSymbolPartsGain = player.tlb.cobaltSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
             player.tlb.amethystSymbolPartsGain = player.tlb.amethystSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
@@ -194,7 +197,7 @@ addLayer("tlb", {
         if (hasUpgrade("tlb", 11)) {
             player.tlb.crimsonSymbolPartsGain = player.tlb.crimsonSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
             player.tlb.goldSymbolPartsGain = player.tlb.goldSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
-            player.tlb.jadeSymbolPartGain = player.tlb.jadeSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+            player.tlb.jadeSymbolPartsGain = player.tlb.jadeSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
             player.tlb.celesteSymbolPartsGain = player.tlb.celesteSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
             player.tlb.cobaltSymbolPartsGain = player.tlb.cobaltSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
             player.tlb.amethystSymbolPartsGain = player.tlb.amethystSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
@@ -522,7 +525,7 @@ addLayer("tlb", {
                         return "Create <h3>" + formatShortWhole(player.tlb.goldSymbolsGain.add(result)) + "</h3><br>Gold Symbols."
                 }
                 else
-                    return "Gleate <h3>1</h3><br>Gold Symbol."
+                    return "Create <h3>1</h3><br>Gold Symbol."
             },
             canClick() {
                 if(hasUpgrade("tlb", 12)) {
@@ -536,7 +539,7 @@ addLayer("tlb", {
             },
             unlocked() {return true},
             onClick() { 
-                let val1 = player.ssp.alchemicalSymbols.div(baseCostsAlchemicalSymbols).floor()
+                let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
                 let val2 = player.tlb.goldSymbolParts.div(player.tlb.baseCostsGoldSymbols).floor()
                 let result = val1
                 if(val2.lt(val1)) result = val2
@@ -611,7 +614,7 @@ addLayer("tlb", {
                         return "Create <h3>" + formatShortWhole(player.tlb.jadeSymbolsGain.add(result)) + "</h3><br>Jade Symbols."
                 }
                 else
-                    return "Jdeate <h3>1</h3><br>Jade Symbol."
+                    return "Create <h3>1</h3><br>Jade Symbol."
             },
             canClick() {
                 if(hasUpgrade("tlb", 12)) {
@@ -700,7 +703,7 @@ addLayer("tlb", {
                         return "Create <h3>" + formatShortWhole(player.tlb.celesteSymbolsGain.add(result)) + "</h3><br>Celeste Symbols."
                 }
                 else
-                    return "Ceeate <h3>1</h3><br>Celeste Symbol."
+                    return "Create <h3>1</h3><br>Celeste Symbol."
             },
             canClick() {
                 if(hasUpgrade("tlb", 12)) {
@@ -789,7 +792,7 @@ addLayer("tlb", {
                         return "Create <h3>" + formatShortWhole(player.tlb.cobaltSymbolsGain.add(result)) + "</h3><br>Cobalt Symbols."
                 }
                 else
-                    return "Ceeate <h3>1</h3><br>Cobalt Symbol."
+                    return "Create <h3>1</h3><br>Cobalt Symbol."
             },
             canClick() {
                 if(hasUpgrade("tlb", 12)) {
@@ -878,7 +881,7 @@ addLayer("tlb", {
                         return "Create <h3>" + formatShortWhole(player.tlb.amethystSymbolsGain.add(result)) + "</h3><br>Amethyst Symbols."
                 }
                 else
-                    return "Ceeate <h3>1</h3><br>Amethyst Symbol."
+                    return "Create <h3>1</h3><br>Amethyst Symbol."
             },
             canClick() {
                 if(hasUpgrade("tlb", 12)) {
@@ -948,20 +951,43 @@ addLayer("tlb", {
         },
         forceTome: {
             title() {
-                return "Bargain for <h3>1</h3><br>→ Force Tome →."
+                let val1 = player.tlb.crimsonSymbols.div(player.tlb.baseCostsForceCr).floor()
+                let val2 = player.tlb.celesteSymbols.div(player.tlb.baseCostsForceCe).floor()
+                let result = val1
+                if(val2.lt(val1)) result = val2
+
+                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                    return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesForceGain.add(result)) + "</h3><br>→ Force Tomes →."
+                }
+                else {
+                    return "Bargain for <h3>1</h3><br>→ Force Tome →." 
+                } 
             },
-            canClick() {return (player.tlb.crimsonSymbols >= 15 && player.tlb.celesteSymbols >= 18)},
+            canClick() {return (player.tlb.crimsonSymbols.gte(player.tlb.baseCostsForceCr) && player.tlb.celesteSymbols.gte(player.tlb.baseCostsForceCe))},
             unlocked() {return true},
-            onClick() { 
+            onClick() {
+                let val1 = player.tlb.crimsonSymbols.div(player.tlb.baseCostsForceCr).floor()
+                let val2 = player.tlb.celesteSymbols.div(player.tlb.baseCostsForceCe).floor()
+                let result = val1
+                if(val2.lt(val1)) result = val2
+
                 player.tlb.firstTomeForce = true
-                player.tlb.tomesForce = player.tlb.tomesForce.add(player.tlb.tomesForceGain)
-                player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(15)
-                player.tlb.celesteSymbols = player.tlb.celesteSymbols.sub(18)
+
+                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                    player.tlb.tomesForce = player.tlb.tomesForce.add(result)
+                    player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(Decimal.mul(player.tlb.baseCostsForceCr, result))
+                    player.tlb.celesteSymbols = player.tlb.celesteSymbols.sub(Decimal.mul(player.tlb.baseCostsForceCe, result))
+                }
+                else {
+                    player.tlb.tomesForce = player.tlb.tomesForce.add(1)
+                    player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(player.tlb.baseCostsForceCr)
+                    player.tlb.celesteSymbols = player.tlb.celesteSymbols.sub(player.tlb.baseCostsForceCe)
+                }  
             },
             style() {
                 let look = {fontSize: "13px", width: "230px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
                     if (this.canClick()) {
-                        look.backgroundImage = "linear-gradient(150deg, #550000, #555555, #005555)"
+                        look.backgroundImage = "linear-gradient(150deg, #ff000078, transparent, #00ffff78), radial-gradient(circle at 0% 0%, #ff0000ab 20px, transparent 20px, transparent 40px, #ff000078 40px, #ff000045 60px, transparent 60px, transparent 80px, #ff000045 80px, #ff000023 100px, transparent 100px), radial-gradient(circle at 100% 100%, #00ffffab 20px, transparent 20px, transparent 40px, #00ffff78 40px, #00ffff45 60px, transparent 60px, transparent 80px, #00ffff45 80px, #00ffff23 100px, transparent 100px), linear-gradient(150deg, #550000, #555555, #005555)"
                         look.border = "3px solid #f8c898"
                         look.color = "#f8c898"
                         look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
@@ -978,20 +1004,43 @@ addLayer("tlb", {
         },
         insightTome: {
             title() {
-                return "Bargain for <h3>1</h3><br>👁 Insight Tome 👁."
+                let val1 = player.tlb.goldSymbols.div(player.tlb.baseCostsInsightGl).floor()
+                let val2 = player.tlb.cobaltSymbols.div(player.tlb.baseCostsInsightCo).floor()
+                let result = val1
+                if(val2.lt(val1)) result = val2
+
+                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                    return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesInsightGain.add(result)) + "</h3><br>👁 Insight Tomes 👁."
+                }
+                else {
+                    return "Bargain for <h3>1</h3><br>👁 Insight Tome 👁." 
+                } 
             },
-            canClick() {return (player.tlb.goldSymbols >= 21 && player.tlb.cobaltSymbols >= 19)},
+            canClick() {return (player.tlb.goldSymbols.gte(player.tlb.baseCostsInsightGl) && player.tlb.cobaltSymbols.gte(player.tlb.baseCostsInsightCo))},
             unlocked() {return true},
-            onClick() { 
+            onClick() {
+                let val1 = player.tlb.goldSymbols.div(player.tlb.baseCostsInsightGl).floor()
+                let val2 = player.tlb.cobaltSymbols.div(player.tlb.baseCostsInsightCo).floor()
+                let result = val1
+                if(val2.lt(val1)) result = val2
+
                 player.tlb.firstTomeInsight = true
-                player.tlb.tomesInsight = player.tlb.tomesInsight.add(player.tlb.tomesInsightGain)
-                player.tlb.goldSymbols = player.tlb.goldSymbols.sub(21)
-                player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.sub(19)
+
+                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                    player.tlb.tomesInsight = player.tlb.tomesInsight.add(result)
+                    player.tlb.goldSymbols = player.tlb.goldSymbols.sub(Decimal.mul(player.tlb.baseCostsInsightGl, result))
+                    player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.sub(Decimal.mul(player.tlb.baseCostsInsightCo, result))
+                }
+                else {
+                    player.tlb.tomesInsight = player.tlb.tomesInsight.add(1)
+                    player.tlb.goldSymbols = player.tlb.goldSymbols.sub(player.tlb.baseCostsInsightGl)
+                    player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.sub(player.tlb.baseCostsInsightCo)
+                }  
             },
             style() {
                 let look = {fontSize: "13px", width: "230px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
                     if (this.canClick()) {
-                        look.backgroundImage = "linear-gradient(150deg, #555500, #555555, #000055)"
+                        look.backgroundImage = "linear-gradient(150deg, #0000ff78, transparent, #ffff0078), radial-gradient(circle at 0% 0%, #0000ffab 20px, transparent 20px, transparent 40px, #0000ff78 40px, #0000ff45 60px, transparent 60px, transparent 80px, #0000ff45 80px, #0000ff23 100px, transparent 100px), radial-gradient(circle at 100% 100%, #ffff00ab 20px, transparent 20px, transparent 40px, #ffff0078 40px, #ffff0045 60px, transparent 60px, transparent 80px, #ffff0045 80px, #ffff0023 100px, transparent 100px), linear-gradient(150deg, #000055, #555555, #555500)"
                         look.border = "3px solid #f8c898"
                         look.color = "#f8c898"
                         look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
@@ -1008,20 +1057,43 @@ addLayer("tlb", {
         },
         meritTome: {
             title() {
-                return "Bargain for <h3>1</h3><br>✶ Merit Tome ✶."
+                let val1 = player.tlb.jadeSymbols.div(player.tlb.baseCostsMeritJd).floor()
+                let val2 = player.tlb.amethystSymbols.div(player.tlb.baseCostsMeritAm).floor()
+                let result = val1
+                if(val2.lt(val1)) result = val2
+
+                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                    return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesMeritGain.add(result)) + "</h3><br>✶ Merit Tomes ✶."
+                }
+                else {
+                    return "Bargain for <h3>1</h3><br>✶ Merit Tome ✶." 
+                } 
             },
-            canClick() {return (player.tlb.jadeSymbols >= 23 && player.tlb.amethystSymbols >= 14)},
+            canClick() {return (player.tlb.jadeSymbols.gte(player.tlb.baseCostsMeritJd) && player.tlb.amethystSymbols.gte(player.tlb.baseCostsMeritAm))},
             unlocked() {return true},
-            onClick() { 
+            onClick() {
+                let val1 = player.tlb.jadeSymbols.div(player.tlb.baseCostsMeritJd).floor()
+                let val2 = player.tlb.amethystSymbols.div(player.tlb.baseCostsMeritAm).floor()
+                let result = val1
+                if(val2.lt(val1)) result = val2
+
                 player.tlb.firstTomeMerit = true
-                player.tlb.tomesMerit = player.tlb.tomesMerit.add(player.tlb.tomesMeritGain)
-                player.tlb.jadeSymbols = player.tlb.jadeSymbols.sub(21)
-                player.tlb.amethystSymbols = player.tlb.amethystSymbols.sub(14)
+
+                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                    player.tlb.tomesMerit = player.tlb.tomesMerit.add(result)
+                    player.tlb.jadeSymbols = player.tlb.jadeSymbols.sub(Decimal.mul(player.tlb.baseCostsMeritJd, result))
+                    player.tlb.amethystSymbols = player.tlb.amethystSymbols.sub(Decimal.mul(player.tlb.baseCostsMeritAm, result))
+                }
+                else {
+                    player.tlb.tomesMerit = player.tlb.tomesMerit.add(1)
+                    player.tlb.jadeSymbols = player.tlb.jadeSymbols.sub(player.tlb.baseCostsMeritJd)
+                    player.tlb.amethystSymbols = player.tlb.amethystSymbols.sub(player.tlb.baseCostsMeritAm)
+                }  
             },
             style() {
                 let look = {fontSize: "13px", width: "230px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
                     if (this.canClick()) {
-                        look.backgroundImage = "linear-gradient(150deg, #005500, #555555, #550055)"
+                        look.backgroundImage = "linear-gradient(150deg, #00ff0078, transparent, #ff00ff78), radial-gradient(circle at 0% 0%, #00ff00ab 20px, transparent 20px, transparent 40px, #00ff0078 40px, #00ff0045 60px, transparent 60px, transparent 80px, #00ff0045 80px, #00ff0023 100px, transparent 100px), radial-gradient(circle at 100% 100%, #ff00ffab 20px, transparent 20px, transparent 40px, #ff00ff78 40px, #ff00ff45 60px, transparent 60px, transparent 80px, #ff00ff45 80px, #ff00ff23 100px, transparent 100px), linear-gradient(150deg, #005500, #555555, #550055)"
                         look.border = "3px solid #f8c898"
                         look.color = "#f8c898"
                         look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
@@ -1068,7 +1140,7 @@ addLayer("tlb", {
             style() {
                 let look = {fontSize: "8px", width: "270px", minHeight: "120px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
                     if (this.canClick()) {
-                        look.backgroundImage = "linear-gradient(150deg, #550000, #555555, #005555)"
+                        look.backgroundImage = "linear-gradient(150deg, #ff000078, transparent, #00ffff78), radial-gradient(circle at 0% 0%, #ff0000ab 20px, transparent 20px, transparent 40px, #ff000078 40px, #ff000045 60px, transparent 60px, transparent 80px, #ff000045 80px, #ff000023 100px, transparent 100px), radial-gradient(circle at 100% 100%, #00ffffab 20px, transparent 20px, transparent 40px, #00ffff78 40px, #00ffff45 60px, transparent 60px, transparent 80px, #00ffff45 80px, #00ffff23 100px, transparent 100px), linear-gradient(150deg, #550000, #555555, #005555)"
                         look.border = "3px solid #f8c898"
                         look.color = "#f8c898"
                         look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
@@ -1115,7 +1187,7 @@ addLayer("tlb", {
             style() {
                 let look = {fontSize: "8px", width: "270px", minHeight: "120px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
                     if (this.canClick()) {
-                        look.backgroundImage = "linear-gradient(150deg, #555500, #555555, #000055)"
+                        look.backgroundImage = "linear-gradient(150deg, #0000ff78, transparent, #ffff0078), radial-gradient(circle at 0% 0%, #0000ffab 20px, transparent 20px, transparent 40px, #0000ff78 40px, #0000ff45 60px, transparent 60px, transparent 80px, #0000ff45 80px, #0000ff23 100px, transparent 100px), radial-gradient(circle at 100% 100%, #ffff00ab 20px, transparent 20px, transparent 40px, #ffff0078 40px, #ffff0045 60px, transparent 60px, transparent 80px, #ffff0045 80px, #ffff0023 100px, transparent 100px), linear-gradient(150deg, #000055, #555555, #555500)"
                         look.border = "3px solid #f8c898"
                         look.color = "#f8c898"
                         look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
@@ -1162,7 +1234,7 @@ addLayer("tlb", {
             style() {
                 let look = {fontSize: "8px", width: "270px", minHeight: "120px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
                     if (this.canClick()) {
-                        look.backgroundImage = "linear-gradient(150deg, #005500, #555555, #550055)"
+                        look.backgroundImage = "linear-gradient(150deg, #00ff0078, transparent, #ff00ff78), radial-gradient(circle at 0% 0%, #00ff00ab 20px, transparent 20px, transparent 40px, #00ff0078 40px, #00ff0045 60px, transparent 60px, transparent 80px, #00ff0045 80px, #00ff0023 100px, transparent 100px), radial-gradient(circle at 100% 100%, #ff00ffab 20px, transparent 20px, transparent 40px, #ff00ff78 40px, #ff00ff45 60px, transparent 60px, transparent 80px, #ff00ff45 80px, #ff00ff23 100px, transparent 100px), linear-gradient(150deg, #005500, #555555, #550055)"
                         look.border = "3px solid #f8c898"
                         look.color = "#f8c898"
                         look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
@@ -2529,7 +2601,20 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.baseCostsForceCr)}]
+                                                                            ["raw-html", () => {
+                                                                                let val1 = player.tlb.crimsonSymbols.div(player.tlb.baseCostsForceCr).floor()
+                                                                                let val2 = player.tlb.celesteSymbols.div(player.tlb.baseCostsForceCe).floor()
+                                                                                let result = val1
+                                                                                if(val2.lt(val1)) result = val2
+
+                                                                                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                                                                                    return formatShortWhole(player.tlb.baseCostsForceCr.mul(result))
+                                                                                    }
+                                                                                else {
+                                                                                    return formatShortWhole(player.tlb.baseCostsForceCr)
+                                                                                    } 
+                                                                                }
+                                                                            ]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "22px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2545,7 +2630,20 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.baseCostsForceCe)}]
+                                                                            ["raw-html", () => {
+                                                                                let val1 = player.tlb.crimsonSymbols.div(player.tlb.baseCostsForceCr).floor()
+                                                                                let val2 = player.tlb.celesteSymbols.div(player.tlb.baseCostsForceCe).floor()
+                                                                                let result = val1
+                                                                                if(val2.lt(val1)) result = val2
+
+                                                                                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                                                                                    return formatShortWhole(player.tlb.baseCostsForceCe.mul(result))
+                                                                                    }
+                                                                                else {
+                                                                                    return formatShortWhole(player.tlb.baseCostsForceCe)
+                                                                                    } 
+                                                                                }
+                                                                            ]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "22px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2567,7 +2665,18 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.tomesForceGain)}]
+                                                                            ["raw-html", () => {
+                                                                                let val1 = player.tlb.crimsonSymbols.div(player.tlb.baseCostsForceCr).floor()
+                                                                                let val2 = player.tlb.celesteSymbols.div(player.tlb.baseCostsForceCe).floor()
+                                                                                let result = val1
+                                                                                if(val2.lt(val1)) result = val2
+
+                                                                                if (hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true)
+                                                                                    return formatShortWhole(player.tlb.tomesForceGain.add(result))
+                                                                                else
+                                                                                    return "1"
+                                                                                }
+                                                                            ]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2614,8 +2723,21 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.baseCostsInsightGl)}]
-                                                                        ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "22px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                            ["raw-html", () => {
+                                                                                let val1 = player.tlb.goldSymbols.div(player.tlb.baseCostsInsightGl).floor()
+                                                                                let val2 = player.tlb.cobaltSymbols.div(player.tlb.baseCostsInsightCo).floor()
+                                                                                let result = val1
+                                                                                if(val2.lt(val1)) result = val2
+
+                                                                                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                                                                                    return formatShortWhole(player.tlb.baseCostsInsightCo.mul(result))
+                                                                                    }
+                                                                                else {
+                                                                                    return formatShortWhole(player.tlb.baseCostsInsightCo)
+                                                                                    } 
+                                                                                }
+                                                                            ]
+                                                                        ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "22px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
                                                             ],
@@ -2630,8 +2752,21 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.baseCostsInsightCo)}]
-                                                                        ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "22px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                            ["raw-html", () => {
+                                                                                let val1 = player.tlb.goldSymbols.div(player.tlb.baseCostsInsightGl).floor()
+                                                                                let val2 = player.tlb.cobaltSymbols.div(player.tlb.baseCostsInsightCo).floor()
+                                                                                let result = val1
+                                                                                if(val2.lt(val1)) result = val2
+
+                                                                                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                                                                                    return formatShortWhole(player.tlb.baseCostsInsightGl.mul(result))
+                                                                                    }
+                                                                                else {
+                                                                                    return formatShortWhole(player.tlb.baseCostsInsightGl)
+                                                                                    } 
+                                                                                }
+                                                                            ]
+                                                                        ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "22px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
                                                             ],
@@ -2652,7 +2787,18 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.tomesInsightGain)}]
+                                                                            ["raw-html", () => {
+                                                                                let val1 = player.tlb.goldSymbols.div(player.tlb.baseCostsInsightGl).floor()
+                                                                                let val2 = player.tlb.cobaltSymbols.div(player.tlb.baseCostsInsightCo).floor()
+                                                                                let result = val1
+                                                                                if(val2.lt(val1)) result = val2
+
+                                                                                if (hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true)
+                                                                                    return formatShortWhole(player.tlb.tomesInsightGain.add(result))
+                                                                                else
+                                                                                    return "1"
+                                                                                }
+                                                                            ]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2698,7 +2844,20 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.baseCostsMeritJd)}]
+                                                                            ["raw-html", () => {
+                                                                                let val1 = player.tlb.jadeSymbols.div(player.tlb.baseCostsMeritJd).floor()
+                                                                                let val2 = player.tlb.amethystSymbols.div(player.tlb.baseCostsMeritAm).floor()
+                                                                                let result = val1
+                                                                                if(val2.lt(val1)) result = val2
+
+                                                                                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                                                                                    return formatShortWhole(player.tlb.baseCostsMeritJd.mul(result))
+                                                                                    }
+                                                                                else {
+                                                                                    return formatShortWhole(player.tlb.baseCostsMeritJd)
+                                                                                    } 
+                                                                                }
+                                                                            ]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "22px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2714,7 +2873,20 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.baseCostsMeritAm)}]
+                                                                            ["raw-html", () => {
+                                                                                let val1 = player.tlb.jadeSymbols.div(player.tlb.baseCostsMeritJd).floor()
+                                                                                let val2 = player.tlb.amethystSymbols.div(player.tlb.baseCostsMeritAm).floor()
+                                                                                let result = val1
+                                                                                if(val2.lt(val1)) result = val2
+
+                                                                                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                                                                                    return formatShortWhole(player.tlb.baseCostsMeritAm.mul(result))
+                                                                                    }
+                                                                                else {
+                                                                                    return formatShortWhole(player.tlb.baseCostsMeritAm)
+                                                                                    } 
+                                                                                }
+                                                                            ]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "22px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2736,7 +2908,18 @@ addLayer("tlb", {
                                                                     ["blank", "5px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {return formatShortWhole(player.tlb.tomesMeritGain)}]
+                                                                            ["raw-html", () => {
+                                                                                let val1 = player.tlb.goldSymbols.div(player.tlb.baseCostsMeritJd).floor()
+                                                                                let val2 = player.tlb.cobaltSymbols.div(player.tlb.baseCostsMeritAm).floor()
+                                                                                let result = val1
+                                                                                if(val2.lt(val1)) result = val2
+
+                                                                                if (hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true)
+                                                                                    return formatShortWhole(player.tlb.tomesMeritGain.add(result))
+                                                                                else
+                                                                                    return "1"
+                                                                                }
+                                                                            ]
                                                                         ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                     ]
                                                                 ]
@@ -2770,6 +2953,11 @@ addLayer("tlb", {
                     ["blank", "10px"],
                     ["column",
                         [
+                            ["style-column", [], {width: "340px", height: "550px", background: "transparent", backgroundImage: "radial-gradient(circle, #000000 70%, transparent 100%), repeating-linear-gradient(-45deg, #772277 10px, #551155 20px)", border:"3px solid #330033", boxShadow: "0 0 5px 5px #330033a6 inset, 0 0 8px 8px #551155 inset, 0 0 20px 20px #00000050 inset", marginBottom: "-535px"}]
+                        ]
+                    ],
+                    ["column",
+                        [
                             ["row",
                                 [
                                     ["style-column",
@@ -2777,7 +2965,7 @@ addLayer("tlb", {
                                             ["style-column",
                                                 [
                                                     ["clickable", "forcePoints"],
-                                                ], {width: "300px", height: "140px", backgroundColor: "brown"}
+                                                ], {width: "314px", height: "140px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
                                             ["style-column",
                                                 [
@@ -2789,7 +2977,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 11],
-                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ],
                                                     ["style-column",
                                                         [
@@ -2799,7 +2987,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 12],
-                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ]
                                                 ]
                                             ],
@@ -2813,7 +3001,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 13],
-                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ],
                                                     ["style-column",
                                                         [
@@ -2823,18 +3011,18 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 14],
-                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ]
                                                 ]
                                             ]
-                                        ], {width: "340px", height: "480px", backgroundColor: "orange"}
+                                        ], {width: "340px", height: "500px", backgroundImage: "radial-gradient(ellipse at 50% -40%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at -10% 20%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(0deg, #382413, #523116)", borderTop: "3px solid #b18961", borderLeft: "3px solid #b18961", borderBottom: "3px solid #b18961", borderRight: "3px solid #330033", borderRadius: "15px 0 0 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}
                                     ],
                                     ["style-column",
                                         [
                                             ["style-column",
                                                 [
                                                     ["clickable", "insightPoints"],
-                                                ], {width: "300px", height: "140px", backgroundColor: "brown"}
+                                                ], {width: "314px", height: "140px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
                                             ["style-column",
                                                 [
@@ -2846,7 +3034,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 21],
-                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ],
                                                     ["style-column",
                                                         [
@@ -2856,7 +3044,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 22],
-                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ]
                                                 ]
                                             ],
@@ -2870,7 +3058,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 23],
-                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ],
                                                     ["style-column",
                                                         [
@@ -2880,18 +3068,18 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 24],
-                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ]
                                                 ]
                                             ]
-                                        ], {width: "340px", height: "480px", backgroundColor: "orange"}
+                                        ], {width: "340px", height: "500px", backgroundImage: "repeating-linear-gradient(-45deg, #772277 10px, #551155 20px)", borderTop: "3px solid #330333", borderBottom: "3px solid #330033", boxShadow: "0 0 5px 5px #330033a6 inset, 0 0 8px 8px #551155 inset, 0 0 20px 20px #00000050 inset"}
                                     ],
                                     ["style-column",
                                         [
                                             ["style-column",
                                                 [
                                                     ["clickable", "meritPoints"],
-                                                ], {width: "300px", height: "140px", backgroundColor: "brown"}
+                                                ], {width: "314px", height: "140px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
                                             ["style-column",
                                                 [
@@ -2903,7 +3091,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 31],
-                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ],
                                                     ["style-column",
                                                         [
@@ -2913,7 +3101,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 32],
-                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ]
                                                 ]
                                             ],
@@ -2927,7 +3115,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 33],
-                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ],
                                                     ["style-column",
                                                         [
@@ -2937,16 +3125,16 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 34],
-                                                        ], {width: "150px", height: "150px", backgroundColor: "brown"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ]
                                                 ]
                                             ]
-                                        ], {width: "340px", height: "480px", backgroundColor: "orange"}
+                                        ], {width: "340px", height: "500px", backgroundImage: "radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 110% 80%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(180deg, #382413, #523116)", borderLeft: "3px solid #330033", borderRight: "3px solid #b18961", borderTop: "3px solid #b18961", borderBottom: "3px solid #b18961", borderRadius: "0 15px 15px 0", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}
                                     ]
                                 ]
                             ]
                         ], {width: "1050px", height: "510px"}
-                    ]
+                    ],
                 ]
             }
         },
