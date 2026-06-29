@@ -1370,7 +1370,7 @@ addLayer("tlb", {
             }
         },
         14: {
-            title () {return hasUpgrade("tlb", 11) ? "<h3>Tyrranium</h3><br>[PURCHASED]" : "<h3>Tyrranium</h3>"},
+            title () {return hasUpgrade("tlb", 14) ? "<h3>Tyrranium</h3><br>[PURCHASED]" : "<h3>Tyrranium</h3>"},
             unlocked() {return true},
             description: "<hr>Current Realm Essence (Universe α) boosts → For.Pt → gain.",
             cost: new Decimal(1000),
