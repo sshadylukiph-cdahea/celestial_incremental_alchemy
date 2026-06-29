@@ -1295,7 +1295,7 @@ addLayer("tlb", {
     // },
     upgrades: {
         11: {
-            title: "Force of Chromatis",
+            title () {return hasUpgrade("tlb", 11) ? "<h3>Chromatis</h3><br>[PURCHASED]" : "<h3>Chromatis</h3>"},
             unlocked() {return true},
             description: "<hr>The 1st 6 basic symbol parts are boosted based on → For.Pts →.",
             cost: new Decimal(10),
@@ -1309,13 +1309,18 @@ addLayer("tlb", {
                 return "x" + formatSimple(upgradeEffect(this.layer, this.id), 2)
             },
             style() {
-                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
-                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
+                hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.color = "#ffffff" : !canAffordUpgrade(this.layer, this.id) ? look.color = "#ff00ff" : look.color = "#ffffff"
+                hasUpgrade(this.layer, this.id) ? look.textStroke = "1px #00000022" : !canAffordUpgrade(this.layer, this.id) ? look.textStroke = "1px #ffc0cb22" : look.textStroke = "1px #ffffff22"
+                hasUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #000000, 0 0 3px #000000" : !canAffordUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #ff0000, 0 0 3px #ff0000" : look.textShadow = "0 0 5px #ffffff"
+                hasUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ff0000 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ff000067 90%), repeating-linear-gradient(45deg, transparent, transparent 10%, #ff000077 10%, #ff000077 11%, #ff000045 11%, #ff000045 19%, #ff000077 19%, #ff000077 20%), linear-gradient(to top, black, #330033, #550055)" : look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1" : !canAffordUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ff0000) 1" : look.borderImage = "radial-gradient(circle, #000000 75%, #565656) 1"
                 return look
-            },
+            }
         },
         12: {
-            title: "Force of Merchus",
+            title () {return hasUpgrade("tlb", 12) ? "<h3>Merchandus</h3><br>[PURCHASED]" : "<h3>Merchandus</h3>"},
             unlocked() {return true},
             description: "<hr>Alteration costs of the 1st 6 basic symbols are divided based on → Force Tomes →.",
             cost: new Decimal(50),
@@ -1329,13 +1334,18 @@ addLayer("tlb", {
                 return "/" + formatSimple(upgradeEffect(this.layer, this.id), 2)
             },
             style() {
-                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
-                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
+                hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.color = "#ffffff" : !canAffordUpgrade(this.layer, this.id) ? look.color = "#ff00ff" : look.color = "#ffffff"
+                hasUpgrade(this.layer, this.id) ? look.textStroke = "1px #00000022" : !canAffordUpgrade(this.layer, this.id) ? look.textStroke = "1px #ffc0cb22" : look.textStroke = "1px #ffffff22"
+                hasUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #000000, 0 0 3px #000000" : !canAffordUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #ff0000, 0 0 3px #ff0000" : look.textShadow = "0 0 5px #ffffff"
+                hasUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ff0000 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ff000067 90%), repeating-linear-gradient(45deg, transparent, transparent 10%, #ff000077 10%, #ff000077 11%, #ff000045 11%, #ff000045 19%, #ff000077 19%, #ff000077 20%), linear-gradient(to top, black, #330033, #550055)" : look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1" : !canAffordUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ff0000) 1" : look.borderImage = "radial-gradient(circle, #000000 75%, #565656) 1"
                 return look
-            },
+            }
         },
         13: {
-            title: "Force of Avarita",
+            title () {return hasUpgrade("tlb", 13) ? "<h3>Avaritae</h3><br>[PURCHASED]" : "<h3>Avaritae</h3>"},
             unlocked() {return true},
             description: "<hr>Base 🝪 Al.Sy 🝪 gain is doubled and then boosted based on itself.",
             cost: new Decimal(250),
@@ -1349,13 +1359,18 @@ addLayer("tlb", {
                 return "x" + formatSimple(upgradeEffect(this.layer, this.id), 2)
             },
             style() {
-                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
-                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
+                hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.color = "#ffffff" : !canAffordUpgrade(this.layer, this.id) ? look.color = "#ff00ff" : look.color = "#ffffff"
+                hasUpgrade(this.layer, this.id) ? look.textStroke = "1px #00000022" : !canAffordUpgrade(this.layer, this.id) ? look.textStroke = "1px #ffc0cb22" : look.textStroke = "1px #ffffff22"
+                hasUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #000000, 0 0 3px #000000" : !canAffordUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #ff0000, 0 0 3px #ff0000" : look.textShadow = "0 0 5px #ffffff"
+                hasUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ff0000 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ff000067 90%), repeating-linear-gradient(45deg, transparent, transparent 10%, #ff000077 10%, #ff000077 11%, #ff000045 11%, #ff000045 19%, #ff000077 19%, #ff000077 20%), linear-gradient(to top, black, #330033, #550055)" : look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1" : !canAffordUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ff0000) 1" : look.borderImage = "radial-gradient(circle, #000000 75%, #565656) 1"
                 return look
-            },
+            }
         },
         14: {
-            title: "Force of Tyrrium",
+            title () {return hasUpgrade("tlb", 11) ? "<h3>Tyrranium</h3><br>[PURCHASED]" : "<h3>Tyrranium</h3>"},
             unlocked() {return true},
             description: "<hr>Current Realm Essence (Universe α) boosts → For.Pt → gain.",
             cost: new Decimal(1000),
@@ -1369,13 +1384,18 @@ addLayer("tlb", {
                 return "x" + formatSimple(upgradeEffect(this.layer, this.id), 2)
             },
             style() {
-                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
-                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
+                hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.color = "#ffffff" : !canAffordUpgrade(this.layer, this.id) ? look.color = "#ff00ff" : look.color = "#ffffff"
+                hasUpgrade(this.layer, this.id) ? look.textStroke = "1px #00000022" : !canAffordUpgrade(this.layer, this.id) ? look.textStroke = "1px #ffc0cb22" : look.textStroke = "1px #ffffff22"
+                hasUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #000000, 0 0 3px #000000" : !canAffordUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #ff0000, 0 0 3px #ff0000" : look.textShadow = "0 0 5px #ffffff"
+                hasUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ff0000 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ff000067 90%), repeating-linear-gradient(45deg, transparent, transparent 10%, #ff000077 10%, #ff000077 11%, #ff000045 11%, #ff000045 19%, #ff000077 19%, #ff000077 20%), linear-gradient(to top, black, #330033, #550055)" : look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1" : !canAffordUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ff0000) 1" : look.borderImage = "radial-gradient(circle, #000000 75%, #565656) 1"
                 return look
-            },
+            }
         },
         21: {
-            title: "Insight of Athenia",
+            title () {return hasUpgrade("tlb", 21) ? "<h3>Atheneia</h3><br>[PURCHASED]" : "<h3>Atheneia</h3>"},
             unlocked() {return true},
             description: "<hr>⚿ Rev.Pt ⚿ gains from 1st 3 Tome types are boosted based on 👁 Ins.Pts 👁.",
             cost: new Decimal(10),
@@ -1389,13 +1409,18 @@ addLayer("tlb", {
                 return "x" + formatSimple(upgradeEffect(this.layer, this.id), 2)
             },
             style() {
-                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
-                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
+                hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.color = "#ffffff" : !canAffordUpgrade(this.layer, this.id) ? look.color = "#ff00ff" : look.color = "#ffffff"
+                hasUpgrade(this.layer, this.id) ? look.textStroke = "1px #00000022" : !canAffordUpgrade(this.layer, this.id) ? look.textStroke = "1px #ffc0cb22" : look.textStroke = "1px #ffffff22"
+                hasUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #000000, 0 0 3px #000000" : !canAffordUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #ff0000, 0 0 3px #ff0000" : look.textShadow = "0 0 5px #ffffff"
+                hasUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ff0000 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ff000067 90%), repeating-linear-gradient(45deg, transparent, transparent 10%, #ff000077 10%, #ff000077 11%, #ff000045 11%, #ff000045 19%, #ff000077 19%, #ff000077 20%), linear-gradient(to top, black, #330033, #550055)" : look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1" : !canAffordUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ff0000) 1" : look.borderImage = "radial-gradient(circle, #000000 75%, #565656) 1"
                 return look
-            },
+            }
         },
         22: {
-            title: "Insight of Unitar",
+            title () {return hasUpgrade("tlb", 22) ? "<h3>Unitarii</h3><br>[PURCHASED]" : "<h3>Unitarii</h3>"},
             unlocked() {return true},
             description: "<hr>All secondary point types are boosted based on 👁 Insight Tomes 👁.",
             cost: new Decimal(50),
@@ -1409,13 +1434,18 @@ addLayer("tlb", {
                 return "x" + formatSimple(upgradeEffect(this.layer, this.id), 2)
             },
             style() {
-                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
-                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
+                hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.color = "#ffffff" : !canAffordUpgrade(this.layer, this.id) ? look.color = "#ff00ff" : look.color = "#ffffff"
+                hasUpgrade(this.layer, this.id) ? look.textStroke = "1px #00000022" : !canAffordUpgrade(this.layer, this.id) ? look.textStroke = "1px #ffc0cb22" : look.textStroke = "1px #ffffff22"
+                hasUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #000000, 0 0 3px #000000" : !canAffordUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #ff0000, 0 0 3px #ff0000" : look.textShadow = "0 0 5px #ffffff"
+                hasUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ff0000 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ff000067 90%), repeating-linear-gradient(45deg, transparent, transparent 10%, #ff000077 10%, #ff000077 11%, #ff000045 11%, #ff000045 19%, #ff000077 19%, #ff000077 20%), linear-gradient(to top, black, #330033, #550055)" : look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1" : !canAffordUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ff0000) 1" : look.borderImage = "radial-gradient(circle, #000000 75%, #565656) 1"
                 return look
-            },
+            }
         },
         23: {
-            title: "Insight of Cognin",
+            title () {return hasUpgrade("tlb", 23) ? "<h3>Cogninzo</h3><br>[PURCHASED]" : "<h3>Cogninzo</h3>"},
             unlocked() {return true},
             description: "<hr>You can read two different Tome types at the same time.",
             cost: new Decimal(250),
@@ -1423,13 +1453,18 @@ addLayer("tlb", {
             currencyDisplayName: "👁 Ins.Pts 👁",
             currencyInternalName: "pointsInsight",
             style() {
-                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
-                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
+                hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.color = "#ffffff" : !canAffordUpgrade(this.layer, this.id) ? look.color = "#ff00ff" : look.color = "#ffffff"
+                hasUpgrade(this.layer, this.id) ? look.textStroke = "1px #00000022" : !canAffordUpgrade(this.layer, this.id) ? look.textStroke = "1px #ffc0cb22" : look.textStroke = "1px #ffffff22"
+                hasUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #000000, 0 0 3px #000000" : !canAffordUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #ff0000, 0 0 3px #ff0000" : look.textShadow = "0 0 5px #ffffff"
+                hasUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ff0000 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ff000067 90%), repeating-linear-gradient(45deg, transparent, transparent 10%, #ff000077 10%, #ff000077 11%, #ff000045 11%, #ff000045 19%, #ff000077 19%, #ff000077 20%), linear-gradient(to top, black, #330033, #550055)" : look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1" : !canAffordUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ff0000) 1" : look.borderImage = "radial-gradient(circle, #000000 75%, #565656) 1"
                 return look
-            },
+            }
         },
         24: {
-            title: "Insight of Hekato",
+            title () {return hasUpgrade("tlb", 24) ? "<h3>Hekatorr</h3><br>[PURCHASED]" : "<h3>Hekatorr</h3>"},
             unlocked() {return true},
             description: "<hr>Current Stars (Alt-Universe 2) boosts 👁 Ins.Pts 👁 gain.",
             cost: new Decimal(1000),
@@ -1443,13 +1478,18 @@ addLayer("tlb", {
                 return "x" + formatSimple(upgradeEffect(this.layer, this.id), 2)
             },
             style() {
-                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
-                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
+                hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.color = "#ffffff" : !canAffordUpgrade(this.layer, this.id) ? look.color = "#ff00ff" : look.color = "#ffffff"
+                hasUpgrade(this.layer, this.id) ? look.textStroke = "1px #00000022" : !canAffordUpgrade(this.layer, this.id) ? look.textStroke = "1px #ffc0cb22" : look.textStroke = "1px #ffffff22"
+                hasUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #000000, 0 0 3px #000000" : !canAffordUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #ff0000, 0 0 3px #ff0000" : look.textShadow = "0 0 5px #ffffff"
+                hasUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ff0000 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ff000067 90%), repeating-linear-gradient(45deg, transparent, transparent 10%, #ff000077 10%, #ff000077 11%, #ff000045 11%, #ff000045 19%, #ff000077 19%, #ff000077 20%), linear-gradient(to top, black, #330033, #550055)" : look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1" : !canAffordUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ff0000) 1" : look.borderImage = "radial-gradient(circle, #000000 75%, #565656) 1"
                 return look
-            },
+            }
         },
         31: {
-            title: "Merit of Scholarus",
+            title () {return hasUpgrade("tlb", 31) ? "<h3>Echoschol</h3><br>[PURCHASED]" : "<h3>Echoshcol</h3>"},
             unlocked() {return true},
             description: "<hr>🝪 Al.Sy 🝪 gain is boosted based on ✶ Mer.Pts ✶.",
             cost: new Decimal(10),
@@ -1463,13 +1503,18 @@ addLayer("tlb", {
                 return "x" + formatSimple(upgradeEffect(this.layer, this.id), 2)
             },
             style() {
-                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
-                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
+                hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.color = "#ffffff" : !canAffordUpgrade(this.layer, this.id) ? look.color = "#ff00ff" : look.color = "#ffffff"
+                hasUpgrade(this.layer, this.id) ? look.textStroke = "1px #00000022" : !canAffordUpgrade(this.layer, this.id) ? look.textStroke = "1px #ffc0cb22" : look.textStroke = "1px #ffffff22"
+                hasUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #000000, 0 0 3px #000000" : !canAffordUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #ff0000, 0 0 3px #ff0000" : look.textShadow = "0 0 5px #ffffff"
+                hasUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ff0000 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ff000067 90%), repeating-linear-gradient(45deg, transparent, transparent 10%, #ff000077 10%, #ff000077 11%, #ff000045 11%, #ff000045 19%, #ff000077 19%, #ff000077 20%), linear-gradient(to top, black, #330033, #550055)" : look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1" : !canAffordUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ff0000) 1" : look.borderImage = "radial-gradient(circle, #000000 75%, #565656) 1"
                 return look
-            },
+            }
         },
         32: {
-            title: "Merit of Eternia",
+            title () {return hasUpgrade("tlb", 32) ? "<h3>Ephetera</h3><br>[PURCHASED]" : "<h3>Ephetera</h3>"},
             unlocked() {return true},
             description: "<hr>Reading times are divided based on ✶ Merit Tomes ✶.",
             cost: new Decimal(50),
@@ -1483,13 +1528,18 @@ addLayer("tlb", {
                 return "/" + formatSimple(upgradeEffect(this.layer, this.id), 2)
             },
             style() {
-                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
-                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
+                hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.color = "#ffffff" : !canAffordUpgrade(this.layer, this.id) ? look.color = "#ff00ff" : look.color = "#ffffff"
+                hasUpgrade(this.layer, this.id) ? look.textStroke = "1px #00000022" : !canAffordUpgrade(this.layer, this.id) ? look.textStroke = "1px #ffc0cb22" : look.textStroke = "1px #ffffff22"
+                hasUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #000000, 0 0 3px #000000" : !canAffordUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #ff0000, 0 0 3px #ff0000" : look.textShadow = "0 0 5px #ffffff"
+                hasUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ff0000 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ff000067 90%), repeating-linear-gradient(45deg, transparent, transparent 10%, #ff000077 10%, #ff000077 11%, #ff000045 11%, #ff000045 19%, #ff000077 19%, #ff000077 20%), linear-gradient(to top, black, #330033, #550055)" : look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1" : !canAffordUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ff0000) 1" : look.borderImage = "radial-gradient(circle, #000000 75%, #565656) 1"
                 return look
-            },
+            }
         },
         33: {
-            title: "Merit of Studias",
+            title () {return hasUpgrade("tlb", 33) ? "<h3>Studiwyrm</h3><br>[PURCHASED]" : "<h3>Studiwyrm</h3>"},
             unlocked() {return true},
             description: "<hr>You can bulk buy Tomes in the Bookshop.",
             cost: new Decimal(250),
@@ -1497,13 +1547,18 @@ addLayer("tlb", {
             currencyDisplayName: "✶ Mer.Pts ✶",
             currencyInternalName: "pointsMerit",
             style() {
-                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
-                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
+                hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.color = "#ffffff" : !canAffordUpgrade(this.layer, this.id) ? look.color = "#ff00ff" : look.color = "#ffffff"
+                hasUpgrade(this.layer, this.id) ? look.textStroke = "1px #00000022" : !canAffordUpgrade(this.layer, this.id) ? look.textStroke = "1px #ffc0cb22" : look.textStroke = "1px #ffffff22"
+                hasUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #000000, 0 0 3px #000000" : !canAffordUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #ff0000, 0 0 3px #ff0000" : look.textShadow = "0 0 5px #ffffff"
+                hasUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ff0000 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ff000067 90%), repeating-linear-gradient(45deg, transparent, transparent 10%, #ff000077 10%, #ff000077 11%, #ff000045 11%, #ff000045 19%, #ff000077 19%, #ff000077 20%), linear-gradient(to top, black, #330033, #550055)" : look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1" : !canAffordUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ff0000) 1" : look.borderImage = "radial-gradient(circle, #000000 75%, #565656) 1"
                 return look
-            },
+            }
         },
         34: {
-            title: "Merit of Alealya",
+            title () {return hasUpgrade("tlb", 34) ? "<h3>Alealyah</h3><br>[PURCHASED]" : "<h3>Alealyah</h3>"},
             unlocked() {return true},
             description: "<hr>Current Card Generators (Universe ε) boosts ✶ Mer.Pts ✶ gain.",
             cost: new Decimal(1000),
@@ -1517,10 +1572,15 @@ addLayer("tlb", {
                 return "x" + formatSimple(upgradeEffect(this.layer, this.id), 2)
             },
             style() {
-                let look = {width: "136px", height: "136px", color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", margin: "4px"}
-                hasUpgrade(this.layer, this.id) ? lookBackground = "#77bf5f" : !canAffordUpgrade(this.layer, this.id) ? lookBackground = "#bf8f8f" : look.background = "linear-gradient(to bottom, #8b609c, magenta, pink)", look.borderColor = "transparent", look.borderImage = "linear-gradient(to bottom, chartreuse, #00ff9d) 1", look.borderRadius = "0px", look.boxShadow = "0 0 3px 1px black inset"
+                let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
+                hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.color = "#ffffff" : !canAffordUpgrade(this.layer, this.id) ? look.color = "#ff00ff" : look.color = "#ffffff"
+                hasUpgrade(this.layer, this.id) ? look.textStroke = "1px #00000022" : !canAffordUpgrade(this.layer, this.id) ? look.textStroke = "1px #ffc0cb22" : look.textStroke = "1px #ffffff22"
+                hasUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #000000, 0 0 3px #000000" : !canAffordUpgrade(this.layer, this.id) ? look.textShadow = "0 0 3px #ff0000, 0 0 3px #ff0000" : look.textShadow = "0 0 5px #ffffff"
+                hasUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ff0000 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ff000067 90%), repeating-linear-gradient(45deg, transparent, transparent 10%, #ff000077 10%, #ff000077 11%, #ff000045 11%, #ff000045 19%, #ff000077 19%, #ff000077 20%), linear-gradient(to top, black, #330033, #550055)" : look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), linear-gradient(to top, #343434, #565656, #787878)"
+                hasUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1" : !canAffordUpgrade(this.layer, this.id) ? look.borderImage = "radial-gradient(circle, #000000 75%, #ff0000) 1" : look.borderImage = "radial-gradient(circle, #000000 75%, #565656) 1"
                 return look
-            },
+            }
         },
     },
     buyables: {},
@@ -2965,7 +3025,7 @@ addLayer("tlb", {
                                             ["style-column",
                                                 [
                                                     ["clickable", "forcePoints"],
-                                                ], {width: "314px", height: "140px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                ], {width: "314px", height: "140px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #ff000023, transparent, #00ffff23), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
                                             ["style-column",
                                                 [
@@ -2977,7 +3037,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 11],
-                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #ff000023, transparent, #00ffff23), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ],
                                                     ["style-column",
                                                         [
@@ -2987,7 +3047,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 12],
-                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #ff000023, transparent, #00ffff23), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ]
                                                 ]
                                             ],
@@ -3001,7 +3061,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 13],
-                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #ff000023, transparent, #00ffff23), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ],
                                                     ["style-column",
                                                         [
@@ -3011,7 +3071,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 14],
-                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #ff000023, transparent, #00ffff23), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ]
                                                 ]
                                             ]
@@ -3022,7 +3082,7 @@ addLayer("tlb", {
                                             ["style-column",
                                                 [
                                                     ["clickable", "insightPoints"],
-                                                ], {width: "314px", height: "140px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                ], {width: "314px", height: "140px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #0000ff23, transparent, #ffff0023), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
                                             ["style-column",
                                                 [
@@ -3034,7 +3094,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 21],
-                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #0000ff23, transparent, #ffff0023), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ],
                                                     ["style-column",
                                                         [
@@ -3044,7 +3104,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 22],
-                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #0000ff23, transparent, #ffff0023), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ]
                                                 ]
                                             ],
@@ -3058,7 +3118,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 23],
-                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #0000ff23, transparent, #ffff0023), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ],
                                                     ["style-column",
                                                         [
@@ -3068,7 +3128,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 24],
-                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #0000ff23, transparent, #ffff0023), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ]
                                                 ]
                                             ]
@@ -3079,7 +3139,7 @@ addLayer("tlb", {
                                             ["style-column",
                                                 [
                                                     ["clickable", "meritPoints"],
-                                                ], {width: "314px", height: "140px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                ], {width: "314px", height: "140px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #00ff0023, transparent, #ff00ff23), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
                                             ["style-column",
                                                 [
@@ -3091,7 +3151,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 31],
-                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #00ff0023, transparent, #ff00ff23), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ],
                                                     ["style-column",
                                                         [
@@ -3101,7 +3161,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 32],
-                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #00ff0023, transparent, #ff00ff23), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ]
                                                 ]
                                             ],
@@ -3115,7 +3175,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 33],
-                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #00ff0023, transparent, #ff00ff23), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ],
                                                     ["style-column",
                                                         [
@@ -3125,7 +3185,7 @@ addLayer("tlb", {
                                                     ["style-column",
                                                         [
                                                             ["upgrade", 34],
-                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                                        ], {width: "150px", height: "150px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(150deg, #00ff0023, transparent, #ff00ff23), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                                     ]
                                                 ]
                                             ]
