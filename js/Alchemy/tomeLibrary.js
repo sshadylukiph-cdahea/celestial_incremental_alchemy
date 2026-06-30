@@ -105,7 +105,12 @@ addLayer("tlb", {
         amethystSymbolPartsSoftcapEffect: new Decimal(0),
 
         // anti-autoclick cheese
-        canAlSyReset: false,
+        canBuyCrimSys: false,
+        canBuyGoldSys: false,
+        canBuyJadeSys: false,
+        canBuyCeleSys: false,
+        canBuyCobaSys: false,
+        canBuyAmetSys: false,
 
         // 1st order symbols // LATER
         arcaneSymbols: new Decimal (0),
@@ -120,8 +125,6 @@ addLayer("tlb", {
     update(delta) {
         let onepersec = new Decimal(1)
 
-        if(player.points >= "e10000000") player.tlb.canAlSyReset = true
-
         // Symbol Parts generation
         if(hasUpgrade("ssp", 101)) {
             // softcap start
@@ -129,6 +132,7 @@ addLayer("tlb", {
 
             // put softcap modifiers in this section
             
+            // actual generation
             player.tlb.crimsonSymbolParts = player.tlb.crimsonSymbolParts.add(onepersec.mul(delta).mul(player.tlb.crimsonSymbolPartsGain))
             player.tlb.crimsonSymbolPartsGain = player.tlb.crimsonSymbolsGain.add(Decimal.log10(player.cof.coreFragments[4].add(1)))
             if(player.tlb.crimsonSymbolParts >= softcapStart) {
@@ -188,71 +192,98 @@ addLayer("tlb", {
                     player.tlb.amethystSymbolPartsGain = new Decimal(0)
                 }
             }
-        }
 
-        // Start of first six symbol and their parts' modifiers
-        if (hasUpgrade("tlb", 31)) {
-            player.tlb.crimsonSymbolPartsGain = player.tlb.crimsonSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
-            player.tlb.goldSymbolPartsGain = player.tlb.goldSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
-            player.tlb.jadeSymbolPartsGain = player.tlb.jadeSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
-            player.tlb.celesteSymbolPartsGain = player.tlb.celesteSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
-            player.tlb.cobaltSymbolPartsGain = player.tlb.cobaltSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
-            player.tlb.amethystSymbolPartsGain = player.tlb.amethystSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
-        }
-        if (hasUpgrade("tlb", 11)) {
-            player.tlb.crimsonSymbolPartsGain = player.tlb.crimsonSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
-            player.tlb.goldSymbolPartsGain = player.tlb.goldSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
-            player.tlb.jadeSymbolPartsGain = player.tlb.jadeSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
-            player.tlb.celesteSymbolPartsGain = player.tlb.celesteSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
-            player.tlb.cobaltSymbolPartsGain = player.tlb.cobaltSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
-            player.tlb.amethystSymbolPartsGain = player.tlb.amethystSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
-        }
+            // Start of first six symbol and their parts' modifiers
+            if (hasUpgrade("tlb", 31)) {
+                player.tlb.crimsonSymbolPartsGain = player.tlb.crimsonSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+                player.tlb.goldSymbolPartsGain = player.tlb.goldSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+                player.tlb.jadeSymbolPartsGain = player.tlb.jadeSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+                player.tlb.celesteSymbolPartsGain = player.tlb.celesteSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+                player.tlb.cobaltSymbolPartsGain = player.tlb.cobaltSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+                player.tlb.amethystSymbolPartsGain = player.tlb.amethystSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+            }
+            if (hasUpgrade("tlb", 11)) {
+                player.tlb.crimsonSymbolPartsGain = player.tlb.crimsonSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+                player.tlb.goldSymbolPartsGain = player.tlb.goldSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+                player.tlb.jadeSymbolPartsGain = player.tlb.jadeSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+                player.tlb.celesteSymbolPartsGain = player.tlb.celesteSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+                player.tlb.cobaltSymbolPartsGain = player.tlb.cobaltSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+                player.tlb.amethystSymbolPartsGain = player.tlb.amethystSymbolPartsGain.mul(upgradeEffect("tlb", 11).floor())
+            }
 
-        // Secondary Tome Point generation
-        // force
-        if(player.tlb.tomesForce >= 1) {
-            player.tlb.currentPointsForceGainTime = player.tlb.currentPointsForceGainTime.sub(onepersec.mul(delta))
-            player.tlb.pointsForceGain = player.tlb.tomesForce
-            player.tlb.revelationPointsGainForce = player.tlb.tomesForce
-        }
-        if(player.tlb.currentPointsForceGainTime <= 0) {
-            player.tlb.currentPointsForceGainTime = player.tlb.stopTime
-            player.tlb.gainBlockerForce = false
-        }
-        // insight
-        if(player.tlb.tomesInsight >= 1) {
-            player.tlb.currentPointsInsightGainTime = player.tlb.currentPointsInsightGainTime.sub(onepersec.mul(delta))
-            player.tlb.pointsInsightGain = player.tlb.tomesInsight
-            player.tlb.revelationPointsGainInsight = player.tlb.tomesInsight
-        }
-        if(player.tlb.currentPointsInsightGainTime <= 0) {
-            player.tlb.currentPointsInsightGainTime = player.tlb.stopTime
-            player.tlb.gainBlockerInsight = false
-        }
-        // merit
-        if(player.tlb.tomesMerit >= 1) {
-            player.tlb.currentPointsMeritGainTime = player.tlb.currentPointsMeritGainTime.sub(onepersec.mul(delta))
-            player.tlb.pointsMeritGain = player.tlb.tomesMerit
-            player.tlb.revelationPointsGainMerit = player.tlb.tomesMerit
-        }
-        if(player.tlb.currentPointsMeritGainTime <= 0) {
-            player.tlb.currentPointsMeritGainTime = player.tlb.stopTime
-            player.tlb.gainBlockerMerit = false
-        }
+            // Secondary Tome Point generation
+            // force
+            if(player.tlb.tomesForce >= 1) {
+                player.tlb.currentPointsForceGainTime = player.tlb.currentPointsForceGainTime.sub(onepersec.mul(delta))
+                player.tlb.pointsForceGain = player.tlb.tomesForce
+                player.tlb.revelationPointsGainForce = player.tlb.tomesForce
+            }
+            if(player.tlb.currentPointsForceGainTime <= 0) {
+                player.tlb.currentPointsForceGainTime = player.tlb.stopTime
+                player.tlb.gainBlockerForce = false
+            }
+            // insight
+            if(player.tlb.tomesInsight >= 1) {
+                player.tlb.currentPointsInsightGainTime = player.tlb.currentPointsInsightGainTime.sub(onepersec.mul(delta))
+                player.tlb.pointsInsightGain = player.tlb.tomesInsight
+                player.tlb.revelationPointsGainInsight = player.tlb.tomesInsight
+            }
+            if(player.tlb.currentPointsInsightGainTime <= 0) {
+                player.tlb.currentPointsInsightGainTime = player.tlb.stopTime
+                player.tlb.gainBlockerInsight = false
+            }
+            // merit
+            if(player.tlb.tomesMerit >= 1) {
+                player.tlb.currentPointsMeritGainTime = player.tlb.currentPointsMeritGainTime.sub(onepersec.mul(delta))
+                player.tlb.pointsMeritGain = player.tlb.tomesMerit
+                player.tlb.revelationPointsGainMerit = player.tlb.tomesMerit
+            }
+            if(player.tlb.currentPointsMeritGainTime <= 0) {
+                player.tlb.currentPointsMeritGainTime = player.tlb.stopTime
+                player.tlb.gainBlockerMerit = false
+            }
 
-        // Start of first three tome types and their point forms' modifiers
-        if(hasUpgrade("tlb", 14)) player.tlb.pointsForceGain = player.tlb.pointsForceGain.mul(upgradeEffect("tlb", 14))
-        if(hasUpgrade("tlb", 14)) player.tlb.pointsInsightGain = player.tlb.pointsInsightGain.mul(upgradeEffect("tlb", 24))
-        if(hasUpgrade("tlb", 34)) player.tlb.pointsMeritGain = player.tlb.pointsMeritGain.mul(upgradeEffect("tlb", 34))
-        if(hasUpgrade("tlb", 21)) {
-            player.tlb.revelationPointsGainForce = player.tlb.revelationPointsGainForce.mul(upgradeEffect("tlb", 21))
-            player.tlb.revelationPointsGainInsight = player.tlb.revelationPointsGainInsight.mul(upgradeEffect("tlb", 21))
-            player.tlb.revelationPointsGainMerit = player.tlb.revelationPointsGainMerit.mul(upgradeEffect("tlb", 21))
-        }
-        if(hasUpgrade("tlb", 22)) {
-            player.tlb.pointsForceGain = player.tlb.pointsForceGain.mul(upgradeEffect("tlb", 22))
-            player.tlb.pointsInsightGain = player.tlb.pointsInsightGain.mul(upgradeEffect("tlb", 22))
-            player.tlb.pointsMeritGain = player.tlb.pointsMeritGain.mul(upgradeEffect("tlb", 22))
+            // Start of first three tome types and their point forms' modifiers
+            if(hasUpgrade("tlb", 14)) player.tlb.pointsForceGain = player.tlb.pointsForceGain.mul(upgradeEffect("tlb", 14))
+            if(hasUpgrade("tlb", 14)) player.tlb.pointsInsightGain = player.tlb.pointsInsightGain.mul(upgradeEffect("tlb", 24))
+            if(hasUpgrade("tlb", 34)) player.tlb.pointsMeritGain = player.tlb.pointsMeritGain.mul(upgradeEffect("tlb", 34))
+            if(hasUpgrade("tlb", 21)) {
+                player.tlb.revelationPointsGainForce = player.tlb.revelationPointsGainForce.mul(upgradeEffect("tlb", 21))
+                player.tlb.revelationPointsGainInsight = player.tlb.revelationPointsGainInsight.mul(upgradeEffect("tlb", 21))
+                player.tlb.revelationPointsGainMerit = player.tlb.revelationPointsGainMerit.mul(upgradeEffect("tlb", 21))
+            }
+            if(hasUpgrade("tlb", 22)) {
+                player.tlb.pointsForceGain = player.tlb.pointsForceGain.mul(upgradeEffect("tlb", 22))
+                player.tlb.pointsInsightGain = player.tlb.pointsInsightGain.mul(upgradeEffect("tlb", 22))
+                player.tlb.pointsMeritGain = player.tlb.pointsMeritGain.mul(upgradeEffect("tlb", 22))
+            }
+
+            // anti-cheese fixes
+            let firstReq = (player.tlb.baseCostsAlchemicalSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+            let secondReqCr = (player.tlb.baseCostsCrimsonSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+            let secondReqGl = (player.tlb.baseCostsGoldSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+            let secondReqGd = (player.tlb.baseCostsJadeSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+            let secondReqCe = (player.tlb.baseCostsCelesteSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+            let secondReqCo = (player.tlb.baseCostsCobaltSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+            let secondReqAm = (player.tlb.baseCostsAmethystSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+
+            if(hasUpgrade("tlb", 12)) {
+                if(player.tlb.crimsonSymbolParts.gte(secondReqCr) && player.ssp.alchemicalSymbols.gte(firstReq)) player.tlb.canBuyCrimSys = true
+                if(player.tlb.goldSymbolParts.gte(secondReqGl) && player.ssp.alchemicalSymbols.gte(firstReq)) player.tlb.canBuyGoldSys = true
+                if(player.tlb.jadeSymbolParts.gte(secondReqGd) && player.ssp.alchemicalSymbols.gte(firstReq)) player.tlb.canBuyJadeSys = true
+                if(player.tlb.celesteSymbolParts.gte(secondReqCe) && player.ssp.alchemicalSymbols.gte(firstReq)) player.tlb.canBuyCeleSys = true
+                if(player.tlb.cobaltSymbolParts.gte(secondReqCo) && player.ssp.alchemicalSymbols.gte(firstReq)) player.tlb.canBuyCobaSys = true
+                if(player.tlb.amethystSymbolParts.gte(secondReqAm) && player.ssp.alchemicalSymbols.gte(firstReq)) player.tlb.canBuyAmetSys = true
+            }
+            else {
+                if(player.tlb.crimsonSymbolParts.gte(player.tlb.baseCostsCrimsonSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)) player.tlb.canBuyCrimSys = true
+                if(player.tlb.goldSymbolParts.gte(player.tlb.baseCostsGoldSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)) player.tlb.canBuyGoldSys = true
+                if(player.tlb.jadeSymbolParts.gte(player.tlb.baseCostsJadeSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)) player.tlb.canBuyJadeSys = true
+                if(player.tlb.celesteSymbolParts.gte(player.tlb.baseCostsCelesteSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)) player.tlb.canBuyCeleSys = true
+                if(player.tlb.cobaltSymbolParts.gte(player.tlb.baseCostsCobaltSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)) player.tlb.canBuyCobaSys = true
+                if(player.tlb.amethystSymbolParts.gte(player.tlb.baseCostsAmethystSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)) player.tlb.canBuyAmetSys = true
+
+            }
         }
     },
     nodeStyle: {
@@ -364,11 +395,11 @@ addLayer("tlb", {
         },
         encoder1: {
             title() {return "<h2>Symbol Encoder I</h2><hr>Encode <h2>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h2><br>🝪 Al.Sys 🝪.<br><br><small>(Req.: e10,000,000 Cel.Pts.)</small>"},
-            canClick() {return player.ssp.alchemicalSymbolsGain.gte(1) && player.points.gte("1e10000000")},
+            canClick() {return player.ssp.canAlSyReset == true},
             unlocked() {return true},
             onClick() { 
                 layers.ssp.alchemicalSymbolsReset()
-                player.tlb.canAlSyReset = false
+                player.ssp.canAlSyReset = false
             },
             style() {
                 let look = {fontSize: "7px", width: "170px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
@@ -444,16 +475,7 @@ addLayer("tlb", {
                 else
                     return "Create <h3>1</h3><br>Crimson Symbol."
             },
-            canClick() {
-                if(hasUpgrade("tlb", 12)) {
-                    let firstReq = (player.tlb.baseCostsAlchemicalSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
-                    let secondReq = (player.tlb.baseCostsCrimsonSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
-                    return player.ssp.alchemicalSymbols.gte(firstReq) && player.tlb.crimsonSymbolParts.gte(secondReq)
-                }
-                else {
-                    return player.ssp.alchemicalSymbols >= player.tlb.baseCostsAlchemicalSymbols && player.tlb.crimsonSymbolParts >= player.tlb.baseCostsCrimsonSymbols
-                }  
-            },
+            canClick() {return player.tlb.canBuyCrimSys == true},
             unlocked() {return true},
             onClick() { 
                 let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
@@ -467,6 +489,8 @@ addLayer("tlb", {
                 let secondReqTotal = player.tlb.crimsonSymbolParts.div(secondReq).floor()
                 let result2 = secondReqTotal
                 if(secondReqTotal.gt(firstReqTotal)) result2 = firstReqTotal
+
+                player.tlb.canBuyCrimSys = false
 
                 if (player.tlb.buyMaxSymbols == false) {
                     player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.add(1)
@@ -524,6 +548,8 @@ addLayer("tlb", {
                 let result2 = secondReqTotal
                 if(secondReqTotal.gt(firstReqTotal)) result2 = firstReqTotal
                 
+                
+                
                 if (player.tlb.buyMaxSymbols == true) {
                     if(hasUpgrade("tlb", 12))
                         return "Create <h3>" + formatShortWhole(player.tlb.goldSymbolsGain.add(result2)) + "</h3><br>Gold Symbols."
@@ -533,16 +559,7 @@ addLayer("tlb", {
                 else
                     return "Create <h3>1</h3><br>Gold Symbol."
             },
-            canClick() {
-                if(hasUpgrade("tlb", 12)) {
-                    let firstReq = (player.tlb.baseCostsAlchemicalSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
-                    let secondReq = (player.tlb.baseCostsGoldSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
-                    return player.ssp.alchemicalSymbols.gte(firstReq) && player.tlb.goldSymbolParts.gte(secondReq)
-                }
-                else {
-                    return player.ssp.alchemicalSymbols >= player.tlb.baseCostsAlchemicalSymbols && player.tlb.goldSymbolParts >= player.tlb.baseCostsGoldSymbols
-                }  
-            },
+            canClick() {return player.tlb.canBuyGoldSys == true},
             unlocked() {return true},
             onClick() { 
                 let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
@@ -556,6 +573,8 @@ addLayer("tlb", {
                 let secondReqTotal = player.tlb.goldSymbolParts.div(secondReq).floor()
                 let result2 = secondReqTotal
                 if(secondReqTotal.gt(firstReqTotal)) result2 = firstReqTotal
+
+                player.tlb.canBuyGoldSys = false
 
                 if (player.tlb.buyMaxSymbols == false) {
                     player.tlb.goldSymbols = player.tlb.goldSymbols.add(1)
@@ -622,16 +641,7 @@ addLayer("tlb", {
                 else
                     return "Create <h3>1</h3><br>Jade Symbol."
             },
-            canClick() {
-                if(hasUpgrade("tlb", 12)) {
-                    let firstReq = (player.tlb.baseCostsAlchemicalSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
-                    let secondReq = (player.tlb.baseCostsJadeSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
-                    return player.ssp.alchemicalSymbols.gte(firstReq) && player.tlb.jadeSymbolParts.gte(secondReq)
-                }
-                else {
-                    return player.ssp.alchemicalSymbols >= player.tlb.baseCostsAlchemicalSymbols && player.tlb.jadeSymbolParts >= player.tlb.baseCostsJadeSymbols
-                }  
-            },
+            canClick() {return player.tlb.canBuyJadeSys == true},
             unlocked() {return true},
             onClick() { 
                 let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
@@ -645,6 +655,8 @@ addLayer("tlb", {
                 let secondReqTotal = player.tlb.jadeSymbolParts.div(secondReq).floor()
                 let result2 = secondReqTotal
                 if(secondReqTotal.gt(firstReqTotal)) result2 = firstReqTotal
+
+                player.tlb.canBuyJadeSys = false
 
                 if(player.tlb.buyMaxSymbols == false) {
                     player.tlb.jadeSymbols = player.tlb.jadeSymbols.add(1)
@@ -711,16 +723,7 @@ addLayer("tlb", {
                 else
                     return "Create <h3>1</h3><br>Celeste Symbol."
             },
-            canClick() {
-                if(hasUpgrade("tlb", 12)) {
-                    let firstReq = (player.tlb.baseCostsAlchemicalSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
-                    let secondReq = (player.tlb.baseCostsCelesteSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
-                    return player.ssp.alchemicalSymbols.gte(firstReq) && player.tlb.celesteSymbolParts.gte(secondReq)
-                }
-                else {
-                    return player.ssp.alchemicalSymbols >= player.tlb.baseCostsAlchemicalSymbols && player.tlb.celesteSymbolParts >= player.tlb.baseCostsCelesteSymbols
-                }  
-            },
+            canClick() {return player.tlb.canBuyCeleSys == true},
             unlocked() {return true},
             onClick() { 
                 let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
@@ -734,6 +737,8 @@ addLayer("tlb", {
                 let secondReqTotal = player.tlb.celesteSymbolParts.div(secondReq).floor()
                 let result2 = secondReqTotal
                 if(secondReqTotal.gt(firstReqTotal)) result2 = firstReqTotal
+
+                player.tlb.canBuyCeleSys = false
 
                 if(player.tlb.buyMaxSymbols == false) {
                     player.tlb.celesteSymbols = player.tlb.celesteSymbols.add(1)
@@ -800,16 +805,7 @@ addLayer("tlb", {
                 else
                     return "Create <h3>1</h3><br>Cobalt Symbol."
             },
-            canClick() {
-                if(hasUpgrade("tlb", 12)) {
-                    let firstReq = (player.tlb.baseCostsAlchemicalSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
-                    let secondReq = (player.tlb.baseCostsCobaltSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
-                    return player.ssp.alchemicalSymbols.gte(firstReq) && player.tlb.cobaltSymbolParts.gte(secondReq)
-                }
-                else {
-                    return player.ssp.alchemicalSymbols >= player.tlb.baseCostsAlchemicalSymbols && player.tlb.cobaltSymbolParts >= player.tlb.baseCostsCobaltSymbols
-                }  
-            },
+            canClick() {return player.tlb.canBuyCobaSys == true},
             unlocked() {return true},
             onClick() { 
                 let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
@@ -823,6 +819,8 @@ addLayer("tlb", {
                 let secondReqTotal = player.tlb.cobaltSymbolParts.div(secondReq).floor()
                 let result2 = secondReqTotal
                 if(secondReqTotal.gt(firstReqTotal)) result2 = firstReqTotal
+
+                player.tlb.canBuyCobaSys = false
 
                 if (player.tlb.buyMaxSymbols == false) {
                     player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.add(1)
@@ -889,22 +887,15 @@ addLayer("tlb", {
                 else
                     return "Create <h3>1</h3><br>Amethyst Symbol."
             },
-            canClick() {
-                if(hasUpgrade("tlb", 12)) {
-                    let firstReq = (player.tlb.baseCostsAlchemicalSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
-                    let secondReq = (player.tlb.baseCostsAmethystSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
-                    return player.ssp.alchemicalSymbols.gte(firstReq) && player.tlb.amethystSymbolParts.gte(secondReq)
-                }
-                else {
-                    return player.ssp.alchemicalSymbols >= player.tlb.baseCostsAlchemicalSymbols && player.tlb.amethystSymbolParts >= player.tlb.baseCostsAmethystSymbols
-                }  
-            },
+            canClick() {return player.tlb.canBuyAmetSys == true},
             unlocked() {return true},
             onClick() { 
                 let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
                 let val2 = player.tlb.amethystSymbolParts.div(player.tlb.baseCostsAmethystSymbols).floor()
                 let result = val1
                 if(val2.lt(val1)) result = val2
+
+                player.tlb.canBuyAmetSys = false
 
                 let firstReq = (player.tlb.baseCostsAlchemicalSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
                 let secondReq = (player.tlb.baseCostsAmethystSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()

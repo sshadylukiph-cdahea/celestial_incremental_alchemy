@@ -7,6 +7,9 @@ addLayer("ssp", {
     startData() {return {
         unlocked: true,
 
+        // anti-autoclick cheese
+        canAlSyReset: false,
+
         // alchemical symbol generation
         alchemicalSymbols: new Decimal(0),
         alchemicalSymbolsGain: new Decimal(0),
@@ -31,8 +34,13 @@ addLayer("ssp", {
     tooltip: "Symbol Space",
     color: "#8b609c",
     update(delta) {
+        
         // Continuous gains, maybe later
         let onepersec = new Decimal(1)
+
+        // anti-cheese fixes
+        if(player.points.gte("e10000000")) player.ssp.canAlSyReset = true
+
         // Start of Alchemical Symbol Gain
         if (hasUpgrade("tlb", 13)) {player.ssp.alchemicalSymbolsGain = player.points.add(1).log10(player.points).add(1).log10(player.points).mul(2)}
         else {player.ssp.alchemicalSymbolsGain = player.points.add(1).log10(player.points).add(1).log10(player.points)}
@@ -52,7 +60,7 @@ addLayer("ssp", {
     clickables: {
         encoder1: {
             title() {return "<h2>Symbol Encoder I</h2><hr>Encode <h2>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h2><br>🝪 Al.Sys 🝪.<br><br><small>(Req.: e10,000,000 Cel.Pts.)</small>"},
-            canClick() {return player.ssp.alchemicalSymbolsGain.gte(1) && player.points.gte("1e10000000")},
+            canClick() {return player.ssp.canAlSyReset == true},
             unlocked() {return true},
             onClick() { 
                 layers.ssp.alchemicalSymbolsReset()
