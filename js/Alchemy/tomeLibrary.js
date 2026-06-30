@@ -2577,6 +2577,34 @@ addLayer("tlb", {
                         ]
                     ],
                     ["blank", "10px"],
+                    () => {
+                        if(player.tlb.firstTomeForce == false || player.tlb.firstTomeInsight == false || player.tlb.firstTomeMerit == false) {
+                            return ["column",
+                                [
+                                    ["row",
+                                        [["raw-html", "<u>☢ ⏻ ☘︎ ᖫ᯽ᖭ ✸ ₴ ✧</u>", {width: "100px"}]]
+                                    ],
+                                    ["row",
+                                        [
+                                            ["raw-html", "Perhaps there is a way to", {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "2px"],
+                                            ["raw-html", "open the Study", {color: "transparent", backgroundImage: "linear-gradient(-135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(-135deg, #ffffff12, #00000012), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "14px", 'text-shadow': " 0 0 5px #ffffffcd, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "2px"],
+                                            ["raw-html", "by", {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "2px"],
+                                            ["raw-html", "gathering different types of tomes...", {color: "transparent", backgroundImage: "linear-gradient(-135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(-135deg, #ffffff12, #00000012), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "14px", 'text-shadow': " 0 0 5px #ffffffcd, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                                        ]
+                                    ],
+                                    ["row",
+                                        [["raw-html", "<u>☢ ⏻ ☘︎ ᖫ᯽ᖭ ✸ ₴ ✧</u>", {width: "100px"}]]
+                                    ]
+                                ]
+                            ] 
+                        }
+                        else if(player.tlb.firstTomeForce == true && player.tlb.firstTomeInsight == true && player.tlb.firstTomeMerit == true)
+                            return ""
+                    },
+                    ["blank", "10px"],
                     ["style-column",
                         [
                             ["row", [["clickable", "buyMaxOff2"], ["blank", "5px"], ["clickable", "buyMaxOn2"]]]

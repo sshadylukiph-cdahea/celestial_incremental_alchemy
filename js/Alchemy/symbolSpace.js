@@ -167,7 +167,7 @@ addLayer("ssp", {
             cost: new Decimal(1000),
             currencyLocation() {return player.ssp},
             currencyDisplayName() {
-                if (hasUpgrade("ssp", 101))
+                if (hasUpgrade("ssp", 101) && (player.tlb.firstTomeForce == true && player.tlb.firstTomeInsight == true && player.tlb.firstTomeMerit == true))
                     return "🝪 Al.Sys 🝪 and 100 ⚿ Rev.Pts ⚿"
                 else
                     return "🝪 Al.Sys 🝪 and 100 ??????"
@@ -196,7 +196,7 @@ addLayer("ssp", {
             cost: new Decimal(50000),
             currencyLocation() {return player.ssp},
             currencyDisplayName() {
-                if (hasUpgrade("ssp", 101))
+                if (hasUpgrade("ssp", 101) && (player.tlb.firstTomeForce == true && player.tlb.firstTomeInsight == true && player.tlb.firstTomeMerit == true))
                     return "🝪 Al.Sys 🝪 and 5,000 ⚿ Rev.Pts ⚿"
                 else
                     return "Al.Sys and 5,000 ??????"
@@ -221,7 +221,7 @@ addLayer("ssp", {
             cost: new Decimal(37500),
             currencyLocation() {return player.tlb},
             currencyDisplayName() {
-                if (hasUpgrade("ssp", 101))
+                if (hasUpgrade("ssp", 101) && (player.tlb.firstTomeForce == true && player.tlb.firstTomeInsight == true && player.tlb.firstTomeMerit == true))
                     return "⚿ Rev.Pts ⚿"
                 else
                     return "??????"
@@ -246,7 +246,7 @@ addLayer("ssp", {
             cost: new Decimal(250000),
             currencyLocation() {return player.tlb},
             currencyDisplayName() {
-                if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 104))
+                if (hasUpgrade("ssp", 101) && hasUpgrade("ssp", 104) && (player.tlb.firstTomeForce == true && player.tlb.firstTomeInsight == true && player.tlb.firstTomeMerit == true))
                     return "⚿ Rev.Pts ⚿ and 100 ✩🝪 Adv.Al.Sys 🝪✩"
                 else if (hasUpgrade("ssp", 101) && !hasUpgrade("ssp", 104))
                     return "⚿ Rev.Pts ⚿ and 100 ??????"
@@ -277,7 +277,7 @@ addLayer("ssp", {
             cost: new Decimal(1500000),
             currencyLocation() {return player.tlb},
             currencyDisplayName() {
-                if (hasUpgrade("ssp", 101))
+                if (hasUpgrade("ssp", 101) && (player.tlb.firstTomeForce == true && player.tlb.firstTomeInsight == true && player.tlb.firstTomeMerit == true))
                     return "⚿ Rev.Pts ⚿"
                 else
                     return "??????"
