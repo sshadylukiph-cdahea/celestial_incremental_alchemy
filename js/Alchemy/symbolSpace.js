@@ -60,7 +60,7 @@ addLayer("ssp", {
     clickables: {
         encoder1: {
             title() {return "<h2>Symbol Encoder I</h2><hr>Encode <h2>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h2><br>🝪 Al.Sys 🝪.<br><br><small>(Req.: e10,000,000 Cel.Pts.)</small>"},
-            canClick() {return player.ssp.canAlSyReset == true},
+            canClick() {return player.ssp.canAlSyReset == true && player.points.gte("e10000000")},
             unlocked() {return true},
             onClick() { 
                 layers.ssp.alchemicalSymbolsReset()

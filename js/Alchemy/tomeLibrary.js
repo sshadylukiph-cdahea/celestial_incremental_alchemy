@@ -47,6 +47,10 @@ addLayer("tlb", {
         pointsMeritGain: new Decimal(0),
         currentPointsMeritGainTime: new Decimal(60),
 
+        unlockCountStudy: new Decimal(0),
+        purchaseCountForceTome: new Decimal(0),
+        purchaseCountInsightTome: new Decimal(0),
+        purchaseCountMeritTome: new Decimal(0),
         firstTomeForce: false,
         firstTomeInsight: false,
         firstTomeMerit: false,
@@ -395,7 +399,7 @@ addLayer("tlb", {
         },
         encoder1: {
             title() {return "<h2>Symbol Encoder I</h2><hr>Encode <h2>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h2><br>🝪 Al.Sys 🝪.<br><br><small>(Req.: e10,000,000 Cel.Pts.)</small>"},
-            canClick() {return player.ssp.canAlSyReset == true},
+            canClick() {return player.ssp.canAlSyReset == true && player.points.gte("e10000000")},
             unlocked() {return true},
             onClick() { 
                 layers.ssp.alchemicalSymbolsReset()
@@ -1012,10 +1016,10 @@ addLayer("tlb", {
                 if(val2.lt(val1)) result = val2
 
                 if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
-                    return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesForceGain.add(result)) + "</h3><br>→ Force Tomes →."
+                    return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesForceGain.add(result)) + "</h3><br>→ Force Tomes →.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountForceTome) + "</h3></small>"
                 }
                 else {
-                    return "Bargain for <h3>1</h3><br>→ Force Tome →." 
+                    return "Bargain for <h3>1</h3><br>→ Force Tome →.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountForceTome) + "</h3></small>" 
                 } 
             },
             canClick() {return (player.tlb.crimsonSymbols.gte(player.tlb.baseCostsForceCr) && player.tlb.celesteSymbols.gte(player.tlb.baseCostsForceCe))},
@@ -1026,15 +1030,18 @@ addLayer("tlb", {
                 let result = val1
                 if(val2.lt(val1)) result = val2
 
+                if(player.tlb.firstTomeForce == false) player.tlb.unlockCountStudy = player.tlb.unlockCountStudy.add(1)
                 player.tlb.firstTomeForce = true
 
                 if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
                     player.tlb.tomesForce = player.tlb.tomesForce.add(result)
+                    player.tlb.purchaseCountForceTome = player.tlb.purchaseCountForceTome.add(result)
                     player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(Decimal.mul(player.tlb.baseCostsForceCr, result))
                     player.tlb.celesteSymbols = player.tlb.celesteSymbols.sub(Decimal.mul(player.tlb.baseCostsForceCe, result))
                 }
                 else {
                     player.tlb.tomesForce = player.tlb.tomesForce.add(1)
+                    player.tlb.purchaseCountForceTome = player.tlb.purchaseCountForceTome.add(1)
                     player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(player.tlb.baseCostsForceCr)
                     player.tlb.celesteSymbols = player.tlb.celesteSymbols.sub(player.tlb.baseCostsForceCe)
                 }  
@@ -1065,10 +1072,10 @@ addLayer("tlb", {
                 if(val2.lt(val1)) result = val2
 
                 if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
-                    return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesInsightGain.add(result)) + "</h3><br>👁 Insight Tomes 👁."
+                    return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesInsightGain.add(result)) + "</h3><br>👁 Insight Tomes 👁.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountInsightTome) + "</h3></small>"
                 }
                 else {
-                    return "Bargain for <h3>1</h3><br>👁 Insight Tome 👁." 
+                    return "Bargain for <h3>1</h3><br>👁 Insight Tome 👁.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountInsightTome) + "</h3></small>" 
                 } 
             },
             canClick() {return (player.tlb.goldSymbols.gte(player.tlb.baseCostsInsightGl) && player.tlb.cobaltSymbols.gte(player.tlb.baseCostsInsightCo))},
@@ -1079,15 +1086,18 @@ addLayer("tlb", {
                 let result = val1
                 if(val2.lt(val1)) result = val2
 
+                if(player.tlb.firstTomeInsight == false) player.tlb.unlockCountStudy = player.tlb.unlockCountStudy.add(1)
                 player.tlb.firstTomeInsight = true
 
                 if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
                     player.tlb.tomesInsight = player.tlb.tomesInsight.add(result)
+                    player.tlb.purchaseCountInsightTome = player.tlb.purchaseCountInsightTome.add(result)
                     player.tlb.goldSymbols = player.tlb.goldSymbols.sub(Decimal.mul(player.tlb.baseCostsInsightGl, result))
                     player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.sub(Decimal.mul(player.tlb.baseCostsInsightCo, result))
                 }
                 else {
                     player.tlb.tomesInsight = player.tlb.tomesInsight.add(1)
+                    player.tlb.purchaseCountInsightTome = player.tlb.purchaseCountInsightTome.add(1)
                     player.tlb.goldSymbols = player.tlb.goldSymbols.sub(player.tlb.baseCostsInsightGl)
                     player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.sub(player.tlb.baseCostsInsightCo)
                 }  
@@ -1118,10 +1128,10 @@ addLayer("tlb", {
                 if(val2.lt(val1)) result = val2
 
                 if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
-                    return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesMeritGain.add(result)) + "</h3><br>✶ Merit Tomes ✶."
+                    return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesMeritGain.add(result)) + "</h3><br>✶ Merit Tomes ✶.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountMeritTome) + "</h3></small>"
                 }
                 else {
-                    return "Bargain for <h3>1</h3><br>✶ Merit Tome ✶." 
+                    return "Bargain for <h3>1</h3><br>✶ Merit Tome ✶.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountMeritTome) + "</h3></small>" 
                 } 
             },
             canClick() {return (player.tlb.jadeSymbols.gte(player.tlb.baseCostsMeritJd) && player.tlb.amethystSymbols.gte(player.tlb.baseCostsMeritAm))},
@@ -1132,15 +1142,18 @@ addLayer("tlb", {
                 let result = val1
                 if(val2.lt(val1)) result = val2
 
+                if(player.tlb.firstTomeMerit == false) player.tlb.unlockCountStudy = player.tlb.unlockCountStudy.add(1)
                 player.tlb.firstTomeMerit = true
-
+                
                 if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
                     player.tlb.tomesMerit = player.tlb.tomesMerit.add(result)
+                    player.tlb.purchaseCountMeritTome = player.tlb.purchaseCountMeritTome.add(result)
                     player.tlb.jadeSymbols = player.tlb.jadeSymbols.sub(Decimal.mul(player.tlb.baseCostsMeritJd, result))
                     player.tlb.amethystSymbols = player.tlb.amethystSymbols.sub(Decimal.mul(player.tlb.baseCostsMeritAm, result))
                 }
                 else {
                     player.tlb.tomesMerit = player.tlb.tomesMerit.add(1)
+                    player.tlb.purchaseCountMeritTome = player.tlb.purchaseCountMeritTome.add(1)
                     player.tlb.jadeSymbols = player.tlb.jadeSymbols.sub(player.tlb.baseCostsMeritJd)
                     player.tlb.amethystSymbols = player.tlb.amethystSymbols.sub(player.tlb.baseCostsMeritAm)
                 }  
@@ -1168,7 +1181,7 @@ addLayer("tlb", {
                 if(player.tlb.currentPointsForceGainTime > 0 && player.tlb.preparationPhaseForce == false)
                     return "Reading <h3>" + formatShortWhole(player.tlb.tomesForce) + "</h3> → Force Tomes →.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsForceGain) + "</h3> → For.Pts → and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainForce) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsForceGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsForce) + "</h3> → For.Pts →."
                 else if(player.tlb.currentPointsForceGainTime > 0 && player.tlb.preparationPhaseForce == true)
-                    return "Preparing to read <h3>" + formatShortWhole(player.tlb.tomesForce) + "</h3> → Force Tomes →.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsForceGain) + "</h3> → For.Pts → and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainForce) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsForceGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsForce) + "</h3> → For.Pts →."
+                    return "Preparing <h3>" + formatShortWhole(player.tlb.tomesForce) + "</h3> → Force Tomes →.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsForceGain) + "</h3> → For.Pts → and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainForce) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsForceGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsForce) + "</h3> → For.Pts →."
                 else
                     return "You hold <h3>" + formatShortWhole(player.tlb.tomesForce) + "</h3> → Force Tomes →.<hr>Gain <h3>" + formatShortWhole(player.tlb.pointsForceGain) + "</h3> → For.Pts → and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainForce) + "</h3> ⚿ Rev.Pts ⚿.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsForce) + "</h3> → For.Pts →."
             },
@@ -1215,7 +1228,7 @@ addLayer("tlb", {
                 if(player.tlb.currentPointsInsightGainTime > 0 && player.tlb.preparationPhaseInsight == false)
                     return "Reading <h3>" + formatShortWhole(player.tlb.tomesInsight) + "</h3> 👁 Insight Tomes 👁.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsInsightGain) + "</h3> 👁 Ins.Pts 👁 and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainInsight) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsInsightGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsInsight) + "</h3> 👁 Ins.Pts 👁."
                 else if(player.tlb.currentPointsInsightGainTime > 0 && player.tlb.preparationPhaseInsight == true)
-                    return "Preparing to read <h3>" + formatShortWhole(player.tlb.tomesInsight) + "</h3> 👁 Insight Tomes 👁.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsInsightGain) + "</h3> 👁 Ins.Pts 👁 and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainInsight) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsInsightGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsInsight) + "</h3> 👁 Ins.Pts 👁."
+                    return "Preparing <h3>" + formatShortWhole(player.tlb.tomesInsight) + "</h3> 👁 Insight Tomes 👁.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsInsightGain) + "</h3> 👁 Ins.Pts 👁 and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainInsight) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsInsightGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsInsight) + "</h3> 👁 Ins.Pts 👁."
                 else
                     return "You hold <h3>" + formatShortWhole(player.tlb.tomesInsight) + "</h3> 👁 Insight Tomes 👁.<hr>Gain <h3>" + formatShortWhole(player.tlb.pointsInsightGain) + "</h3> 👁 Ins.Pts 👁 and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainInsight) + "</h3> ⚿ Rev.Pts ⚿.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsInsight) + "</h3> 👁 Ins.Pts 👁."
             },
@@ -1262,7 +1275,7 @@ addLayer("tlb", {
                 if(player.tlb.currentPointsMeritGainTime > 0 && player.tlb.preparationPhaseMerit == false)
                     return "Reading <h3>" + formatShortWhole(player.tlb.tomesMerit) + "</h3> ✶ Merit Tomes ✶.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsMeritGain) + "</h3> ✶ Mer.Pts ✶ and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainMerit) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsMeritGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsMerit) + "</h3> ✶ Mer.Pts ✶."
                 if(player.tlb.currentPointsMeritGainTime > 0 && player.tlb.preparationPhaseMerit == true)
-                    return "Preparing to read <h3>" + formatShortWhole(player.tlb.tomesMerit) + "</h3> ✶ Merit Tomes ✶.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsMeritGain) + "</h3> ✶ Mer.Pts ✶ and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainMerit) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsMeritGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsMerit) + "</h3> ✶ Mer.Pts ✶."
+                    return "Preparing <h3>" + formatShortWhole(player.tlb.tomesMerit) + "</h3> ✶ Merit Tomes ✶.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsMeritGain) + "</h3> ✶ Mer.Pts ✶ and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainMerit) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsMeritGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsMerit) + "</h3> ✶ Mer.Pts ✶."
                 else
                     return "You hold <h3>" + formatShortWhole(player.tlb.tomesMerit) + "</h3> ✶ Merit Tomes ✶.<hr>Gain <h3>" + formatShortWhole(player.tlb.pointsMeritGain) + "</h3> ✶ Mer.Pts ✶ and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainMerit) + "</h3> ⚿ Rev.Pts ⚿.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsMerit) + "</h3> ✶ Mer.Pts ✶."
             },
@@ -2592,19 +2605,21 @@ addLayer("tlb", {
                                             ["blank", "2px"],
                                             ["raw-html", "by", {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "2px"],
-                                            ["raw-html", "gathering different types of tomes...", {color: "transparent", backgroundImage: "linear-gradient(-135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(-135deg, #ffffff12, #00000012), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "14px", 'text-shadow': " 0 0 5px #ffffffcd, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                                            ["raw-html", "buying <h3>3</h3> different types of tomes...", {color: "transparent", backgroundImage: "linear-gradient(-135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(-135deg, #ffffff12, #00000012), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "14px", 'text-shadow': " 0 0 5px #ffffffcd, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            ["blank", "2px"],
+                                            ["raw-html", "(<h3>" + formatShortWhole(player.tlb.unlockCountStudy) + "</h3>/<h3>3</h3>)", {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                         ]
                                     ],
                                     ["row",
                                         [["raw-html", "<u>☢ ⏻ ☘︎ ᖫ᯽ᖭ ✸ ₴ ✧</u>", {width: "100px"}]]
                                     ]
                                 ]
-                            ] 
+                            ],
+                            ["blank", "10px"]
                         }
                         else if(player.tlb.firstTomeForce == true && player.tlb.firstTomeInsight == true && player.tlb.firstTomeMerit == true)
                             return ""
                     },
-                    ["blank", "10px"],
                     ["style-column",
                         [
                             ["row", [["clickable", "buyMaxOff2"], ["blank", "5px"], ["clickable", "buyMaxOn2"]]]
@@ -2624,7 +2639,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.crimsonSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "22px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "20px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffdddd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff000023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -2640,7 +2655,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.goldSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "22px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "20px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ffff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -2656,7 +2671,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.jadeSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "22px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "20px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -2672,7 +2687,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.celesteSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "22px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "20px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ffff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -2688,7 +2703,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.cobaltSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "22px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "20px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #0000ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -2704,7 +2719,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.amethystSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "22px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "20px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff00ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ]
