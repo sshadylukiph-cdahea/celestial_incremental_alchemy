@@ -475,7 +475,17 @@ addLayer("tlb", {
                 else
                     return "Create <h3>1</h3><br>Crimson Symbol."
             },
-            canClick() {return player.tlb.canBuyCrimSys == true},
+            canClick() {
+                let firstReq = (player.tlb.baseCostsAlchemicalSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+                let secondReq = (player.tlb.baseCostsCrimsonSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+
+                if(hasUpgrade("tlb", 12)) {
+                    return player.tlb.canBuyCrimSys == true && player.tlb.crimsonSymbolParts.gte(secondReq) && player.ssp.alchemicalSymbols.gte(firstReq)
+                }
+                else {
+                    return player.tlb.canBuyCrimSys == true && player.tlb.crimsonSymbolParts.gte(player.tlb.baseCostsCrimsonSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)
+                }
+            },
             unlocked() {return true},
             onClick() { 
                 let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
@@ -548,8 +558,6 @@ addLayer("tlb", {
                 let result2 = secondReqTotal
                 if(secondReqTotal.gt(firstReqTotal)) result2 = firstReqTotal
                 
-                
-                
                 if (player.tlb.buyMaxSymbols == true) {
                     if(hasUpgrade("tlb", 12))
                         return "Create <h3>" + formatShortWhole(player.tlb.goldSymbolsGain.add(result2)) + "</h3><br>Gold Symbols."
@@ -559,7 +567,17 @@ addLayer("tlb", {
                 else
                     return "Create <h3>1</h3><br>Gold Symbol."
             },
-            canClick() {return player.tlb.canBuyGoldSys == true},
+            canClick() {
+                let firstReq = (player.tlb.baseCostsAlchemicalSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+                let secondReq = (player.tlb.baseCostsGoldSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+
+                if(hasUpgrade("tlb", 12)) {
+                    return player.tlb.canBuyGoldSys == true && player.tlb.goldSymbolParts.gte(secondReq) && player.ssp.alchemicalSymbols.gte(firstReq)
+                }
+                else {
+                    return player.tlb.canBuyGoldSys == true && player.tlb.goldSymbolParts.gte(player.tlb.baseCostsGoldSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)
+                }
+            },
             unlocked() {return true},
             onClick() { 
                 let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
@@ -641,7 +659,17 @@ addLayer("tlb", {
                 else
                     return "Create <h3>1</h3><br>Jade Symbol."
             },
-            canClick() {return player.tlb.canBuyJadeSys == true},
+            canClick() {
+                let firstReq = (player.tlb.baseCostsAlchemicalSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+                let secondReq = (player.tlb.baseCostsJadeSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+
+                if(hasUpgrade("tlb", 12)) {
+                    return player.tlb.canBuyJadeSys == true && player.tlb.jadeSymbolParts.gte(secondReq) && player.ssp.alchemicalSymbols.gte(firstReq)
+                }
+                else {
+                    return player.tlb.canBuyJadeSys == true && player.tlb.jadeSymbolParts.gte(player.tlb.baseCostsJadeSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)
+                }
+            },
             unlocked() {return true},
             onClick() { 
                 let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
@@ -723,7 +751,17 @@ addLayer("tlb", {
                 else
                     return "Create <h3>1</h3><br>Celeste Symbol."
             },
-            canClick() {return player.tlb.canBuyCeleSys == true},
+            canClick() {
+                let firstReq = (player.tlb.baseCostsAlchemicalSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+                let secondReq = (player.tlb.baseCostsCelesteSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+
+                if(hasUpgrade("tlb", 12)) {
+                    return player.tlb.canBuyCeleSys == true && player.tlb.celesteSymbolParts.gte(secondReq) && player.ssp.alchemicalSymbols.gte(firstReq)
+                }
+                else {
+                    return player.tlb.canBuyCeleSys == true && player.tlb.celesteSymbolParts.gte(player.tlb.baseCostsCelesteSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)
+                }
+            },
             unlocked() {return true},
             onClick() { 
                 let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
@@ -805,7 +843,17 @@ addLayer("tlb", {
                 else
                     return "Create <h3>1</h3><br>Cobalt Symbol."
             },
-            canClick() {return player.tlb.canBuyCobaSys == true},
+            canClick() {
+                let firstReq = (player.tlb.baseCostsAlchemicalSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+                let secondReq = (player.tlb.baseCostsCobaltSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+
+                if(hasUpgrade("tlb", 12)) {
+                    return player.tlb.canBuyCobaSys == true && player.tlb.cobaltSymbolParts.gte(secondReq) && player.ssp.alchemicalSymbols.gte(firstReq)
+                }
+                else {
+                    return player.tlb.canBuyCobaSys == true && player.tlb.cobaltSymbolParts.gte(player.tlb.baseCostsCobaltSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)
+                }
+            },
             unlocked() {return true},
             onClick() { 
                 let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()
@@ -887,7 +935,17 @@ addLayer("tlb", {
                 else
                     return "Create <h3>1</h3><br>Amethyst Symbol."
             },
-            canClick() {return player.tlb.canBuyAmetSys == true},
+            canClick() {
+                let firstReq = (player.tlb.baseCostsAlchemicalSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+                let secondReq = (player.tlb.baseCostsAmethystSymbols.div(upgradeEffect("tlb", 12)).floor()).floor()
+
+                if(hasUpgrade("tlb", 12)) {
+                    return player.tlb.canBuyAmetSys == true && player.tlb.amethystSymbolParts.gte(secondReq) && player.ssp.alchemicalSymbols.gte(firstReq)
+                }
+                else {
+                    return player.tlb.canBuyAmetSys == true && player.tlb.amethystSymbolParts.gte(player.tlb.baseCostsAmethystSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)
+                }
+            },
             unlocked() {return true},
             onClick() { 
                 let val1 = player.ssp.alchemicalSymbols.div(player.tlb.baseCostsAlchemicalSymbols).floor()

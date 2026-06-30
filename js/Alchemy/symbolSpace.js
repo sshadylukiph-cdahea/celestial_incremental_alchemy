@@ -42,8 +42,8 @@ addLayer("ssp", {
         if(player.points.gte("e10000000")) player.ssp.canAlSyReset = true
 
         // Start of Alchemical Symbol Gain
-        if (hasUpgrade("tlb", 13)) {player.ssp.alchemicalSymbolsGain = player.points.add(1).log10(player.points).add(1).log10(player.points).mul(2)}
-        else {player.ssp.alchemicalSymbolsGain = player.points.add(1).log10(player.points).add(1).log10(player.points)}
+        if (hasUpgrade("tlb", 13)) {player.ssp.alchemicalSymbolsGain = player.points.add(1).log10().add(1).log10().mul(2)}
+        else {player.ssp.alchemicalSymbolsGain = player.points.add(1).log10().add(1).log10()}
         // Flooring Alchemical Symbol Gain
         player.ssp.alchemicalSymbolsGain = player.ssp.alchemicalSymbolsGain.floor()
 
