@@ -104,6 +104,9 @@ addLayer("tlb", {
         amethystSymbolPartsSoftcap: new Decimal(10000),
         amethystSymbolPartsSoftcapEffect: new Decimal(0),
 
+        // anti-autoclick cheese
+        canAlSyReset: false,
+
         // 1st order symbols // LATER
         arcaneSymbols: new Decimal (0),
         starmetalAlloySymbols: new Decimal (0),
@@ -116,6 +119,8 @@ addLayer("tlb", {
     },
     update(delta) {
         let onepersec = new Decimal(1)
+
+        if(player.points >= "e10000000") player.tlb.canAlSyReset = true
 
         // Symbol Parts generation
         if(hasUpgrade("ssp", 101)) {
@@ -363,6 +368,7 @@ addLayer("tlb", {
             unlocked() {return true},
             onClick() { 
                 layers.ssp.alchemicalSymbolsReset()
+                player.tlb.canAlSyReset = false
             },
             style() {
                 let look = {fontSize: "7px", width: "170px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
@@ -2969,8 +2975,8 @@ addLayer("tlb", {
                                                                     ["column",
                                                                         [
                                                                             ["raw-html", () => {
-                                                                                let val1 = player.tlb.goldSymbols.div(player.tlb.baseCostsMeritJd).floor()
-                                                                                let val2 = player.tlb.cobaltSymbols.div(player.tlb.baseCostsMeritAm).floor()
+                                                                                let val1 = player.tlb.jadeSymbols.div(player.tlb.baseCostsMeritJd).floor()
+                                                                                let val2 = player.tlb.amethystSymbols.div(player.tlb.baseCostsMeritAm).floor()
                                                                                 let result = val1
                                                                                 if(val2.lt(val1)) result = val2
 
