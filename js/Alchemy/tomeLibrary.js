@@ -2726,374 +2726,378 @@ addLayer("tlb", {
                         ]
                     ],
                     ["blank", "20px"],
-                    ["style-row",
+                    ["column",
                         [
-                            ["style-column",
+                            ["style-row",
                                 [
-                                    ["style-row",
+                                    ["style-column",
                                         [
-                                            ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "50px 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #005555 12px, #00aaaa)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #550000 12px, #aa0000)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #550000 12px, #aa0000)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #005555 12px, #00aaaa)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 50px 50px 50px"}],
-                                        ], {marginBottom: "-60px"}
-                                    ],
-                                    ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 100%, transparent, #000000ab), radial-gradient(ellipse at 50% -40%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 100% 0%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(0deg, #382413, #523116)", border: "3px solid #b18961", borderRadius: "15px 15px 0 0", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}],
-                                    ["style-row",
-                                        [
-                                            ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #550000, #005555)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}],
-                                            ["column", 
+                                            ["style-row",
                                                 [
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [
-                                                                    ["column",
-                                                                        [
-                                                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-                                                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
-                                                                    ],
-                                                                    ["blank", "5px"],
-                                                                    ["column",
-                                                                        [
-                                                                            ["raw-html", () => {
-                                                                                let val1 = player.tlb.crimsonSymbols.div(player.tlb.baseCostsForceCr).floor()
-                                                                                let val2 = player.tlb.celesteSymbols.div(player.tlb.baseCostsForceCe).floor()
-                                                                                let result = val1
-                                                                                if(val2.lt(val1)) result = val2
-
-                                                                                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
-                                                                                    return formatShortWhole(player.tlb.baseCostsForceCr.mul(result))
-                                                                                    }
-                                                                                else {
-                                                                                    return formatShortWhole(player.tlb.baseCostsForceCr)
-                                                                                    } 
-                                                                                }
-                                                                            ]
-                                                                        ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "22px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-                                                                    ]
-                                                                ]
-                                                            ],
-                                                            ["blank", "1px"],
-                                                            ["column",
-                                                                [
-                                                                    ["column",
-                                                                        [
-                                                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-                                                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
-                                                                    ],
-                                                                    ["blank", "5px"],
-                                                                    ["column",
-                                                                        [
-                                                                            ["raw-html", () => {
-                                                                                let val1 = player.tlb.crimsonSymbols.div(player.tlb.baseCostsForceCr).floor()
-                                                                                let val2 = player.tlb.celesteSymbols.div(player.tlb.baseCostsForceCe).floor()
-                                                                                let result = val1
-                                                                                if(val2.lt(val1)) result = val2
-
-                                                                                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
-                                                                                    return formatShortWhole(player.tlb.baseCostsForceCe.mul(result))
-                                                                                    }
-                                                                                else {
-                                                                                    return formatShortWhole(player.tlb.baseCostsForceCe)
-                                                                                    } 
-                                                                                }
-                                                                            ]
-                                                                        ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "22px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-                                                                    ]
-                                                                ]
-                                                            ],
-                                                            ["blank", "1px"],
-                                                            ["column",
-                                                                [
-                                                                    ["raw-html", "→"]
-                                                                ], {fontSize: "70px"}
-                                                            ],
-                                                            ["blank", "1px"],
-                                                            ["column",
-                                                                [
-                                                                    ["column",
-                                                                        [
-                                                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-                                                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
-                                                                    ],
-                                                                    ["blank", "5px"],
-                                                                    ["column",
-                                                                        [
-                                                                            ["raw-html", () => {
-                                                                                let val1 = player.tlb.crimsonSymbols.div(player.tlb.baseCostsForceCr).floor()
-                                                                                let val2 = player.tlb.celesteSymbols.div(player.tlb.baseCostsForceCe).floor()
-                                                                                let result = val1
-                                                                                if(val2.lt(val1)) result = val2
-
-                                                                                if (hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true)
-                                                                                    return formatShortWhole(player.tlb.tomesForceGain.add(result))
-                                                                                else
-                                                                                    return "1"
-                                                                                }
-                                                                            ]
-                                                                        ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-                                                                    ]
-                                                                ]
-                                                            ]
-                                                        ]
-                                                    ]
-                                                ], {width: "254px", height: "100px", backgroundImage: "radial-gradient(ellipse, #00000023, #000000cd 80%), linear-gradient(135deg, #aa000067 20%, transparent, #aaaaaa23, transparent, #00aaaa67 80%), repeating-linear-gradient(-45deg, transparent, transparent 9%, #9b541aab 9%, #9b541aab 10%, #9b541a67 10%, #9b541a67 19%, #9b541aab 19%, #9b541aab 20%, transparent 20%, transparent 29%, #f8c898ab 29%, #f8c898ab 30%, #f8c89867 30%, #f8c89867 39%, #f8c898ab 39%, #f8c898ab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #9b541aab 9%, #9b541aab 10%, #9b541a67 10%, #9b541a67 19%, #9b541aab 19%, #9b541aab 20%, transparent 20%, transparent 29%, #f8c898ab 29%, #f8c898ab 30%, #f8c89867 30%, #f8c89867 39%, #f8c898ab 39%, #f8c898ab 40%), linear-gradient(0deg, #382413, #523116)"}
+                                                    ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "50px 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #005555 12px, #00aaaa)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #550000 12px, #aa0000)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #550000 12px, #aa0000)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #005555 12px, #00aaaa)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 50px 50px 50px"}],
+                                                ], {marginBottom: "-60px"}
                                             ],
-                                            ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #550000, #005555)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}]
-                                        ]
-                                    ],
-                                    ["style-row", [["clickable", "forceTome"]], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset, 0 20px 10px 0 #00000078"}]
-                                ]
-                            ],
-                            ["style-row",[], {width: "10px"}],
-                            ["style-column",
-                                [
-                                    ["style-row",
-                                        [
-                                            ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "50px 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #555500 12px, #aaaa00)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #000055 12px, #0000aa)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #000055 12px, #0000aa)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #555500 12px, #aaaa00)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 50px 50px 50px"}],
-                                        ], {marginBottom: "-60px"}
-                                    ],
-                                    ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 100%, transparent, #000000ab), radial-gradient(ellipse at 50% -40%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 100% 0%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(0deg, #382413, #523116)", border: "3px solid #b18961", borderRadius: "15px 15px 0 0", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}],
-                                    ["style-row",
-                                        [
-                                            ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #000055, #555500)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}],
-                                            ["column",
+                                            ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 100%, transparent, #000000ab), radial-gradient(ellipse at 50% -40%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 100% 0%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(0deg, #382413, #523116)", border: "3px solid #b18961", borderRadius: "15px 15px 0 0", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}],
+                                            ["style-row",
                                                 [
-                                                    ["row",
+                                                    ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #550000, #005555)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}],
+                                                    ["column", 
                                                         [
-                                                            ["column",
+                                                            ["row",
                                                                 [
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-                                                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
-                                                                    ],
-                                                                    ["blank", "5px"],
-                                                                    ["column",
-                                                                        [
-                                                                            ["raw-html", () => {
-                                                                                let val1 = player.tlb.goldSymbols.div(player.tlb.baseCostsInsightGl).floor()
-                                                                                let val2 = player.tlb.cobaltSymbols.div(player.tlb.baseCostsInsightCo).floor()
-                                                                                let result = val1
-                                                                                if(val2.lt(val1)) result = val2
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                                                                ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                                            ],
+                                                                            ["blank", "5px"],
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", () => {
+                                                                                        let val1 = player.tlb.crimsonSymbols.div(player.tlb.baseCostsForceCr).floor()
+                                                                                        let val2 = player.tlb.celesteSymbols.div(player.tlb.baseCostsForceCe).floor()
+                                                                                        let result = val1
+                                                                                        if(val2.lt(val1)) result = val2
 
-                                                                                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
-                                                                                    return formatShortWhole(player.tlb.baseCostsInsightCo.mul(result))
-                                                                                    }
-                                                                                else {
-                                                                                    return formatShortWhole(player.tlb.baseCostsInsightCo)
-                                                                                    } 
-                                                                                }
+                                                                                        if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                                                                                            return formatShortWhole(player.tlb.baseCostsForceCr.mul(result))
+                                                                                            }
+                                                                                        else {
+                                                                                            return formatShortWhole(player.tlb.baseCostsForceCr)
+                                                                                            } 
+                                                                                        }
+                                                                                    ]
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "22px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
-                                                                        ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "22px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-                                                                    ]
-                                                                ]
-                                                            ],
-                                                            ["blank", "1px"],
-                                                            ["column",
-                                                                [
-                                                                    ["column",
-                                                                        [
-                                                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-                                                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                                        ]
                                                                     ],
-                                                                    ["blank", "5px"],
+                                                                    ["blank", "1px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {
-                                                                                let val1 = player.tlb.goldSymbols.div(player.tlb.baseCostsInsightGl).floor()
-                                                                                let val2 = player.tlb.cobaltSymbols.div(player.tlb.baseCostsInsightCo).floor()
-                                                                                let result = val1
-                                                                                if(val2.lt(val1)) result = val2
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                                                                ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                                            ],
+                                                                            ["blank", "5px"],
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", () => {
+                                                                                        let val1 = player.tlb.crimsonSymbols.div(player.tlb.baseCostsForceCr).floor()
+                                                                                        let val2 = player.tlb.celesteSymbols.div(player.tlb.baseCostsForceCe).floor()
+                                                                                        let result = val1
+                                                                                        if(val2.lt(val1)) result = val2
 
-                                                                                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
-                                                                                    return formatShortWhole(player.tlb.baseCostsInsightGl.mul(result))
-                                                                                    }
-                                                                                else {
-                                                                                    return formatShortWhole(player.tlb.baseCostsInsightGl)
-                                                                                    } 
-                                                                                }
+                                                                                        if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                                                                                            return formatShortWhole(player.tlb.baseCostsForceCe.mul(result))
+                                                                                            }
+                                                                                        else {
+                                                                                            return formatShortWhole(player.tlb.baseCostsForceCe)
+                                                                                            } 
+                                                                                        }
+                                                                                    ]
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "22px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
-                                                                        ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "22px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-                                                                    ]
-                                                                ]
-                                                            ],
-                                                            ["blank", "1px"],
-                                                            ["column",
-                                                                [
-                                                                    ["raw-html", "→"]
-                                                                ], {fontSize: "70px"}
-                                                            ],
-                                                            ["blank", "1px"],
-                                                            ["column",
-                                                                [
-                                                                    ["column",
-                                                                        [
-                                                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-                                                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                                        ]
                                                                     ],
-                                                                    ["blank", "5px"],
+                                                                    ["blank", "1px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {
-                                                                                let val1 = player.tlb.goldSymbols.div(player.tlb.baseCostsInsightGl).floor()
-                                                                                let val2 = player.tlb.cobaltSymbols.div(player.tlb.baseCostsInsightCo).floor()
-                                                                                let result = val1
-                                                                                if(val2.lt(val1)) result = val2
+                                                                            ["raw-html", "→"]
+                                                                        ], {fontSize: "70px"}
+                                                                    ],
+                                                                    ["blank", "1px"],
+                                                                    ["column",
+                                                                        [
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                                                                ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                                            ],
+                                                                            ["blank", "5px"],
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", () => {
+                                                                                        let val1 = player.tlb.crimsonSymbols.div(player.tlb.baseCostsForceCr).floor()
+                                                                                        let val2 = player.tlb.celesteSymbols.div(player.tlb.baseCostsForceCe).floor()
+                                                                                        let result = val1
+                                                                                        if(val2.lt(val1)) result = val2
 
-                                                                                if (hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true)
-                                                                                    return formatShortWhole(player.tlb.tomesInsightGain.add(result))
-                                                                                else
-                                                                                    return "1"
-                                                                                }
+                                                                                        if (hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true)
+                                                                                            return formatShortWhole(player.tlb.tomesForceGain.add(result))
+                                                                                        else
+                                                                                            return "1"
+                                                                                        }
+                                                                                    ]
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
-                                                                        ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                        ]
                                                                     ]
                                                                 ]
                                                             ]
-                                                        ]
-                                                    ]
-                                                ], {width: "254px", height: "100px", backgroundImage: "radial-gradient(ellipse, #00000023, #000000cd 80%), linear-gradient(135deg, #0000aa67 20%, transparent, #aaaaaa23, transparent, #aaaa0067 80%), repeating-linear-gradient(-45deg, transparent, transparent 9%, #9b541aab 9%, #9b541aab 10%, #9b541a67 10%, #9b541a67 19%, #9b541aab 19%, #9b541aab 20%, transparent 20%, transparent 29%, #f8c898ab 29%, #f8c898ab 30%, #f8c89867 30%, #f8c89867 39%, #f8c898ab 39%, #f8c898ab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #9b541aab 9%, #9b541aab 10%, #9b541a67 10%, #9b541a67 19%, #9b541aab 19%, #9b541aab 20%, transparent 20%, transparent 29%, #f8c898ab 29%, #f8c898ab 30%, #f8c89867 30%, #f8c89867 39%, #f8c898ab 39%, #f8c898ab 40%), linear-gradient(0deg, #382413, #523116)"}],
-                                            ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #000055, #555500)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}]
+                                                        ], {width: "254px", height: "100px", backgroundImage: "radial-gradient(ellipse, #00000023, #000000cd 80%), linear-gradient(135deg, #aa000067 20%, transparent, #aaaaaa23, transparent, #00aaaa67 80%), repeating-linear-gradient(-45deg, transparent, transparent 9%, #9b541aab 9%, #9b541aab 10%, #9b541a67 10%, #9b541a67 19%, #9b541aab 19%, #9b541aab 20%, transparent 20%, transparent 29%, #f8c898ab 29%, #f8c898ab 30%, #f8c89867 30%, #f8c89867 39%, #f8c898ab 39%, #f8c898ab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #9b541aab 9%, #9b541aab 10%, #9b541a67 10%, #9b541a67 19%, #9b541aab 19%, #9b541aab 20%, transparent 20%, transparent 29%, #f8c898ab 29%, #f8c898ab 30%, #f8c89867 30%, #f8c89867 39%, #f8c898ab 39%, #f8c898ab 40%), linear-gradient(0deg, #382413, #523116)"}
+                                                    ],
+                                                    ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #550000, #005555)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}]
+                                                ]
+                                            ],
+                                            ["style-row", [["clickable", "forceTome"]], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset, 0 20px 10px 0 #00000078"}]
                                         ]
                                     ],
-                                    ["style-row", [["clickable", "insightTome"]], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset, 0 20px 10px 0 #00000078"}]
-                                ]
-                            ],
-                            ["style-row", [], {width: "10px"}],
-                            ["style-column",
-                                [
-                                    ["style-row",
+                                    ["style-row",[], {width: "10px"}],
+                                    ["style-column",
                                         [
-                                            ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "50px 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #550055 12px, #aa00aa)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #005500 12px, #00aa00", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #005500 12px, #00aa00)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #550055 12px, #aa00aa)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
-                                            ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 50px 50px 50px"}],
-                                        ], {marginBottom: "-60px"}
-                                    ],
-                                    ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 100%, transparent, #000000ab), radial-gradient(ellipse at 50% -40%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 100% 0%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(0deg, #382413, #523116)", border: "3px solid #b18961", borderRadius: "15px 15px 0 0", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}],
-                                    ["style-row",
-                                        [
-                                            ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #005500, #550055)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}],
-                                            ["column",
+                                            ["style-row",
                                                 [
-                                                    ["row",
+                                                    ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "50px 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #555500 12px, #aaaa00)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #000055 12px, #0000aa)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #000055 12px, #0000aa)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #555500 12px, #aaaa00)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 50px 50px 50px"}],
+                                                ], {marginBottom: "-60px"}
+                                            ],
+                                            ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 100%, transparent, #000000ab), radial-gradient(ellipse at 50% -40%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 100% 0%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(0deg, #382413, #523116)", border: "3px solid #b18961", borderRadius: "15px 15px 0 0", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}],
+                                            ["style-row",
+                                                [
+                                                    ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #000055, #555500)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}],
+                                                    ["column",
                                                         [
-                                                            ["column",
+                                                            ["row",
                                                                 [
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-                                                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
-                                                                    ],
-                                                                    ["blank", "5px"],
-                                                                    ["column",
-                                                                        [
-                                                                            ["raw-html", () => {
-                                                                                let val1 = player.tlb.jadeSymbols.div(player.tlb.baseCostsMeritJd).floor()
-                                                                                let val2 = player.tlb.amethystSymbols.div(player.tlb.baseCostsMeritAm).floor()
-                                                                                let result = val1
-                                                                                if(val2.lt(val1)) result = val2
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                                                                ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                                            ],
+                                                                            ["blank", "5px"],
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", () => {
+                                                                                        let val1 = player.tlb.goldSymbols.div(player.tlb.baseCostsInsightGl).floor()
+                                                                                        let val2 = player.tlb.cobaltSymbols.div(player.tlb.baseCostsInsightCo).floor()
+                                                                                        let result = val1
+                                                                                        if(val2.lt(val1)) result = val2
 
-                                                                                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
-                                                                                    return formatShortWhole(player.tlb.baseCostsMeritJd.mul(result))
-                                                                                    }
-                                                                                else {
-                                                                                    return formatShortWhole(player.tlb.baseCostsMeritJd)
-                                                                                    } 
-                                                                                }
+                                                                                        if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                                                                                            return formatShortWhole(player.tlb.baseCostsInsightCo.mul(result))
+                                                                                            }
+                                                                                        else {
+                                                                                            return formatShortWhole(player.tlb.baseCostsInsightCo)
+                                                                                            } 
+                                                                                        }
+                                                                                    ]
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "22px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
-                                                                        ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "22px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-                                                                    ]
-                                                                ]
-                                                            ],
-                                                            ["blank", "1px"],
-                                                            ["column",
-                                                                [
-                                                                    ["column",
-                                                                        [
-                                                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-                                                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                                        ]
                                                                     ],
-                                                                    ["blank", "5px"],
+                                                                    ["blank", "1px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {
-                                                                                let val1 = player.tlb.jadeSymbols.div(player.tlb.baseCostsMeritJd).floor()
-                                                                                let val2 = player.tlb.amethystSymbols.div(player.tlb.baseCostsMeritAm).floor()
-                                                                                let result = val1
-                                                                                if(val2.lt(val1)) result = val2
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                                                                ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                                            ],
+                                                                            ["blank", "5px"],
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", () => {
+                                                                                        let val1 = player.tlb.goldSymbols.div(player.tlb.baseCostsInsightGl).floor()
+                                                                                        let val2 = player.tlb.cobaltSymbols.div(player.tlb.baseCostsInsightCo).floor()
+                                                                                        let result = val1
+                                                                                        if(val2.lt(val1)) result = val2
 
-                                                                                if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
-                                                                                    return formatShortWhole(player.tlb.baseCostsMeritAm.mul(result))
-                                                                                    }
-                                                                                else {
-                                                                                    return formatShortWhole(player.tlb.baseCostsMeritAm)
-                                                                                    } 
-                                                                                }
+                                                                                        if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                                                                                            return formatShortWhole(player.tlb.baseCostsInsightGl.mul(result))
+                                                                                            }
+                                                                                        else {
+                                                                                            return formatShortWhole(player.tlb.baseCostsInsightGl)
+                                                                                            } 
+                                                                                        }
+                                                                                    ]
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "22px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
-                                                                        ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "22px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-                                                                    ]
-                                                                ]
-                                                            ],
-                                                            ["blank", "1px"],
-                                                            ["column",
-                                                                [
-                                                                    ["raw-html", "→"]
-                                                                ], {fontSize: "70px"}
-                                                            ],
-                                                            ["blank", "1px"],
-                                                            ["column",
-                                                                [
-                                                                    ["column",
-                                                                        [
-                                                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-                                                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                                        ]
                                                                     ],
-                                                                    ["blank", "5px"],
+                                                                    ["blank", "1px"],
                                                                     ["column",
                                                                         [
-                                                                            ["raw-html", () => {
-                                                                                let val1 = player.tlb.jadeSymbols.div(player.tlb.baseCostsMeritJd).floor()
-                                                                                let val2 = player.tlb.amethystSymbols.div(player.tlb.baseCostsMeritAm).floor()
-                                                                                let result = val1
-                                                                                if(val2.lt(val1)) result = val2
+                                                                            ["raw-html", "→"]
+                                                                        ], {fontSize: "70px"}
+                                                                    ],
+                                                                    ["blank", "1px"],
+                                                                    ["column",
+                                                                        [
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                                                                ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                                            ],
+                                                                            ["blank", "5px"],
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", () => {
+                                                                                        let val1 = player.tlb.goldSymbols.div(player.tlb.baseCostsInsightGl).floor()
+                                                                                        let val2 = player.tlb.cobaltSymbols.div(player.tlb.baseCostsInsightCo).floor()
+                                                                                        let result = val1
+                                                                                        if(val2.lt(val1)) result = val2
 
-                                                                                if (hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true)
-                                                                                    return formatShortWhole(player.tlb.tomesMeritGain.add(result))
-                                                                                else
-                                                                                    return "1"
-                                                                                }
+                                                                                        if (hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true)
+                                                                                            return formatShortWhole(player.tlb.tomesInsightGain.add(result))
+                                                                                        else
+                                                                                            return "1"
+                                                                                        }
+                                                                                    ]
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
-                                                                        ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                        ]
                                                                     ]
                                                                 ]
                                                             ]
-                                                        ]
-                                                    ]
-                                                ], {width: "254px", height: "100px", backgroundImage: "radial-gradient(ellipse, #00000023, #000000cd 80%), linear-gradient(135deg, #00aa0067 20%, transparent, #aaaaaa23, transparent, #aa00aa67 80%), repeating-linear-gradient(-45deg, transparent, transparent 9%, #9b541aab 9%, #9b541aab 10%, #9b541a67 10%, #9b541a67 19%, #9b541aab 19%, #9b541aab 20%, transparent 20%, transparent 29%, #f8c898ab 29%, #f8c898ab 30%, #f8c89867 30%, #f8c89867 39%, #f8c898ab 39%, #f8c898ab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #9b541aab 9%, #9b541aab 10%, #9b541a67 10%, #9b541a67 19%, #9b541aab 19%, #9b541aab 20%, transparent 20%, transparent 29%, #f8c898ab 29%, #f8c898ab 30%, #f8c89867 30%, #f8c89867 39%, #f8c898ab 39%, #f8c898ab 40%), linear-gradient(0deg, #382413, #523116)"}],
-                                            ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #005500, #550055)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}]
-                                            ]
+                                                        ], {width: "254px", height: "100px", backgroundImage: "radial-gradient(ellipse, #00000023, #000000cd 80%), linear-gradient(135deg, #0000aa67 20%, transparent, #aaaaaa23, transparent, #aaaa0067 80%), repeating-linear-gradient(-45deg, transparent, transparent 9%, #9b541aab 9%, #9b541aab 10%, #9b541a67 10%, #9b541a67 19%, #9b541aab 19%, #9b541aab 20%, transparent 20%, transparent 29%, #f8c898ab 29%, #f8c898ab 30%, #f8c89867 30%, #f8c89867 39%, #f8c898ab 39%, #f8c898ab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #9b541aab 9%, #9b541aab 10%, #9b541a67 10%, #9b541a67 19%, #9b541aab 19%, #9b541aab 20%, transparent 20%, transparent 29%, #f8c898ab 29%, #f8c898ab 30%, #f8c89867 30%, #f8c89867 39%, #f8c898ab 39%, #f8c898ab 40%), linear-gradient(0deg, #382413, #523116)"}],
+                                                    ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #000055, #555500)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}]
+                                                ]
+                                            ],
+                                            ["style-row", [["clickable", "insightTome"]], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset, 0 20px 10px 0 #00000078"}]
+                                        ]
                                     ],
-                                    ["style-row", [["clickable", "meritTome"]], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset, 0 20px 10px 0 #00000078"}],
+                                    ["style-row", [], {width: "10px"}],
+                                    ["style-column",
+                                        [
+                                            ["style-row",
+                                                [
+                                                    ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "50px 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #550055 12px, #aa00aa)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #005500 12px, #00aa00", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #005500 12px, #00aa00)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "125px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #550055 12px, #aa00aa)", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 0 50px 50px"}],
+                                                    ["column", [], {width: "50px", height: "150px", backgroundImage: "linear-gradient(to bottom, #000000ab, transparent, #ffffffab), repeating-radial-gradient(circle at 50% -100%, transparent, transparent 4%, #ffffff45 4%, #ffffff45 9%), linear-gradient(to bottom, #9b541a 12px, #ffdb8e)", marginBottom:"-25px", boxShadow: "0 0 5px #000000 inset, 0 0 10px #000000 inset", borderRadius: "0 50px 50px 50px"}],
+                                                ], {marginBottom: "-60px"}
+                                            ],
+                                            ["style-row", [], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 100%, transparent, #000000ab), radial-gradient(ellipse at 50% -40%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 100% 0%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(0deg, #382413, #523116)", border: "3px solid #b18961", borderRadius: "15px 15px 0 0", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset"}],
+                                            ["style-row",
+                                                [
+                                                    ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #005500, #550055)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}],
+                                                    ["column",
+                                                        [
+                                                            ["row",
+                                                                [
+                                                                    ["column",
+                                                                        [
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                                                                ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                                            ],
+                                                                            ["blank", "5px"],
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", () => {
+                                                                                        let val1 = player.tlb.jadeSymbols.div(player.tlb.baseCostsMeritJd).floor()
+                                                                                        let val2 = player.tlb.amethystSymbols.div(player.tlb.baseCostsMeritAm).floor()
+                                                                                        let result = val1
+                                                                                        if(val2.lt(val1)) result = val2
+
+                                                                                        if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                                                                                            return formatShortWhole(player.tlb.baseCostsMeritJd.mul(result))
+                                                                                            }
+                                                                                        else {
+                                                                                            return formatShortWhole(player.tlb.baseCostsMeritJd)
+                                                                                            } 
+                                                                                        }
+                                                                                    ]
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "22px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                            ]
+                                                                        ]
+                                                                    ],
+                                                                    ["blank", "1px"],
+                                                                    ["column",
+                                                                        [
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                                                                ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                                            ],
+                                                                            ["blank", "5px"],
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", () => {
+                                                                                        let val1 = player.tlb.jadeSymbols.div(player.tlb.baseCostsMeritJd).floor()
+                                                                                        let val2 = player.tlb.amethystSymbols.div(player.tlb.baseCostsMeritAm).floor()
+                                                                                        let result = val1
+                                                                                        if(val2.lt(val1)) result = val2
+
+                                                                                        if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
+                                                                                            return formatShortWhole(player.tlb.baseCostsMeritAm.mul(result))
+                                                                                            }
+                                                                                        else {
+                                                                                            return formatShortWhole(player.tlb.baseCostsMeritAm)
+                                                                                            } 
+                                                                                        }
+                                                                                    ]
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "22px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                            ]
+                                                                        ]
+                                                                    ],
+                                                                    ["blank", "1px"],
+                                                                    ["column",
+                                                                        [
+                                                                            ["raw-html", "→"]
+                                                                        ], {fontSize: "70px"}
+                                                                    ],
+                                                                    ["blank", "1px"],
+                                                                    ["column",
+                                                                        [
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                                                                ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                                            ],
+                                                                            ["blank", "5px"],
+                                                                            ["column",
+                                                                                [
+                                                                                    ["raw-html", () => {
+                                                                                        let val1 = player.tlb.jadeSymbols.div(player.tlb.baseCostsMeritJd).floor()
+                                                                                        let val2 = player.tlb.amethystSymbols.div(player.tlb.baseCostsMeritAm).floor()
+                                                                                        let result = val1
+                                                                                        if(val2.lt(val1)) result = val2
+
+                                                                                        if (hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true)
+                                                                                            return formatShortWhole(player.tlb.tomesMeritGain.add(result))
+                                                                                        else
+                                                                                            return "1"
+                                                                                        }
+                                                                                    ]
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                            ]
+                                                                        ]
+                                                                    ]
+                                                                ]
+                                                            ]
+                                                        ], {width: "254px", height: "100px", backgroundImage: "radial-gradient(ellipse, #00000023, #000000cd 80%), linear-gradient(135deg, #00aa0067 20%, transparent, #aaaaaa23, transparent, #aa00aa67 80%), repeating-linear-gradient(-45deg, transparent, transparent 9%, #9b541aab 9%, #9b541aab 10%, #9b541a67 10%, #9b541a67 19%, #9b541aab 19%, #9b541aab 20%, transparent 20%, transparent 29%, #f8c898ab 29%, #f8c898ab 30%, #f8c89867 30%, #f8c89867 39%, #f8c898ab 39%, #f8c898ab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #9b541aab 9%, #9b541aab 10%, #9b541a67 10%, #9b541a67 19%, #9b541aab 19%, #9b541aab 20%, transparent 20%, transparent 29%, #f8c898ab 29%, #f8c898ab 30%, #f8c89867 30%, #f8c89867 39%, #f8c898ab 39%, #f8c898ab 40%), linear-gradient(0deg, #382413, #523116)"}],
+                                                    ["column", [], {width: "20px", height: "100px", backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10%, #78787878 10%, #ababab78 20%, transparent 20%), linear-gradient(to top, #005500, #550055)", borderLeft: "3px solid #ababab", borderRight: "3px solid #ababab", boxShadow: "0 0 3px 3px #abababa6 inset, 0 0 6px 6px #000000 inset"}]
+                                                    ]
+                                            ],
+                                            ["style-row", [["clickable", "meritTome"]], {width: "300px", height: "100px", backgroundImage: "radial-gradient(ellipse at 50% 0%, transparent, #000000ab), radial-gradient(ellipse at 50% 140%, #9b541a78 20%, transparent), radial-gradient(ellipse, transparent 60%, #382413cd, #000000cd), radial-gradient(ellipse, transparent 45%, #00000078), repeating-radial-gradient(ellipse at 0% 100%, transparent, transparent 8%, #f8c89845 9%, #f8c89845 13%, transparent 14%, transparent 19%, #f8c89878 20%, #f8c89878 21%, transparent 22%), linear-gradient(to bottom, #382413, #523116)", border: "3px solid #b18961", borderRadius: "0 0 15px 15px", boxShadow: "0 0 5px 5px #b18961a6 inset, 0 0 10px 10px #382413 inset, 0 0 50px 50px #00000050 inset, 0 20px 10px 0 #00000078"}],
+                                        ]
+                                    ]
                                 ]
-                            ]
+                            ],
+                            ["style-row", [[]], {width: "1100px", height: "175px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset", marginTop: "-100px"}]
                         ]
-                    ],
-                    ["style-row", [[]], {width: "1100px", height: "175px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset", marginTop: "-100px"}]
+                    ]
                 ]
             },
             "Study": {
