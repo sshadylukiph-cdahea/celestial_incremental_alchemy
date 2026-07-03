@@ -26,7 +26,7 @@ addLayer("tlb", {
         baseCostsInsightCo: new Decimal(19),
         baseCostsMeritAm: new Decimal(14),
 
-        // combinationsUnlocked: false, (LATER)
+        craftingSysUnlocked: false,
 
         // tomes and revelation points
         tomesForce: new Decimal(0),
@@ -286,7 +286,6 @@ addLayer("tlb", {
                 if(player.tlb.celesteSymbolParts.gte(player.tlb.baseCostsCelesteSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)) player.tlb.canBuyCeleSys = true
                 if(player.tlb.cobaltSymbolParts.gte(player.tlb.baseCostsCobaltSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)) player.tlb.canBuyCobaSys = true
                 if(player.tlb.amethystSymbolParts.gte(player.tlb.baseCostsAmethystSymbols) && player.ssp.alchemicalSymbols.gte(player.tlb.baseCostsAlchemicalSymbols)) player.tlb.canBuyAmetSys = true
-
             }
         }
     },
@@ -1317,50 +1316,73 @@ addLayer("tlb", {
                 return look
             }
         },
-        // combinationsUnlocker: { // LATER
-        //     title() {return "Unlock the Combinations Tab.<br><small>Requires: 10 of each basic altered symbols<br>and 1000 🝪 Al.Sys 🝪</small>"},
-        //     canClick() {return player.tlb.crimsonSymbols >= 10 && player.tlb.goldSymbols >= 10 && player.tlb.jadeSymbols >= 10
-        //                         && player.tlb.celesteSymbols >= 10 && player.tlb.cobaltSymbols >= 10 && player.tlb.amethystSymbols >= 10
-        //                         && player.ssp.alchemicalSymbols >= 1000},
-        //     unlocked() {
-        //         if (player.tlb.combinationsUnlocked == false)
-        //             return true
-        //         else return false
-        //     },
-        //     onClick() {
-        //         player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(10);
-        //         player.tlb.goldSymbols = player.tlb.goldSymbols.sub(10);
-        //         player.tlb.jadeSymbols = player.tlb.jadeSymbols.sub(10);
-        //         player.tlb.celesteSymbols = player.tlb.celesteSymbols.sub(10);
-        //         player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.sub(10);
-        //         player.tlb.amethystSymbols = player.tlb.amethystSymbols.sub(10);
-        //         player.ssp.alchemicalSymbols = player.ssp.alchemicalSymbols.sub(1000);
-        //         player.tlb.combinationsUnlocked = true;
-        //     },
-        //     style() {
-        //     let look = {fontSize: "18px", width: '600px', minHeight: '100px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
-        //     if (this.canClick()) {
-        //         look.backgroundImage = "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)"
-        //         look.borderImage = "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1"
-        //         look.color = "#000000"
-        //         look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 10px #ffff00"
-        //         look.textShadow = "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000"
-        //         look.textStroke = "1px #ffffddab"
-        //     } else {
-        //         look.backgroundImage = "linear-gradient(0deg, #00000078, #00000078), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)"
-        //         look.borderImage = "radial-gradient(ellipse, #7f3f00 70%, #7f7f00) 1"
-        //         look.color = "#000000"
-        //         look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 5px #000000"
-        //         look.textShadow = "0 0 5px #7f7f00, 0 0 10px #000000, 0 0 10px #000000"
-        //         look.textStroke = "1px #7f7f6eab"
-        //     }
-        //     return look
-        //     }
-        // },
+        craftingSysUnlocker: {
+            title() {return "Unlock the Crafting Shop.<br><small>Requires: 10 of Cr/Gl/Jd/Ce/Co/Am.Sys<br>and 10 of For/Ins/Mer.Pts.</small>"},
+            canClick() {return player.tlb.crimsonSymbols >= 10 && player.tlb.goldSymbols >= 10 && player.tlb.jadeSymbols >= 10
+                                && player.tlb.celesteSymbols >= 10 && player.tlb.cobaltSymbols >= 10 && player.tlb.amethystSymbols >= 10
+                                && player.tlb.pointsForce >= 10 && player.tlb.pointsInsight >= 10 && player.tlb.pointsMerit >= 10
+                            },
+            unlocked() {
+                if (player.tlb.craftingSysUnlocked == false)
+                    return true
+                else return false
+            },
+            onClick() {
+                player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(10)
+                player.tlb.goldSymbols = player.tlb.goldSymbols.sub(10)
+                player.tlb.jadeSymbols = player.tlb.jadeSymbols.sub(10)
+                player.tlb.celesteSymbols = player.tlb.celesteSymbols.sub(10)
+                player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.sub(10)
+                player.tlb.amethystSymbols = player.tlb.amethystSymbols.sub(10)
+                player.tlb.pointsForce = player.tlb.pointsForce.sub(10)
+                player.tlb.pointsInsight = player.tlb.pointsInsight.sub(10)
+                player.tlb.pointsMerit = player.tlb.pointsMerit.sub(10)
+                player.tlb.craftingSysUnlocked = true;
+            },
+            style() {
+            let look = {fontSize: "18px", width: '600px', minHeight: '100px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            if (this.canClick()) {
+                look.backgroundImage = "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)"
+                look.borderImage = "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1"
+                look.color = "#000000"
+                look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 10px #ffff00"
+                look.textShadow = "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000"
+                look.textStroke = "1px #ffffddab"
+            } else {
+                look.backgroundImage = "linear-gradient(0deg, #00000078, #00000078), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)"
+                look.borderImage = "radial-gradient(ellipse, #7f3f00 70%, #7f7f00) 1"
+                look.color = "#000000"
+                look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 5px #000000"
+                look.textShadow = "0 0 5px #7f7f00, 0 0 10px #000000, 0 0 10px #000000"
+                look.textStroke = "1px #7f7f6eab"
+            }
+            return look
+            }
+        },
+        smaSymbols: {
+            title() {return "Exchange<br>10 🝪 Al.Sys 🝪 and<br>1000 SMA.Sy.Prts for<br>1 ⛯ SMA.Sys ⛯."},
+            canClick() {return true},
+            unlocked() {return true},
+            onClick() { 
+                
+            },
+            style() {
+            let look = {width: '325px', minHeight: '100px', fontSize: '12px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            if (this.canClick()) {
+                look.background = "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)";
+                look.border = "3px solid #282363";
+                look.color = "#282363";
+                look.boxShadow = "0 0 3px 1px black inset, 0 0 5px white"
+            } else {
+                look.backgroundColor = "#333333";
+                look.border = "3px solid #000000";
+                look.color = "black";
+                look.boxShadow = "0 0 3px 1px black inset"
+            }
+            return look
+            }
+        },
     },
-    // bars: {
-    //     forceTomeBar:
-    // },
     upgrades: {
         11: {
             title () {return hasUpgrade("tlb", 11) ? "<h3>Chromatis</h3><br>[PURCHASED]" : "<h3>Chromatis</h3>"},
@@ -1657,7 +1679,7 @@ addLayer("tlb", {
     infoboxes: {},
     microtabs: {
         tabs: {
-            "Alterations": {
+            "Basic Alterations": {
                 buttonStyle() {return {color: "#000000", backgroundImage: "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset"}},
                 unlocked() {return true},
                 content: [
@@ -1676,10 +1698,11 @@ addLayer("tlb", {
                         ]
                     ],
                     ["blank", "20px"],
-                    // () => {if(player.tlb.combinationsUnlocked == false) {
-                    //         return ["column", [["clickable", "combinationsUnlocker"], ["blank", "20px"]]]     
-                    //     }
-                    // }, LATER
+                    () => {
+                        if(player.tlb.craftingSysUnlocked == false) {
+                            return ["column", [["clickable", "craftingSysUnlocker"], ["blank", "20px"]]]     
+                        }
+                    },
                     ["style-row", // crimson
                         [
                             ["style-row",
@@ -2389,194 +2412,23 @@ addLayer("tlb", {
                     ]
                 ]
             },
-            // "Combinations": { // LATER
-            //     buttonStyle() {return {color: "#000000", backgroundImage: "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset"}},
-            //     unlocked() {return player.tlb.combinationsUnlocked == true},
-            //     content: [
-            //         ["blank", "5px"],
-            //         ["row",
-            //             [
-            //                 ["raw-html", () => {return "You are currently in the"}, {color: "#ffffff", fontSize: "18px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
-            //                 ["blank", "2px"],
-            //                 ["raw-html", () => {return "-<u>Combinations</u>-."}, {color: "transparent", backgroundImage: "linear-gradient(-135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(-135deg, #ffffff12, #00000012), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "18px", 'text-shadow': " 0 0 5px #ffffffcd, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
-            //             ]
-            //         ],
-            //         ["blank", "10px"],
-            //         ["style-column",
-            //             [
-            //                 ["row", [["clickable", "buyMaxOff2"], ["blank", "5px"], ["clickable", "buyMaxOn2"]]] // not implemented yet
-            //             ]
-            //         ],
-            //         ["blank", "20px"],
-            //         ["style-row",
-            //             [
-            //                 ["style-column",
-            //                     [
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-            //                             ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
-            //                         ],
-            //                         ["blank", "5px"],
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", () => {return formatShortWhole(player.tlb.crimsonSymbols)}]
-            //                             ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "22px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-            //                         ]
-            //                     ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffdddd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff000023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
-            //                 ],
-            //                 ["blank", "3px"],
-            //                 ["style-column",
-            //                     [
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-            //                             ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
-            //                         ],
-            //                         ["blank", "5px"],
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", () => {return formatShortWhole(player.tlb.goldSymbols)}]
-            //                             ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "22px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-            //                         ]
-            //                     ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ffff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
-            //                 ],
-            //                 ["blank", "3px"],
-            //                 ["style-column",
-            //                     [
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-            //                             ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
-            //                         ],
-            //                         ["blank", "5px"],
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", () => {return formatShortWhole(player.tlb.jadeSymbols)}]
-            //                             ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "22px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-            //                         ]
-            //                     ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
-            //                 ],
-            //                 ["blank", "3px"],
-            //                 ["style-column",
-            //                     [
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-            //                             ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
-            //                         ],
-            //                         ["blank", "5px"],
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", () => {return formatShortWhole(player.tlb.celesteSymbols)}]
-            //                             ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "22px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-            //                         ]
-            //                     ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ffff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
-            //                 ],
-            //                 ["blank", "3px"],
-            //                 ["style-column",
-            //                     [
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-            //                             ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
-            //                         ],
-            //                         ["blank", "5px"],
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", () => {return formatShortWhole(player.tlb.cobaltSymbols)}]
-            //                             ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "22px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-            //                         ]
-            //                     ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #0000ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
-            //                 ],
-            //                 ["blank", "3px"],
-            //                 ["style-column",
-            //                     [
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
-            //                             ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
-            //                         ],
-            //                         ["blank", "5px"],
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", () => {return formatShortWhole(player.tlb.amethystSymbols)}]
-            //                             ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "22px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-            //                         ]
-            //                     ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff00ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
-            //                 ]
-            //             ]
-            //         ],
-            //         ["blank", "20px"],
-            //         ["style-row", // 
-            //             [
-            //                 ["column",
-            //                     [
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:70px;height:70px'></img>"],
-            //                             ], {width: "80px", height: "80px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
-            //                         ],
-            //                         ["blank", "5px"],
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", () => {return "Gold"}]
-            //                             ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "22px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-            //                         ]
-            //                     ]
-            //                 ],
-            //                 ["row",
-            //                     [], {width: "20px"}
-            //                 ],
-            //                 ["raw-html", () => {return "+"}, {fontSize: "50px", fontFamily: "monospace"}],
-            //                 ["row",
-            //                     [], {width: "20px"}
-            //                 ],
-            //                 ["column",
-            //                     [
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:70px;height:70px'></img>"],
-            //                             ], {width: "80px", height: "80px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
-            //                         ],
-            //                         ["blank", "5px"],
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", () => {return "Jade"}]
-            //                             ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "22px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-            //                         ]
-            //                     ]
-            //                 ],
-            //                 ["row",
-            //                     [], {width: "20px"}
-            //                 ],
-            //                 ["raw-html", () => {return "="}, {fontSize: "50px", fontFamily: "monospace"}],
-            //                 ["row",
-            //                     [], {width: "20px"}
-            //                 ],
-            //                 ["column",
-            //                     [
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:70px;height:70px'></img>"],
-            //                             ], {width: "80px", height: "80px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
-            //                         ],
-            //                         ["blank", "5px"],
-            //                         ["column",
-            //                             [
-            //                                 ["raw-html", () => {return "Luck"}]
-            //                             ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7f00, #ffff00, #7fff00, #00ff00)", fontSize: "22px", 'textShadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
-            //                         ]
-            //                     ]
-            //                 ],
-            //                 ["row",
-            //                     [], {width: "20px"}
-            //                 ],
-            //                 ["clickable", "meritAlter"]
-            //             ], {width: "700px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
-            //         ],
-            //     ]
-            // },
+            "Crafting Shop": { // LATER
+                buttonStyle() {return {color: "#000000", backgroundImage: "linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset"}},
+                unlocked() {return player.tlb.craftingSysUnlocked == true},
+                content: [
+                    ["blank", "5px"],
+                    ["row",
+                        [
+                            ["raw-html", () => {return "You are currently in the"}, {color: "#ffffff", fontSize: "18px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                            ["blank", "2px"],
+                            ["raw-html", () => {return "-<u>Crafting Shop</u>-."}, {color: "transparent", backgroundImage: "linear-gradient(-135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(-135deg, #ffffff12, #00000012), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "18px", 'text-shadow': " 0 0 5px #ffffffcd, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                        ]
+                    ],
+                    ["blank", "10px"],
+                    ["clickable", "smaSymbols"]
+                    
+                ]
+            },
             "Bookshop": {
                 buttonStyle() {return {color: "#000000", backgroundImage: "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset"}},
                 unlocked() {return true},
