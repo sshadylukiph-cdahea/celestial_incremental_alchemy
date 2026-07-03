@@ -2763,7 +2763,7 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>10</h3> Ce.Sys"
-                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "14px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
@@ -2806,7 +2806,7 @@ addLayer("tlb", {
                                                     ["column",
                                                         [
                                                             ["raw-html", () => {return formatShortWhole(player.tlb.eclipseShardSymbols)}]
-                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(135deg, #ffb700, #ffe866)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
                                                     ]
                                                 ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
@@ -2830,14 +2830,14 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>10</h3> Gl.Sys"
-                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "14px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>e1 OoM</h3> ECS"
-                                                                }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(135deg, #ffb700, #ffe866)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
                                                     ],
@@ -2848,7 +2848,7 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>" + formatShortWhole(player.sma.eclipseShards) + "</h3> ECS"
-                                                                }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(135deg, #ffb700, #ffe866)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
                                                             ]
                                                         ]
                                                     ]
@@ -2869,7 +2869,7 @@ addLayer("tlb", {
                                                     ["column",
                                                         [
                                                             ["raw-html", () => {return formatShortWhole(player.tlb.spaceGemSymbols)}]
-                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "radial-gradient(circle, #564BCC, #000000)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
                                                     ]
                                                 ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
@@ -2893,14 +2893,14 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>10</h3> Co.Sys"
-                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "14px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>e1 OoM</h3> SPG"
-                                                                }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "radial-gradient(circle, #564BCC, #000000)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
                                                     ],
@@ -2911,7 +2911,7 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>" + formatShortWhole(player.ir.spaceGem) + "</h3> SPG"
-                                                                }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "radial-gradient(circle, #564BCC, #000000)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
                                                             ]
                                                         ]
                                                     ]
@@ -2936,7 +2936,7 @@ addLayer("tlb", {
                                                     ["column",
                                                         [
                                                             ["raw-html", () => {return formatShortWhole(player.tlb.planetSymbols)}]
-                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(15deg, #34eb86 0%, #279ccf 50%, #411bb3 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
                                                     ]
                                                 ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
@@ -2960,14 +2960,14 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>10</h3> Jd.Sys"
-                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "14px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>e3 OoM</h3> PLN"
-                                                                }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(15deg, #34eb86 0%, #279ccf 50%, #411bb3 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
                                                     ],
@@ -2978,7 +2978,7 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>" + formatShortWhole(player.pl.planets) + "</h3> PLN"
-                                                                }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(15deg, #34eb86 0%, #279ccf 50%, #411bb3 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
                                                             ]
                                                         ]
                                                     ]
@@ -2999,7 +2999,7 @@ addLayer("tlb", {
                                                     ["column",
                                                         [
                                                             ["raw-html", () => {return formatShortWhole(player.tlb.spaceRockSymbols)}]
-                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(15deg, #5f5f5f 0%, #c5c5c5 50%, #5f5f5f 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
                                                     ]
                                                 ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
@@ -3023,14 +3023,14 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>10</h3> Am.Sys"
-                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "14px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>e3 OoM</h3> SPR"
-                                                                }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(15deg, #5f5f5f 0%, #c5c5c5 50%, #5f5f5f 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
                                                     ],
@@ -3041,7 +3041,7 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>" + formatShortWhole(player.ir.spaceRock) + "</h3> SPR"
-                                                                }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(15deg, #5f5f5f 0%, #c5c5c5 50%, #5f5f5f 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
                                                             ]
                                                         ]
                                                     ]
