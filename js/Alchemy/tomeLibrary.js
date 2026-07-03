@@ -8,6 +8,7 @@ addLayer("tlb", {
         unlocked: true,
         buyMaxSymbols: false,
         buyMaxTomes: false,
+        buyMaxSymbolsCrafting: false,
         stopTime: new Decimal(0),
 
         // Alteration Costs
@@ -396,6 +397,56 @@ addLayer("tlb", {
                 return look
             }
         },
+        buyMaxOff3: {
+            title() {return player.tlb.buyMaxSymbolsCrafting == false ? "Buy Max<br>OFF [ACTIVE]" : "Buy Max<br>OFF"},
+            canClick() {return player.tlb.buyMaxSymbolsCrafting == true},
+            unlocked() {return true},
+            onClick() { 
+                player.tlb.buyMaxSymbolsCrafting = false
+            },
+            style() {
+                let look = {width: '100px', minHeight: '60px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+                    if (this.canClick()) {
+                        look.backgroundImage = "linear-gradient(to bottom, #555555,  #555555)"
+                        look.borderImage = "linear-gradient(to bottom, #000000, #000000) 1"
+                        look.color = "#000000"
+                        look.boxShadow = "0 0 3px 1px #000000 inset"
+                    } else {
+                        look.backgroundImage = "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)"
+                        look.borderImage = "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1"
+                        look.color = "#000000"
+                        look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 10px #ffff00"
+                        look.textShadow = "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #ffffddab"
+                    }
+                return look
+            }
+        },
+        buyMaxOn3: {
+            title() {return player.tlb.buyMaxSymbolsCrafting == true ? "Buy Max<br>ON [ACTIVE]" : "Buy Max<br>ON"},
+            canClick() {return player.tlb.buyMaxSymbolsCrafting == false},
+            unlocked() {return true},
+            onClick() { 
+                player.tlb.buyMaxSymbolsCrafting = true
+            },
+            style() {
+                let look = {width: '100px', minHeight: '60px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+                    if (this.canClick()) {
+                        look.backgroundImage = "linear-gradient(to bottom, #555555,  #555555)"
+                        look.borderImage = "linear-gradient(to bottom, #000000, #000000) 1"
+                        look.color = "#000000"
+                        look.boxShadow = "0 0 3px 1px #000000 inset"
+                    } else {
+                        look.backgroundImage = "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)"
+                        look.borderImage = "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1"
+                        look.color = "#000000"
+                        look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 10px #ffff00"
+                        look.textShadow = "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #ffffddab"
+                    }
+                return look
+            }
+        },
         encoder1: {
             title() {return "<h2>Symbol Encoder I</h2><hr>Encode <h2>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h2><br>🝪 Al.Sys 🝪.<br><br><small>(Req.: e10,000,000 Cel.Pts.)</small>"},
             canClick() {return player.ssp.canAlSyReset == true && player.points.gte("e10000000")},
@@ -530,7 +581,7 @@ addLayer("tlb", {
                 }
             },
             style() {
-            let look = {width: '300px', minHeight: '80px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "18px", borderRadius: "0px"}
+            let look = {width: '260px', minHeight: '40px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "14px", borderRadius: "0px"}
             if (this.canClick()) {
                 look.backgroundImage = "radial-gradient(ellipse, transparent 80%, #000000ab), radial-gradient(ellipse, transparent 70%, #330000), radial-gradient(ellipse, #00000045 40%, #000000ab), repeating-linear-gradient(-45deg, transparent, transparent 9%, #550000ab 9%, #550000ab 10%, #55000067 10%, #55000067 19%, #550000ab 19%, #550000ab 20%, transparent 20%, transparent 29%, #aa5555ab 29%, #aa5555ab 30%, #aa555567 30%, #aa555567 39%, #aa5555ab 39%, #aa5555ab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #550000ab 9%, #550000ab 10%, #55000067 10%, #55000067 19%, #550000ab 19%, #550000ab 20%, transparent 20%, transparent 29%, #aa5555ab 29%, #aa5555ab 30%, #aa555567 30%, #aa555567 39%, #aa5555ab 39%, #aa5555ab 40%), radial-gradient(ellipse, transparent, #000000ab), linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)"
                 look.borderImage = "radial-gradient(ellipse, #550000 70%, #ff0000) 1"
@@ -622,7 +673,7 @@ addLayer("tlb", {
                 }
             },
             style() {
-            let look = {width: '300px', minHeight: '80px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "18px", borderRadius: "0px"}
+            let look = {width: '260px', minHeight: '40px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "14px", borderRadius: "0px"}
             if (this.canClick()) {
                 look.backgroundImage = "radial-gradient(ellipse, transparent 80%, #000000ab), radial-gradient(ellipse, transparent 70%, #333300), radial-gradient(ellipse, #00000045 40%, #000000ab), repeating-linear-gradient(-45deg, transparent, transparent 9%, #555500ab 9%, #555500ab 10%, #55550067 10%, #55550067 19%, #555500ab 19%, #555500ab 20%, transparent 20%, transparent 29%, #aaaa55ab 29%, #aaaa55ab 30%, #aaaa5567 30%, #aaaa5567 39%, #aaaa55ab 39%, #aaaa55ab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #555500ab 9%, #555500ab 10%, #55550067 10%, #55550067 19%, #555500ab 19%, #555500ab 20%, transparent 20%, transparent 29%, #aaaa55ab 29%, #aaaa55ab 30%, #aaaa5567 30%, #aaaa5567 39%, #aaaa55ab 39%, #aaaa55ab 40%), radial-gradient(ellipse, transparent, #000000ab), linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)"
                 look.borderImage = "radial-gradient(ellipse, #555500 70%, #ffff00) 1"
@@ -714,7 +765,7 @@ addLayer("tlb", {
                 }
             },
             style() {
-            let look = {width: '300px', minHeight: '80px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "18px", borderRadius: "0px"}
+            let look = {width: '260px', minHeight: '40px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "14px", borderRadius: "0px"}
             if (this.canClick()) {
                 look.backgroundImage = "radial-gradient(ellipse, transparent 80%, #000000ab), radial-gradient(ellipse, transparent 70%, #003300), radial-gradient(ellipse, #00000045 40%, #000000ab), repeating-linear-gradient(-45deg, transparent, transparent 9%, #005500ab 9%, #005500ab 10%, #00550067 10%, #00550067 19%, #005500ab 19%, #005500ab 20%, transparent 20%, transparent 29%, #55aa55ab 29%, #55aa55ab 30%, #55aa5567 30%, #55aa5567 39%, #55aa55ab 39%, #55aa55ab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #005500ab 9%, #005500ab 10%, #00550067 10%, #00550067 19%, #005500ab 19%, #005500ab 20%, transparent 20%, transparent 29%, #55aa55ab 29%, #55aa55ab 30%, #55aa5567 30%, #55aa5567 39%, #55aa55ab 39%, #55aa55ab 40%), radial-gradient(ellipse, transparent, #000000ab), linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)"
                 look.borderImage = "radial-gradient(ellipse, #005500 70%, #00ff00) 1"
@@ -806,7 +857,7 @@ addLayer("tlb", {
                 }
             },
             style() {
-            let look = {width: '300px', minHeight: '80px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "18px", borderRadius: "0px"}
+            let look = {width: '260px', minHeight: '40px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "14px", borderRadius: "0px"}
             if (this.canClick()) {
                 look.backgroundImage = "radial-gradient(ellipse, transparent 80%, #000000ab), radial-gradient(ellipse, transparent 70%, #003333), radial-gradient(ellipse, #00000045 40%, #000000ab), repeating-linear-gradient(-45deg, transparent, transparent 9%, #005555ab 9%, #005555ab 10%, #00555567 10%, #00555567 19%, #005555ab 19%, #005555ab 20%, transparent 20%, transparent 29%, #55aaaaab 29%, #55aaaaab 30%, #55aaaa67 30%, #55aaaa67 39%, #55aaaaab 39%, #55aaaaab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #005555ab 9%, #005555ab 10%, #00555567 10%, #00555567 19%, #005555ab 19%, #005555ab 20%, transparent 20%, transparent 29%, #55aaaaab 29%, #55aaaaab 30%, #55aaaa67 30%, #55aaaa67 39%, #55aaaaab 39%, #55aaaaab 40%), radial-gradient(ellipse, transparent, #000000ab), linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)"
                 look.borderImage = "radial-gradient(ellipse, #005555 70%, #00ffff) 1"
@@ -898,7 +949,7 @@ addLayer("tlb", {
                 }
             },
             style() {
-            let look = {width: '300px', minHeight: '80px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "18px", borderRadius: "0px"}
+            let look = {width: '260px', minHeight: '40px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "14px", borderRadius: "0px"}
             if (this.canClick()) {
                 look.backgroundImage = "radial-gradient(ellipse, transparent 80%, #000000ab), radial-gradient(ellipse, transparent 70%, #000033), radial-gradient(ellipse, #00000045 40%, #000000ab), repeating-linear-gradient(-45deg, transparent, transparent 9%, #000055ab 9%, #000055ab 10%, #00005567 10%, #00005567 19%, #000055ab 19%, #000055ab 20%, transparent 20%, transparent 29%, #5555aaab 29%, #5555aaab 30%, #5555aa67 30%, #5555aa67 39%, #5555aaab 39%, #5555aaab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #000055ab 9%, #000055ab 10%, #00005567 10%, #00005567 19%, #000055ab 19%, #000055ab 20%, transparent 20%, transparent 29%, #5555aaab 29%, #5555aaab 30%, #5555aa67 30%, #5555aa67 39%, #5555aaab 39%, #5555aaab 40%), radial-gradient(ellipse, transparent, #000000ab), linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)"
                 look.borderImage = "radial-gradient(ellipse, #000055 70%, #0000ff) 1"
@@ -990,7 +1041,7 @@ addLayer("tlb", {
                 }
             },
             style() {
-            let look = {width: '300px', minHeight: '80px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "18px", borderRadius: "0px"}
+            let look = {width: '260px', minHeight: '40px', border: "3px solid rgba(0,0,0,0.3)", fontSize: "14px", borderRadius: "0px"}
             if (this.canClick()) {
                 look.backgroundImage = "radial-gradient(ellipse, transparent 80%, #000000ab), radial-gradient(ellipse, transparent 70%, #330033), radial-gradient(ellipse, #00000045 40%, #000000ab), repeating-linear-gradient(-45deg, transparent, transparent 9%, #550055ab 9%, #550055ab 10%, #55005567 10%, #55005567 19%, #550055ab 19%, #550055ab 20%, transparent 20%, transparent 29%, #aa55aaab 29%, #aa55aaab 30%, #aa55aa67 30%, #aa55aa67 39%, #aa55aaab 39%, #aa55aaab 40%), repeating-linear-gradient(45deg, transparent, transparent 9%, #550055ab 9%, #550055ab 10%, #55005567 10%, #55005567 19%, #550055ab 19%, #550055ab 20%, transparent 20%, transparent 29%, #aa55aaab 29%, #aa55aaab 30%, #aa55aa67 30%, #aa55aa67 39%, #aa55aaab 39%, #aa55aaab 40%), radial-gradient(ellipse, transparent, #000000ab), linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)"
                 look.borderImage = "radial-gradient(ellipse, #550055 70%, #ff00ff) 1"
@@ -1360,16 +1411,39 @@ addLayer("tlb", {
             }
         },
         smaSymbols: {
-            title() {return "Exchange<br>10 🝪 Al.Sys 🝪 and<br>1000 SMA.Sy.Prts for<br>1 ⛯ SMA.Sys ⛯."},
+            title() {return "Buy 1<br> ⛯ SMA Symbol ⛯."},
             canClick() {return true},
             unlocked() {return true},
             onClick() { 
                 
             },
             style() {
-            let look = {width: '325px', minHeight: '100px', fontSize: '12px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {width: '260px', minHeight: '40px', fontSize: '14px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if (this.canClick()) {
                 look.background = "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)";
+                look.border = "3px solid #282363";
+                look.color = "#282363";
+                look.boxShadow = "0 0 3px 1px black inset, 0 0 5px white"
+            } else {
+                look.backgroundColor = "#333333";
+                look.border = "3px solid #000000";
+                look.color = "black";
+                look.boxShadow = "0 0 3px 1px black inset"
+            }
+            return look
+            }
+        },
+        smeSymbols: {
+            title() {return "Buy 1<br> ⚶ SME Symbol ⚶."},
+            canClick() {return true},
+            unlocked() {return true},
+            onClick() { 
+                
+            },
+            style() {
+            let look = {width: '260px', minHeight: '40px', fontSize: '14px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            if (this.canClick()) {
+                look.background = "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%, #eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)";
                 look.border = "3px solid #282363";
                 look.color = "#282363";
                 look.boxShadow = "0 0 3px 1px black inset, 0 0 5px white"
@@ -1794,7 +1868,7 @@ addLayer("tlb", {
                                             ]
                                         ]
                                     ]
-                                ], {width: "560px", height: "180px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffdddd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff000023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                ], {width: "480px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffdddd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff000023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
                             ],
                             ["style-row",
                                 [
@@ -1812,12 +1886,12 @@ addLayer("tlb", {
                                                     return "You have<br><small>[SOFTCAPPED: +<h3>" + formatShort(player.tlb.crimsonSymbolPartsSoftcapEffect) + "</h3> Breakdown Magnitude</small>]"
                                                 else
                                                     return "You have"
-                                            }, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            }, {color: "#ffffff", fontSize: "12px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.crimsonSymbolParts) + "</h3> Cr.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "16px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
                                     ]
-                                ], {width: "300px", height: "180px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffdddd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff000023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffdddd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff000023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
                             ]
                         ]
                     ],
@@ -1912,7 +1986,7 @@ addLayer("tlb", {
                                             ]
                                         ]
                                     ]
-                                ], {width: "560px", height: "180px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ffff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                ], {width: "480px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ffff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
                             ],
                             ["style-row",
                                 [
@@ -1930,12 +2004,12 @@ addLayer("tlb", {
                                                     return "You have<br><small>[SOFTCAPPED: +<h3>" + formatShort(player.tlb.goldSymbolPartsSoftcapEffect) + "</h3> Breakdown Magnitude</small>]"
                                                 else
                                                     return "You have"
-                                            }, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            }, {color: "#ffffff", fontSize: "12px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.goldSymbolParts) + "</h3> Gl.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "16px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
                                     ]
-                                ], {width: "300px", height: "180px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ffff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ffff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
                             ]
                         ]
                     ],
@@ -2030,7 +2104,7 @@ addLayer("tlb", {
                                             ]
                                         ]
                                     ]
-                                ], {width: "560px", height: "180px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                ], {width: "480px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
                             ],
                             ["style-row",
                                 [
@@ -2048,12 +2122,12 @@ addLayer("tlb", {
                                                     return "You have<br><small>[SOFTCAPPED: +<h3>" + formatShort(player.tlb.jadeSymbolPartsSoftcapEffect) + "</h3> Breakdown Magnitude</small>]"
                                                 else
                                                     return "You have"
-                                            }, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            }, {color: "#ffffff", fontSize: "12px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.jadeSymbolParts) + "</h3> Jd.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "16px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
                                     ]
-                                ], {width: "300px", height: "180px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
                             ]
                         ]
                     ],
@@ -2148,7 +2222,7 @@ addLayer("tlb", {
                                             ]
                                         ]
                                     ]
-                                ], {width: "560px", height: "180px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ffff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                ], {width: "480px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ffff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
                             ],
                             ["style-row",
                                 [
@@ -2166,12 +2240,12 @@ addLayer("tlb", {
                                                     return "You have<br><small>[SOFTCAPPED: +<h3>" + formatShort(player.tlb.celesteSymbolPartsSoftcapEffect) + "</h3> Breakdown Magnitude</small>]"
                                                 else
                                                     return "You have"
-                                            }, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            }, {color: "#ffffff", fontSize: "12px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.celesteSymbolParts) + "</h3> Ce.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "16px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
                                     ]
-                                ], {width: "300px", height: "180px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ffff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ffff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
                             ]
                         ]
                     ],
@@ -2266,7 +2340,7 @@ addLayer("tlb", {
                                             ]
                                         ]
                                     ]
-                                ], {width: "560px", height: "180px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #0000ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                ], {width: "480px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #0000ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
                             ],
                             ["style-row",
                                 [
@@ -2284,12 +2358,12 @@ addLayer("tlb", {
                                                     return "You have<br><small>[SOFTCAPPED: +<h3>" + formatShort(player.tlb.cobaltSymbolPartsSoftcapEffect) + "</h3> Breakdown Magnitude</small>]"
                                                 else
                                                     return "You have"
-                                            }, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            }, {color: "#ffffff", fontSize: "12px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.cobaltSymbolParts) + "</h3> Co.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "16px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
                                     ]
-                                ], {width: "300px", height: "180px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #0000ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ddddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #0000ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
                             ]
                         ]
                     ],
@@ -2384,7 +2458,7 @@ addLayer("tlb", {
                                             ]
                                         ]
                                     ]
-                                ], {width: "560px", height: "180px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff00ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                ], {width: "480px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff00ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
                             ],
                             ["style-row",
                                 [
@@ -2401,12 +2475,12 @@ addLayer("tlb", {
                                                 if (player.tlb.amethystSymbolParts >= softcapStart)
                                                     return "You have<br><small>[SOFTCAPPED: +<h3>" + formatShort(player.tlb.amethystSymbolPartsSoftcapEffect) + "</h3> Breakdown Magnitude</small>]"
                                                     return "You have"
-                                            }, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                            }, {color: "#ffffff", fontSize: "12px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                             ["blank", "1px"],
                                             ["raw-html", () => {return "<h3>" + formatShortWhole(player.tlb.amethystSymbolParts) + "</h3> Am.Sy.Prts."}, {color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "16px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
                                         ]
                                     ],
-                                ], {width: "300px", height: "180px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff00ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                ], {width: "300px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #000000 75%, #ffddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff00ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset"}
                             ]
                         ]
                     ]
@@ -2425,12 +2499,566 @@ addLayer("tlb", {
                         ]
                     ],
                     ["blank", "10px"],
-                    ["clickable", "smaSymbols"]
+                    ["style-column",
+                        [
+                            ["row", [["clickable", "buyMaxOff3"], ["blank", "5px"], ["clickable", "buyMaxOn3"]]]
+                        ]
+                    ],
+                    ["blank", "2px"],
+                    ["style-column",
+                        [
+                            ["row", [["raw-html", "<small>(Disclaimer: thie Buy Max functionality is out of order so you can't buy max symbols yet.)"]]]
+                        ]
+                    ],
+                    ["blank", "20px"],
+                    ["style-row",
+                        [
+                            ["style-column",
+                                [
+                                    ["column",
+                                        [
+                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                    ],
+                                    ["blank", "5px"],
+                                    ["column",
+                                        [
+                                            ["raw-html", () => {return formatShortWhole(player.tlb.crimsonSymbols)}]
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "20px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                    ]
+                                ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffdddd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff000023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                            ],
+                            ["blank", "3px"],
+                            ["style-column",
+                                [
+                                    ["column",
+                                        [
+                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                    ],
+                                    ["blank", "5px"],
+                                    ["column",
+                                        [
+                                            ["raw-html", () => {return formatShortWhole(player.tlb.goldSymbols)}]
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "20px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                    ]
+                                ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ffff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                            ],
+                            ["blank", "3px"],
+                            ["style-column",
+                                [
+                                    ["column",
+                                        [
+                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                    ],
+                                    ["blank", "5px"],
+                                    ["column",
+                                        [
+                                            ["raw-html", () => {return formatShortWhole(player.tlb.jadeSymbols)}]
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "20px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                    ]
+                                ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                            ],
+                            ["blank", "3px"],
+                            ["style-column",
+                                [
+                                    ["column",
+                                        [
+                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                    ],
+                                    ["blank", "5px"],
+                                    ["column",
+                                        [
+                                            ["raw-html", () => {return formatShortWhole(player.tlb.celesteSymbols)}]
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "20px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                    ]
+                                ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ffff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                            ],
+                            ["blank", "3px"],
+                            ["style-column",
+                                [
+                                    ["column",
+                                        [
+                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                    ],
+                                    ["blank", "5px"],
+                                    ["column",
+                                        [
+                                            ["raw-html", () => {return formatShortWhole(player.tlb.cobaltSymbols)}]
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "20px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                    ]
+                                ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #0000ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                            ],
+                            ["blank", "3px"],
+                            ["style-column",
+                                [
+                                    ["column",
+                                        [
+                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                    ],
+                                    ["blank", "5px"],
+                                    ["column",
+                                        [
+                                            ["raw-html", () => {return formatShortWhole(player.tlb.amethystSymbols)}]
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "20px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                    ]
+                                ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff00ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                            ],
+                            ["blank", "3px"],
+                            ["style-column",
+                                [
+                                    ["column",
+                                        [
+                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                    ],
+                                    ["blank", "5px"],
+                                    ["column",
+                                        [
+                                            ["raw-html", () => {return formatShortWhole(player.tlb.pointsForce)}]
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                    ]
+                                ], {width: "80px", height: "80px", border: "3px solid #f8c898", borderRadius: "10px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #f8c898 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #9b541a67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(0deg, #6B4423, #9b541a)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                            ],
+                            ["blank", "3px"],
+                            ["style-column",
+                                [
+                                    ["column",
+                                        [
+                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                    ],
+                                    ["blank", "5px"],
+                                    ["column",
+                                        [
+                                            ["raw-html", () => {return formatShortWhole(player.tlb.pointsInsight)}]
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                    ]
+                                ], {width: "80px", height: "80px", border: "3px solid #f8c898", borderRadius: "10px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #f8c898 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #9b541a67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(0deg, #6B4423, #9b541a)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                            ],
+                            ["blank", "3px"],
+                            ["style-column",
+                                [
+                                    ["column",
+                                        [
+                                            ["raw-html", "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'></img>"]
+                                        ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                    ],
+                                    ["blank", "5px"],
+                                    ["column",
+                                        [
+                                            ["raw-html", () => {return formatShortWhole(player.tlb.pointsMerit)}]
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                    ]
+                                ], {width: "80px", height: "80px", border: "3px solid #f8c898", borderRadius: "10px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #f8c898 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #9b541a67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(0deg, #6B4423, #9b541a)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                            ]
+                        ]
+                    ],
+                    ["blank", "20px"],
+                    ["style-row",
+                        [
+                            ["style-row", // sma/sme
+                                [
+                                    ["style-row",
+                                        [
+                                            ["style-column",
+                                                [
+                                                    ["column",
+                                                        [
+                                                            ["raw-html", "<img src='resources/alchemyworld/symbolStarmetalAlloy.png'style='width:70px;height:70px'></img>"]
+                                                        ], {width: "80px", height: "80px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                    ],
+                                                    ["blank", "5px"],
+                                                    ["column",
+                                                        [
+                                                            ["raw-html", () => {return formatShortWhole(player.tlb.starmetalAlloySymbols)}]
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                    ]
+                                                ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                            ],
+                                            ["column", [[]], {width: "30px"}],
+                                            ["style-column",
+                                                [
+                                                    ["clickable", "smaSymbols"],
+                                                    ["blank", "15px"],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {return "Buy Cost:"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                                                        ]
+                                                    ],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {
+                                                                return "<h3>10</h3> For.Pts"
+                                                                }, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "14px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>10</h3> Cr.Sys"
+                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>e3 OoM</h3> SMA"
+                                                                }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ],
+                                                        ]
+                                                    ],
+                                                    ["blank", "5px"],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>" + formatShortWhole(player.sma.starmetalAlloy) + "</h3> SMA"
+                                                                }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ], {width: "480px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                    ],
+                                    ["style-row",
+                                        [
+                                            ["style-column",
+                                                [
+                                                    ["column",
+                                                        [
+                                                            ["raw-html", "<img src='resources/alchemyworld/symbolStarmetalEssence.png'style='width:70px;height:70px'></img>"]
+                                                        ], {width: "80px", height: "80px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                    ],
+                                                    ["blank", "5px"],
+                                                    ["column",
+                                                        [
+                                                            ["raw-html", () => {return formatShortWhole(player.tlb.starmetalEssenceSymbols)}]
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                    ]
+                                                ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                            ],
+                                            ["column", [[]], {width: "30px"}],
+                                            ["style-column",
+                                                [
+                                                    ["clickable", "smeSymbols"],
+                                                    ["blank", "15px"],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {return "Buy Cost:"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                                                        ]
+                                                    ],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {
+                                                                return "<h3>10</h3> For.Pts"
+                                                                }, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "14px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>10</h3> Ce.Sys"
+                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>e3 OoM</h3> SME"
+                                                                }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ],
+                                                        ]
+                                                    ],
+                                                    ["blank", "5px"],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>" + formatShortWhole(player.sme.starmetalEssence) + "</h3> SME"
+                                                                }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ], {width: "480px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                    ]
+                                ]
+                            ],
+                            ["style-row", // ecs/spg
+                                [
+                                    ["style-row",
+                                        [
+                                            ["style-column",
+                                                [
+                                                    ["column",
+                                                        [
+                                                            ["raw-html", "<img src='resources/alchemyworld/symbolEclipseShard.png'style='width:70px;height:70px'></img>"]
+                                                        ], {width: "80px", height: "80px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                    ],
+                                                    ["blank", "5px"],
+                                                    ["column",
+                                                        [
+                                                            ["raw-html", () => {return formatShortWhole(player.tlb.eclipseShardSymbols)}]
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                    ]
+                                                ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                            ],
+                                            ["column", [[]], {width: "30px"}],
+                                            ["style-column",
+                                                [
+                                                    ["clickable", "smaSymbols"],
+                                                    ["blank", "15px"],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {return "Buy Cost:"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                                                        ]
+                                                    ],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {
+                                                                return "<h3>10</h3> Ins.Pts"
+                                                                }, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "14px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>10</h3> Gl.Sys"
+                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>e1 OoM</h3> ECS"
+                                                                }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ],
+                                                        ]
+                                                    ],
+                                                    ["blank", "5px"],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>" + formatShortWhole(player.sma.eclipseShards) + "</h3> ECS"
+                                                                }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ], {width: "480px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                    ],
+                                    ["style-row",
+                                        [
+                                            ["style-column",
+                                                [
+                                                    ["column",
+                                                        [
+                                                            ["raw-html", "<img src='resources/alchemyworld/symbolSpaceGem.png'style='width:70px;height:70px'></img>"]
+                                                        ], {width: "80px", height: "80px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                    ],
+                                                    ["blank", "5px"],
+                                                    ["column",
+                                                        [
+                                                            ["raw-html", () => {return formatShortWhole(player.tlb.spaceGemSymbols)}]
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                    ]
+                                                ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                            ],
+                                            ["column", [[]], {width: "30px"}],
+                                            ["style-column",
+                                                [
+                                                    ["clickable", "smeSymbols"],
+                                                    ["blank", "15px"],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {return "Buy Cost:"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                                                        ]
+                                                    ],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {
+                                                                return "<h3>10</h3> Ins.Pts"
+                                                                }, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "14px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>10</h3> Co.Sys"
+                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>e1 OoM</h3> SPG"
+                                                                }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ],
+                                                        ]
+                                                    ],
+                                                    ["blank", "5px"],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>" + formatShortWhole(player.ir.spaceGem) + "</h3> SPG"
+                                                                }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ], {width: "480px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                    ]
+                                ]
+                            ],
+                            ["style-row", // pln/spr
+                                [
+                                    ["style-row",
+                                        [
+                                            ["style-column",
+                                                [
+                                                    ["column",
+                                                        [
+                                                            ["raw-html", "<img src='resources/alchemyworld/symbolPlanet.png'style='width:70px;height:70px'></img>"]
+                                                        ], {width: "80px", height: "80px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                    ],
+                                                    ["blank", "5px"],
+                                                    ["column",
+                                                        [
+                                                            ["raw-html", () => {return formatShortWhole(player.tlb.planetSymbols)}]
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                    ]
+                                                ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                            ],
+                                            ["column", [[]], {width: "30px"}],
+                                            ["style-column",
+                                                [
+                                                    ["clickable", "smaSymbols"],
+                                                    ["blank", "15px"],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {return "Buy Cost:"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                                                        ]
+                                                    ],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {
+                                                                return "<h3>10</h3> Mer.Pts"
+                                                                }, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "14px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>10</h3> Jd.Sys"
+                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>e3 OoM</h3> PLN"
+                                                                }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ],
+                                                        ]
+                                                    ],
+                                                    ["blank", "5px"],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>" + formatShortWhole(player.pl.planets) + "</h3> PLN"
+                                                                }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ], {width: "480px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                    ],
+                                    ["style-row",
+                                        [
+                                            ["style-column",
+                                                [
+                                                    ["column",
+                                                        [
+                                                            ["raw-html", "<img src='resources/alchemyworld/symbolSpaceRock.png'style='width:70px;height:70px'></img>"]
+                                                        ], {width: "80px", height: "80px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                                    ],
+                                                    ["blank", "5px"],
+                                                    ["column",
+                                                        [
+                                                            ["raw-html", () => {return formatShortWhole(player.tlb.spaceRockSymbols)}]
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                    ]
+                                                ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
+                                            ],
+                                            ["column", [[]], {width: "30px"}],
+                                            ["style-column",
+                                                [
+                                                    ["clickable", "smeSymbols"],
+                                                    ["blank", "15px"],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {return "Buy Cost:"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
+                                                        ]
+                                                    ],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {
+                                                                return "<h3>10</h3> Mer.Pts"
+                                                                }, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "14px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>10</h3> Am.Sys"
+                                                                }, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>e3 OoM</h3> SPR"
+                                                                }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ],
+                                                        ]
+                                                    ],
+                                                    ["blank", "5px"],
+                                                    ["row",
+                                                        [
+                                                            ["raw-html", () => {return "You have"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                                                            ["blank", "2px"],
+                                                            ["raw-html", () => {
+                                                                return "<h3>" + formatShortWhole(player.ir.spaceRock) + "</h3> SPR"
+                                                                }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ], {width: "480px", height: "160px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset"}
+                                    ]
+                                ]
+                            ]
+                        ], {width: "1000px", height: "530px", backgroundColor:"black"}
+                    ],
+
                     
                 ]
             },
             "Bookshop": {
-                buttonStyle() {return {color: "#000000", backgroundImage: "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset"}},
+                buttonStyle() {return {color: "#F8C898", backgroundColor: "#6B4423", backgroundImage: "linear-gradient(0deg, #6B4423, #9b541a)", borderColor: "#F8C898", borderRadius: "10px", boxShadow: "0 0 3px 1px black inset"}},
                 unlocked() {return true},
                 content: [
                     ["blank", "5px"],
@@ -2953,7 +3581,7 @@ addLayer("tlb", {
                 ]
             },
             "Study": {
-                buttonStyle() {return {color: "#000000", backgroundImage: "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)", borderImage: "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset"}},
+                buttonStyle() {return {color: "#F8C898", backgroundColor: "#6B4423", backgroundImage: "linear-gradient(0deg, #6B4423, #9b541a)", borderColor: "#F8C898", borderRadius: "10px", boxShadow: "0 0 3px 1px black inset"}},
                 unlocked() {return player.tlb.firstTomeForce == true && player.tlb.firstTomeInsight == true && player.tlb.firstTomeMerit == true},
                 content: [
                     ["blank", "5px"],
