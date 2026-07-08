@@ -3071,8 +3071,8 @@ addLayer("tlb", {
                     ],
                     ["blank", "10px"],
                     () => {
-                        if(player.tlb.firstTomeForce == false || player.tlb.firstTomeInsight == false || player.tlb.firstTomeMerit == false) {
-                            return ["column",
+                        if(player.tlb.unlockCountStudy.lt(3)) {
+                            return ["column", [["column",
                                 [
                                     ["row",
                                         [["raw-html", "<u>☢ ⏻ ☘︎ ᖫ᯽ᖭ ✸ ₴ ✧</u>", {width: "100px"}]]
@@ -3095,9 +3095,9 @@ addLayer("tlb", {
                                     ]
                                 ]
                             ],
-                            ["blank", "10px"]
+                            ["blank", "10px"]]]
                         }
-                        else if(player.tlb.firstTomeForce == true && player.tlb.firstTomeInsight == true && player.tlb.firstTomeMerit == true)
+                        else if(player.tlb.unlockCountStudy.gte(3))
                             return ""
                     },
                     ["style-column",
