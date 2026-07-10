@@ -248,7 +248,7 @@ addLayer("ssp", {
                     return "??????"
             },
             currencyInternalName: "advAlchemicalSymbols",
-            canAfford() {hasUpgrade("ssp", 104)},
+            canAfford() {return hasUpgrade("ssp", 104)},
             style() {
                 let look = {color: "rgba(0,0,0,0.8", border: "3px solid rgba(0,0,0,0.5)", width: "136px", height: "136px", borderRadius: "0px", boxShadow: "0 0 3px 1px #000000 inset, 0 0 5px 1px #000000"}
                 hasUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000055, #0000ff, #5555ff)" : !canAffordUpgrade(this.layer, this.id) ? look.background = "linear-gradient(to top, #000000, #330033, #550055)" : look.background = "linear-gradient(to top, #343434, #565656, #787878)"

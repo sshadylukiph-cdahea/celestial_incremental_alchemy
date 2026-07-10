@@ -1368,23 +1368,25 @@ addLayer("tlb", {
             }
         },
         craftingSysUnlocker: {
-            title() {return "Unlock the Crafting Shop.<br><small>Requires: 10 of Cr/Gl/Jd/Ce/Co/Am.Sys<br>and 10 of For/Ins/Mer.Pts.</small>"},
-            canClick() {return player.tlb.crimsonSymbols >= 10 && player.tlb.goldSymbols >= 10 && player.tlb.jadeSymbols >= 10
-                                && player.tlb.celesteSymbols >= 10 && player.tlb.cobaltSymbols >= 10 && player.tlb.amethystSymbols >= 10
+            title() {return "Unlock the Crafting Shop.<br><small>Requires: 50 of Cr/Gl/Jd/Ce/Co/Am.Sys<br>and 10 of For/Ins/Mer.Pts.</small>"},
+            canClick() {return player.tlb.crimsonSymbols >= 50 && player.tlb.goldSymbols >= 50 && player.tlb.jadeSymbols >= 50
+                                && player.tlb.celesteSymbols >= 50 && player.tlb.cobaltSymbols >= 50 && player.tlb.amethystSymbols >= 50
                                 && player.tlb.pointsForce >= 10 && player.tlb.pointsInsight >= 10 && player.tlb.pointsMerit >= 10
                             },
             unlocked() {
-                if (player.tlb.craftingSysUnlocked == false)
+                if (player.tlb.craftingSysUnlocked == false && (player.tlb.firstTomeForce == false && player.tlb.firstTomeInsight == false && player.tlb.firstTomeMerit == false))
+                    return false
+                else if (player.tlb.craftingSysUnlocked == false && (player.tlb.firstTomeForce == true && player.tlb.firstTomeInsight == true && player.tlb.firstTomeMerit == true))
                     return true
                 else return false
             },
             onClick() {
-                player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(10)
-                player.tlb.goldSymbols = player.tlb.goldSymbols.sub(10)
-                player.tlb.jadeSymbols = player.tlb.jadeSymbols.sub(10)
-                player.tlb.celesteSymbols = player.tlb.celesteSymbols.sub(10)
-                player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.sub(10)
-                player.tlb.amethystSymbols = player.tlb.amethystSymbols.sub(10)
+                player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(50)
+                player.tlb.goldSymbols = player.tlb.goldSymbols.sub(50)
+                player.tlb.jadeSymbols = player.tlb.jadeSymbols.sub(50)
+                player.tlb.celesteSymbols = player.tlb.celesteSymbols.sub(50)
+                player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.sub(50)
+                player.tlb.amethystSymbols = player.tlb.amethystSymbols.sub(50)
                 player.tlb.pointsForce = player.tlb.pointsForce.sub(10)
                 player.tlb.pointsInsight = player.tlb.pointsInsight.sub(10)
                 player.tlb.pointsMerit = player.tlb.pointsMerit.sub(10)
@@ -1412,10 +1414,27 @@ addLayer("tlb", {
         },
         smaSymbols: {
             title() {return "Buy 1<br> ⛯ SMA Symbol ⛯."},
-            canClick() {return true},
+            canClick() {return player.tlb.pointsForce.gte(10) && player.tlb.crimsonSymbols.gte(10) && player.sma.starmetalAlloy.gte("1e10")},
             unlocked() {return true},
             onClick() { 
-                
+                if (player.tlb.buyMaxSymbolsCrafting == false) {
+                    player.tlb.starmetalAlloySymbols = player.tlb.starmetalAlloySymbols.add(1) // result
+                    player.tlb.pointsForce = player.tlb.pointsForce.sub(10) // 1st cost
+                    player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(10) // 2nd cost
+                    player.sma.starmetalAlloy = player.sma.starmetalAlloy.sub("1e10") // 3rd cost
+                } 
+                else if (player.tlb.buyMaxSymbolsCrafting == true) {
+                    let val1 = player.tlb.pointsForce.div(10).floor()
+                    let val2 = player.tlb.crimsonSymbols.div(10).floor()
+                    let val3 = player.sma.starmetalAlloy.div("1e10").floor()
+                    let result = val1
+                    if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                    player.tlb.starmetalAlloySymbols = player.tlb.starmetalAlloySymbols.add(result) // result
+                    player.tlb.pointsForce = player.tlb.pointsForce.sub(Decimal.mul(10, result)) // 1st cost
+                    player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(Decimal.mul(10, result)) // 2nd cost
+                    player.sma.starmetalAlloy = player.sma.starmetalAlloy.sub(Decimal.mul("1e10", result)) // 3rd cost
+                }
             },
             style() {
             let look = {width: '260px', minHeight: '40px', fontSize: '14px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
@@ -1446,6 +1465,99 @@ addLayer("tlb", {
                 look.background = "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%, #eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)";
                 look.border = "3px solid #282363";
                 look.color = "#282363";
+                look.boxShadow = "0 0 3px 1px black inset, 0 0 5px white"
+            } else {
+                look.backgroundColor = "#333333";
+                look.border = "3px solid #000000";
+                look.color = "black";
+                look.boxShadow = "0 0 3px 1px black inset"
+            }
+            return look
+            }
+        },
+        ecsSymbols: {
+            title() {return "Buy 1<br> ⏾ ECS Symbol ⏾."},
+            canClick() {return true},
+            unlocked() {return true},
+            onClick() { 
+                
+            },
+            style() {
+            let look = {width: '260px', minHeight: '40px', fontSize: '14px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            if (this.canClick()) {
+                look.background = "linear-gradient(135deg, #ffb700, #ffe866)";
+                look.borderColor = "transparent";
+                look.borderImage = "linear-gradient(to bottom, #222, #000) 1";
+                look.color = "black";
+                look.boxShadow = "0 0 3px 1px black inset, 0 0 5px white"
+            } else {
+                look.backgroundColor = "#333333";
+                look.border = "3px solid #000000";
+                look.color = "black";
+                look.boxShadow = "0 0 3px 1px black inset"
+            }
+            return look
+            }
+        },
+        spgSymbols: {
+            title() {return "Buy 1<br> ◈ SPG Symbol ◈."},
+            canClick() {return true},
+            unlocked() {return true},
+            onClick() { 
+                
+            },
+            style() {
+            let look = {width: '260px', minHeight: '40px', fontSize: '14px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            if (this.canClick()) {
+                look.background = "radial-gradient(circle, #564BCC, #000000)";
+                look.border = "3px solid white";
+                look.color = "#eaf6f7";
+                look.boxShadow = "0 0 3px 1px black inset, 0 0 5px white"
+            } else {
+                look.backgroundColor = "#333333";
+                look.border = "3px solid #000000";
+                look.color = "black";
+                look.boxShadow = "0 0 3px 1px black inset"
+            }
+            return look
+            }
+        },
+        plnSymbols: {
+            title() {return "Buy 1<br> ♄ PLN Symbol ♄."},
+            canClick() {return true},
+            unlocked() {return true},
+            onClick() { 
+                
+            },
+            style() {
+            let look = {width: '260px', minHeight: '40px', fontSize: '14px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            if (this.canClick()) {
+                look.background = "linear-gradient(15deg, #34eb86 0%, #279ccf 50%, #411bb3 100%)";
+                look.border = "3px solid #59c2ff";
+                look.color = "#eaf6f7";
+                look.boxShadow = "0 0 3px 1px black inset, 0 0 5px white"
+            } else {
+                look.backgroundColor = "#333333";
+                look.border = "3px solid #000000";
+                look.color = "black";
+                look.boxShadow = "0 0 3px 1px black inset"
+            }
+            return look
+            }
+        },
+        sprSymbols: {
+            title() {return "Buy 1<br> ⛊ SPR Symbol ⛊."},
+            canClick() {return true},
+            unlocked() {return true},
+            onClick() { 
+                
+            },
+            style() {
+            let look = {width: '260px', minHeight: '40px', fontSize: '14px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            if (this.canClick()) {
+                look.background = "linear-gradient(15deg, #5f5f5f 0%, #a8a8a8 50%, #5f5f5f 100%)";
+                look.border = "3px solid #464646";
+                look.color = "#eaf6f7";
                 look.boxShadow = "0 0 3px 1px black inset, 0 0 5px white"
             } else {
                 look.backgroundColor = "#333333";
@@ -2676,7 +2788,7 @@ addLayer("tlb", {
                                                     ["column",
                                                         [
                                                             ["raw-html", () => {return formatShortWhole(player.tlb.starmetalAlloySymbols)}]
-                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                     ]
                                                 ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
@@ -2706,8 +2818,8 @@ addLayer("tlb", {
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>e3 OoM</h3> SMA"
-                                                                }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                return "<h3>1e10 </h3> SMA"
+                                                                }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
                                                     ],
@@ -2718,7 +2830,7 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>" + formatShortWhole(player.sma.starmetalAlloy) + "</h3> SMA"
-                                                                }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ]
                                                         ]
                                                     ]
@@ -2739,7 +2851,7 @@ addLayer("tlb", {
                                                     ["column",
                                                         [
                                                             ["raw-html", () => {return formatShortWhole(player.tlb.starmetalEssenceSymbols)}]
-                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                     ]
                                                 ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
@@ -2769,8 +2881,8 @@ addLayer("tlb", {
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>e3 OoM</h3> SME"
-                                                                }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                return "<h3>1e6</h3> SME"
+                                                                }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
                                                     ],
@@ -2781,7 +2893,7 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>" + formatShortWhole(player.sme.starmetalEssence) + "</h3> SME"
-                                                                }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ]
                                                         ]
                                                     ]
@@ -2806,14 +2918,14 @@ addLayer("tlb", {
                                                     ["column",
                                                         [
                                                             ["raw-html", () => {return formatShortWhole(player.tlb.eclipseShardSymbols)}]
-                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(135deg, #ffb700, #ffe866)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(135deg, #ffb700, #ffe866)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                     ]
                                                 ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
                                             ["column", [[]], {width: "30px"}],
                                             ["style-column",
                                                 [
-                                                    ["clickable", "smaSymbols"],
+                                                    ["clickable", "ecsSymbols"],
                                                     ["blank", "15px"],
                                                     ["row",
                                                         [
@@ -2836,8 +2948,8 @@ addLayer("tlb", {
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>e1 OoM</h3> ECS"
-                                                                }, {color: "transparent", background: "linear-gradient(135deg, #ffb700, #ffe866)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                return "<h3>1000</h3> ECS"
+                                                                }, {color: "transparent", background: "linear-gradient(135deg, #ffb700, #ffe866)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
                                                     ],
@@ -2848,7 +2960,7 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>" + formatShortWhole(player.sma.eclipseShards) + "</h3> ECS"
-                                                                }, {color: "transparent", background: "linear-gradient(135deg, #ffb700, #ffe866)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(135deg, #ffb700, #ffe866)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ]
                                                         ]
                                                     ]
@@ -2869,14 +2981,14 @@ addLayer("tlb", {
                                                     ["column",
                                                         [
                                                             ["raw-html", () => {return formatShortWhole(player.tlb.spaceGemSymbols)}]
-                                                        ], {width: "100px", height: "20px", color: "transparent", background: "radial-gradient(circle, #564BCC, #000000)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "radial-gradient(circle, #564BCC, #000000)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                     ]
                                                 ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
                                             ["column", [[]], {width: "30px"}],
                                             ["style-column",
                                                 [
-                                                    ["clickable", "smeSymbols"],
+                                                    ["clickable", "spgSymbols"],
                                                     ["blank", "15px"],
                                                     ["row",
                                                         [
@@ -2899,8 +3011,8 @@ addLayer("tlb", {
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>e1 OoM</h3> SPG"
-                                                                }, {color: "transparent", background: "radial-gradient(circle, #564BCC, #000000)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                return "<h3>1000</h3> SPG"
+                                                                }, {color: "transparent", background: "radial-gradient(circle, #564BCC, #000000)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
                                                     ],
@@ -2911,7 +3023,7 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>" + formatShortWhole(player.ir.spaceGem) + "</h3> SPG"
-                                                                }, {color: "transparent", background: "radial-gradient(circle, #564BCC, #000000)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "radial-gradient(circle, #564BCC, #000000)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ]
                                                         ]
                                                     ]
@@ -2936,14 +3048,14 @@ addLayer("tlb", {
                                                     ["column",
                                                         [
                                                             ["raw-html", () => {return formatShortWhole(player.tlb.planetSymbols)}]
-                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(15deg, #34eb86 0%, #279ccf 50%, #411bb3 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(15deg, #34eb86 0%, #279ccf 50%, #411bb3 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                     ]
                                                 ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
                                             ["column", [[]], {width: "30px"}],
                                             ["style-column",
                                                 [
-                                                    ["clickable", "smaSymbols"],
+                                                    ["clickable", "plnSymbols"],
                                                     ["blank", "15px"],
                                                     ["row",
                                                         [
@@ -2966,8 +3078,8 @@ addLayer("tlb", {
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>e3 OoM</h3> PLN"
-                                                                }, {color: "transparent", background: "linear-gradient(15deg, #34eb86 0%, #279ccf 50%, #411bb3 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                return "<h3>1e6</h3> PLN"
+                                                                }, {color: "transparent", background: "linear-gradient(15deg, #34eb86 0%, #279ccf 50%, #411bb3 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
                                                     ],
@@ -2978,7 +3090,7 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>" + formatShortWhole(player.pl.planets) + "</h3> PLN"
-                                                                }, {color: "transparent", background: "linear-gradient(15deg, #34eb86 0%, #279ccf 50%, #411bb3 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(15deg, #34eb86 0%, #279ccf 50%, #411bb3 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ]
                                                         ]
                                                     ]
@@ -2999,14 +3111,14 @@ addLayer("tlb", {
                                                     ["column",
                                                         [
                                                             ["raw-html", () => {return formatShortWhole(player.tlb.spaceRockSymbols)}]
-                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(15deg, #5f5f5f 0%, #c5c5c5 50%, #5f5f5f 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                        ], {width: "100px", height: "20px", color: "transparent", background: "linear-gradient(15deg, #5f5f5f 0%, #c5c5c5 50%, #5f5f5f 100%)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                     ]
                                                 ], {width: "120px", height: "120px", border: "3px solid transparent", borderImage: "radial-gradient(ellipse, #ff7f00 70%, #ffff00) 1", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffff0067 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to left, #ffca1b, #855b00, #582900, #855b00, #ffca1b)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                                             ],
                                             ["column", [[]], {width: "30px"}],
                                             ["style-column",
                                                 [
-                                                    ["clickable", "smeSymbols"],
+                                                    ["clickable", "sprSymbols"],
                                                     ["blank", "15px"],
                                                     ["row",
                                                         [
@@ -3029,8 +3141,8 @@ addLayer("tlb", {
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>e3 OoM</h3> SPR"
-                                                                }, {color: "transparent", background: "linear-gradient(15deg, #5f5f5f 0%, #c5c5c5 50%, #5f5f5f 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                return "<h3>1e6</h3> SPR"
+                                                                }, {color: "transparent", background: "linear-gradient(15deg, #5f5f5f 0%, #c5c5c5 50%, #5f5f5f 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
                                                     ],
@@ -3041,7 +3153,7 @@ addLayer("tlb", {
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
                                                                 return "<h3>" + formatShortWhole(player.ir.spaceRock) + "</h3> SPR"
-                                                                }, {color: "transparent", background: "linear-gradient(15deg, #5f5f5f 0%, #c5c5c5 50%, #5f5f5f 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78", backgroundClip: "text", fontFamily: "monospace"}
+                                                                }, {color: "transparent", background: "linear-gradient(15deg, #5f5f5f 0%, #c5c5c5 50%, #5f5f5f 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ]
                                                         ]
                                                     ]
@@ -3051,7 +3163,7 @@ addLayer("tlb", {
                                     ]
                                 ]
                             ]
-                        ], {width: "1000px", height: "530px", backgroundColor:"black"}
+                        ], {width: "1000px", height: "530px"}
                     ],
 
                     
