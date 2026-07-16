@@ -1414,26 +1414,26 @@ addLayer("tlb", {
         },
         smaSymbols: {
             title() {return "Buy 1<br> ⛯ SMA Symbol ⛯."},
-            canClick() {return player.tlb.pointsForce.gte(10) && player.tlb.crimsonSymbols.gte(10) && player.sma.starmetalAlloy.gte("1e10")},
+            canClick() {return player.tlb.pointsForce.gte(10) && player.tlb.crimsonSymbols.gte(10) && player.sma.starmetalAlloy.gte(10)},
             unlocked() {return true},
             onClick() { 
                 if (player.tlb.buyMaxSymbolsCrafting == false) {
                     player.tlb.starmetalAlloySymbols = player.tlb.starmetalAlloySymbols.add(1) // result
                     player.tlb.pointsForce = player.tlb.pointsForce.sub(10) // 1st cost
                     player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(10) // 2nd cost
-                    player.sma.starmetalAlloy = player.sma.starmetalAlloy.sub("1e10") // 3rd cost
+                    player.sma.starmetalAlloy = player.sma.starmetalAlloy.div(10) // 3rd cost
                 } 
                 else if (player.tlb.buyMaxSymbolsCrafting == true) {
                     let val1 = player.tlb.pointsForce.div(10).floor()
                     let val2 = player.tlb.crimsonSymbols.div(10).floor()
-                    let val3 = player.sma.starmetalAlloy.div("1e10").floor()
+                    let val3 = player.sma.starmetalAlloy.log10().floor()
                     let result = val1
                     if(val3.lt(val1) || val3.lt(val2)) result = val3
 
                     player.tlb.starmetalAlloySymbols = player.tlb.starmetalAlloySymbols.add(result) // result
                     player.tlb.pointsForce = player.tlb.pointsForce.sub(Decimal.mul(10, result)) // 1st cost
                     player.tlb.crimsonSymbols = player.tlb.crimsonSymbols.sub(Decimal.mul(10, result)) // 2nd cost
-                    player.sma.starmetalAlloy = player.sma.starmetalAlloy.sub(Decimal.mul("1e10", result)) // 3rd cost
+                    player.sma.starmetalAlloy = player.sma.starmetalAlloy.div(Decimal.pow(10, result)) // 3rd cost
                 }
             },
             style() {
@@ -1454,10 +1454,27 @@ addLayer("tlb", {
         },
         smeSymbols: {
             title() {return "Buy 1<br> ⚶ SME Symbol ⚶."},
-            canClick() {return true},
+            canClick() {return player.tlb.pointsForce.gte(10) && player.tlb.celesteSymbols.gte(10) && player.sme.starmetalEssence.gte(10)},
             unlocked() {return true},
             onClick() { 
-                
+                if (player.tlb.buyMaxSymbolsCrafting == false) {
+                    player.tlb.starmetalEssenceSymbols = player.tlb.starmetalEssenceSymbols.add(1) // result
+                    player.tlb.pointsForce = player.tlb.pointsForce.sub(10) // 1st cost
+                    player.tlb.celesteSymbols = player.tlb.celesteSymbols.sub(10) // 2nd cost
+                    player.sme.starmetalEssence = player.sme.starmetalEssence.div(10) // 3rd cost
+                } 
+                else if (player.tlb.buyMaxSymbolsCrafting == true) {
+                    let val1 = player.tlb.pointsForce.div(10).floor()
+                    let val2 = player.tlb.celesteSymbols.div(10).floor()
+                    let val3 = player.sme.starmetalEssence.log10().floor()
+                    let result = val1
+                    if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                    player.tlb.starmetalEssenceSymbols = player.tlb.starmetalEssenceSymbols.add(result) // result
+                    player.tlb.pointsForce = player.tlb.pointsForce.sub(Decimal.mul(10, result)) // 1st cost
+                    player.tlb.celesteSymbols = player.tlb.celesteSymbols.sub(Decimal.mul(10, result)) // 2nd cost
+                    player.sme.starmetalEssence = player.sme.starmetalEssence.div(Decimal.pow(10, result)) // 3rd cost
+                }
             },
             style() {
             let look = {width: '260px', minHeight: '40px', fontSize: '14px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
@@ -1477,10 +1494,27 @@ addLayer("tlb", {
         },
         ecsSymbols: {
             title() {return "Buy 1<br> ⏾ ECS Symbol ⏾."},
-            canClick() {return true},
+            canClick() {return player.tlb.pointsInsight.gte(10) && player.tlb.goldSymbols.gte(10) && player.sma.eclipseShards.gte(10)},
             unlocked() {return true},
             onClick() { 
-                
+                if (player.tlb.buyMaxSymbolsCrafting == false) {
+                    player.tlb.eclipseShardSymbols = player.tlb.eclipseShardSymbols.add(1) // result
+                    player.tlb.pointsInsight = player.tlb.pointsInsight.sub(10) // 1st cost
+                    player.tlb.goldSymbols = player.tlb.goldSymbols.sub(10) // 2nd cost
+                    player.sma.eclipseShards = player.sma.eclipseShards.div(10) // 3rd cost
+                } 
+                else if (player.tlb.buyMaxSymbolsCrafting == true) {
+                    let val1 = player.tlb.pointsInsight.div(10).floor()
+                    let val2 = player.tlb.goldSymbols.div(10).floor()
+                    let val3 = player.sma.eclipseShards.log10().floor()
+                    let result = val1
+                    if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                    player.tlb.eclipseShardSymbols = player.tlb.eclipseShardSymbols.add(result) // result
+                    player.tlb.pointsInsight = player.tlb.pointsInsight.sub(Decimal.mul(10, result)) // 1st cost
+                    player.tlb.goldSymbols = player.tlb.goldSymbols.sub(Decimal.mul(10, result)) // 2nd cost
+                    player.sma.eclipseShards = player.sma.eclipseShards.div(Decimal.pow(10, result)) // 3rd cost
+                }
             },
             style() {
             let look = {width: '260px', minHeight: '40px', fontSize: '14px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
@@ -1501,10 +1535,27 @@ addLayer("tlb", {
         },
         spgSymbols: {
             title() {return "Buy 1<br> ◈ SPG Symbol ◈."},
-            canClick() {return true},
+            canClick() {return player.tlb.pointsInsight.gte(10) && player.tlb.cobaltSymbols.gte(10) && player.ir.spaceGem.gte(10)},
             unlocked() {return true},
             onClick() { 
-                
+                if (player.tlb.buyMaxSymbolsCrafting == false) {
+                    player.tlb.spaceGemSymbols = player.tlb.spaceGemSymbols.add(1) // result
+                    player.tlb.pointsInsight = player.tlb.pointsInsight.sub(10) // 1st cost
+                    player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.sub(10) // 2nd cost
+                    player.ir.spaceGem = player.ir.spaceGem.div(10) // 3rd cost
+                } 
+                else if (player.tlb.buyMaxSymbolsCrafting == true) {
+                    let val1 = player.tlb.pointsInsight.div(10).floor()
+                    let val2 = player.tlb.cobaltSymbols.div(10).floor()
+                    let val3 = player.ir.spaceGem.log10().floor()
+                    let result = val1
+                    if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                    player.tlb.spaceGemSymbols = player.tlb.spaceGemSymbols.add(result) // result
+                    player.tlb.pointsInsight = player.tlb.pointsInsight.sub(Decimal.mul(10, result)) // 1st cost
+                    player.tlb.cobaltSymbols = player.tlb.cobaltSymbols.sub(Decimal.mul(10, result)) // 2nd cost
+                    player.ir.spaceGem = player.ir.spaceGem.div(Decimal.pow(10, result)) // 3rd cost
+                }
             },
             style() {
             let look = {width: '260px', minHeight: '40px', fontSize: '14px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
@@ -1524,10 +1575,27 @@ addLayer("tlb", {
         },
         plnSymbols: {
             title() {return "Buy 1<br> ♄ PLN Symbol ♄."},
-            canClick() {return true},
+            canClick() {return player.tlb.pointsMerit.gte(10) && player.tlb.jadeSymbols.gte(10) && player.pl.planets.gte(10)},
             unlocked() {return true},
             onClick() { 
-                
+                if (player.tlb.buyMaxSymbolsCrafting == false) {
+                    player.tlb.planetSymbols = player.tlb.planetSymbols.add(1) // result
+                    player.tlb.pointsMerit = player.tlb.pointsMerit.sub(10) // 1st cost
+                    player.tlb.jadeSymbols = player.tlb.jadeSymbols.sub(10) // 2nd cost
+                    player.pl.planets = player.pl.planets.div(10) // 3rd cost
+                } 
+                else if (player.tlb.buyMaxSymbolsCrafting == true) {
+                    let val1 = player.tlb.pointsMerit.div(10).floor()
+                    let val2 = player.tlb.jadeSymbols.div(10).floor()
+                    let val3 = player.pl.planets.log10().floor()
+                    let result = val1
+                    if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                    player.tlb.planetSymbols = player.tlb.planetSymbols.add(result) // result
+                    player.tlb.pointsMerit = player.tlb.pointsMerit.sub(Decimal.mul(10, result)) // 1st cost
+                    player.tlb.jadeSymbols = player.tlb.jadeSymbols.sub(Decimal.mul(10, result)) // 2nd cost
+                    player.pl.planets = player.pl.planets.div(Decimal.pow(10, result)) // 3rd cost
+                }
             },
             style() {
             let look = {width: '260px', minHeight: '40px', fontSize: '14px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
@@ -1547,10 +1615,27 @@ addLayer("tlb", {
         },
         sprSymbols: {
             title() {return "Buy 1<br> ⛊ SPR Symbol ⛊."},
-            canClick() {return true},
+            canClick() {return player.tlb.pointsMerit.gte(10) && player.tlb.amethystSymbols.gte(10) && player.ir.spaceRock.gte(10)},
             unlocked() {return true},
             onClick() { 
-                
+                if (player.tlb.buyMaxSymbolsCrafting == false) {
+                    player.tlb.spaceRockSymbols = player.tlb.spaceRockSymbols.add(1) // result
+                    player.tlb.pointsMerit = player.tlb.pointsMerit.sub(10) // 1st cost
+                    player.tlb.amethystSymbols = player.tlb.amethystSymbols.sub(10) // 2nd cost
+                    player.ir.spaceRock = player.ir.spaceRock.div(10) // 3rd cost
+                } 
+                else if (player.tlb.buyMaxSymbolsCrafting == true) {
+                    let val1 = player.tlb.pointsMerit.div(10).floor()
+                    let val2 = player.tlb.amethystSymbols.div(10).floor()
+                    let val3 = player.ir.spaceRock.log10().floor()
+                    let result = val1
+                    if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                    player.tlb.spaceRockSymbols = player.tlb.spaceRockSymbols.add(result) // result
+                    player.tlb.pointsMerit = player.tlb.pointsMerit.sub(Decimal.mul(10, result)) // 1st cost
+                    player.tlb.amethystSymbols = player.tlb.amethystSymbols.sub(Decimal.mul(10, result)) // 2nd cost
+                    player.ir.spaceRock = player.ir.spaceRock.div(Decimal.pow(10, result)) // 3rd cost
+                }
             },
             style() {
             let look = {width: '260px', minHeight: '40px', fontSize: '14px', border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
@@ -2818,7 +2903,7 @@ addLayer("tlb", {
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>1e10 </h3> SMA"
+                                                                return "<h3>1 OoM </h3> SMA"
                                                                 }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
@@ -2881,7 +2966,7 @@ addLayer("tlb", {
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>1e6</h3> SME"
+                                                                return "<h3>1 OoM</h3> SME"
                                                                 }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
@@ -2948,7 +3033,7 @@ addLayer("tlb", {
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>1000</h3> ECS"
+                                                                return "<h3>1 OoM</h3> ECS"
                                                                 }, {color: "transparent", background: "linear-gradient(135deg, #ffb700, #ffe866)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
@@ -3011,7 +3096,7 @@ addLayer("tlb", {
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>1000</h3> SPG"
+                                                                return "<h3>1 OoM</h3> SPG"
                                                                 }, {color: "transparent", background: "radial-gradient(circle, #564BCC, #000000)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
@@ -3078,7 +3163,7 @@ addLayer("tlb", {
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>1e6</h3> PLN"
+                                                                return "<h3>1 OoM</h3> PLN"
                                                                 }, {color: "transparent", background: "linear-gradient(15deg, #34eb86 0%, #279ccf 50%, #411bb3 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
@@ -3141,7 +3226,7 @@ addLayer("tlb", {
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>1e6</h3> SPR"
+                                                                return "<h3>1 OoM</h3> SPR"
                                                                 }, {color: "transparent", background: "linear-gradient(15deg, #5f5f5f 0%, #c5c5c5 50%, #5f5f5f 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
