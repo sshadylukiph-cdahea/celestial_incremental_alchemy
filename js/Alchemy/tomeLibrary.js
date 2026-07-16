@@ -448,7 +448,12 @@ addLayer("tlb", {
             }
         },
         encoder1: {
-            title() {return "<h2>Symbol Encoder I</h2><hr>Encode <h2>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h2><br>🝪 Al.Sys 🝪.<br><br><small>(Req.: e10,000,000 Cel.Pts.)</small>"},
+            title() {
+                if(player.ssp.alchemicalSymbolsGain == 1)
+                    return "<h2>Symbol Encoder I</h2><hr>Encode <h2>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h2><br>🝪 Al.Sy 🝪.<br><br><small>(Req.: e10,000,000 Cel.Pts.)</small>"
+                else
+                    return "<h2>Symbol Encoder I</h2><hr>Encode <h2>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h2><br>🝪 Al.Sys 🝪.<br><br><small>(Req.: e10,000,000 Cel.Pts.)</small>"
+            },
             canClick() {return player.ssp.canAlSyReset == true && player.points.gte("e10000000")},
             unlocked() {return true},
             onClick() { 
@@ -522,9 +527,15 @@ addLayer("tlb", {
                 
                 if (player.tlb.buyMaxSymbols == true) {
                     if(hasUpgrade("tlb", 12))
-                        return "Create <h3>" + formatShortWhole(player.tlb.crimsonSymbolsGain.add(result2)) + "</h3><br>Crimson Symbols."
+                        if(result2 == 1)
+                            return "Create <h3>" + formatShortWhole(player.tlb.crimsonSymbolsGain.add(result2)) + "</h3><br>Crimson Symbol."
+                        else
+                            return "Create <h3>" + formatShortWhole(player.tlb.crimsonSymbolsGain.add(result2)) + "</h3><br>Crimson Symbols."
                     else
-                        return "Create <h3>" + formatShortWhole(player.tlb.crimsonSymbolsGain.add(result)) + "</h3><br>Crimson Symbols."
+                        if(result == 1)
+                            return "Create <h3>" + formatShortWhole(player.tlb.crimsonSymbolsGain.add(result)) + "</h3><br>Crimson Symbol."
+                        else
+                            return "Create <h3>" + formatShortWhole(player.tlb.crimsonSymbolsGain.add(result)) + "</h3><br>Crimson Symbols."
                 }
                 else
                     return "Create <h3>1</h3><br>Crimson Symbol."
@@ -614,9 +625,15 @@ addLayer("tlb", {
                 
                 if (player.tlb.buyMaxSymbols == true) {
                     if(hasUpgrade("tlb", 12))
-                        return "Create <h3>" + formatShortWhole(player.tlb.goldSymbolsGain.add(result2)) + "</h3><br>Gold Symbols."
+                        if(result2 == 1)
+                            return "Create <h3>" + formatShortWhole(player.tlb.goldSymbolsGain.add(result2)) + "</h3><br>Gold Symbol."
+                        else
+                            return "Create <h3>" + formatShortWhole(player.tlb.goldSymbolsGain.add(result2)) + "</h3><br>Gold Symbols."
                     else
-                        return "Create <h3>" + formatShortWhole(player.tlb.goldSymbolsGain.add(result)) + "</h3><br>Gold Symbols."
+                        if(result == 1)
+                            return "Create <h3>" + formatShortWhole(player.tlb.goldSymbolsGain.add(result)) + "</h3><br>Gold Symbol."
+                        else
+                            return "Create <h3>" + formatShortWhole(player.tlb.goldSymbolsGain.add(result)) + "</h3><br>Gold Symbols."
                 }
                 else
                     return "Create <h3>1</h3><br>Gold Symbol."
@@ -704,11 +721,17 @@ addLayer("tlb", {
                 let result2 = secondReqTotal
                 if(secondReqTotal.gt(firstReqTotal)) result2 = firstReqTotal
                 
-                if(player.tlb.buyMaxSymbols == true) {
+                if (player.tlb.buyMaxSymbols == true) {
                     if(hasUpgrade("tlb", 12))
-                        return "Create <h3>" + formatShortWhole(player.tlb.jadeSymbolsGain.add(result2)) + "</h3><br>Jade Symbols."
+                        if(result2 == 1)
+                            return "Create <h3>" + formatShortWhole(player.tlb.jadeSymbolsGain.add(result2)) + "</h3><br>Jade Symbol."
+                        else
+                            return "Create <h3>" + formatShortWhole(player.tlb.jadeSymbolsGain.add(result2)) + "</h3><br>Jade Symbols."
                     else
-                        return "Create <h3>" + formatShortWhole(player.tlb.jadeSymbolsGain.add(result)) + "</h3><br>Jade Symbols."
+                        if(result == 1)
+                            return "Create <h3>" + formatShortWhole(player.tlb.jadeSymbolsGain.add(result)) + "</h3><br>Jade Symbol."
+                        else
+                            return "Create <h3>" + formatShortWhole(player.tlb.jadeSymbolsGain.add(result)) + "</h3><br>Jade Symbols."
                 }
                 else
                     return "Create <h3>1</h3><br>Jade Symbol."
@@ -796,11 +819,17 @@ addLayer("tlb", {
                 let result2 = secondReqTotal
                 if(secondReqTotal.gt(firstReqTotal)) result2 = firstReqTotal
                 
-                if(player.tlb.buyMaxSymbols == true) {
+                if (player.tlb.buyMaxSymbols == true) {
                     if(hasUpgrade("tlb", 12))
-                        return "Create <h3>" + formatShortWhole(player.tlb.celesteSymbolsGain.add(result2)) + "</h3><br>Celeste Symbols."
+                        if(result2 == 1)
+                            return "Create <h3>" + formatShortWhole(player.tlb.celesteSymbolsGain.add(result2)) + "</h3><br>Celeste Symbol."
+                        else
+                            return "Create <h3>" + formatShortWhole(player.tlb.celesteSymbolsGain.add(result2)) + "</h3><br>Celeste Symbols."
                     else
-                        return "Create <h3>" + formatShortWhole(player.tlb.celesteSymbolsGain.add(result)) + "</h3><br>Celeste Symbols."
+                        if(result == 1)
+                            return "Create <h3>" + formatShortWhole(player.tlb.celesteSymbolsGain.add(result)) + "</h3><br>Celeste Symbol."
+                        else
+                            return "Create <h3>" + formatShortWhole(player.tlb.celesteSymbolsGain.add(result)) + "</h3><br>Celeste Symbols."
                 }
                 else
                     return "Create <h3>1</h3><br>Celeste Symbol."
@@ -890,9 +919,15 @@ addLayer("tlb", {
                 
                 if (player.tlb.buyMaxSymbols == true) {
                     if(hasUpgrade("tlb", 12))
-                        return "Create <h3>" + formatShortWhole(player.tlb.cobaltSymbolsGain.add(result2)) + "</h3><br>Cobalt Symbols."
+                        if(result2 == 1)
+                            return "Create <h3>" + formatShortWhole(player.tlb.cobaltSymbolsGain.add(result2)) + "</h3><br>Cobalt Symbol."
+                        else
+                            return "Create <h3>" + formatShortWhole(player.tlb.cobaltSymbolsGain.add(result2)) + "</h3><br>Cobalt Symbols."
                     else
-                        return "Create <h3>" + formatShortWhole(player.tlb.cobaltSymbolsGain.add(result)) + "</h3><br>Cobalt Symbols."
+                        if(result == 1)
+                            return "Create <h3>" + formatShortWhole(player.tlb.cobaltSymbolsGain.add(result)) + "</h3><br>Cobalt Symbol."
+                        else
+                            return "Create <h3>" + formatShortWhole(player.tlb.cobaltSymbolsGain.add(result)) + "</h3><br>Cobalt Symbols."
                 }
                 else
                     return "Create <h3>1</h3><br>Cobalt Symbol."
@@ -982,9 +1017,15 @@ addLayer("tlb", {
                 
                 if (player.tlb.buyMaxSymbols == true) {
                     if(hasUpgrade("tlb", 12))
-                        return "Create <h3>" + formatShortWhole(player.tlb.amethystSymbolsGain.add(result2)) + "</h3><br>Amethyst Symbols."
+                        if(result2 == 1)
+                            return "Create <h3>" + formatShortWhole(player.tlb.amethystSymbolsGain.add(result2)) + "</h3><br>Amethyst Symbol."
+                        else
+                            return "Create <h3>" + formatShortWhole(player.tlb.amethystSymbolsGain.add(result2)) + "</h3><br>Amethyst Symbols."
                     else
-                        return "Create <h3>" + formatShortWhole(player.tlb.amethystSymbolsGain.add(result)) + "</h3><br>Amethyst Symbols."
+                        if(result == 1)
+                            return "Create <h3>" + formatShortWhole(player.tlb.amethystSymbolsGain.add(result)) + "</h3><br>Amethyst Symbol."
+                        else
+                            return "Create <h3>" + formatShortWhole(player.tlb.amethystSymbolsGain.add(result)) + "</h3><br>Amethyst Symbols."
                 }
                 else
                     return "Create <h3>1</h3><br>Amethyst Symbol."
@@ -1066,7 +1107,10 @@ addLayer("tlb", {
                 if(val2.lt(val1)) result = val2
 
                 if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
-                    return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesForceGain.add(result)) + "</h3><br>→ Force Tomes →.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountForceTome) + "</h3></small>"
+                    if(player.tlb.tomesForceGain == 1)
+                        return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesForceGain.add(result)) + "</h3><br>→ Force Tome →.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountForceTome) + "</h3></small>"
+                    else
+                        return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesForceGain.add(result)) + "</h3><br>→ Force Tomes →.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountForceTome) + "</h3></small>"
                 }
                 else {
                     return "Bargain for <h3>1</h3><br>→ Force Tome →.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountForceTome) + "</h3></small>" 
@@ -1122,7 +1166,10 @@ addLayer("tlb", {
                 if(val2.lt(val1)) result = val2
 
                 if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
-                    return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesInsightGain.add(result)) + "</h3><br>👁 Insight Tomes 👁.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountInsightTome) + "</h3></small>"
+                    if(player.tlb.tomesInsightGain == 1)
+                        return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesInsightGain.add(result)) + "</h3><br>👁 Insight Tome 👁.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountInsightTome) + "</h3></small>"
+                    else
+                        return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesInsightGain.add(result)) + "</h3><br>👁 Insight Tomes 👁.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountInsightTome) + "</h3></small>"
                 }
                 else {
                     return "Bargain for <h3>1</h3><br>👁 Insight Tome 👁.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountInsightTome) + "</h3></small>" 
@@ -1178,7 +1225,10 @@ addLayer("tlb", {
                 if(val2.lt(val1)) result = val2
 
                 if(hasUpgrade("tlb", 33) && player.tlb.buyMaxTomes == true) {
-                    return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesMeritGain.add(result)) + "</h3><br>✶ Merit Tomes ✶.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountMeritTome) + "</h3></small>"
+                    if(player.tlb.tomesMeritGain == 1)
+                        return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesMeritGain.add(result)) + "</h3><br>✶ Merit Tome ✶.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountMeritTome) + "</h3></small>"
+                    else
+                        return "Bargain for <h3>" + formatShortWhole(player.tlb.tomesMeritGain.add(result)) + "</h3><br>✶ Merit Tomes ✶.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountMeritTome) + "</h3></small>"
                 }
                 else {
                     return "Bargain for <h3>1</h3><br>✶ Merit Tome ✶.<hr><small>Total bought: <h3>" + formatShortWhole(player.tlb.purchaseCountMeritTome) + "</h3></small>" 
@@ -1226,7 +1276,7 @@ addLayer("tlb", {
                 return look
             }
         },
-        forcePoints: {
+        forcePoints: { // resume work here, remove this note after - shady
             title() {
                 if(player.tlb.currentPointsForceGainTime > 0 && player.tlb.preparationPhaseForce == false)
                     return "Reading <h3>" + formatShortWhole(player.tlb.tomesForce) + "</h3> → Force Tomes →.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsForceGain) + "</h3> → For.Pts → and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainForce) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsForceGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsForce) + "</h3> → For.Pts →."
