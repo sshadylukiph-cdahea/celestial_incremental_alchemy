@@ -320,10 +320,12 @@ addLayer("tlb", {
                         look.color = "#000000";
                         look.boxShadow = "0 0 3px 1px #000000 inset"
                     } else {
-                        look.backgroundImage = "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)"
-                        look.borderImage = "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1"
-                        look.color = "#000000"
+                        look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)"
+                        look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1"
+                        look.color = "#ffffff"
                         look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 10px 1px #ffffff"
+                        look.textShadow = "0 0 3px #000000, 0 0 3px #000000"
+                        look.textStroke = "1px #00000022"
                     }
                 return look
             }
@@ -343,10 +345,12 @@ addLayer("tlb", {
                         look.color = "#000000";
                         look.boxShadow = "0 0 3px 1px #000000 inset"
                     } else {
-                        look.backgroundImage = "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)"
-                        look.borderImage = "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1"
-                        look.color = "#000000"
+                        look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)"
+                        look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1"
+                        look.color = "#ffffff"
                         look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 10px 1px #ffffff"
+                        look.textShadow = "0 0 3px #000000, 0 0 3px #000000"
+                        look.textStroke = "1px #00000022"
                     }
                 return look
             }
@@ -366,10 +370,12 @@ addLayer("tlb", {
                         look.color = "#000000";
                         look.boxShadow = "0 0 3px 1px #000000 inset"
                     } else {
-                        look.backgroundImage = "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)"
-                        look.borderImage = "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1"
-                        look.color = "#000000"
+                        look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)"
+                        look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1"
+                        look.color = "#ffffff"
                         look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 10px 1px #ffffff"
+                        look.textShadow = "0 0 3px #000000, 0 0 3px #000000"
+                        look.textStroke = "1px #00000022"
                     }
                 return look
             }
@@ -389,10 +395,12 @@ addLayer("tlb", {
                         look.color = "#000000";
                         look.boxShadow = "0 0 3px 1px #000000 inset"
                     } else {
-                        look.backgroundImage = "radial-gradient(circle, #787878 25%, #ababab 50%, #ededed 75%)"
-                        look.borderImage = "radial-gradient(circle, #000000 50%, #ababab 75%, #ffffff) 1"
-                        look.color = "#000000"
+                        look.backgroundImage = "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)"
+                        look.borderImage = "radial-gradient(circle, #000000 75%, #ffffff) 1"
+                        look.color = "#ffffff"
                         look.boxShadow = "0 0 3px 1px #000000 inset, 0 0 10px 1px #ffffff"
+                        look.textShadow = "0 0 3px #000000, 0 0 3px #000000"
+                        look.textStroke = "1px #00000022"
                     }
                 return look
             }
@@ -1276,14 +1284,14 @@ addLayer("tlb", {
                 return look
             }
         },
-        forcePoints: { // resume work here, remove this note after - shady
+        forcePoints: {
             title() {
                 if(player.tlb.currentPointsForceGainTime > 0 && player.tlb.preparationPhaseForce == false)
-                    return "Reading <h3>" + formatShortWhole(player.tlb.tomesForce) + "</h3> → Force Tomes →.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsForceGain) + "</h3> → For.Pts → and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainForce) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsForceGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsForce) + "</h3> → For.Pts →."
+                    return "Reading <h3>" + formatShortWhole(player.tlb.tomesForce) + "</h3> → Force Tome/'s →.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsForceGain) + "</h3> → For.Pt/'s → and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainForce) + "</h3> ⚿ Rev.Pt/'s ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsForceGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsForce) + "</h3> → For.Pt/'s →."
                 else if(player.tlb.currentPointsForceGainTime > 0 && player.tlb.preparationPhaseForce == true)
-                    return "Preparing <h3>" + formatShortWhole(player.tlb.tomesForce) + "</h3> → Force Tomes →.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsForceGain) + "</h3> → For.Pts → and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainForce) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsForceGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsForce) + "</h3> → For.Pts →."
+                    return "Preparing <h3>" + formatShortWhole(player.tlb.tomesForce) + "</h3> → Force Tome/'s →.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsForceGain) + "</h3> → For.Pt/'s → and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainForce) + "</h3> ⚿ Rev.Pt/'s ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsForceGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsForce) + "</h3> → For.Pt/'s →."
                 else
-                    return "You hold <h3>" + formatShortWhole(player.tlb.tomesForce) + "</h3> → Force Tomes →.<hr>Gain <h3>" + formatShortWhole(player.tlb.pointsForceGain) + "</h3> → For.Pts → and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainForce) + "</h3> ⚿ Rev.Pts ⚿.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsForce) + "</h3> → For.Pts →."
+                    return "You hold <h3>" + formatShortWhole(player.tlb.tomesForce) + "</h3> → Force Tome/'s →.<hr>Gain <h3>" + formatShortWhole(player.tlb.pointsForceGain) + "</h3> → For.Pt/'s → and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainForce) + "</h3> ⚿ Rev.Pt/'s ⚿.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsForce) + "</h3> → For.Pt/'s →."
             },
             canClick() {return player.tlb.currentPointsForceGainTime <= 0 && player.tlb.gainBlockerForce == false && player.tlb.gainBlockerInsight == false && player.tlb.gainBlockerMerit == false},
             unlocked() {return true},
@@ -1326,11 +1334,11 @@ addLayer("tlb", {
         insightPoints: {
             title() {
                 if(player.tlb.currentPointsInsightGainTime > 0 && player.tlb.preparationPhaseInsight == false)
-                    return "Reading <h3>" + formatShortWhole(player.tlb.tomesInsight) + "</h3> 👁 Insight Tomes 👁.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsInsightGain) + "</h3> 👁 Ins.Pts 👁 and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainInsight) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsInsightGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsInsight) + "</h3> 👁 Ins.Pts 👁."
+                    return "Reading <h3>" + formatShortWhole(player.tlb.tomesInsight) + "</h3> 👁 Insight Tome/'s 👁.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsInsightGain) + "</h3> 👁 Ins.Pt/'s 👁 and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainInsight) + "</h3> ⚿ Rev.Pt/'s ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsInsightGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsInsight) + "</h3> 👁 Ins.Pt/'s 👁."
                 else if(player.tlb.currentPointsInsightGainTime > 0 && player.tlb.preparationPhaseInsight == true)
-                    return "Preparing <h3>" + formatShortWhole(player.tlb.tomesInsight) + "</h3> 👁 Insight Tomes 👁.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsInsightGain) + "</h3> 👁 Ins.Pts 👁 and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainInsight) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsInsightGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsInsight) + "</h3> 👁 Ins.Pts 👁."
+                    return "Preparing <h3>" + formatShortWhole(player.tlb.tomesInsight) + "</h3> 👁 Insight Tome/'s 👁.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsInsightGain) + "</h3> 👁 Ins.Pt/'s 👁 and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainInsight) + "</h3> ⚿ Rev.Pt/'s ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsInsightGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsInsight) + "</h3> 👁 Ins.Pt/'s 👁."
                 else
-                    return "You hold <h3>" + formatShortWhole(player.tlb.tomesInsight) + "</h3> 👁 Insight Tomes 👁.<hr>Gain <h3>" + formatShortWhole(player.tlb.pointsInsightGain) + "</h3> 👁 Ins.Pts 👁 and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainInsight) + "</h3> ⚿ Rev.Pts ⚿.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsInsight) + "</h3> 👁 Ins.Pts 👁."
+                    return "You hold <h3>" + formatShortWhole(player.tlb.tomesInsight) + "</h3> 👁 Insight Tome/'s 👁.<hr>Gain <h3>" + formatShortWhole(player.tlb.pointsInsightGain) + "</h3> 👁 Ins.Pt/'s 👁 and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainInsight) + "</h3> ⚿ Rev.Pt/'s ⚿.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsInsight) + "</h3> 👁 Ins.Pt/'s 👁."
             },
             canClick() {return player.tlb.currentPointsInsightGainTime <= 0 && player.tlb.gainBlockerForce == false && player.tlb.gainBlockerInsight == false && player.tlb.gainBlockerMerit == false},
             unlocked() {return true},
@@ -1373,11 +1381,11 @@ addLayer("tlb", {
         meritPoints: {
             title() {
                 if(player.tlb.currentPointsMeritGainTime > 0 && player.tlb.preparationPhaseMerit == false)
-                    return "Reading <h3>" + formatShortWhole(player.tlb.tomesMerit) + "</h3> ✶ Merit Tomes ✶.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsMeritGain) + "</h3> ✶ Mer.Pts ✶ and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainMerit) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsMeritGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsMerit) + "</h3> ✶ Mer.Pts ✶."
+                    return "Reading <h3>" + formatShortWhole(player.tlb.tomesMerit) + "</h3> ✶ Merit Tome/'s ✶.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsMeritGain) + "</h3> ✶ Mer.Pt/'s ✶ and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainMerit) + "</h3> ⚿ Rev.Pt/'s ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsMeritGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsMerit) + "</h3> ✶ Mer.Pt/'s ✶."
                 if(player.tlb.currentPointsMeritGainTime > 0 && player.tlb.preparationPhaseMerit == true)
-                    return "Preparing <h3>" + formatShortWhole(player.tlb.tomesMerit) + "</h3> ✶ Merit Tomes ✶.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsMeritGain) + "</h3> ✶ Mer.Pts ✶ and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainMerit) + "</h3> ⚿ Rev.Pts ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsMeritGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsMerit) + "</h3> ✶ Mer.Pts ✶."
+                    return "Preparing <h3>" + formatShortWhole(player.tlb.tomesMerit) + "</h3> ✶ Merit Tome/'s ✶.<hr>Gaining <h3>" + formatShortWhole(player.tlb.pointsMeritGain) + "</h3> ✶ Mer.Pt/'s ✶ and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainMerit) + "</h3> ⚿ Rev.Pt/'s ⚿ in<br><h3>"+ formatTime(player.tlb.currentPointsMeritGainTime) + "</h3>.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsMerit) + "</h3> ✶ Mer.Pt/'s ✶."
                 else
-                    return "You hold <h3>" + formatShortWhole(player.tlb.tomesMerit) + "</h3> ✶ Merit Tomes ✶.<hr>Gain <h3>" + formatShortWhole(player.tlb.pointsMeritGain) + "</h3> ✶ Mer.Pts ✶ and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainMerit) + "</h3> ⚿ Rev.Pts ⚿.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsMerit) + "</h3> ✶ Mer.Pts ✶."
+                    return "You hold <h3>" + formatShortWhole(player.tlb.tomesMerit) + "</h3> ✶ Merit Tome/'s ✶.<hr>Gain <h3>" + formatShortWhole(player.tlb.pointsMeritGain) + "</h3> ✶ Mer.Pt/'s ✶ and<br><h3>" + formatShortWhole(player.tlb.revelationPointsGainMerit) + "</h3> ⚿ Rev.Pt/'s ⚿.<hr>You have <h3>" + formatShortWhole(player.tlb.pointsMerit) + "</h3> ✶ Mer.Pt/'s ✶."
             },
             canClick() {return player.tlb.currentPointsMeritGainTime <= 0 && player.tlb.gainBlockerForce == false && player.tlb.gainBlockerInsight == false && player.tlb.gainBlockerMerit == false},
             unlocked() {return true},
@@ -1463,7 +1471,21 @@ addLayer("tlb", {
             }
         },
         smaSymbols: {
-            title() {return "Buy 1<br> ⛯ SMA Symbol ⛯."},
+            title() {
+                let val1 = player.tlb.pointsForce.div(10).floor()
+                let val2 = player.tlb.crimsonSymbols.div(10).floor()
+                let val3 = player.sma.starmetalAlloy.log10().floor()
+                let result = val1
+                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                if(player.tlb.buyMaxSymbolsCrafting == true)
+                    if(val3 == 1)
+                        return "Buy <h3>" + val3 + "</h3><br>⛯ SMA Symbol ⛯."
+                    else
+                        return "Buy <h3>" + val3 + "</h3><br>⛯ SMA Symbols ⛯." 
+                else
+                    return "Buy <h3>1</h3><br>⛯ SMA Symbol ⛯."
+            },
             canClick() {return player.tlb.pointsForce.gte(10) && player.tlb.crimsonSymbols.gte(10) && player.sma.starmetalAlloy.gte(10)},
             unlocked() {return true},
             onClick() { 
@@ -1503,7 +1525,21 @@ addLayer("tlb", {
             }
         },
         smeSymbols: {
-            title() {return "Buy 1<br> ⚶ SME Symbol ⚶."},
+            title() {
+                let val1 = player.tlb.pointsForce.div(10).floor()
+                let val2 = player.tlb.celesteSymbols.div(10).floor()
+                let val3 = player.sme.starmetalEssence.log10().floor()
+                let result = val1
+                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                if(player.tlb.buyMaxSymbolsCrafting == true)
+                    if(val3 == 1)
+                        return "Buy <h3>" + val3 + "</h3><br>⚶ SME Symbol ⚶."
+                    else
+                        return "Buy <h3>" + val3 + "</h3><br>⚶ SME Symbols ⚶." 
+                else
+                    return "Buy <h3>1</h3><br>⚶ SME Symbol ⚶."
+            },
             canClick() {return player.tlb.pointsForce.gte(10) && player.tlb.celesteSymbols.gte(10) && player.sme.starmetalEssence.gte(10)},
             unlocked() {return true},
             onClick() { 
@@ -1543,7 +1579,21 @@ addLayer("tlb", {
             }
         },
         ecsSymbols: {
-            title() {return "Buy 1<br> ⏾ ECS Symbol ⏾."},
+            title() {
+                let val1 = player.tlb.pointsInsight.div(10).floor()
+                let val2 = player.tlb.goldSymbols.div(10).floor()
+                let val3 = player.sma.eclipseShards.log10().floor()
+                let result = val1
+                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                if(player.tlb.buyMaxSymbolsCrafting == true)
+                    if(val3 == 1)
+                        return "Buy <h3>" + val3 + "</h3><br>⏾ ECS Symbol ⏾."
+                    else
+                        return "Buy <h3>" + val3 + "</h3><br>⏾ ECS Symbols ⏾." 
+                else
+                    return "Buy <h3>1</h3><br>⏾ ECS Symbol ⏾."
+            },
             canClick() {return player.tlb.pointsInsight.gte(10) && player.tlb.goldSymbols.gte(10) && player.sma.eclipseShards.gte(10)},
             unlocked() {return true},
             onClick() { 
@@ -1584,7 +1634,21 @@ addLayer("tlb", {
             }
         },
         spgSymbols: {
-            title() {return "Buy 1<br> ◈ SPG Symbol ◈."},
+            title() {
+                let val1 = player.tlb.pointsInsight.div(10).floor()
+                let val2 = player.tlb.cobaltSymbols.div(10).floor()
+                let val3 = player.ir.spaceGem.log10().floor()
+                let result = val1
+                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                if(player.tlb.buyMaxSymbolsCrafting == true)
+                    if(val3 == 1)
+                        return "Buy <h3>" + val3 + "</h3><br>◈ SPG Symbol ◈."
+                    else
+                        return "Buy <h3>" + val3 + "</h3><br>◈ SPG Symbols ◈." 
+                else
+                    return "Buy <h3>1</h3><br>◈ SPG Symbol ◈."
+            },
             canClick() {return player.tlb.pointsInsight.gte(10) && player.tlb.cobaltSymbols.gte(10) && player.ir.spaceGem.gte(10)},
             unlocked() {return true},
             onClick() { 
@@ -1624,7 +1688,21 @@ addLayer("tlb", {
             }
         },
         plnSymbols: {
-            title() {return "Buy 1<br> ♄ PLN Symbol ♄."},
+            title() {
+                let val1 = player.tlb.pointsMerit.div(10).floor()
+                let val2 = player.tlb.jadeSymbols.div(10).floor()
+                let val3 = player.pl.planets.log10().floor()
+                let result = val1
+                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                if(player.tlb.buyMaxSymbolsCrafting == true)
+                    if(val3 == 1)
+                        return "Buy <h3>" + val3 + "</h3><br>♄ PLN Symbol ♄."
+                    else
+                        return "Buy <h3>" + val3 + "</h3><br>♄ PLN Symbols ♄." 
+                else
+                    return "Buy <h3>1</h3><br>♄ PLN Symbol ♄."
+            },
             canClick() {return player.tlb.pointsMerit.gte(10) && player.tlb.jadeSymbols.gte(10) && player.pl.planets.gte(10)},
             unlocked() {return true},
             onClick() { 
@@ -1664,7 +1742,21 @@ addLayer("tlb", {
             }
         },
         sprSymbols: {
-            title() {return "Buy 1<br> ⛊ SPR Symbol ⛊."},
+            title() {
+                let val1 = player.tlb.pointsMerit.div(10).floor()
+                let val2 = player.tlb.amethystSymbols.div(10).floor()
+                let val3 = player.ir.spaceRock.log10().floor()
+                let result = val1
+                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                if(player.tlb.buyMaxSymbolsCrafting == true)
+                    if(val3 == 1)
+                        return "Buy <h3>" + val3 + "</h3><br>⛊ SPR Symbol ⛊."
+                    else
+                        return "Buy <h3>" + val3 + "</h3><br>⛊ SPR Symbols ⛊." 
+                else
+                    return "Buy <h3>1</h3><br>⛊ SPR Symbol ⛊."
+            },
             canClick() {return player.tlb.pointsMerit.gte(10) && player.tlb.amethystSymbols.gte(10) && player.ir.spaceRock.gte(10)},
             unlocked() {return true},
             onClick() { 
@@ -2751,10 +2843,10 @@ addLayer("tlb", {
                             ["row", [["clickable", "buyMaxOff3"], ["blank", "5px"], ["clickable", "buyMaxOn3"]]]
                         ]
                     ],
-                    ["blank", "2px"],
+                    ["blank", "10px"],
                     ["style-column",
                         [
-                            ["row", [["raw-html", "<small>(Disclaimer: thie Buy Max functionality is out of order so you can't buy max symbols yet.)"]]]
+                            ["row", [["raw-html", "<small>(Hint: OoM = Order of Magnitude. Example: 1000 corresponds to 3 OoMs.)"]], {color: "#ffffff", fontSize: "18px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}]
                         ]
                     ],
                     ["blank", "20px"],
@@ -2771,7 +2863,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.crimsonSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "20px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "16px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffdddd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff000023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -2787,7 +2879,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.goldSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "20px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "16px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ffff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -2803,7 +2895,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.jadeSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "20px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "16px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -2819,7 +2911,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.celesteSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "20px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "16px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ffff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -2835,7 +2927,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.cobaltSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "20px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "16px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #0000ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -2851,7 +2943,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.amethystSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "20px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "16px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff00ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -2867,7 +2959,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.pointsForce)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "16px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid #f8c898", borderRadius: "10px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #f8c898 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #9b541a67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(0deg, #6B4423, #9b541a)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -2883,7 +2975,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.pointsInsight)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "16px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid #f8c898", borderRadius: "10px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #f8c898 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #9b541a67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(0deg, #6B4423, #9b541a)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -2899,7 +2991,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.pointsMerit)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "16px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid #f8c898", borderRadius: "10px", backgroundImage: "linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #f8c898 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #9b541a67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(0deg, #6B4423, #9b541a)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ]
@@ -2940,20 +3032,47 @@ addLayer("tlb", {
                                                     ["row",
                                                         [
                                                             ["raw-html", () => {
-                                                                return "<h3>10</h3> For.Pts"
+                                                                let val1 = player.tlb.pointsForce.div(10).floor()
+                                                                let val2 = player.tlb.crimsonSymbols.div(10).floor()
+                                                                let val3 = player.sma.starmetalAlloy.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + Decimal.mul(10, val3) + "</h3> For.Pts"
+                                                                else
+                                                                    return "<h3>10</h3> For.Pts"
                                                                 }, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "14px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>10</h3> Cr.Sys"
+                                                                let val1 = player.tlb.pointsForce.div(10).floor()
+                                                                let val2 = player.tlb.crimsonSymbols.div(10).floor()
+                                                                let val3 = player.sma.starmetalAlloy.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + Decimal.mul(10, val3) + "</h3> Cr.Sys"
+                                                                else
+                                                                    return "<h3>10</h3> Cr.Sys"
                                                                 }, {color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "14px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>1 OoM </h3> SMA"
+                                                                let val1 = player.tlb.pointsForce.div(10).floor()
+                                                                let val2 = player.tlb.crimsonSymbols.div(10).floor()
+                                                                let val3 = player.sma.starmetalAlloy.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + val3 + "</h3> OoM SMA"
+                                                                else
+                                                                    return "<h3>1</h3> OoM SMA"
                                                                 }, {color: "transparent", background: "linear-gradient(120deg, #e6eb57 0%, #bf9a32 25%, #eb6077 50%, #d460eb, 75%,  #60cfeb 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
@@ -3003,20 +3122,47 @@ addLayer("tlb", {
                                                     ["row",
                                                         [
                                                             ["raw-html", () => {
-                                                                return "<h3>10</h3> For.Pts"
+                                                                let val1 = player.tlb.pointsForce.div(10).floor()
+                                                                let val2 = player.tlb.celesteSymbols.div(10).floor()
+                                                                let val3 = player.sme.starmetalEssence.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + Decimal.mul(10, val3) + "</h3> For.Pts"
+                                                                else
+                                                                    return "<h3>10</h3> For.Pts"
                                                                 }, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "14px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>10</h3> Ce.Sys"
+                                                                let val1 = player.tlb.pointsForce.div(10).floor()
+                                                                let val2 = player.tlb.celesteSymbols.div(10).floor()
+                                                                let val3 = player.sme.starmetalEssence.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + Decimal.mul(10, val3) + "</h3> Ce.Sys"
+                                                                else
+                                                                    return "<h3>10</h3> Ce.Sys"
                                                                 }, {color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "14px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>1 OoM</h3> SME"
+                                                                let val1 = player.tlb.pointsForce.div(10).floor()
+                                                                let val2 = player.tlb.celesteSymbols.div(10).floor()
+                                                                let val3 = player.sme.starmetalEssence.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + val3 + "</h3> OoM SME"
+                                                                else
+                                                                    return "<h3>1</h3> OoM SME"
                                                                 }, {color: "transparent", background: "linear-gradient(-120deg,rgb(122, 235, 87) 0%,rgb(142, 191, 50) 25%,#eb6077 50%,rgb(235, 96, 177), 75%,rgb(96, 105, 235) 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
@@ -3070,20 +3216,47 @@ addLayer("tlb", {
                                                     ["row",
                                                         [
                                                             ["raw-html", () => {
-                                                                return "<h3>10</h3> Ins.Pts"
+                                                                let val1 = player.tlb.pointsInsight.div(10).floor()
+                                                                let val2 = player.tlb.goldSymbols.div(10).floor()
+                                                                let val3 = player.sma.eclipseShards.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + Decimal.mul(10, val3) + "</h3> Ins.Pts"
+                                                                else
+                                                                    return "<h3>10</h3> Ins.Pts"
                                                                 }, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "14px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>10</h3> Gl.Sys"
+                                                                let val1 = player.tlb.pointsInsight.div(10).floor()
+                                                                let val2 = player.tlb.goldSymbols.div(10).floor()
+                                                                let val3 = player.sma.eclipseShards.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + Decimal.mul(10, val3) + "</h3> Gl.Sys"
+                                                                else
+                                                                    return "<h3>10</h3> Gl.Sys"
                                                                 }, {color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "14px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>1 OoM</h3> ECS"
+                                                                let val1 = player.tlb.pointsInsight.div(10).floor()
+                                                                let val2 = player.tlb.goldSymbols.div(10).floor()
+                                                                let val3 = player.sma.eclipseShards.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + val3 + "</h3> OoM ECS"
+                                                                else
+                                                                    return "<h3>1</h3> OoM ECS"
                                                                 }, {color: "transparent", background: "linear-gradient(135deg, #ffb700, #ffe866)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
@@ -3133,20 +3306,47 @@ addLayer("tlb", {
                                                     ["row",
                                                         [
                                                             ["raw-html", () => {
-                                                                return "<h3>10</h3> Ins.Pts"
+                                                                let val1 = player.tlb.pointsInsight.div(10).floor()
+                                                                let val2 = player.tlb.cobaltSymbols.div(10).floor()
+                                                                let val3 = player.ir.spaceGem.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + Decimal.mul(10, val3) + "</h3> Ins.Pts"
+                                                                else
+                                                                    return "<h3>10</h3> Ins.Pts"
                                                                 }, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "14px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>10</h3> Co.Sys"
+                                                                let val1 = player.tlb.pointsInsight.div(10).floor()
+                                                                let val2 = player.tlb.cobaltSymbols.div(10).floor()
+                                                                let val3 = player.ir.spaceGem.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + Decimal.mul(10, val3) + "</h3> Co.Sys"
+                                                                else
+                                                                    return "<h3>10</h3> Co.Sys"
                                                                 }, {color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "14px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>1 OoM</h3> SPG"
+                                                                let val1 = player.tlb.pointsInsight.div(10).floor()
+                                                                let val2 = player.tlb.cobaltSymbols.div(10).floor()
+                                                                let val3 = player.ir.spaceGem.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + val3 + "</h3> OoM SPG"
+                                                                else
+                                                                    return "<h3>1</h3> OoM SPG"
                                                                 }, {color: "transparent", background: "radial-gradient(circle, #564BCC, #000000)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
@@ -3200,20 +3400,47 @@ addLayer("tlb", {
                                                     ["row",
                                                         [
                                                             ["raw-html", () => {
-                                                                return "<h3>10</h3> Mer.Pts"
+                                                                let val1 = player.tlb.pointsMerit.div(10).floor()
+                                                                let val2 = player.tlb.jadeSymbols.div(10).floor()
+                                                                let val3 = player.pl.planets.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + Decimal.mul(10, val3) + "</h3> Mer.Pts"
+                                                                else
+                                                                    return "<h3>10</h3> Mer.Pts"
                                                                 }, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "14px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>10</h3> Jd.Sys"
+                                                                let val1 = player.tlb.pointsMerit.div(10).floor()
+                                                                let val2 = player.tlb.jadeSymbols.div(10).floor()
+                                                                let val3 = player.pl.planets.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + Decimal.mul(10, val3) + "</h3> Jd.Sys"
+                                                                else
+                                                                    return "<h3>10</h3> Jd.Sys"
                                                                 }, {color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "14px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>1 OoM</h3> PLN"
+                                                                let val1 = player.tlb.pointsMerit.div(10).floor()
+                                                                let val2 = player.tlb.jadeSymbols.div(10).floor()
+                                                                let val3 = player.pl.planets.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + val3 + "</h3> OoM PLN"
+                                                                else
+                                                                    return "<h3>1</h3> OoM PLN"
                                                                 }, {color: "transparent", background: "linear-gradient(15deg, #34eb86 0%, #279ccf 50%, #411bb3 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
@@ -3263,20 +3490,47 @@ addLayer("tlb", {
                                                     ["row",
                                                         [
                                                             ["raw-html", () => {
-                                                                return "<h3>10</h3> Mer.Pts"
+                                                                let val1 = player.tlb.pointsMerit.div(10).floor()
+                                                                let val2 = player.tlb.amethystSymbols.div(10).floor()
+                                                                let val3 = player.ir.spaceRock.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + Decimal.mul(10, val3) + "</h3> Mer.Pts"
+                                                                else
+                                                                    return "<h3>10</h3> Mer.Pts"
                                                                 }, {color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "14px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>10</h3> Am.Sys"
+                                                                let val1 = player.tlb.pointsMerit.div(10).floor()
+                                                                let val2 = player.tlb.amethystSymbols.div(10).floor()
+                                                                let val3 = player.ir.spaceRock.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + Decimal.mul(10, val3) + "</h3> Am.Sys"
+                                                                else
+                                                                    return "<h3>10</h3> Am.Sys"
                                                                 }, {color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "14px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {return "&"}, {color: "#ffffff", fontSize: "14px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                                                             ["blank", "2px"],
                                                             ["raw-html", () => {
-                                                                return "<h3>1 OoM</h3> SPR"
+                                                                let val1 = player.tlb.pointsMerit.div(10).floor()
+                                                                let val2 = player.tlb.amethystSymbols.div(10).floor()
+                                                                let val3 = player.ir.spaceRock.log10().floor()
+                                                                let result = val1
+                                                                if(val3.lt(val1) || val3.lt(val2)) result = val3
+
+                                                                if(player.tlb.buyMaxSymbolsCrafting == true)
+                                                                    return "<h3>" + val3 + "</h3> OoM SPR"
+                                                                else
+                                                                    return "<h3>1</h3> OoM SPR"
                                                                 }, {color: "transparent", background: "linear-gradient(15deg, #5f5f5f 0%, #c5c5c5 50%, #5f5f5f 100%)", fontSize: "14px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                             ],
                                                         ]
@@ -3366,7 +3620,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.crimsonSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "20px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "16px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffdddd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff000023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -3382,7 +3636,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.goldSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "20px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "16px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ffff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -3398,7 +3652,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.jadeSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "20px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "16px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddffdd) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ff0023, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -3414,7 +3668,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.celesteSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "20px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "16px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddffff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #00ffff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -3430,7 +3684,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.cobaltSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "20px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "16px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ddddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #0000ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ],
@@ -3446,7 +3700,7 @@ addLayer("tlb", {
                                     ["column",
                                         [
                                             ["raw-html", () => {return formatShortWhole(player.tlb.amethystSymbols)}]
-                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "20px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "16px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                     ]
                                 ], {width: "80px", height: "80px", border: "3px solid transparent", borderImage: "radial-gradient(circle, #000000 75%, #ffddff) 1", backgroundImage: "radial-gradient(circle, #000000ab, transparent 75%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ffffff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ffffff67 90%), radial-gradient(circle, transparent 60%, #000000), linear-gradient(to top, #ff00ff23, transparent), repeating-linear-gradient(45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(-45deg, transparent, #00000022 5px, transparent 10px), repeating-linear-gradient(45deg, transparent, #00000022 5px), repeating-linear-gradient(-45deg, transparent, #00000022 5px), linear-gradient(to top, #787878, #ababab, #ededed)", boxShadow: "0 0 3px 1px #000000 inset, 0 0 3px 1px #000000"}
                             ]
@@ -3502,11 +3756,11 @@ addLayer("tlb", {
                                                                                             } 
                                                                                         }
                                                                                     ]
-                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "22px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff7777, #ff0000, #ff007f, #7f003f)", fontSize: "16px", textStroke: "1px #ffddddab", 'textShadow': "0 0 5px #ff0000, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
                                                                         ]
                                                                     ],
-                                                                    ["blank", "1px"],
+                                                                    ["row", [], {width: "20px"}],
                                                                     ["column",
                                                                         [
                                                                             ["column",
@@ -3531,7 +3785,7 @@ addLayer("tlb", {
                                                                                             } 
                                                                                         }
                                                                                     ]
-                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "22px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ffff, #00ffff, #00ff7f, #007f3f)", fontSize: "16px", textStroke: "1px #ddffffab", 'textShadow': "0 0 5px #00ffff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
                                                                         ]
                                                                     ],
@@ -3564,7 +3818,7 @@ addLayer("tlb", {
                                                                                             return "1"
                                                                                         }
                                                                                     ]
-                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "16px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
                                                                         ]
                                                                     ]
@@ -3624,11 +3878,11 @@ addLayer("tlb", {
                                                                                             } 
                                                                                         }
                                                                                     ]
-                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "22px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #7777ff, #0000ff, #007fff, #003f7f)", fontSize: "16px", textStroke: "1px #ddddffab", 'textShadow': "0 0 5px #0000ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
                                                                         ]
                                                                     ],
-                                                                    ["blank", "1px"],
+                                                                    ["row", [], {width: "20px"}],
                                                                     ["column",
                                                                         [
                                                                             ["column",
@@ -3653,7 +3907,7 @@ addLayer("tlb", {
                                                                                             } 
                                                                                         }
                                                                                     ]
-                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "22px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ffff77, #ffff00, #ff7f00, #7f3f00)", fontSize: "16px", textStroke: "1px #ffffddab", 'textShadow': "0 0 5px #ffff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
                                                                         ]
                                                                     ],
@@ -3686,7 +3940,7 @@ addLayer("tlb", {
                                                                                             return "1"
                                                                                         }
                                                                                     ]
-                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "16px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
                                                                         ]
                                                                     ]
@@ -3745,11 +3999,11 @@ addLayer("tlb", {
                                                                                             } 
                                                                                         }
                                                                                     ]
-                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "22px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #77ff77, #00ff00, #7fff00, #3f7f00)", fontSize: "16px", textStroke: "1px #ddffddab", 'textShadow': "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
                                                                         ]
                                                                     ],
-                                                                    ["blank", "1px"],
+                                                                    ["row", [], {width: "20px"}],
                                                                     ["column",
                                                                         [
                                                                             ["column",
@@ -3774,7 +4028,7 @@ addLayer("tlb", {
                                                                                             } 
                                                                                         }
                                                                                     ]
-                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "22px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(to bottom, #ff77ff, #ff00ff, #7f00ff, #3f007f)", fontSize: "16px", textStroke: "1px #ffddffab", 'textShadow': "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
                                                                         ]
                                                                     ],
@@ -3807,7 +4061,7 @@ addLayer("tlb", {
                                                                                             return "1"
                                                                                         }
                                                                                     ]
-                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "22px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                                                                ], {width: "50px", height: "20px", color: "transparent", background: "linear-gradient(0deg, #6b4423, #9b541a)", fontSize: "16px", textStroke: "1px #f8c898ab", 'text-shadow': "0 0 5px #9b541a, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
                                                                             ]
                                                                         ]
                                                                     ]
