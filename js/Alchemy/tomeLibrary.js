@@ -1,9 +1,9 @@
 addLayer("tlb", {
     name: "Tome Library",
     symbol: "🕮",
-    row: 1,
+    row: 2,
     universe: "LU",
-    position: 1,
+    position: 0,
     startData() {return {
         unlocked: true,
         buyMaxSymbols: false,
