@@ -53,5 +53,5 @@ addLayer("btb", {
         ["microtabs", "stuff", { 'border-width': '0px' }],
         ["blank", "25px"],
     ],
-    layerShown() { return player.startedGame == true }
+    layerShown() { return player.startedGame == true && hasUpgrade("ssp", 102)},
 })
