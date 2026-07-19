@@ -1,5 +1,5 @@
-addLayer("btb", {
-    name: "The Blueprint Table",
+addLayer("ctb", {
+    name: "The Crafting Table",
     symbol: "▦",
     row: 2,
     universe: "LU",
@@ -21,7 +21,7 @@ addLayer("btb", {
         boxShadow: "0 0 3px 1px #000000 inset",
         borderRadius: "0px"
     },
-    tooltip: "The Blueprint Table",
+    tooltip: "The Crafting Table",
     color: "white",
     branches: ["ssp"],
 
