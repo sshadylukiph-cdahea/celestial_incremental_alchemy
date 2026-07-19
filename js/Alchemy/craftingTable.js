@@ -100,7 +100,71 @@ addLayer("ctb", {
     },
 
     clickables: {
-        "craftAllUnlocker": {
+        encoder1: {
+            title() {
+                if(player.ssp.alchemicalSymbolsGain == 1)
+                    return "<h2>Symbol Encoder I</h2><hr>Encode <h2>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h2><br>🝪 Al.Sy 🝪.<br><br><small>(Req.: e10,000,000 Cel.Pts.)</small>"
+                else
+                    return "<h2>Symbol Encoder I</h2><hr>Encode <h2>" + formatWhole(player.ssp.alchemicalSymbolsGain) + "</h2><br>🝪 Al.Sys 🝪.<br><br><small>(Req.: e10,000,000 Cel.Pts.)</small>"
+            },
+            canClick() {return player.ssp.canAlSyReset == true && player.points.gte("e10000000")},
+            unlocked() {return true},
+            onClick() { 
+                layers.ssp.alchemicalSymbolsReset()
+                player.ssp.canAlSyReset = false
+            },
+            style() {
+                let look = {fontSize: "7px", width: "170px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
+                    if (this.canClick()) {
+                        look.backgroundImage = "radial-gradient(ellipse, #000000cd, transparent 90%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #00ff00 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #00ff0067 90%), repeating-linear-gradient(45deg, transparent, transparent 9%, #00ff0067 9%, #00ff0067 10%), repeating-linear-gradient(135deg, transparent, transparent 9%, #00ff0067 9%, #00ff0067 10%), repeating-radial-gradient(circle at 50% 200%, #00ff0067, #00ff0067 5%, transparent 5%, transparent 10%, #00ff0067 10%), linear-gradient(to bottom, #00000078 10%, transparent 40%, transparent 60%, #00000078 90%), linear-gradient(to bottom, #00000078, #00000078), linear-gradient(to bottom, #ddffdd, #00ff00, #7fff00)"
+                        look.border = "3px solid #00ff00"
+                        look.color = "#00ff00"
+                        look.textShadow = "0 0 5px #00ff00, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #aaffaaab"
+                    } else {
+                        look.backgroundImage = "linear-gradient(to bottom, #382413, #382413)"
+                        look.border = "3px solid #97795b"
+                        look.color = "#97795b"
+                        look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #00000022"
+                    }
+                return look
+            }
+        },
+        encoder2: {
+            title() {
+                if (hasUpgrade("ssp", 104))
+                    return "<h2>Symbol Encoder II</h2><hr>Encode <h2>" + formatWhole(player.ssp.advAlchemicalSymbolsGain) + "</h2><br>✩🝪 Adv.Al.Sys 🝪✩.<br><br><small>(Req.: ??? 🝪 Al.Sys 🝪.)</small>"
+                else
+                    return "<h2>You haven't unlocked this button yet!</h2>"
+            },
+            canClick() {
+                if (hasUpgrade("ssp", 104))
+                    return true
+                else
+                    return false
+            },
+            unlocked() {return true},
+            onClick() {},
+            style() {
+                let look = {fontSize: "7px", width: "170px", minHeight: "90px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "20px", boxShadow: "0 0 5px 1px #000000 inset, 0 0 10px 1px #000000 inset, 0 0 5px 1px #000000, 0 0 5px 1px #000000"}
+                    if (this.canClick()) {
+                        look.backgroundImage = "radial-gradient(ellipse, #000000cd, transparent 90%), linear-gradient(to top, #000000 1%, transparent 10%, transparent 90%, #ff00ff 99%), linear-gradient(to top, #00000067 10%, transparent 50%, #ff00ff67 90%), repeating-linear-gradient(45deg, transparent, transparent 9%, #ff00ff67 9%, #ff00ff67 10%), repeating-linear-gradient(135deg, transparent, transparent 9%, #ff00ff67 9%, #ff00ff67 10%), repeating-radial-gradient(circle at 50% -200%, #ff00ff67, #ff00ff67 5%, transparent 5%, transparent 10%, #ff00ff67 10%), linear-gradient(to bottom, #00000078 10%, transparent 40%, transparent 60%, #00000078 90%), linear-gradient(to bottom, #00000078, #00000078), linear-gradient(to bottom, #8b609c, #ff00ff, #ffc0cb)"
+                        look.border = "3px solid #ff00ff"
+                        look.color = "#ff00ff"
+                        look.textShadow = "0 0 5px #ff00ff, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #ffaaffab"
+                    } else {
+                        look.backgroundImage = "linear-gradient(to bottom, #382413, #382413)"
+                        look.border = "3px solid #97795b"
+                        look.color = "#97795b"
+                        look.textShadow = "0 0 5px #97795b, 0 0 10px #000000, 0 0 10px #000000"
+                        look.textStroke = "1px #00000022"
+                    }
+                return look
+            }
+        },
+        craftAllUnlocker: {
             title() {return "Craft 1 Converter first!"},
             canClick() {return false},
             unlocked() {
@@ -116,7 +180,7 @@ addLayer("ctb", {
             return look
             },
         },
-        "craftAllOff": {
+        craftAllOff: {
             title() {return player.ctb.craftAll == false ? "Craft All<br>OFF<br>[ACTIVE]" : "Craft All<br>OFF"},
             canClick() { return player.ctb.craftAll == true },
             unlocked() { return player.ctb.craftedAtLeastOnceConverter == true },
@@ -140,7 +204,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "craftAllOn": {
+        craftAllOn: {
             title() {return player.ctb.craftAll == true ? "Craft All<br>ON<br>[ACTIVE]" : "Craft All<br>ON"},
             canClick() { return player.ctb.craftAll == false },
             unlocked() { return player.ctb.craftedAtLeastOnceConverter == true },
@@ -164,7 +228,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "clearGrid": {
+        clearGrid: {
             title() {return "Clear Grid"},
             canClick() {return true},
             unlocked() {return true},
@@ -205,7 +269,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "selectSMA": {
+        selectSMA: {
             title() {return "Select"},
             canClick() {return player.tlb.starmetalAlloySymbols.gte(1)},
             unlocked() {
@@ -238,7 +302,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "deselectSMA": {
+        deselectSMA: {
             title() {return "Deselect"},
             canClick() {return true},
             unlocked() {return player.ctb.selectedSymbolSMA == true},
@@ -263,7 +327,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "selectSME": {
+        selectSME: {
             title() {return "Select"},
             canClick() {return player.tlb.starmetalEssenceSymbols.gte(1)},
             unlocked() {
@@ -296,7 +360,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "deselectSME": {
+        deselectSME: {
             title() {return "Deselect"},
             canClick() {return true},
             unlocked() {return player.ctb.selectedSymbolSME == true},
@@ -321,7 +385,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "selectECS": {
+        selectECS: {
             title() {return "Select"},
             canClick() {return player.tlb.eclipseShardSymbols.gte(1)},
             unlocked() {
@@ -354,7 +418,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "deselectECS": {
+        deselectECS: {
             title() {return "Deselect"},
             canClick() {return true},
             unlocked() {return player.ctb.selectedSymbolECS == true},
@@ -379,7 +443,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "selectSPG": {
+        selectSPG: {
             title() {return "Select"},
             canClick() {return player.tlb.spaceGemSymbols.gte(1)},
             unlocked() {
@@ -412,7 +476,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "deselectSPG": {
+        deselectSPG: {
             title() {return "Deselect"},
             canClick() {return true},
             unlocked() {return player.ctb.selectedSymbolSPG == true},
@@ -437,7 +501,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "selectPLN": {
+        selectPLN: {
             title() {return "Select"},
             canClick() {return player.tlb.planetSymbols.gte(1)},
             unlocked() {
@@ -470,7 +534,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "deselectPLN": {
+        deselectPLN: {
             title() {return "Deselect"},
             canClick() {return true},
             unlocked() {return player.ctb.selectedSymbolPLN == true},
@@ -495,7 +559,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "selectSPR": {
+        selectSPR: {
             title() {return "Select"},
             canClick() {return player.tlb.spaceRockSymbols.gte(1)},
             unlocked() {
@@ -528,7 +592,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "deselectSPR": {
+        deselectSPR: {
             title() {return "Deselect"},
             canClick() {return true},
             unlocked() {return player.ctb.selectedSymbolSPR == true},
@@ -553,7 +617,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "blueprintEmpty": {
+        blueprintEmpty: {
             title() {return player.ctb.selectedBlueprintIndex == 0 ? "Empty<br>[ACTIVE]" : "Empty"},
             canClick() {return player.ctb.selectedBlueprintIndex != 0},
             unlocked() {return true},
@@ -577,7 +641,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "blueprintConverter": {
+        blueprintConverter: {
             title() {return player.ctb.selectedBlueprintIndex == 1 ? "Converter<br>[ACTIVE]" : "Converter"},
             canClick() {return player.ctb.selectedBlueprintIndex != 1},
             unlocked() {return true},
@@ -601,7 +665,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "blueprintCondenser": {
+        blueprintCondenser: {
             title() {return player.ctb.selectedBlueprintIndex == 2 ? "Condenser<br>[ACTIVE]" : "Condenser"},
             canClick() {return player.ctb.selectedBlueprintIndex != 2},
             unlocked() {return player.ctb.craftedAtLeastOnceConverter == true},
@@ -625,7 +689,7 @@ addLayer("ctb", {
             return look
             }
         },
-        "blueprintGuider": {
+        blueprintGuider: {
             title() {return player.ctb.selectedBlueprintIndex == 3 ? "Guider<br>[ACTIVE]" : "Guider"},
             canClick() {return player.ctb.selectedBlueprintIndex != 3},
             unlocked() {return player.ctb.craftedAtLeastOnceCondenser == true},
@@ -791,7 +855,7 @@ addLayer("ctb", {
                     && player.tlb.eclipseShardSymbols.gte(1)
                     && player.tlb.planetSymbols.gte(8)
                     && player.tlb.spaceRockSymbols.gte(4)
-                    && player.ctb.alcNodePartConverter.gte(4)
+                    && player.ctb.craftedAtLeastOnceConverter == true
                 )
                 return true      
             },
@@ -884,7 +948,7 @@ addLayer("ctb", {
                     && player.tlb.starmetalEssenceSymbols.gte(5)
                     && player.tlb.planetSymbols.gte(4)
                     && player.tlb.spaceRockSymbols.gte(6)
-                    && player.ctb.alcNodePartCondenser.gte(4)
+                    && player.ctb.craftedAtLeastOnceCondenser == true
                 )
                 return true
             },
@@ -959,6 +1023,14 @@ addLayer("ctb", {
                 buttonStyle() { return {background: "linear-gradient(0deg, #000055 50%, #0000ff 100%)", border: "3px solid white", borderRadius: "1px 1px 0 0", boxShadow: "0 0 5px 5px #aaaaff inset, 0 0 10px 10px #0000aa inset, 0 0 10px 10px #ffffff50 inset"}},
                 unlocked() { return true },
                 content: [
+                    ["blank", "5px"],
+                    ["row",
+                        [
+                            ["raw-html", () => {return "You are currently in the"}, {color: "#ffffff", fontSize: "18px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                            ["blank", "2px"],
+                            ["raw-html", () => {return "-<u>Node Crafting</u>-."}, {color: "transparent", backgroundImage: "linear-gradient(-135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(-135deg, #ffffff12, #00000012), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "18px", 'text-shadow': " 0 0 5px #ffffffcd, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                        ]
+                    ],
                     ["blank", "10px"],
                     ["style-row",
                         [
