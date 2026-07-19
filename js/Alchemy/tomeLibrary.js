@@ -117,8 +117,7 @@ addLayer("tlb", {
         canBuyCobaSys: false,
         canBuyAmetSys: false,
 
-        // 1st order symbols // LATER
-        arcaneSymbols: new Decimal (0),
+        // 1st order symbols
         starmetalAlloySymbols: new Decimal (0),
         starmetalEssenceSymbols: new Decimal (0),
         eclipseShardSymbols: new Decimal (0),
@@ -1476,7 +1475,7 @@ addLayer("tlb", {
                 let val2 = player.tlb.crimsonSymbols.div(10).floor()
                 let val3 = player.sma.starmetalAlloy.log10().floor()
                 let result = val1
-                if(val3.lt(val1) || val3.lt(val2)) result = val3
+                if(val3.lt(val1) && val3.lt(val2)) result = val3
 
                 if(player.tlb.buyMaxSymbolsCrafting == true)
                     if(val3 == 1)
@@ -1500,7 +1499,7 @@ addLayer("tlb", {
                     let val2 = player.tlb.crimsonSymbols.div(10).floor()
                     let val3 = player.sma.starmetalAlloy.log10().floor()
                     let result = val1
-                    if(val3.lt(val1) || val3.lt(val2)) result = val3
+                    if(val3.lt(val1) && val3.lt(val2)) result = val3
 
                     player.tlb.starmetalAlloySymbols = player.tlb.starmetalAlloySymbols.add(result) // result
                     player.tlb.pointsForce = player.tlb.pointsForce.sub(Decimal.mul(10, result)) // 1st cost
@@ -1530,7 +1529,7 @@ addLayer("tlb", {
                 let val2 = player.tlb.celesteSymbols.div(10).floor()
                 let val3 = player.sme.starmetalEssence.log10().floor()
                 let result = val1
-                if(val3.lt(val1) || val3.lt(val2)) result = val3
+                if(val3.lt(val1) && val3.lt(val2)) result = val3
 
                 if(player.tlb.buyMaxSymbolsCrafting == true)
                     if(val3 == 1)
@@ -1554,7 +1553,7 @@ addLayer("tlb", {
                     let val2 = player.tlb.celesteSymbols.div(10).floor()
                     let val3 = player.sme.starmetalEssence.log10().floor()
                     let result = val1
-                    if(val3.lt(val1) || val3.lt(val2)) result = val3
+                    if(val3.lt(val1) && val3.lt(val2)) result = val3
 
                     player.tlb.starmetalEssenceSymbols = player.tlb.starmetalEssenceSymbols.add(result) // result
                     player.tlb.pointsForce = player.tlb.pointsForce.sub(Decimal.mul(10, result)) // 1st cost
@@ -1584,7 +1583,7 @@ addLayer("tlb", {
                 let val2 = player.tlb.goldSymbols.div(10).floor()
                 let val3 = player.sma.eclipseShards.log10().floor()
                 let result = val1
-                if(val3.lt(val1) || val3.lt(val2)) result = val3
+                if(val3.lt(val1) && val3.lt(val2)) result = val3
 
                 if(player.tlb.buyMaxSymbolsCrafting == true)
                     if(val3 == 1)
@@ -1608,7 +1607,7 @@ addLayer("tlb", {
                     let val2 = player.tlb.goldSymbols.div(10).floor()
                     let val3 = player.sma.eclipseShards.log10().floor()
                     let result = val1
-                    if(val3.lt(val1) || val3.lt(val2)) result = val3
+                    if(val3.lt(val1) && val3.lt(val2)) result = val3
 
                     player.tlb.eclipseShardSymbols = player.tlb.eclipseShardSymbols.add(result) // result
                     player.tlb.pointsInsight = player.tlb.pointsInsight.sub(Decimal.mul(10, result)) // 1st cost
@@ -1639,7 +1638,7 @@ addLayer("tlb", {
                 let val2 = player.tlb.cobaltSymbols.div(10).floor()
                 let val3 = player.ir.spaceGem.log10().floor()
                 let result = val1
-                if(val3.lt(val1) || val3.lt(val2)) result = val3
+                if(val3.lt(val1) && val3.lt(val2)) result = val3
 
                 if(player.tlb.buyMaxSymbolsCrafting == true)
                     if(val3 == 1)
@@ -1663,7 +1662,7 @@ addLayer("tlb", {
                     let val2 = player.tlb.cobaltSymbols.div(10).floor()
                     let val3 = player.ir.spaceGem.log10().floor()
                     let result = val1
-                    if(val3.lt(val1) || val3.lt(val2)) result = val3
+                    if(val3.lt(val1) && val3.lt(val2)) result = val3
 
                     player.tlb.spaceGemSymbols = player.tlb.spaceGemSymbols.add(result) // result
                     player.tlb.pointsInsight = player.tlb.pointsInsight.sub(Decimal.mul(10, result)) // 1st cost
@@ -1693,7 +1692,7 @@ addLayer("tlb", {
                 let val2 = player.tlb.jadeSymbols.div(10).floor()
                 let val3 = player.pl.planets.log10().floor()
                 let result = val1
-                if(val3.lt(val1) || val3.lt(val2)) result = val3
+                if(val3.lt(val1) && val3.lt(val2)) result = val3
 
                 if(player.tlb.buyMaxSymbolsCrafting == true)
                     if(val3 == 1)
@@ -1717,7 +1716,7 @@ addLayer("tlb", {
                     let val2 = player.tlb.jadeSymbols.div(10).floor()
                     let val3 = player.pl.planets.log10().floor()
                     let result = val1
-                    if(val3.lt(val1) || val3.lt(val2)) result = val3
+                    if(val3.lt(val1) && val3.lt(val2)) result = val3
 
                     player.tlb.planetSymbols = player.tlb.planetSymbols.add(result) // result
                     player.tlb.pointsMerit = player.tlb.pointsMerit.sub(Decimal.mul(10, result)) // 1st cost
@@ -1747,7 +1746,7 @@ addLayer("tlb", {
                 let val2 = player.tlb.amethystSymbols.div(10).floor()
                 let val3 = player.ir.spaceRock.log10().floor()
                 let result = val1
-                if(val3.lt(val1) || val3.lt(val2)) result = val3
+                if(val3.lt(val1) && val3.lt(val2)) result = val3
 
                 if(player.tlb.buyMaxSymbolsCrafting == true)
                     if(val3 == 1)
@@ -1771,7 +1770,7 @@ addLayer("tlb", {
                     let val2 = player.tlb.amethystSymbols.div(10).floor()
                     let val3 = player.ir.spaceRock.log10().floor()
                     let result = val1
-                    if(val3.lt(val1) || val3.lt(val2)) result = val3
+                    if(val3.lt(val1) && val3.lt(val2)) result = val3
 
                     player.tlb.spaceRockSymbols = player.tlb.spaceRockSymbols.add(result) // result
                     player.tlb.pointsMerit = player.tlb.pointsMerit.sub(Decimal.mul(10, result)) // 1st cost

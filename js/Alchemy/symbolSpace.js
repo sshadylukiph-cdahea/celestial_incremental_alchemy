@@ -168,7 +168,7 @@ addLayer("ssp", {
         102: {
             title () {return hasUpgrade("ssp", 102) ? "<h3>Alchemfactory</h3><br>[PURCHASED]" : (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 1000) && (player.tlb.firstTomeForce == true && player.tlb.firstTomeInsight == true && player.tlb.firstTomeMerit == true) ? "<h3>Alchemfactory</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
-            description () {return (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 1000) && (player.tlb.firstTomeForce == true && player.tlb.firstTomeInsight == true && player.tlb.firstTomeMerit == true) || hasUpgrade("ssp", 102) ? "<hr>Unlocks Crafting, the Assembly and the Apparatus." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
+            description () {return (hasUpgrade("ssp", 101) && player.tlb.revelationPoints >= 1000) && (player.tlb.firstTomeForce == true && player.tlb.firstTomeInsight == true && player.tlb.firstTomeMerit == true) || hasUpgrade("ssp", 102) ? "<hr>Unlocks the Crafting Table." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(1000),
             currencyLocation() {return player.tlb},
             currencyDisplayName() {
@@ -193,7 +193,7 @@ addLayer("ssp", {
         103: {
             title () {return hasUpgrade("ssp", 103) ? "<h3>Starmetalism</h3><br>[PURCHASED]" : (hasUpgrade("ssp", 102) && player.tlb.revelationPoints >= 5000) ? "<h3>Starmetalism</h3>" : "<h3>??????</h3>"},
             unlocked() {return true},
-            description () {return (hasUpgrade("ssp", 102) && player.tlb.revelationPoints >= 5000) || hasUpgrade("ssp", 103) ? "<hr>Unlocks the Classical Elemental Starmetal Alteration." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
+            description () {return (hasUpgrade("ssp", 102) && player.tlb.revelationPoints >= 5000) || hasUpgrade("ssp", 103) ? "<hr>Unlocks the Alchemy Altar and the Classical Elemental Starmetal Alteration." : "<hr><i>You haven't unlocked this Symbol Space upgrade yet!</i>"},
             cost: new Decimal(5000),
             currencyLocation() {return player.tlb},
             currencyDisplayName() {
