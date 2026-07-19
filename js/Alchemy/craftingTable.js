@@ -17,8 +17,8 @@ const symbolBlueprint = [
                     ];
 
 addLayer("ctb", {
-    name: "The Crafting Table",
-    symbol: "▦",
+    name: "Crafting Table",
+    symbol: "✎",
     row: 2,
     universe: "LU",
     position: 1,
@@ -63,9 +63,9 @@ addLayer("ctb", {
         boxShadow: "0 0 3px 1px #000000 inset",
         borderRadius: "0px"
     },
-    tooltip: "The Crafting Table",
+    tooltip: "Crafting Table",
     color: "white",
-    branches: ["ssp"],
+    branches: ["ssp", "tlb"],
 
     grid: {
         rows: 5,
