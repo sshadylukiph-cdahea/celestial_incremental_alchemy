@@ -1,3 +1,4 @@
+// -----------|| LAYER CREATION AREA ||----------- //
 addLayer("ssp", {
     name: "Symbol Space",
     symbol: "🝪",
@@ -155,6 +156,10 @@ addLayer("ssp", {
                     return "You have met " + formatShortWhole(player.ssp.earthOrbCount) + " / 4 requirements to activate the Earth Orb."
             },
             onClick() { 
+                makeParticles(earthStarmetalObtainSparkAura, 40, `normal`)
+                makeParticles(earthStarmetalObtainSparkle, 20, `normal`)
+                makeParticles(earthStarmetalObtainSparkle2, 20, `normal`)
+
                 player.ssp.earthUnlocked = true
                 player.ssp.thaumicOrbCount = player.ssp.thaumicOrbCount.add(1)
             },
@@ -1171,7 +1176,7 @@ addLayer("ssp", {
                                             ],
                                             ["raw-html", () => {
                                                 if(player.ssp.thaumicOrbHit == 0 && player.ssp.fireUnlocked == true && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Radioactive.png' style='width:112px;height:160px;margin-bottom:-124px'></img>"
+                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Radioactive.png' style='width:112px;height:160px;margin-bottom:-144px'></img>"
                                                 else if(player.ssp.thaumicOrbHit >= 1 && player.ssp.fireUnlocked == true && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
                                                     return "<img src='resources/alchemyworld/alcNode-Pylon-verticalNone.png' style='width:112px;height:160px;margin-bottom:-124px'</img>"
                                                 else if(player.ssp.thaumicOrbHit == 0 && player.ssp.fireUnlocked == false && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
@@ -1251,7 +1256,7 @@ addLayer("ssp", {
                                             ],
                                             ["raw-html", () => {
                                                 if(player.ssp.thaumicOrbHit == 0 && player.ssp.airUnlocked == true && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Technological.png' style='width:160px;height:112px;margin-right:-120px;margin-bottom:-4px'></img>"
+                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Technological.png' style='width:160px;height:112px;margin-right:-140px;margin-bottom:-4px'></img>"
                                                 else if(player.ssp.thaumicOrbHit >= 1 && player.ssp.airUnlocked == true && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
                                                     return "<img src='resources/alchemyworld/alcNode-Pylon-horizontalNone.png' style='width:160px;height:112px;margin-right:-120px;margin-bottom:-4px'></img>"
                                                 else if(player.ssp.thaumicOrbHit == 0 && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
@@ -1386,7 +1391,7 @@ addLayer("ssp", {
                                             ],
                                             ["raw-html", () => {
                                                 if(player.ssp.thaumicOrbHit == 0 && player.ssp.earthUnlocked == true && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Natural.png' style='width:160px;height:112px;margin-left:-120px;margin-bottom:-4px'></img>"
+                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Natural.png' style='width:160px;height:112px;margin-left:-140px;margin-bottom:-4px'></img>"
                                                 else if(player.ssp.thaumicOrbHit >= 1 && player.ssp.earthUnlocked == true && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
                                                     return "<img src='resources/alchemyworld/alcNode-Pylon-horizontalNone.png' style='width:160px;height:112px;margin-left:-120px;margin-bottom:-4px'></img>"
                                                 else if(player.ssp.thaumicOrbHit == 0 && player.ssp.earthUnlocked == false && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
@@ -1466,7 +1471,7 @@ addLayer("ssp", {
                                             ],
                                             ["raw-html", () => {
                                                 if(player.ssp.thaumicOrbHit == 0 && player.ssp.waterUnlocked == true && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Paradox.png' style='width:112px;height:160px;margin-top:-116px'></img>"
+                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Paradox.png' style='width:112px;height:160px;margin-top:-136px'></img>"
                                                 else if(player.ssp.thaumicOrbHit >= 1 && player.ssp.waterUnlocked == true && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
                                                     return "<img src='resources/alchemyworld/alcNode-Pylon-verticalNone.png' style='width:112px;height:160px;margin-top:-116px'></img>"
                                                 else if(player.ssp.thaumicOrbHit == 0 && player.ssp.waterUnlocked == false && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
@@ -2248,3 +2253,39 @@ addLayer("ssp", {
         ]
     }
 )
+
+// -----------|| PARTICLE CREATION AREA ||----------- //
+const earthStarmetalObtainSparkle = {
+    image: "resources/alchemyworld/earthStarmetalObtainSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*3},
+    width: 56,
+    height: 56,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 1 + Math.random()*2},
+    rotation() {return 5 + Math.random()*11},
+    layer: "ssp"
+}
+const earthStarmetalObtainSparkle2 = {
+    image: "resources/alchemyworld/earthStarmetalObtainSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*3},
+    width: 56,
+    height: 56,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 1 + Math.random()*2},
+    rotation() {return Math.random()*-1 - 5 - Math.random()*11},
+    layer: "ssp"
+}
+const earthStarmetalObtainSparkAura = {
+    image: "resources/alchemyworld/earthStarmetalObtainGlow.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*3},
+    width: 35,
+    height: 35,
+    spread: 18,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 1 + Math.random()*1},
+    class: "earthStarmetalSparkle",
+    layer: "ssp"
+}
