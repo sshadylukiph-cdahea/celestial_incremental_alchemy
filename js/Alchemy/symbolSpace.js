@@ -106,16 +106,41 @@ addLayer("ssp", {
             tooltip() {
                 if(player.ssp.arcaneTableUnlocked == true && player.ssp.earthUnlocked == true && player.ssp.waterUnlocked == true && player.ssp.airUnlocked == true && player.ssp.fireUnlocked == true)
                     return "The Thaumic Orb is BROKEN!<br><u>Louki-syhda</u> has been freed!"
-                else if(this.canClick()) {
-                    if(player.ssp.thaumicOrbHit <= 0)
-                        return "Break the ??????? ??? imprisoning<br><u>?????-?????</u>!<br><br>Assemble the elemental forks and place them near the ??????? ???!<br>[0/3]"
-                    else if(player.ssp.thaumicOrbHit >= 1 || player.ssp.thaumicOrbHit <= 2)
-                        return "Break the ??????? ??? imprisoning<br><u>?????-?????</u>!<br><br>Aim the forks towards the ??????? ???!<br>[" + formatShortWhole(player.ssp.thaumicOrbHit) + "/3]"
-                }   
+                else if(this.canClick())
+                    return "Break it! [" + formatShortWhole(player.ssp.thaumicOrbHit) + "/3]"
                 else
                     return "You have broken " + formatShortWhole(player.ssp.thaumicOrbCount) + " / 4 Elemental Orbs to activate the ??????? ???."
             },
-            onClick() { 
+            onClick() {
+                makeParticles(thaumicExplosion1, 1, `normal`)
+                makeParticles(thaumicCircle, 1, `normal`)
+                if(player.ssp.thaumicOrbHit > 0) {
+                    makeParticles(thaumicExplosion2, 1, `normal`)
+                    makeParticles(thaumicCircle2, 1, `normal`)
+                }
+                if(player.ssp.thaumicOrbHit > 1) {
+                    makeParticles(thaumicExplosion3, 1, `normal`)
+                    makeParticles(thaumicCircle3, 1, `normal`)
+
+                    makeParticles(fireGlowThaumic, 1, `normal`)
+                    makeParticles(airGlowThaumic, 1, `normal`)
+                    makeParticles(waterGlowThaumic, 1, `normal`)
+                    makeParticles(earthGlowThaumic, 1, `normal`)
+
+                    makeParticles(earthSparkAuraThaumic, 40, `normal`)
+                    makeParticles(earthSparkleThaumic, 20, `normal`)
+                    makeParticles(earthSparkle2Thaumic, 20, `normal`)
+                    makeParticles(waterSparkAuraThaumic, 40, `normal`)
+                    makeParticles(waterSparkleThaumic, 20, `normal`)
+                    makeParticles(waterSparkle2Thaumic, 20, `normal`)
+                    makeParticles(airSparkAuraThaumic, 40, `normal`)
+                    makeParticles(airSparkleThaumic, 20, `normal`)
+                    makeParticles(airSparkle2Thaumic, 20, `normal`)
+                    makeParticles(fireSparkAuraThaumic, 40, `normal`)
+                    makeParticles(fireSparkleThaumic, 20, `normal`)
+                    makeParticles(fireSparkle2Thaumic, 20, `normal`)
+                }
+
                 player.ssp.thaumicOrbHit = player.ssp.thaumicOrbHit.add(1)
                 if(player.ssp.thaumicOrbHit >= 3) player.ssp.arcaneTableUnlocked = true
             },
@@ -156,9 +181,10 @@ addLayer("ssp", {
                     return "You have met " + formatShortWhole(player.ssp.earthOrbCount) + " / 4 requirements to activate the Earth Orb."
             },
             onClick() { 
-                makeParticles(earthStarmetalObtainSparkAura, 40, `normal`)
-                makeParticles(earthStarmetalObtainSparkle, 20, `normal`)
-                makeParticles(earthStarmetalObtainSparkle2, 20, `normal`)
+                makeParticles(earthGlow, 1, `normal`)
+                makeParticles(earthSparkAura, 40, `normal`)
+                makeParticles(earthSparkle, 20, `normal`)
+                makeParticles(earthSparkle2, 20, `normal`)
 
                 player.ssp.earthUnlocked = true
                 player.ssp.thaumicOrbCount = player.ssp.thaumicOrbCount.add(1)
@@ -200,6 +226,11 @@ addLayer("ssp", {
                     return "You have met " + formatShortWhole(player.ssp.waterOrbCount) + " / 4 requirements to activate the Water Orb."
             },
             onClick() { 
+                makeParticles(waterGlow, 1, `normal`)
+                makeParticles(waterSparkAura, 40, `normal`)
+                makeParticles(waterSparkle, 20, `normal`)
+                makeParticles(waterSparkle2, 20, `normal`)
+
                 player.ssp.waterUnlocked = true
                 player.ssp.thaumicOrbCount = player.ssp.thaumicOrbCount.add(1)
             },
@@ -240,6 +271,11 @@ addLayer("ssp", {
                     return "You have met " + formatShortWhole(player.ssp.airOrbCount) + " / 4 requirements to activate the Air Orb."
             },
             onClick() { 
+                makeParticles(airGlow, 1, `normal`)
+                makeParticles(airSparkAura, 40, `normal`)
+                makeParticles(airSparkle, 20, `normal`)
+                makeParticles(airSparkle2, 20, `normal`)
+
                 player.ssp.airUnlocked = true
                 player.ssp.thaumicOrbCount = player.ssp.thaumicOrbCount.add(1)
             },
@@ -279,7 +315,12 @@ addLayer("ssp", {
                 else
                     return "You have met " + formatShortWhole(player.ssp.fireOrbCount) + " / 4 requirements to activate the Fire Orb."
             },
-            onClick() { 
+            onClick() {
+                makeParticles(fireGlow, 1, `normal`)
+                makeParticles(fireSparkAura, 40, `normal`)
+                makeParticles(fireSparkle, 20, `normal`)
+                makeParticles(fireSparkle2, 20, `normal`)
+
                 player.ssp.fireUnlocked = true
                 player.ssp.thaumicOrbCount = player.ssp.thaumicOrbCount.add(1)
             },
@@ -301,7 +342,7 @@ addLayer("ssp", {
                 else if (this.canClick()) return [["earthOrb", "#008e4b55"]]
                 else return [["earthOrb", "#ffffff11"]]
             },
-            onClick() { 
+            onClick() {
                 player.ssp.earthReq1Get = true
                 player.ssp.earthOrbCount = player.ssp.earthOrbCount.add(1)
             },
@@ -2220,8 +2261,12 @@ addLayer("ssp", {
                             ["raw-html", () => {
                                 if(player.ssp.arcaneTableUnlocked == true)
                                     return "You have <h3>" + format(player.points) + "</h3> ✸ Cel.Pts ✸."
+                                else if(player.ssp.thaumicOrbCount >= 4 && player.ssp.thaumicOrbHit <= 0)
+                                    return "Break the ??????? ??? imprisoning<br><u>?????-?????</u> using the four Elemental Forks!<hr>Assemble the Elemental Forks and<br>place them near the ??????? ???! [" + formatShortWhole(player.ssp.thaumicOrbHit) + "/3]"
+                                else if(player.ssp.thaumicOrbCount >= 4 && (player.ssp.thaumicOrbHit >= 1 || player.ssp.thaumicOrbHit <= 2))
+                                    return "Break the ??????? ??? imprisoning<br><u>?????-?????</u> using the four Elemental Forks!<hr>Aim the forks towards the ??????? ???! [" + formatShortWhole(player.ssp.thaumicOrbHit) + "/3]"
                                 else
-                                    return "A powerful presence prevents you from<br>undoing part of His secret plans...<hr>You must seek some clues throughout<br>the multiverse to break the ??????? ???."}, {color: "#ffffff", fontSize: "15px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"
+                                    return "A powerful spell prevents you from<br>undoing part of His secret plans...<hr>You must seek some clues throughout<br>the multiverse using the four Elemental Forks."}, {color: "#ffffff", fontSize: "15px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"
                                 }
                             ]
                         ], {width: "420px", height: "90px", border: "1px solid #ffdb8e", borderRadius: "20px", backgroundImage: "radial-gradient(ellipse, #000000ab 30%, transparent), linear-gradient(-135deg, #ffffffcd 10%, transparent 30%, transparent 70%, #000000cd 90%), linear-gradient(-135deg, #ffffff45, #00000045), repeating-linear-gradient(45deg, transparent, transparent 9%, #000000ab 9%, #000000ab 10%, #00000067 10%, #00000067 19%, #000000ab 19%, #000000ab 20%, transparent 20%, transparent 29%, #ffffffab 29%, #ffffffab 30%, #ffffff67 30%, #ffffff67 39%, #ffffffab 39%, #ffffffab 40%), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", boxShadow: "0 0 10px #000000, 0 0 10px #000000, 0 0 10px #000000 inset, 0 0 10px #000000 inset"}
@@ -2255,37 +2300,435 @@ addLayer("ssp", {
 )
 
 // -----------|| PARTICLE CREATION AREA ||----------- //
-const earthStarmetalObtainSparkle = {
-    image: "resources/alchemyworld/earthStarmetalObtainSparkle.png",
+// Earth Unlock
+const earthSparkle = {
+    image: "resources/alchemyworld/earthSparkle.png",
     time() {return Math.random()*2},
     speed() {return Math.random()*3},
-    width: 56,
-    height: 56,
+    width: 50,
+    height: 50,
     fadeInTime() {return 0},
-    fadeOutTime() {return 1 + Math.random()*2},
+    fadeOutTime() {return 0.5 + Math.random()*2},
     rotation() {return 5 + Math.random()*11},
+    angle() {return Math.random()*361},
     layer: "ssp"
 }
-const earthStarmetalObtainSparkle2 = {
-    image: "resources/alchemyworld/earthStarmetalObtainSparkle.png",
+const earthSparkle2 = {
+    image: "resources/alchemyworld/earthSparkle.png",
     time() {return Math.random()*2},
     speed() {return Math.random()*3},
-    width: 56,
-    height: 56,
+    width: 50,
+    height: 50,
     fadeInTime() {return 0},
-    fadeOutTime() {return 1 + Math.random()*2},
+    fadeOutTime() {return 0.5 + Math.random()*2},
     rotation() {return Math.random()*-1 - 5 - Math.random()*11},
+    angle() {return Math.random()*361},
     layer: "ssp"
 }
-const earthStarmetalObtainSparkAura = {
-    image: "resources/alchemyworld/earthStarmetalObtainGlow.png",
+const earthSparkAura = {
+    image: "resources/alchemyworld/earthGlow.png",
     time() {return Math.random()*2},
     speed() {return Math.random()*3},
-    width: 35,
-    height: 35,
+    width: 20,
+    height: 20,
     spread: 18,
     fadeInTime() {return 0},
     fadeOutTime() {return 1 + Math.random()*1},
-    class: "earthStarmetalSparkle",
+    layer: "ssp"
+}
+const earthGlow = {
+    image: "resources/alchemyworld/earthGlow.png",
+    time: 3,
+    speed: 0,
+    width: 224,
+    height: 224,
+    fadeInTime: 0,
+    fadeOutTime: 3,
+    layer: "ssp"
+}
+
+// Water Unlock
+const waterSparkle = {
+    image: "resources/alchemyworld/waterSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*3},
+    width: 50,
+    height: 50,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 0.5 + Math.random()*2},
+    rotation() {return 5 + Math.random()*11},
+    angle() {return Math.random()*361},
+    layer: "ssp"
+}
+const waterSparkle2 = {
+    image: "resources/alchemyworld/waterSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*3},
+    width: 50,
+    height: 50,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 0.5 + Math.random()*2},
+    rotation() {return Math.random()*-1 - 5 - Math.random()*11},
+    angle() {return Math.random()*361},
+    layer: "ssp"
+}
+const waterSparkAura = {
+    image: "resources/alchemyworld/waterGlow.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*3},
+    width: 20,
+    height: 20,
+    spread: 18,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 1 + Math.random()*1},
+    layer: "ssp"
+}
+const waterGlow = {
+    image: "resources/alchemyworld/waterGlow.png",
+    time: 3,
+    speed: 0,
+    width: 224,
+    height: 224,
+    fadeInTime: 0,
+    fadeOutTime: 3,
+    layer: "ssp"
+}
+
+// Air Unlock
+const airSparkle = {
+    image: "resources/alchemyworld/airSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*3},
+    width: 50,
+    height: 50,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 0.5 + Math.random()*2},
+    rotation() {return 5 + Math.random()*11},
+    angle() {return Math.random()*361},
+    layer: "ssp"
+}
+const airSparkle2 = {
+    image: "resources/alchemyworld/airSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*3},
+    width: 50,
+    height: 50,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 0.5 + Math.random()*2},
+    rotation() {return Math.random()*-1 - 5 - Math.random()*11},
+    angle() {return Math.random()*361},
+    layer: "ssp"
+}
+const airSparkAura = {
+    image: "resources/alchemyworld/airGlow.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*3},
+    width: 20,
+    height: 20,
+    spread: 18,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 1 + Math.random()*1},
+    layer: "ssp"
+}
+const airGlow = {
+    image: "resources/alchemyworld/airGlow.png",
+    time: 3,
+    speed: 0,
+    width: 224,
+    height: 224,
+    fadeInTime: 0,
+    fadeOutTime: 3,
+    layer: "ssp"
+}
+
+// Fire Unlock
+const fireSparkle = {
+    image: "resources/alchemyworld/fireSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*3},
+    width: 50,
+    height: 50,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 0.5 + Math.random()*2},
+    rotation() {return 5 + Math.random()*11},
+    angle() {return Math.random()*361},
+    layer: "ssp"
+}
+const fireSparkle2 = {
+    image: "resources/alchemyworld/fireSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*3},
+    width: 50,
+    height: 50,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 0.5 + Math.random()*2},
+    rotation() {return Math.random()*-1 - 5 - Math.random()*11},
+    angle() {return Math.random()*361},
+    layer: "ssp"
+}
+const fireSparkAura = {
+    image: "resources/alchemyworld/fireGlow.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*3},
+    width: 20,
+    height: 20,
+    spread: 18,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 1 + Math.random()*1},
+    layer: "ssp"
+}
+const fireGlow = {
+    image: "resources/alchemyworld/fireGlow.png",
+    time: 3,
+    speed: 0,
+    width: 224,
+    height: 224,
+    fadeInTime: 0,
+    fadeOutTime: 3,
+    layer: "ssp"
+}
+
+// Thaumic Unlock
+const thaumicExplosion1 = {
+    image: "resources/alchemyworld/thaumicorbexplosion.png",
+    time: 1,
+    speed: 0,
+    width: 100,
+    height: 100,
+    fadeInTime: 0,
+    fadeOutTime: 0.5,
+    layer: "ssp"
+}
+const thaumicExplosion2 = {
+    image: "resources/alchemyworld/thaumicorbexplosion.png",
+    time: 1,
+    speed: 0,
+    width: 250,
+    height: 250,
+    fadeInTime: 0,
+    fadeOutTime: 0.8,
+    layer: "ssp"
+}
+const thaumicExplosion3 = {
+    image: "resources/alchemyworld/thaumicorbexplosion.png",
+    time: 1,
+    speed: 0,
+    width: 500,
+    height: 500,
+    fadeInTime: 0,
+    fadeOutTime: 1,
+    layer: "ssp"
+}
+const earthSparkleThaumic = {
+    image: "resources/alchemyworld/earthSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*10},
+    width: 100,
+    height: 100,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 0.5 + Math.random()*2},
+    rotation() {return 5 + Math.random()*11},
+    angle() {return Math.random()*361},
+    layer: "ssp"
+}
+const earthSparkle2Thaumic = {
+    image: "resources/alchemyworld/earthSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*10},
+    width: 100,
+    height: 100,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 0.5 + Math.random()*2},
+    rotation() {return Math.random()*-1 - 5 - Math.random()*11},
+    angle() {return Math.random()*361},
+    layer: "ssp"
+}
+const waterSparkleThaumic = {
+    image: "resources/alchemyworld/waterSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*10},
+    width: 100,
+    height: 100,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 0.5 + Math.random()*2},
+    rotation() {return 5 + Math.random()*11},
+    angle() {return Math.random()*361},
+    layer: "ssp"
+}
+const waterSparkle2Thaumic = {
+    image: "resources/alchemyworld/waterSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*10},
+    width: 100,
+    height: 100,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 0.5 + Math.random()*2},
+    rotation() {return Math.random()*-1 - 5 - Math.random()*11},
+    angle() {return Math.random()*361},
+    layer: "ssp"
+}
+const airSparkleThaumic = {
+    image: "resources/alchemyworld/airSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*10},
+    width: 100,
+    height: 100,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 0.5 + Math.random()*2},
+    rotation() {return 5 + Math.random()*11},
+    angle() {return Math.random()*361},
+    layer: "ssp"
+}
+const airSparkle2Thaumic = {
+    image: "resources/alchemyworld/airSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*10},
+    width: 100,
+    height: 100,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 0.5 + Math.random()*2},
+    rotation() {return Math.random()*-1 - 5 - Math.random()*11},
+    angle() {return Math.random()*361},
+    layer: "ssp"
+}
+const fireSparkleThaumic = {
+    image: "resources/alchemyworld/fireSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*10},
+    width: 100,
+    height: 100,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 0.5 + Math.random()*2},
+    rotation() {return 5 + Math.random()*11},
+    angle() {return Math.random()*361},
+    layer: "ssp"
+}
+const fireSparkle2Thaumic = {
+    image: "resources/alchemyworld/fireSparkle.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*10},
+    width: 100,
+    height: 100,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 0.5 + Math.random()*2},
+    rotation() {return Math.random()*-1 - 5 - Math.random()*11},
+    angle() {return Math.random()*361},
+    layer: "ssp"
+}
+const earthSparkAuraThaumic = {
+    image: "resources/alchemyworld/earthGlow.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*10},
+    width: 50,
+    height: 50,
+    spread: 18,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 1 + Math.random()*1},
+    layer: "ssp"
+}
+const waterSparkAuraThaumic = {
+    image: "resources/alchemyworld/waterGlow.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*10},
+    width: 50,
+    height: 50,
+    spread: 18,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 1 + Math.random()*1},
+    layer: "ssp"
+}
+const airSparkAuraThaumic = {
+    image: "resources/alchemyworld/airGlow.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*10},
+    width: 50,
+    height: 50,
+    spread: 18,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 1 + Math.random()*1},
+    layer: "ssp"
+}
+const fireSparkAuraThaumic = {
+    image: "resources/alchemyworld/fireGlow.png",
+    time() {return Math.random()*2},
+    speed() {return Math.random()*10},
+    width: 50,
+    height: 50,
+    spread: 18,
+    fadeInTime() {return 0},
+    fadeOutTime() {return 1 + Math.random()*1},
+    layer: "ssp"
+}
+const earthGlowThaumic = {
+    image: "resources/alchemyworld/earthGlow.png",
+    time: 2,
+    speed: 0,
+    width: 525,
+    height: 525,
+    fadeInTime: 1,
+    fadeOutTime: 2,
+    layer: "ssp"
+}
+const waterGlowThaumic = {
+    image: "resources/alchemyworld/waterGlow.png",
+    time: 3,
+    speed: 0,
+    width: 525,
+    height: 525,
+    fadeInTime: 2,
+    fadeOutTime: 3,
+    layer: "ssp"
+}
+const airGlowThaumic = {
+    image: "resources/alchemyworld/airGlow.png",
+    time: 4,
+    speed: 0,
+    width: 525,
+    height: 525,
+    fadeInTime: 3,
+    fadeOutTime: 4,
+    layer: "ssp"
+}
+const fireGlowThaumic = {
+    image: "resources/alchemyworld/fireGlow.png",
+    time: 5,
+    speed: 0,
+    width: 525,
+    height: 525,
+    fadeInTime: 4,
+    fadeOutTime: 5,
+    layer: "ssp"
+}
+const thaumicCircle = {
+    image: "resources/alchemyworld/arcaneTableCircle2.png",
+    time: 1,
+    speed: 0,
+    width: 200,
+    height: 200,
+    fadeInTime: 0,
+    fadeOutTime: 1,
+    rotation: -3,
+    layer: "ssp"
+}
+const thaumicCircle2 = {
+    image: "resources/alchemyworld/arcaneTableCircle.png",
+    time: 1,
+    speed: 0,
+    width: 400,
+    height: 400,
+    fadeInTime: 0,
+    fadeOutTime: 1,
+    rotation: 3,
+    layer: "ssp"
+}
+const thaumicCircle3 = {
+    image: "resources/alchemyworld/arcaneTableCircle3.png",
+    time: 1,
+    speed: 0,
+    width: 800,
+    height: 800,
+    fadeInTime: 0,
+    fadeOutTime: 1,
+    rotation: 0,
     layer: "ssp"
 }
