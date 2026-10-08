@@ -778,7 +778,8 @@ addLayer("ssp", {
             }
         },
         fireOrbReq1: {
-            title() {return "Req.1"},
+            title() {return "The Singularity must be restricted at all costs to prevent overflow."},
+            // actual requirement: Perform a Singularity Reset with all unlocked universes and singularity dimensions disabled.
             canClick() {return player.ssp.fireReq1Get == false}, 
             unlocked() {return true},
             branches() {
@@ -815,7 +816,8 @@ addLayer("ssp", {
             }
         },
         fireOrbReq2: {
-            title() {return "Req.2"},
+            title() {return "When the hour of eclipse ends, shall there be an abundance of clouds."},
+            // actual requirement: Run out of Eclipse Time with all cloud-related punchcards active.
             canClick() {return player.ssp.fireReq2Get == false}, 
             unlocked() {return true},
             branches() {
@@ -852,7 +854,8 @@ addLayer("ssp", {
             }
         },
         fireOrbReq3: {
-            title() {return "Req.3"},
+            title() {return "A clash in a lifetime, sparked by the three humans and one machine."},
+            // actual requirements: Initiate a boss fight against Matos with Kres, Nav and Sel, and then win the fight without Kres, Nav or Sel dying.
             canClick() {return player.ssp.fireReq3Get == false}, 
             unlocked() {return true},
             branches() {
@@ -889,7 +892,8 @@ addLayer("ssp", {
             }
         },
         fireOrbReq4: {
-            title() {return "Req.4"},
+            title() {return "The red moon strikes above, as the crimson flames rain down."},
+            // Actual requirement: Exit the Dark Universe with only Humanity Punchcard selected and Nox defeated.
             canClick() {return player.ssp.fireReq4Get == false},  
             unlocked() {return true},
             branches() {
@@ -1175,7 +1179,7 @@ addLayer("ssp", {
                     ["blank", "5px"],
                     ["row",
                         [
-                            ["raw-html", () => {return "You are currently in the"}, {color: "#ffffff", fontSize: "18px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
+                            ["raw-html", () => {return "(SECTION IS WIP) You are currently in the"}, {color: "#ffffff", fontSize: "18px", 'text-shadow': "0 0 5px #ffffff, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                             ["blank", "2px"],
                             ["raw-html", () => {return "-<u>Forgotten Chamber</u>-."}, {color: "transparent", backgroundImage: "linear-gradient(-135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(-135deg, #ffffff12, #00000012), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "18px", 'text-shadow': " 0 0 5px #ffffffcd, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                         ]
