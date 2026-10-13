@@ -1042,6 +1042,100 @@ addLayer("ctb", {
                     ["blank", "10px"],
                     ["style-row",
                         [
+                            ["raw-html", () => {return "Alchemical Node Parts"}, {color: "transparent", background: "linear-gradient(120deg, #ffffff, #ababab)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                        ], {width: "900px", height: "50px", background: "#000055", backgroundImage: "radial-gradient(circle, transparent, #00000088)", border: "3px solid white", borderRadius: "0 0 0 0", boxShadow: "0 0 5px 5px #aaaaff inset, 0 0 10px 10px #0000aa inset, 0 0 10px 10px #ffffff50 inset"}
+                    ],
+                    ["style-row",
+                        [
+                            ["style-row",
+                                [
+                                    ["row", [
+                                        ["column",
+                                            [
+                                                ["raw-html", () => {return "<img src='resources/alchemyworld/alcNode-Converter.png'style='width:40px;height:40px'></img>"
+                                                }]
+                                            ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                        ],
+                                        ["blank", "5px"],
+                                        ["column",
+                                            [
+                                                ["raw-html", () => {return formatShortWhole(player.ctb.alcNodePartConverter)
+                                                }]
+                                            ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(120deg, #ffffff, #ababab)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ],
+                                        ["row",
+                                            [
+                                                ["raw-html", () => {return "Converter"}],
+                                            ], {color: "transparent", background: "linear-gradient(120deg, #ffffff, #ababab)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ]
+                                    ], {width: "145px", height: "110px", background: "#000055", backgroundImage: "radial-gradient(circle, transparent, #00000088)", border: "3px solid white", borderRadius: "0 0 0 0", boxShadow: "0 0 5px 5px #aaaaff inset, 0 0 10px 10px #0000aa inset, 0 0 10px 10px #ffffff50 inset"}],
+                                    ["row", [
+                                        ["column",
+                                            [
+                                                ["raw-html", () => {
+                                                    if (player.ctb.craftedAtLeastOnceConverter == true)
+                                                        return "<img src='resources/alchemyworld/alcNode-Condenser.png'style='width:40px;height:40px'></img>"
+                                                    else return "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'>"
+                                                }]
+                                            ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                        ],
+                                        ["blank", "5px"],
+                                        ["column",
+                                            [
+                                                ["raw-html", () => {
+                                                    if (player.ctb.craftedAtLeastOnceConverter == true)
+                                                        return formatShortWhole(player.ctb.alcNodePartCondenser)
+                                                    else return "?"}]
+                                            ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(120deg, #ffffff, #ababab)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ],
+                                        ["row",
+                                            [
+                                                ["raw-html", () => {
+                                                    if (player.ctb.craftedAtLeastOnceConverter == true)
+                                                        return "Condenser"
+                                                    else return "???"}],
+                                            ], {color: "transparent", background: "linear-gradient(120deg, #ffffff, #ababab)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ]
+                                    ], {width: "145px", height: "110px", background: "#000055", backgroundImage: "radial-gradient(circle, transparent, #00000088)", border: "3px solid white", borderRadius: "0 0 0 0", boxShadow: "0 0 5px 5px #aaaaff inset, 0 0 10px 10px #0000aa inset, 0 0 10px 10px #ffffff50 inset"}],
+                                    ["row", [
+                                        ["column",
+                                            [
+                                                ["raw-html", () => {
+                                                    if (player.ctb.craftedAtLeastOnceConverter == true && player.ctb.craftedAtLeastOnceCondenser == true)
+                                                        return "<img src='resources/alchemyworld/alcNode-Guider.png'style='width:40px;height:40px'></img>"
+                                                    else return "<img src='resources/alchemyworld/symbolNone.png'style='width:40px;height:40px'>"
+                                                }]
+                                            ], {width: "50px", height: "50px", backgroundImage: "radial-gradient(circle, #000000cd 50%, transparent)"}
+                                        ],
+                                        ["blank", "5px"],
+                                        ["column",
+                                            [
+                                                ["raw-html", () => {
+                                                    if (player.ctb.craftedAtLeastOnceConverter == true && player.ctb.craftedAtLeastOnceCondenser == true)
+                                                        return formatShortWhole(player.ctb.alcNodePartGuider)
+                                                    else return "?"}]
+                                            ], {width: "70px", height: "20px", color: "transparent", background: "linear-gradient(120deg, #ffffff, #ababab)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ],
+                                        ["row",
+                                            [
+                                                ["raw-html", () => {
+                                                    if (player.ctb.craftedAtLeastOnceConverter == true && player.ctb.craftedAtLeastOnceCondenser == true)
+                                                        return "Guider"
+                                                    else return "???"}],
+                                            ], {color: "transparent", background: "linear-gradient(120deg, #ffffff, #ababab)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}
+                                        ]
+                                    ], {width: "145px", height: "110px", background: "#000055", backgroundImage: "radial-gradient(circle, transparent, #00000088)", border: "3px solid white", borderRadius: "0 0 0 0", boxShadow: "0 0 5px 5px #aaaaff inset, 0 0 10px 10px #0000aa inset, 0 0 10px 10px #ffffff50 inset"}],
+                                ], {width: "900px", height: "110px", background: "#000055", backgroundImage: "radial-gradient(circle, transparent, #00000088)", border: "3px solid white", borderRadius: "0 0 0 0", boxShadow: "0 0 5px 5px #aaaaff inset, 0 0 10px 10px #0000aa inset, 0 0 10px 10px #ffffff50 inset"}
+                            ],
+                        ]
+                    ],
+                    ["style-row",
+                        [
+                            ["raw-html", () => {return "Altered Alchemical Symbols"}, {color: "transparent", background: "linear-gradient(120deg, #ffffff, #ababab)", fontSize: "20px", textStroke: "1px #ffffff88", 'text-shadow': "0 0 5px #ffffff78, 0 0 10px #000000, 0 0 10px #000000", backgroundClip: "text", fontFamily: "monospace"}]
+                        ], {width: "900px", height: "50px", background: "#000055", backgroundImage: "radial-gradient(circle, transparent, #00000088)", border: "3px solid white", borderRadius: "0 0 0 0", boxShadow: "0 0 5px 5px #aaaaff inset, 0 0 10px 10px #0000aa inset, 0 0 10px 10px #ffffff50 inset"}
+                    ],
+                    ["style-row",
+                        [
                             ["row", [
                                 ["column",
                                     [
