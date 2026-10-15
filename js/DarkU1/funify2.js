@@ -1,6 +1,7 @@
 addLayer("funify", {
     name: "Funify", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "☺", // This appears on the layer's node. Default is the id with the first letter capitalized
+    universe: "D1",
     row: 1,
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
@@ -8,6 +9,7 @@ addLayer("funify", {
 
         funify: new Decimal(0),
         funifyReq: new Decimal(1e100),
+        funifyResetSafety: false,
 
         funPoints: new Decimal(0),
         funPointsGain: new Decimal(0),
@@ -46,8 +48,8 @@ addLayer("funify", {
             unlocked() { return true },
             onClick() {
                 player.funify.funify = player.funify.funify.add(1);
-
-                player.le.starmetalAlloyPause = new Decimal(10)
+                layers.le.starmetalReset()
+                player.le.universeResetSafety = true
             },
             onHold() { clickClickable(this.layer, this.id) },
             style() {
@@ -312,4 +314,14 @@ addLayer("funify", {
     ],
     layerShown() { return getLevelableTier("pu", 300, true) },
     deactivated() { return !player.sma.inStarmetalChallenge},
+    hotkeys: [
+        {
+            key: "f", 
+            description: "Dark Funify",
+            onPress() {
+                clickClickable(this.layer, 11)
+            },
+        },  
+    ],
+
 })

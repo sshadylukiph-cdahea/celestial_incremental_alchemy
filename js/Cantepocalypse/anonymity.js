@@ -28,7 +28,12 @@
             buyUpgrade("an", 23)
         }
     },
-    nodeStyle() {},
+    nodeStyle() {
+        return {
+            color: "#fff",
+            borderColor: "#0000007f",
+        }
+    },
     tooltip: "Anonymity",
     branches: ["ar"],
     color: "#0c04c1",
@@ -339,5 +344,14 @@
         ["microtabs", "stuff", { 'border-width': '0px' }],
         ["blank", "25px"],
     ],
-    layerShown() { return player.startedGame == true && hasUpgrade("cp", 14) }
+    layerShown() { return player.startedGame == true && hasUpgrade("cp", 14) },
+    hotkeys: [
+        {
+            key: "a", 
+            description: "Gain Anonymity",
+            onPress() {
+                clickClickable(this.layer, 11)
+            },
+        }
+	]
 })

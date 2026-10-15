@@ -1,8 +1,10 @@
 ﻿addLayer("dv", {
     name: "Vaporizer", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "V", // This appears on the layer's node. Default is the id with the first letter capitalized
+    universe: "D1",
     row: 1,
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    universe: "D1",
     startData() { return {
         unlocked: true,
 
@@ -13,7 +15,14 @@
 
         producingClouds: false,
     }},
-    automate() {},
+    automate() {
+        if (hasMilestone("prj", 113) && player.pet.legPetTimers[0].current.gt(0)) {
+            buyUpgrade("dv", 11, false)
+            buyUpgrade("dv", 12, false)
+            buyUpgrade("dv", 13, false)
+            buyUpgrade("dv", 14, false)
+        }
+    },
     nodeStyle() {
         return {
             background: "linear-gradient(150deg,rgb(122, 122, 122) 0%,rgb(233, 233, 233) 50%,rgb(122, 122, 122) 100%)",
@@ -23,13 +32,13 @@
         };
     },
     tooltip: "Vaporizer",
-    branches: ["dgr"],
+    branches: [["le", "#309"],["dgj", "#309"]],
     color: "rgba(193, 223, 0)",
     update(delta) {
         let onepersec = new Decimal(1)
 
-        player.dv.timeDrainRate = player.dv.clouds.pow(0.25).div(5).add(1)
-        if (hasUpgrade("sma", 209)) player.dv.timeDrainRate = player.dv.clouds.pow(0.2).div(10).add(1)
+        player.dv.timeDrainRate = player.dv.clouds.add(1).log(10).pow_base(1.2)
+        if (hasUpgrade("sma", 209)) player.dv.timeDrainRate = player.dv.timeDrainRate.pow(0.85)
 
         if (player.dv.producingClouds)
         {
@@ -45,11 +54,12 @@
         player.dv.cloudsPerSecond = player.dv.cloudsPerSecond.mul(buyableEffect("dgj", 15))
         if (getLevelableTier("pu", 307, true)) player.dv.cloudsPerSecond = player.dv.cloudsPerSecond.mul(levelableEffect("pu", 307)[0])
         player.dv.cloudsPerSecond = player.dv.cloudsPerSecond.mul(levelableEffect("car", 409)[0])
-        player.dv.cloudsPerSecond = player.dv.cloudsPerSecond.mul(levelableEffect("st", 304)[0])
+        player.dv.cloudsPerSecond = player.dv.cloudsPerSecond.mul(levelableEffect("spet", 304)[0])
+        player.dv.cloudsPerSecond = player.dv.cloudsPerSecond.mul(buyableEffect("dt", 11))
 
         player.dv.clouds = player.dv.clouds.add(player.dv.cloudsPerSecond.mul(delta))
 
-        player.dv.cloudEffect = Decimal.div(1, player.dv.clouds.pow(0.4).div(10).add(1))
+        player.dv.cloudEffect = player.dv.clouds.add(1).log(10).pow_base(0.95)
     },
     bars: {},
     clickables: {
@@ -93,7 +103,67 @@
             }
         },
     },
-    upgrades: {},
+    upgrades: {
+        11: {
+            title: "Vaporizer Upgrade I",
+            unlocked() { return true },
+            description: "Gain one punchcard selection. (resets on universe exit)",
+            cost: new Decimal(1e8),
+            currencyLocation() { return player.dv },
+            currencyDisplayName: "Clouds",
+            currencyInternalName: "clouds",
+            onPurchase() {
+                player.pu.storedSelections = player.pu.storedSelections.add(1)
+            },
+            style() {
+                let look = {borderRadius: "10px", color: "white", border: "2px solid rgb(233, 233, 233)", margin: "1.5px"}
+                hasUpgrade(this.layer, this.id) ? look.backgroundColor = "#1a3b0f" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundColor =  "#361e1e" : look.backgroundColor = "black"
+                return look
+            }
+        },
+        12: {
+            title: "Vaporizer Upgrade II",
+            unlocked() { return true },
+            description: "Unlock a new effect for dark grass.</span>",
+            cost: new Decimal(1e10),
+            currencyLocation() { return player.dv },
+            currencyDisplayName: "Clouds",
+            currencyInternalName: "clouds",
+            style() {
+                let look = {borderRadius: "10px", color: "white", border: "2px solid rgb(233, 233, 233)", margin: "1.5px"}
+                hasUpgrade(this.layer, this.id) ? look.backgroundColor = "#1a3b0f" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundColor =  "#361e1e" : look.backgroundColor = "black"
+                return look
+            }
+        },
+        13: {
+            title: "Vaporizer Upgrade III",
+            unlocked() { return true },
+            description: "Enable buying max boosters.",
+            cost: new Decimal(1e12),
+            currencyLocation() { return player.dv },
+            currencyDisplayName: "Clouds",
+            currencyInternalName: "clouds",
+            style() {
+                let look = {borderRadius: "10px", color: "white", border: "2px solid rgb(233, 233, 233)", margin: "1.5px"}
+                hasUpgrade(this.layer, this.id) ? look.backgroundColor = "#1a3b0f" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundColor =  "#361e1e" : look.backgroundColor = "black"
+                return look
+            }
+        },
+        14: {
+            title: "Vaporizer Upgrade IV",
+            unlocked() { return hasMilestone("prj", 101) },
+            description: "Unlock time capsules.",
+            cost: new Decimal(1e25),
+            currencyLocation() { return player.dv },
+            currencyDisplayName: "Clouds",
+            currencyInternalName: "clouds",
+            style() {
+                let look = {borderRadius: "10px", color: "white", border: "2px solid rgb(233, 233, 233)", margin: "1.5px"}
+                hasUpgrade(this.layer, this.id) ? look.backgroundColor = "#1a3b0f" : !canAffordUpgrade(this.layer, this.id) ? look.backgroundColor =  "#361e1e" : look.backgroundColor = "black"
+                return look
+            }
+        },
+    },
     buyables: {
         11: {
             costBase() { return new Decimal(10) },
@@ -177,7 +247,7 @@
                 return "Vaporized Boosters"
             },
             display() {
-                return "which are raising booster requirements by ^" + format(tmp[this.layer].buyables[this.id].effect, 3) + ".\n\
+                return "which are weakening booster requirements by ^" + format(tmp[this.layer].buyables[this.id].effect, 3) + ".\n\
                     Cost: " + format(tmp[this.layer].buyables[this.id].cost) + " Clouds"
             },
             buy(mult) {
@@ -233,11 +303,11 @@
         },
         15: {
             costBase() { return new Decimal(1000) },
-            costGrowth() { return new Decimal(2) },
+            costGrowth() { return new Decimal(4) },
             purchaseLimit() { return new Decimal(100) },
             currency() { return player.dv.clouds},
             pay(amt) { player.dv.clouds = this.currency().sub(amt) },
-            effect(x) { return getBuyableAmount(this.layer, this.id).mul(0.25).add(1)},
+            effect(x) { return getBuyableAmount(this.layer, this.id).mul(0.05).add(1)},
             unlocked() { return true },
             cost(x) { return this.costGrowth().pow(x || getBuyableAmount(this.layer, this.id)).mul(this.costBase()) },
             canAfford() { return this.currency().gte(this.cost()) },
@@ -271,7 +341,11 @@
             purchaseLimit() { return new Decimal(100) },
             currency() { return player.dv.clouds},
             pay(amt) { player.dv.clouds = this.currency().sub(amt) },
-            effect(x) { return getBuyableAmount(this.layer, this.id).mul(player.dgr.grass.pow(getBuyableAmount(this.layer, this.id).pow(0.1)).pow(0.15).div(50)).add(1)},
+            effect(x) {
+                let eff = getBuyableAmount(this.layer, this.id).mul(player.dgr.grass.pow(getBuyableAmount(this.layer, this.id).pow(0.1)).pow(0.15).div(50)).add(1)
+                if (eff.gte(1e10)) eff = eff.div(1e10).pow(0.25).mul(1e10)
+                return eff
+            },
             unlocked() { return true },
             cost(x) { return this.costGrowth().pow(x || getBuyableAmount(this.layer, this.id)).mul(this.costBase()) },
             canAfford() { return this.currency().gte(this.cost()) },
@@ -318,6 +392,8 @@
                     ["blank", "25px"],
                     ["row", [["dark-buyable", 11], ["dark-buyable", 12], ["dark-buyable", 13],]],
                     ["row", [["dark-buyable", 14], ["dark-buyable", 15], ["dark-buyable", 16]]],
+                    ["blank", "25px"],
+                    ["row", [["upgrade", 11], ["upgrade", 12], ["upgrade", 13], ["upgrade", 14]]],
                 ]
             },
         },
@@ -331,4 +407,21 @@
     ],
     layerShown() { return hasUpgrade("le", 102) },
     deactivated() { return !player.sma.inStarmetalChallenge},
+    hotkeys: [
+        {
+            key: "v", 
+            description: "Toggle Vaporizer",
+            onPress() {
+                if(!player.dv.producingClouds){
+                    clickClickable(this.layer, 11)
+                    doPopup("none", "Vaporizer turned on!", "Toggle", 5, "rgb(233, 233, 233)", false)
+                }
+                else {
+                    clickClickable(this.layer, 12)
+                    doPopup("none", "Vaporizer turned off!", "Toggle", 5, "rgb(233, 233, 233)", false)
+                }
+
+            },
+        }
+	]
 })

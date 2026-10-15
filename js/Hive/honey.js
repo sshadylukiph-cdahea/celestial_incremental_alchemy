@@ -89,7 +89,6 @@ addLayer("ho", {
         if (hasUpgrade("ho", 4)) player.ho.cellGain = player.ho.cellGain.mul(upgradeEffect("ho", 4))
         if (hasUpgrade("al", 202)) player.ho.cellGain = player.ho.cellGain.mul(2)
         player.ho.cellGain = player.ho.cellGain.mul(player.bee.preAlephMult)
-        if (hasUpgrade("za", 22)) player.ho.cellGain = player.ho.cellGain.mul(upgradeEffect("za", 22))
         player.ho.cellGain = player.ho.cellGain.mul(buyableEffect("tw", 44))
 
         //FLOOR VALUE
@@ -496,5 +495,14 @@ addLayer("ho", {
             ], {width: "250px", height: "625px", borderRight: "3px solid white", borderTop: "3px solid white", borderBottom: "3px solid white", borderRadius: "0px 20px 20px 0px"}],
         ]],
     ],
-    layerShown() { return player.startedGame && ((player.bee.totalResearch.gte(60) && player.bee.path == 2) || (hasChallenge("fu", 12) && player.bee.totalResearch.gte(165) && player.bee.path == 1)) }
+    layerShown() { return player.startedGame && ((player.bee.totalResearch.gte(60) && player.bee.path == 2) || (hasChallenge("fu", 12) && player.bee.totalResearch.gte(165) && player.bee.path == 1)) },
+    hotkeys: [
+        {
+            key: "h", 
+            description: "Gain Honey",
+            onPress() {
+                clickClickable(this.layer, 1)
+            },
+        }
+	]
 })

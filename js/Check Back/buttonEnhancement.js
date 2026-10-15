@@ -15,7 +15,8 @@ addLayer("ev1", {
     nodeStyle: {
         background: "linear-gradient(140deg, #b00000 0%, #bda500 50%, #b00000 100%)",
 		backgroundOrigin: "border-box",
-		borderColor: "#750000"
+		borderColor: "#750000",
+        color: "#750000",
     },
     tooltip: "Button Enhancement",
     color: "white",
@@ -1207,7 +1208,7 @@ addLayer("ev1", {
             currency() { return player.cb.petPoints},
             pay(amt) {player.cb.petPoints = this.currency().sub(amt)},
             effect(x) { return getBuyableAmount(this.layer, this.id).div(100).add(1)},
-            unlocked() {return hasUpgrade("cbs", 103)},
+            unlocked() {return hasUpgrade("cbs", 20)},
             cost(x) { return this.costGrowth().pow(x || getBuyableAmount(this.layer, this.id)).mul(this.costBase()) },
             canAfford() { return this.currency().gte(this.cost()) },
             display() {
@@ -1244,7 +1245,7 @@ addLayer("ev1", {
             currency() { return player.cb.petPoints},
             pay(amt) {player.cb.petPoints = this.currency().sub(amt)},
             effect(x) { return getBuyableAmount(this.layer, this.id).div(100).add(1)},
-            unlocked() {return hasUpgrade("cbs", 103)},
+            unlocked() {return hasUpgrade("cbs", 20)},
             cost(x) { return this.costGrowth().pow(x || getBuyableAmount(this.layer, this.id)).mul(this.costBase()) },
             canAfford() { return this.currency().gte(this.cost()) },
             display() {
@@ -1281,7 +1282,7 @@ addLayer("ev1", {
             currency() { return player.cb.petPoints},
             pay(amt) {player.cb.petPoints = this.currency().sub(amt)},
             effect(x) { return getBuyableAmount(this.layer, this.id).div(100)},
-            unlocked() {return player.ev.evolutionsUnlocked[4] && hasUpgrade("cbs", 103)},
+            unlocked() {return player.ev.evolutionsUnlocked[4] && hasUpgrade("cbs", 20)},
             cost(x) { return this.costGrowth().pow(x || getBuyableAmount(this.layer, this.id)).mul(this.costBase()) },
             canAfford() { return this.currency().gte(this.cost()) },
             display() {
@@ -1315,7 +1316,7 @@ addLayer("ev1", {
             currency() { return player.cb.petPoints},
             pay(amt) {player.cb.petPoints = this.currency().sub(amt)},
             effect(x) { return getBuyableAmount(this.layer, this.id).div(20).add(1)},
-            unlocked() {return player.ev.evolutionsUnlocked[4] && hasUpgrade("cbs", 103)},
+            unlocked() {return player.ev.evolutionsUnlocked[4] && hasUpgrade("cbs", 20)},
             cost(x) { return this.costGrowth().pow(x || getBuyableAmount(this.layer, this.id)).mul(this.costBase()) },
             canAfford() { return this.currency().gte(this.cost()) },
             display() {
@@ -2485,7 +2486,7 @@ addLayer("ev1", {
                                 ["row", [["buyable", 181], ["buyable", 182]]],
                                 ["row", [["buyable", 183], ["buyable", 184]]],
                             ], {width: "250px"}],
-                        ], () => {return hasUpgrade("cbs", 103) ? {width: "250px", background: "#004C72", border: "5px solid #002d44", borderRadius: "20px", margin: "5px"} : {display: "none !important"}}],
+                        ], () => {return hasUpgrade("cbs", 20) ? {width: "250px", background: "#004C72", border: "5px solid #002d44", borderRadius: "20px", margin: "5px"} : {display: "none !important"}}],
                     ], {maxWidth: "1080px", background: "#001e2d", border: "5px solid #002d44", borderRadius: "20px"}],
                 ],
             },
@@ -2499,6 +2500,9 @@ addLayer("ev1", {
                             ["style-column", [
                                 ["raw-html", "Crate Button 1", {color: "#dbe4ff", fontSize: "24px", fontFamily: "monospace"}],
                             ], {width: "250px", height: "37px", borderBottom: "3px solid #17254c"}],
+                            ["layer-proxy",["cb",
+                                [["clickable", 101,{"width":"250px"}]],
+                            ]],
                             ["style-column", [
                                 ["raw-html", () => {return "Crate Roll Chance: " + formatSimple(player.cb.crateTimers[0].base.mul(100), 1) + "%"}, {color: "#dbe4ff", fontSize: "16px", fontFamily: "monospace"}],
                                 ["raw-html", () => {return "Cooldown: " + formatTime(player.cb.crateTimers[0].max)}, {color: "#dbe4ff", fontSize: "16px", fontFamily: "monospace"}],
@@ -2513,6 +2517,9 @@ addLayer("ev1", {
                             ["style-column", [
                                 ["raw-html", "Crate Button 2", {color: "#dbe4ff", fontSize: "24px", fontFamily: "monospace"}],
                             ], {width: "250px", height: "37px", borderBottom: "3px solid #17254c"}],
+                            ["layer-proxy",["cb",
+                                [["clickable", 102,{"width":"250px"}]],
+                            ]],
                             ["style-column", [
                                 ["raw-html", () => {return "Crate Roll Chance: " + formatSimple(player.cb.crateTimers[1].base.mul(100), 1) + "%"}, {color: "#dbe4ff", fontSize: "16px", fontFamily: "monospace"}],
                                 ["raw-html", () => {return "Cooldown: " + formatTime(player.cb.crateTimers[1].max)}, {color: "#dbe4ff", fontSize: "16px", fontFamily: "monospace"}],
@@ -2527,6 +2534,9 @@ addLayer("ev1", {
                             ["style-column", [
                                 ["raw-html", "Crate Button 3", {color: "#dbe4ff", fontSize: "24px", fontFamily: "monospace"}],
                             ], {width: "250px", height: "37px", borderBottom: "3px solid #17254c"}],
+                            ["layer-proxy",["cb",
+                                [["clickable", 103,{"width":"250px"}]],
+                            ]],
                             ["style-column", [
                                 ["raw-html", () => {return "Crate Roll Chance: " + formatSimple(player.cb.crateTimers[2].base.mul(100), 1) + "%"}, {color: "#dbe4ff", fontSize: "16px", fontFamily: "monospace"}],
                                 ["raw-html", () => {return "Cooldown: " + formatTime(player.cb.crateTimers[2].max)}, {color: "#dbe4ff", fontSize: "16px", fontFamily: "monospace"}],
@@ -2541,6 +2551,9 @@ addLayer("ev1", {
                             ["style-column", [
                                 ["raw-html", "Crate Button 4", {color: "#dbe4ff", fontSize: "24px", fontFamily: "monospace"}],
                             ], {width: "250px", height: "37px", borderBottom: "3px solid #17254c"}],
+                            ["layer-proxy",["cb",
+                                [["clickable", 104,{"width":"250px"}]],
+                            ]],
                             ["style-column", [
                                 ["raw-html", () => {return "Crate Roll Chance: " + formatSimple(player.cb.crateTimers[3].base.mul(100), 1) + "%"}, {color: "#dbe4ff", fontSize: "16px", fontFamily: "monospace"}],
                                 ["raw-html", () => {return "Cooldown: " + formatTime(player.cb.crateTimers[3].max)}, {color: "#dbe4ff", fontSize: "16px", fontFamily: "monospace"}],
@@ -2555,6 +2568,9 @@ addLayer("ev1", {
                             ["style-column", [
                                 ["raw-html", "Crate Button 5", {color: "#dbe4ff", fontSize: "24px", fontFamily: "monospace"}],
                             ], {width: "250px", height: "37px", borderBottom: "3px solid #17254c"}],
+                            ["layer-proxy",["cb",
+                                [["clickable", 105,{"width":"250px"}]],
+                            ]],
                             ["style-column", [
                                 ["raw-html", () => {return "Crate Roll Chance: " + formatSimple(player.cb.crateTimers[4].base.mul(100), 1) + "%"}, {color: "#dbe4ff", fontSize: "16px", fontFamily: "monospace"}],
                                 ["raw-html", () => {return "Cooldown: " + formatTime(player.cb.crateTimers[4].max)}, {color: "#dbe4ff", fontSize: "16px", fontFamily: "monospace"}],
@@ -2569,6 +2585,9 @@ addLayer("ev1", {
                             ["style-column", [
                                 ["raw-html", "Crate Button 6", {color: "#dbe4ff", fontSize: "24px", fontFamily: "monospace"}],
                             ], {width: "250px", height: "37px", borderBottom: "3px solid #17254c"}],
+                            ["layer-proxy",["cb",
+                                [["clickable", 106,{"width":"250px"}]],
+                            ]],
                             ["style-column", [
                                 ["raw-html", () => {return "Crate Roll Chance: " + formatSimple(player.cb.crateTimers[5].base.mul(100), 1) + "%"}, {color: "#dbe4ff", fontSize: "16px", fontFamily: "monospace"}],
                                 ["raw-html", () => {return "Cooldown: " + formatTime(player.cb.crateTimers[5].max)}, {color: "#dbe4ff", fontSize: "16px", fontFamily: "monospace"}],
@@ -2583,6 +2602,9 @@ addLayer("ev1", {
                             ["style-column", [
                                 ["raw-html", "Crate Button 7", {color: "#dbe4ff", fontSize: "24px", fontFamily: "monospace"}],
                             ], {width: "250px", height: "37px", borderBottom: "3px solid #17254c"}],
+                            ["layer-proxy",["cb",
+                                [["clickable", 107,{"width":"250px"}]],
+                            ]],
                             ["style-column", [
                                 ["raw-html", () => {return "Crate Roll Chance: " + formatSimple(player.cb.crateTimers[6].base.mul(100), 1) + "%"}, {color: "#dbe4ff", fontSize: "16px", fontFamily: "monospace"}],
                                 ["raw-html", () => {return "Cooldown: " + formatTime(player.cb.crateTimers[6].max)}, {color: "#dbe4ff", fontSize: "16px", fontFamily: "monospace"}],
@@ -2603,7 +2625,7 @@ addLayer("ev1", {
             ["raw-html", "<img src='resources/petPoint.png'style='width:40px;height:40px;margin:5px'></img>", {width: "50px", height: "50px", display: "block"}],
             ["raw-html", () => { return formatShort(player.cb.petPoints)}, {width: "95px", height: "50px", color: "#A2D800", display: "inline-flex", alignItems: "center", paddingLeft: "5px"}],
             ["raw-html", "<div class='bottomTooltip'>Pet Points<hr><small>(Gained from rare pet buttons)</small></div>"],
-        ], {width: "150px", height: "50px", backgroundColor: "black", border: "2px solid white", borderRadius: "10px", userSelect: "none"}],
+        ], {width: "150px", height: "50px", backgroundColor: "black", border: "2px solid #cc4533", borderRadius: "10px", userSelect: "none"}],
         ["blank", "10px"],
         ["microtabs", "Tabs", {borderWidth: "0"}],
         ["blank", "10px"],

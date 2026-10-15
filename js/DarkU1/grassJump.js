@@ -1,6 +1,7 @@
 addLayer("dgj", {
     name: "<span style='text-shadow:0 0 5px #00FEFF'>Grass Jump</span>", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "<span style='text-shadow:0 0 5px #00FEFF'>GJ</span>", // This appears on the layer's node. Default is the id with the first letter capitalized
+    universe: "D1",
     row: 1,
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
@@ -30,7 +31,7 @@ addLayer("dgj", {
         };
     },
     tooltip: "Grass Jump",
-    branches: [["dgr", "#309"]],
+    branches: [["dgr", "#309"],["db", "#309"]],
     color: "black",
     update(delta) {
         let onepersec = new Decimal(1)
@@ -38,7 +39,7 @@ addLayer("dgj", {
         let grassJumpDiv = new Decimal(1)
         if (getLevelableTier("pu", 113, true)) grassJumpDiv = grassJumpDiv.mul(levelableEffect("pu", 113)[0])
         if (getLevelableTier("pu", 213, true)) grassJumpDiv = grassJumpDiv.mul(levelableEffect("pu", 213)[0])
-        grassJumpDiv = grassJumpDiv.mul(levelableEffect("st", 305)[0])
+        grassJumpDiv = grassJumpDiv.mul(levelableEffect("spet", 305)[0])
         
         player.dgj.grassJumpReq = Decimal.pow(1e10, player.dgj.grassJump).mul(1e20).div(grassJumpDiv)
         
@@ -47,7 +48,7 @@ addLayer("dgj", {
         player.dgj.milestone1Effect = Decimal.pow(1.5, player.dgj.grassJump)
         player.dgj.milestone2Effect = Decimal.pow(2, player.dgj.grassJump)
         player.dgj.milestone3Effect = Decimal.pow(1.05, player.dgj.grassJump)
-        player.dgj.milestone5Effect = buyableEffect("dgr", 13).mul(levelableEffect("st", 206)[0]).mul(buyableEffect("st", 102))
+        player.dgj.milestone5Effect = buyableEffect("dgr", 13).mul(levelableEffect("spet", 206)[0]).mul(buyableEffect("st", 102))
         player.dgj.milestone6Effect = Decimal.pow(1.01, player.dgj.grassJump.sub(11).max(0))
         player.dgj.milestone7Effect = Decimal.pow(1.05, player.dgj.grassJump.sub(15).max(0))
 
@@ -63,13 +64,14 @@ addLayer("dgj", {
                 if (player.pet.legPetTimers[0].current.lte(0)) return "Reset previous content for<br>grass jumps<br>[ONLY OBTAINABLE IN ECLIPSE]"
                 return "Reset previous content for<br>grass jumps<br>Req: " + format(player.dgj.grassJumpReq) + " dark grass"
             },
-            canClick() { return player.pet.legPetTimers[0].current.gt(0) && player.dgr.grass.gte(player.dgj.grassJumpReq) },
+            canClick() { return player.pet.legPetTimers[0].current.gt(0) && player.dgr.grass.gte(player.dgj.grassJumpReq) && !player.le.universeResetSafety },
             unlocked() { return true },
             onClick() {
                 false ? player.dgj.grassJump = player.dgj.grassJump.add(player.dgj.grassJumpGain) : player.dgj.grassJump = player.dgj.grassJump.add(1);
-                player.dgr.grass = player.dgr.grass.sub(player.dgj.grassJumpReq)
 
-                player.le.starmetalAlloyPause = new Decimal(10)
+                player.le.universeResetSafety = true
+
+                layers.le.starmetalReset()
             },
             onHold() { clickClickable(this.layer, this.id) },
             style() {
@@ -463,6 +465,18 @@ addLayer("dgj", {
         ["microtabs", "stuff", { 'border-width': '0px' }],
         ["blank", "25px"],
     ],
-    layerShown() { return hasUpgrade("le", 202) },
+    layerShown() {
+        if(hasUpgrade("le", 202)) return true
+        else return "ghost"
+     },
     deactivated() { return !player.sma.inStarmetalChallenge},
+    hotkeys: [
+        {
+            key: "j", 
+            description: "Grass Jump",
+            onPress() {
+                clickClickable(this.layer, 11)
+            },
+        }
+	]
 })

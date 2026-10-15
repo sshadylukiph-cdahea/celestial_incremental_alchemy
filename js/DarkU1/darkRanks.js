@@ -1,8 +1,10 @@
 ﻿addLayer("dr", {
     name: "Dark Ranks", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "R", // This appears on the layer's node. Default is the id with the first letter capitalized
+    universe: "D1",
     row: 1,
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    universe: "D1",
     startData() { return {
         unlocked: true,
 
@@ -56,7 +58,6 @@
         };
     },
     tooltip: "Ranks",
-    branches: [["le", "#309"]],
     color: "black",
     update(delta) {
         let onepersec = new Decimal(1)
@@ -64,15 +65,15 @@
         // Rank/Tier/Tetr/Pent Dividers
         player.dr.rankDiv = new Decimal(1)
         player.dr.rankDiv = player.dr.rankDiv.mul(buyableEffect("dp", 11))
-        player.dr.rankDiv = player.dr.rankDiv.mul(levelableEffect("st", 202)[0])
+        player.dr.rankDiv = player.dr.rankDiv.mul(levelableEffect("spet", 202)[0])
 
         player.dr.tierDiv = new Decimal(1)
         player.dr.tierDiv = player.dr.tierDiv.mul(buyableEffect("dp", 12))
-        player.dr.tierDiv = player.dr.tierDiv.mul(levelableEffect("st", 203)[0])
+        player.dr.tierDiv = player.dr.tierDiv.mul(levelableEffect("spet", 203)[0])
 
         player.dr.tetrDiv = new Decimal(1)
         player.dr.tetrDiv = player.dr.tetrDiv.mul(buyableEffect("dp", 13))
-        player.dr.tetrDiv = player.dr.tetrDiv.mul(levelableEffect("st", 204)[0])
+        player.dr.tetrDiv = player.dr.tetrDiv.mul(levelableEffect("spet", 204)[0])
 
         player.dr.pentDiv = new Decimal(1)
 
@@ -192,10 +193,9 @@
         if (getLevelableTier("pu", 301, true)) player.dr.rankPointsPerSecond = player.dr.rankPointsPerSecond.mul(levelableEffect("pu", 301)[0])
         if (getLevelableTier("pu", 307, true)) player.dr.rankPointsPerSecond = player.dr.rankPointsPerSecond.mul(levelableEffect("pu", 307)[0])
         player.dr.rankPointsPerSecond = player.dr.rankPointsPerSecond.mul(buyableEffect("dgr", 15))
-        player.dr.rankPointsPerSecond = player.dr.rankPointsPerSecond.mul(levelableEffect("st", 102)[0])
+        player.dr.rankPointsPerSecond = player.dr.rankPointsPerSecond.mul(levelableEffect("spet", 102)[0])
         if (player.pet.legPetTimers[0].active) player.dr.rankPointsPerSecond = player.dr.rankPointsPerSecond.pow(0.6)
         if (hasMilestone("db", 13)) player.dr.rankPointsPerSecond = player.dr.rankPointsPerSecond.mul(1000)
-        player.dr.rankPointsPerSecond = player.dr.rankPointsPerSecond.mul(levelableEffect("car", 402)[0])
 
 
         player.dr.tierPoints = player.dr.tierPoints.add(player.dr.tierPointsPerSecond.mul(delta))   
@@ -210,10 +210,9 @@
         if (getLevelableTier("pu", 301, true)) player.dr.tierPointsPerSecond = player.dr.tierPointsPerSecond.mul(levelableEffect("pu", 301)[0])
         if (getLevelableTier("pu", 307, true)) player.dr.tierPointsPerSecond = player.dr.tierPointsPerSecond.mul(levelableEffect("pu", 307)[0])
         player.dr.tierPointsPerSecond = player.dr.tierPointsPerSecond.mul(buyableEffect("dgr", 15))
-        player.dr.tierPointsPerSecond = player.dr.tierPointsPerSecond.mul(levelableEffect("st", 103)[0])
+        player.dr.tierPointsPerSecond = player.dr.tierPointsPerSecond.mul(levelableEffect("spet", 103)[0])
         if (player.pet.legPetTimers[0].active) player.dr.tierPointsPerSecond = player.dr.tierPointsPerSecond.pow(0.6)
         if (hasMilestone("db", 13)) player.dr.tierPointsPerSecond = player.dr.tierPointsPerSecond.mul(100)
-        player.dr.tierPointsPerSecond = player.dr.tierPointsPerSecond.mul(levelableEffect("car", 402)[0])
 
 
         player.dr.tetrPoints = player.dr.tetrPoints.add(player.dr.tetrPointsPerSecond.mul(delta))
@@ -228,10 +227,9 @@
         if (getLevelableTier("pu", 301, true)) player.dr.tetrPointsPerSecond = player.dr.tetrPointsPerSecond.mul(levelableEffect("pu", 301)[0])
         if (getLevelableTier("pu", 307, true)) player.dr.tetrPointsPerSecond = player.dr.tetrPointsPerSecond.mul(levelableEffect("pu", 307)[0])
         player.dr.tetrPointsPerSecond = player.dr.tetrPointsPerSecond.mul(buyableEffect("dgr", 15))
-        player.dr.tetrPointsPerSecond = player.dr.tetrPointsPerSecond.mul(levelableEffect("st", 104)[0])
+        player.dr.tetrPointsPerSecond = player.dr.tetrPointsPerSecond.mul(levelableEffect("spet", 104)[0])
         if (player.pet.legPetTimers[0].active) player.dr.tetrPointsPerSecond = player.dr.tetrPointsPerSecond.pow(0.6)
         if (hasMilestone("db", 13)) player.dr.tetrPointsPerSecond = player.dr.tetrPointsPerSecond.mul(10)
-        player.dr.tetrPointsPerSecond = player.dr.tetrPointsPerSecond.mul(levelableEffect("car", 402)[0])
 
 
         player.dr.pentPoints = player.dr.pentPoints.add(player.dr.pentPointsPerSecond.mul(delta))
@@ -240,7 +238,7 @@
         player.dr.pentPointsPerSecond = Decimal.pow(5, player.dr.pent).sub(1).div(5)
         if (getLevelableTier("pu", 301, true)) player.dr.pentPointsPerSecond = player.dr.pentPointsPerSecond.mul(levelableEffect("pu", 301)[0])
         if (getLevelableTier("pu", 307, true)) player.dr.pentPointsPerSecond = player.dr.pentPointsPerSecond.mul(levelableEffect("pu", 307)[0])
-        player.dr.pentPointsPerSecond = player.dr.pentPointsPerSecond.mul(levelableEffect("st", 205)[0])
+        player.dr.pentPointsPerSecond = player.dr.pentPointsPerSecond.mul(levelableEffect("spet", 205)[0])
 
     },
     bars: {},
@@ -495,6 +493,36 @@
         ["microtabs", "stuff", { 'border-width': '0px' }],
         ["blank", "25px"],
     ],
-    layerShown() { return hasUpgrade("le", 11) },
+    layerShown() { return hasUpgrade("le", 11) ? true : 'ghost'  },
     deactivated() { return !player.sma.inStarmetalChallenge},
+    hotkeys: [
+        {
+            key: "2", 
+            description: "Dark Rank Up",
+            onPress() {
+                clickClickable(this.layer, 11)
+            },
+        },
+        {
+            key: "3", 
+            description: "Dark Tier Up",
+            onPress() {
+                clickClickable(this.layer, 12)
+            },
+        },
+        {
+            key: "4", 
+            description: "Dark Tetr Up",
+            onPress() {
+                clickClickable(this.layer, 13)
+            },
+        },
+        {
+            key: "5", 
+            description: "Dark Pent Up",
+            onPress() {
+                clickClickable(this.layer, 14)
+            },
+        }
+    ],
 })

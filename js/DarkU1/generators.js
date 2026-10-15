@@ -1,13 +1,15 @@
 ﻿addLayer("dg", {
     name: "Generators", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "G", // This appears on the layer's node. Default is the id with the first letter capitalized
+    universe: "D1",
     row: 1,
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    universe: "D1",
     startData() { return {
         unlocked: true,
 
         generators: new Decimal(0),
-        generatorPause: new Decimal(0),
+        generatorResetSafety: false,
         generatorEffect: new Decimal(0),
         generatorsToGet: new Decimal(0),
 
@@ -43,7 +45,7 @@
         if (getLevelableTier("pu", 106, true)) player.dg.generatorsToGet = player.dg.generatorsToGet.mul(levelableEffect("pu", 106)[0])
         if (getLevelableTier("pu", 106, true)) player.dg.generatorsToGet = player.dg.generatorsToGet.mul(buyableEffect("dg", 14))
         if (getLevelableTier("pu", 301, true)) player.dg.generatorsToGet = player.dg.generatorsToGet.mul(levelableEffect("pu", 301)[0])
-        player.dg.generatorsToGet = player.dg.generatorsToGet.mul(levelableEffect("st", 106)[0])
+        player.dg.generatorsToGet = player.dg.generatorsToGet.mul(levelableEffect("spet", 106)[0])
         if (getLevelableTier("pu", 210, true)) player.dg.generatorsToGet = player.dg.generatorsToGet.mul(levelableEffect("pu", 210)[0])
         player.dg.generatorsToGet = player.dg.generatorsToGet.mul(levelableEffect("car", 404)[0])
         
@@ -60,15 +62,10 @@
         if (getLevelableTier("pu", 107, true)) player.dg.generatorPowerPerSecond = player.dg.generatorPowerPerSecond.mul(levelableEffect("pu", 107)[0])
         if (getLevelableTier("pu", 107, true)) player.dg.generatorPowerPerSecond = player.dg.generatorPowerPerSecond.mul(buyableEffect("dg", 15))
         if (getLevelableTier("pu", 301, true)) player.dg.generatorPowerPerSecond = player.dg.generatorPowerPerSecond.mul(levelableEffect("pu", 301)[0])
-        player.dg.generatorPowerPerSecond = player.dg.generatorPowerPerSecond.mul(levelableEffect("st", 107)[0])
+        player.dg.generatorPowerPerSecond = player.dg.generatorPowerPerSecond.mul(levelableEffect("spet", 107)[0])
 
         // GENERATOR POWER SOFTCAP
         if (player.dg.generatorPowerPerSecond.gte(1e250)) player.dg.generatorPowerPerSecond = player.dg.generatorPowerPerSecond.div(1e250).pow(0.2).mul(1e250)
-
-        if (player.dg.generatorPause.gte(0)) {
-            layers.dg.generatorReset();
-        }
-        player.dg.generatorPause = player.dg.generatorPause.sub(1)
 
         if (player.dg.generatorPower.lt(1e9)) {
             player.dg.generatorPowerEffect = player.dg.generatorPower.add(1).pow(0.5).pow(player.dgr.grassEffect)
@@ -80,20 +77,18 @@
         player.dg.generatorPowerEffect = player.dg.generatorPowerEffect.pow(buyableEffect("dn", 15))
 
         player.dg.generators = player.dg.generators.add(player.dg.generatorsToGet.mul(buyableEffect("dn", 13)).mul(delta))
-        if (hasUpgrade("sma", 205) && !player.pet.legPetTimers[0].active) player.dg.generators = player.dg.generators.add(player.dg.generatorsToGet.mul(0.01).mul(delta))
+        if (hasUpgrade("sma", 205) && !player.pet.legPetTimers[0].active) player.dg.generators = player.dg.generators.add(player.dg.generatorsToGet.mul(0.01).mul(delta));
+        player.dg.generatorResetSafety = false
     },
     bars: {},
-    generatorReset() {
-        player.du.points = new Decimal(0)
-        player.dr.rank = new Decimal(0)
-        player.dr.tier = new Decimal(0)
-        player.dr.tetr = new Decimal(0)
+    generatorReset(isRewarded = false) {
+        if (isRewarded) player.dg.generators = player.dg.generators.add(player.dg.generatorsToGet);
 
-        player.dr.rankPoints = new Decimal(0)
-        player.dr.tierPoints = new Decimal(0)
-        player.dr.tetrPoints = new Decimal(0)
+        layers.dp.prestigeReset()
 
         player.dp.prestigePoints = new Decimal(0)
+        player.dp.prestigePointsToGet = new Decimal(0)
+        player.dp.prestigePointsEffect = new Decimal(1)
         player.dp.buyables[11] = new Decimal(0)
         player.dp.buyables[12] = new Decimal(0)
         player.dp.buyables[13] = new Decimal(0)
@@ -102,16 +97,19 @@
         player.dp.buyables[16] = new Decimal(0)
 
         player.dg.generatorPower = new Decimal(0)
+        player.dg.generatorPowerPerSecond = new Decimal(0)
+        player.dg.generatorPowerEffect = new Decimal(1)
     },
     clickables: {
         11: {
             title() { return "<h2>Reset previous content for generators." },
-            canClick() { return player.dg.generatorsToGet.gte(1) },
+            canClick() { return player.dg.generatorsToGet.gte(1) && !player.dg.generatorResetSafety },
             unlocked() { return true },
             onClick() {
-                player.dg.generators = player.dg.generators.add(player.dg.generatorsToGet)
-                player.dg.generatorPause = new Decimal(10)
+                layers.dg.generatorReset(true)
+                player.dg.generatorResetSafety = true
             },
+            onHold() { clickClickable(this.layer, this.id) },
             style() {
                 let look = {width: "400px", minHeight: "100px", borderRadius: "15px", color: "white", border: "2px solid #0a593c", margin: "1px"}
                 !this.canClick() ? look.backgroundColor =  "#361e1e" : look.backgroundColor = "black"
@@ -389,6 +387,19 @@
         ["microtabs", "stuff", { 'border-width': '0px' }],
         ["blank", "25px"],
     ],
-    layerShown() { return hasUpgrade("le", 17) },
+    layerShown() {
+        if(hasUpgrade("le", 17)) return true
+        else return "ghost"
+     },
     deactivated() { return !player.sma.inStarmetalChallenge},
+    hotkeys: [
+        {
+            key: "g", 
+            description: "Reset for Generators",
+            onPress() {
+                clickClickable(this.layer, 11)
+            },
+        },  
+    ],
+
 })

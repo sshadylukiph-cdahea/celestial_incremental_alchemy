@@ -7,6 +7,7 @@ addLayer("achievements", {
         unlocked: true,
     }},
     achievements: {
+        // Part 1
         1: {
             name: "First Reset<br><small>(of many)</small>",
             image: "resources/achievements/1_01.png",
@@ -204,7 +205,7 @@ addLayer("achievements", {
             complete() {return hasUpgrade("i", 32) || inChallenge("ip", 14)},
             unlocked: true,
         },
-
+        // Part 2
         101: {
             name: "To Infinity",
             image: "resources/achievements/2_01.png",
@@ -214,7 +215,7 @@ addLayer("achievements", {
         },
         102: {
             name: "New Dimensions",
-            image: "resources/achievements/2_00.png",
+            image: "resources/achievements/2_02.png",
             tooltip: "<h3>New Dimensions</h3><hr style='margin-bottom:4px'>Do your first dimension<br>boost.",
             color: "#ffbf00",
             unlocked: true,
@@ -236,14 +237,14 @@ addLayer("achievements", {
         },
         105: {
             name: "Kept Time",
-            image: "resources/achievements/2_00.png",
+            image: "resources/achievements/2_05.png",
             tooltip: "<h3>Kept Time</h3><hr style='margin-bottom:4px'>Reach the third<br>infinity milestone.",
             color: "#ffbf00",
             unlocked: true,
         },
         106: {
             name: "Galactic Gains",
-            image: "resources/achievements/2_00.png",
+            image: "resources/achievements/2_06.png",
             tooltip: "<h3>Galactic Gains</h3><hr style='margin-bottom:4px'>Buy an antimatter galaxy.",
             color: "#ffbf00",
             unlocked: true,
@@ -276,7 +277,7 @@ addLayer("achievements", {
         },
         110: {
             name: "Rough Resets",
-            image: "resources/achievements/2_00.png",
+            image: "resources/achievements/2_10.png",
             tooltip: "<h3>Rough Resets</h3><hr style='margin-bottom:4px'>Reset for over<br>6 β-Provenance.<br><br>Reward: β-Provenances<br>are 10% cheaper.",
             color: "#ffbf00",
             complete() {return hasMilestone("hre", 6)},
@@ -285,7 +286,7 @@ addLayer("achievements", {
         },
         111: {
             name: "Hexing Challenge",
-            image: "resources/achievements/2_00.png",
+            image: "resources/achievements/2_11.png",
             tooltip: "<h3>Hexing Challenge</h3><hr style='margin-bottom:4px'>Beat infinity challenge 3.<br><br>Reward: x1.1 Infinities.",
             color: "#ffbf00",
             complete() {return hasChallenge("ip", 13)},
@@ -343,7 +344,7 @@ addLayer("achievements", {
         },
         118: {
             name: "Automated Scripts",
-            image: "resources/achievements/2_00.png",
+            image: "resources/achievements/2_18.png",
             tooltip: "<h3>Automated Scripts</h3><hr style='margin-bottom:4px'>Reach the twelfth<br>infinity milestone.",
             color: "#ffbf00",
             unlocked: true,
@@ -366,7 +367,7 @@ addLayer("achievements", {
         },
         121: {
             name: "Bless Up",
-            image: "resources/achievements/2_00.png",
+            image: "resources/achievements/2_21.png",
             tooltip: "<h3>Bless Up</h3><hr style='margin-bottom:4px'>Do your first<br>blessing reset.",
             color: "#ffbf00",
             unlocked: true,
@@ -382,7 +383,7 @@ addLayer("achievements", {
         },
         123: {
             name: "4x4",
-            image: "resources/achievements/2_00.png",
+            image: "resources/achievements/2_23.png",
             tooltip: "<h3>4x4</h3><hr style='margin-bottom:4px'>Reach 4 4th dimensions<br>without any dim-boosts<br>in infinity challenge 8.<br><br>Reward: Double Antimatter<br>Dimensions.",
             color: "#ffbf00",
             unlocked: true,
@@ -390,14 +391,384 @@ addLayer("achievements", {
         },
         124: {
             name: "The 8th Dimension is a lie",
-            image: "resources/achievements/2_00.png",
+            image: "resources/achievements/2_24.png",
             tooltip: "<h3>The 8th Dimension is a lie</h3><hr style='margin-bottom:4px'>Beat infinity challenge 8.<br><br>Reward: x1.1 Infinities.",
             color: "#ffbf00",
             complete() {return hasChallenge("ip", 18)},
             unlocked: true,
             marked: true,
         },
-
+        // Part 3
+        201: {
+            name: "To...  Negative Infinity?",
+            image: "resources/achievements/3_01.png",
+            tooltip: "<h3>To...  Negative Infinity?</h3><hr style='margin-bottom:4px'>Reach negative infinity.",
+            color: "#b2d8d8",
+            unlocked: true,
+        },
+        202: {
+            name: "Kept Dimensions",
+            image: "resources/achievements/3_02.png",
+            tooltip: "<h3>Kept Dimensions</h3><hr style='margin-bottom:4px'>Buy a Dimboost Reserve.",
+            color: "#b2d8d8",
+            complete() {return getBuyableAmount("ta", 38).gte(1)},
+            unlocked: true,
+        },
+        203: {
+            name: "Power Boost",
+            image: "resources/achievements/3_03.png",
+            tooltip: "<h3>Power Boost</h3><hr style='margin-bottom:4px'>Buy the 3rd NIP upgrade.",
+            color: "#b2d8d8",
+            complete() {return hasUpgrade("ta", 13)},
+            unlocked: true,
+        },
+        204: {
+            name: "Age of Automation",
+            image: "resources/achievements/3_04.png",
+            tooltip: "<h3>Age of Automation</h3><hr style='margin-bottom:4px'>Have at least 1 divider<br>for each autobuyer.<br><br>Reward: +1 base NIP gain.",
+            color: "#b2d8d8",
+            unlocked: true,
+            marked: true,
+        },
+        205: {
+            name: "New Blessings",
+            image: "resources/achievements/3_05.png",
+            tooltip: "<h3>New Blessings</h3><hr style='margin-bottom:4px'>Buy the 5th NIP upgrade.",
+            color: "#b2d8d8",
+            complete() {return hasUpgrade("ta", 15)},
+            unlocked: true,
+        },
+        206: {
+            name: "Cursed!",
+            image: "resources/achievements/3_06.png",
+            tooltip: "<h3>Cursed!</h3><hr style='margin-bottom:4px'>Buy the 6th NIP upgrade.",
+            color: "#b2d8d8",
+            complete() {return hasUpgrade("ta", 16)},
+            unlocked: true,
+        },
+        207: {
+            name: "OTF Synergy",
+            image: "resources/achievements/3_07.png",
+            tooltip: "<h3>OTF Synergy</h3><hr style='margin-bottom:4px'>Buy the 7th NIP upgrade.",
+            color: "#b2d8d8",
+            complete() {return hasUpgrade("ta", 17)},
+            unlocked: true,
+        },
+        208: {
+            name: "More XP",
+            image: "resources/achievements/3_08.png",
+            tooltip: "<h3>More XP</h3><hr style='margin-bottom:4px'>Do your first XPBoost reset.<br><br>Reward: Increase check back<br>XP gain by 50%.",
+            color: "#b2d8d8",
+            unlocked: true,
+            marked: true,
+        },
+        209: {
+            name: "Who needs galaxies anyway?",
+            image: "resources/achievements/3_09.png",
+            tooltip: "<h3>Who needs galaxies anyway?</h3><hr style='margin-bottom:4px'>Reach negative infinity without<br>buying any antimatter galaxies.<br><br>Reward: +1 base NIP gain.",
+            color: "#b2d8d8",
+            unlocked: true,
+            marked: true,
+        },
+        210: {
+            name: "Amazing Grace",
+            image: "resources/achievements/3_10.png",
+            tooltip: "<h3>Amazing Grace</h3><hr style='margin-bottom:4px'>Buy the 8th NIP upgrade.",
+            color: "#b2d8d8",
+            complete() {return hasUpgrade("ta", 18)},
+            unlocked: true,
+        },
+        211: {
+            name: "Fullmetal Infinities",
+            image: "resources/achievements/3_11.png",
+            tooltip: "<h3>Fullmetal Infinities</h3><hr style='margin-bottom:4px'>Buy the first 16<br>infinity upgrades.<br><br>Reward: Increase IP<br>gain by 50%.",
+            color: "#b2d8d8",
+            unlocked: true,
+            marked: true,
+        },
+        212: {
+            name: "OTFs and NIP, Oh My!",
+            image: "resources/achievements/3_12.png",
+            tooltip: "<h3>OTFs and NIP, Oh My!</h3><hr style='margin-bottom:4px'>Buy the 9th NIP upgrade.",
+            color: "#b2d8d8",
+            complete() {return hasUpgrade("ta", 19)},
+            unlocked: true,
+        },
+        213: {
+            name: "Tav's Domain",
+            image: "resources/achievements/3_13.png",
+            tooltip: "<h3>Tav's Domain</h3><hr style='margin-bottom:4px'>Buy the 10th NIP upgrade.",
+            color: "#b2d8d8",
+            complete() {return hasUpgrade("ta", 21)},
+            unlocked: true,
+        },
+        214: {
+            name: "You have collapsed!",
+            image: "resources/achievements/3_14.png",
+            tooltip: "<h3>You have collapsed!</h3><hr style='margin-bottom:4px'>Collapse Tav's Domain.<br><br>Reward: +1 base NIP gain.",
+            color: "#b2d8d8",
+            unlocked: true,
+            marked: true,
+        },
+        215: {
+            name: "Domain Expansion",
+            image: "resources/achievements/3_15.png",
+            tooltip: "<h3>Domain Expansion</h3><hr style='margin-bottom:4px'>Buy the infinitum upgrade in<br>row 1, column 5.",
+            color: "#b2d8d8",
+            complete() {return hasUpgrade("tad", 115)},
+            unlocked: true,
+        },
+        216: {
+            name: "A little harder...",
+            image: "resources/achievements/3_16.png",
+            tooltip: "<h3>A little harder...</h3><hr style='margin-bottom:4px'>Collapse Tav's Domain with a<br>cap of at least 1e6 matter.<br><br>Reward: Increase matter<br>gain by 25%.",
+            color: "#b2d8d8",
+            unlocked: true,
+            marked: true,
+        },
+        217: {
+            name: "A step up...",
+            image: "resources/achievements/3_17.png",
+            tooltip: "<h3>A step up...</h3><hr style='margin-bottom:4px'>Collapse Tav's Domain with a<br>cap of at least 1e7 matter.<br><br>Reward: Increase matter<br>gain by 25%.",
+            color: "#b2d8d8",
+            unlocked: true,
+            marked: true,
+        },
+        218: {
+            name: "Not an AD Ach 34 Copy",
+            image: "resources/achievements/3_18.png",
+            tooltip: "<h3>Not an AD Ach 34 Copy</h3><hr style='margin-bottom:4px'>Reach negative infinity<br>without any 8th dimensions.<br><br>Reward: +1 base NIP gain.",
+            color: "#b2d8d8",
+            unlocked: true,
+            marked: true,
+        },
+        219: {
+            name: "Compress!",
+            image: "resources/achievements/3_19.png",
+            tooltip: "<h3>Compress!</h3><hr style='margin-bottom:4px'>Do your first<br>compression reset.<br><br>Reward: Increase matter<br>gain by 50%.",
+            color: "#b2d8d8",
+            complete() {return player.tad.altInfinities.disfigured.milestone.gte(3)},
+            unlocked: true,
+            marked: true,
+        },
+        220: {
+            name: "New Effects",
+            image: "resources/achievements/3_20.png",
+            tooltip: "<h3>New Effects</h3><hr style='margin-bottom:4px'>Buy the infinitum upgrade in<br>row 3, column 3.<br><br>Reward: Increase matter<br>gain by 50%.",
+            color: "#b2d8d8",
+            unlocked: true,
+            marked: true,
+        },
+        221: {
+            name: "Infinity Conversion",
+            image: "resources/achievements/3_21.png",
+            tooltip: "<h3>Infinity Conversion</h3><hr style='margin-bottom:4px'>Create an alternative<br>infinity.<br><br>Reward: Increase matter<br>gain by 50%.",
+            color: "#b2d8d8",
+            complete() {return player.tad.altInfinities.broken.amount.gte(1) || player.tad.altInfinities.shattered.amount.gte(1) || player.tad.altInfinities.fragmented.amount.gte(1)},
+            unlocked: true,
+            marked: true,
+        },
+        222: {
+            name: "Centfinitum",
+            image: "resources/achievements/3_22.png",
+            tooltip: "<h3>Centfinitum</h3><hr style='margin-bottom:4px'>Have at least 100 infinitum.<br><br>Reward: Increase infinitum<br>gain by 50%.",
+            color: "#b2d8d8",
+            unlocked: true,
+            marked: true,
+        },
+        223: {
+            name: "Seriously?",
+            image: "resources/achievements/3_23.png",
+            tooltip: "<h3>Seriously?</h3><hr style='margin-bottom:4px'>Reach negative infinity without<br>any 7th or 8th dimensions.<br><br>Reward: +1 base NIP gain.",
+            color: "#b2d8d8",
+            unlocked: true,
+            marked: true,
+        },
+        224: {
+            name: "Goodbye, Friend...",
+            image: "resources/achievements/3_24.png",
+            tooltip: "<h3>Goodbye, Friend...</h3><hr style='margin-bottom:4px'>Kill Tav.",
+            color: "#b2d8d8",
+            complete() {return player.in.unlockedBreak},
+            unlocked: true,
+        },
+        // Part 4
+        301: {
+            name: "Wait, THAT'S AN OTF??!!?!",
+            image: "resources/achievements/4_01.png",
+            tooltip: "<h3>Wait, THAT'S AN OTF??!!?!</h3><hr style='margin-bottom:4px'>Break infinity.<br><br>Reward: Double IP gain.",
+            color: "#2b7f0a",
+            complete() {return player.po.breakInfinity},
+            unlocked: true,
+            marked: true,
+        },
+        302: {
+            name: "Primary Pollinators",
+            image: "resources/achievements/4_02.png",
+            tooltip: "<h3>Primary Pollinators</h3><hr style='margin-bottom:4px'>Buy the 4th pollinator<br>upgrade.<br><br>Reward: Increase pollinator<br>gain by 25%.",
+            color: "#2b7f0a",
+            unlocked: true,
+            marked: true,
+        },
+        303: {
+            name: "Auto Alphas",
+            image: "resources/achievements/4_03.png",
+            tooltip: "<h3>Auto Alphas</h3><hr style='margin-bottom:4px'>Reach 30 refinements.<br><br>Reward: Increase hex point<br>gain by 50%.",
+            color: "#2b7f0a",
+            unlocked: true,
+            marked: true,
+        },
+        304: {
+            name: "Pent Increased?",
+            image: "resources/achievements/4_04.png",
+            tooltip: "<h3>Pent Increased?</h3><hr style='margin-bottom:4px'>Reach Pent 80.<br><br>Reward: Decrease pent<br>requirement by /100.",
+            color: "#2b7f0a",
+            unlocked: true,
+            marked: true,
+        },
+        305: {
+            name: "Level Slowdown",
+            image: "resources/achievements/4_05.png",
+            tooltip: "<h3>Level Slowdown</h3><hr style='margin-bottom:4px'>Reach check back<br>level 1,000.<br><br>Reward: Double check<br>back XP gain.",
+            color: "#2b7f0a",
+            unlocked: true,
+            marked: true,
+        },
+        306: {
+            name: "Dark Friends",
+            image: "resources/achievements/4_06.png",
+            tooltip: "<h3>Dark Friends</h3><hr style='margin-bottom:4px'>Evolve Gwa.",
+            color: "#2b7f0a",
+            complete() {return getLevelableAmount("pet", 1101).gt(0)},
+            unlocked: true,
+        },
+        307: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        308: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        309: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        310: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        311: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        312: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        313: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        314: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        315: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        316: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        317: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        318: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        319: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        320: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        321: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        322: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        323: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        324: {
+            name: "Title",
+            image: "resources/achievements/4_00.png",
+            tooltip: "<h3>Title</h3><hr style='margin-bottom:4px'>Description",
+            color: "#2b7f0a",
+            unlocked: true,
+        },
+        // Part 10
         901: {
             name: "Buzzing Beginnings",
             image: "resources/achievements/10_00.png",
@@ -520,7 +891,7 @@ addLayer("achievements", {
         916: {
             name: "Break ... what exactly?",
             image: "resources/achievements/10_00.png",
-            tooltip: "<h3>Break ... what exactly?</h3><hr style='margin-bottom:4px'>Expand your hives limits<br><br>Reward: +25% Pre-Aleph<br>Resources",
+            tooltip: "<h3>Break ... what exactly?</h3><hr style='margin-bottom:4px'>Expand your hive's limits<br><br>Reward: +25% Pre-Aleph<br>Resources",
             color: "#f9c901",
             complete() {return player.tad.hiveExpand},
             unlocked: true,
@@ -544,7 +915,7 @@ addLayer("achievements", {
         919: {
             name: "Fully Apathetic",
             image: "resources/achievements/10_00.png",
-            tooltip: "<h3>Fully Apathetic</h3><hr style='margin-bottom:4px'>Expand your hives<br>limits again<br><br>Reward: +25% Pre-Aleph<br>Resources",
+            tooltip: "<h3>Fully Apathetic</h3><hr style='margin-bottom:4px'>Expand your hive's<br>limits again<br><br>Reward: +25% Pre-Aleph<br>Resources",
             color: "#f9c901",
             complete() {return hasChallenge("fu", 12)},
             unlocked: true,
@@ -590,12 +961,224 @@ addLayer("achievements", {
             complete() {return player.alephsChamber.milestone[25] > 0},
             unlocked: true,
         },
+        1201: {
+            name: "Welcome to Inter Space",
+            image: "resources/achievements/12_01.png",
+            tooltip: "<h3>Welcome to Inter Space</h3><hr style='margin-bottom:4px'>Enter interspace.",
+            color: "#994d99",
+            complete() {return player.lightRift.interspaceUnlocked},
+            unlocked: true,
+        },
+        1202: {
+            name: "Shallow Waters",
+            image: "resources/achievements/12_02.png",
+            tooltip: "<h3>Shallow Waters</h3><hr style='margin-bottom:4px'>Obtain a β ↻.<br><br>Reward: Gain +1 α ↻<br>on collect after<br>multipliers.",
+            color: "#994d99",
+            complete() {return player.wel.modules[2].completions.gt(0)},
+            unlocked: true,
+            marked: true,
+        },
+        1203: {
+            name: "α Thousand of Them",
+            image: "resources/achievements/12_03.png",
+            tooltip: "<h3>α Thousand of Them</h3><hr style='margin-bottom:4px'>Reach the ↻ effect<br>softcap.<br><br>Reward: Gain 5% more<br>light.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+            marked: true,
+        },
+        1204: {
+            name: "Time Attack",
+            image: "resources/achievements/12_04.png",
+            tooltip: "<h3>Time Attack</h3><hr style='margin-bottom:4px'>Store a time capsule.<br><br>Reward: Gain 10% more<br>time capsules.",
+            color: "#994d99",
+            complete() {return player.wel.modules[3].completions.gt(0)},
+            unlocked: true,
+            marked: true,
+        },
+        1205: {
+            name: "The Deep End",
+            image: "resources/achievements/12_05.png",
+            tooltip: "<h3>The Deep End</h3><hr style='margin-bottom:4px'>Obtain a γ ↻.<br><br>Reward: Gain +1 β ↻<br>on collect after<br>multipliers.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+            marked: true,
+        },
+        1206: {
+            name: "Every Last Drop",
+            image: "resources/achievements/12_06.png",
+            tooltip: "<h3>Every Last Drop</h3><hr style='margin-bottom:4px'>Store at least 7 time<br>capsules at once.<br><br>Reward: +1 base time<br>capsules stored.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+            marked: true,
+        },
+        1207: {
+            name: "Prismstigous",
+            image: "resources/achievements/12_07.png",
+            tooltip: "<h3>Prismstigous</h3><hr style='margin-bottom:4px'>Reset for a prism.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+        },
+        1208: {
+            name: "Brick by Brick",
+            image: "resources/achievements/12_08.png",
+            tooltip: "<h3>Brick by Brick</h3><hr style='margin-bottom:4px'>Get at least 1 ↻ for each<br>of the first three pyramid<br>fountains.<br><br>Reward: Gain 20% more light.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+            marked: true,
+        },
+        1209: {
+            name: "Taking Shape",
+            image: "resources/achievements/12_09.png",
+            tooltip: "<h3>Taking Shape</h3><hr style='margin-bottom:4px'>Get at least 1 ↻ for each<br>of the first six pyramid<br>fountains.<br><br>Reward: Light fountains<br>are 20% cheaper.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+            marked: true,
+        },
+        1210: {
+            name: "Speed Limit",
+            image: "resources/achievements/12_10.png",
+            tooltip: "<h3>Speed Limit</h3><hr style='margin-bottom:4px'>Exceed x100 light<br>well speed.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+        },
+        1211: {
+            name: "Faster than Light",
+            image: "resources/achievements/12_11.png",
+            tooltip: "<h3>Faster than Light</h3><hr style='margin-bottom:4px'>Blueshift a light<br>well.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+        },
+        1212: {
+            name: "We Could Only Fit Three",
+            image: "resources/achievements/12_12.png",
+            tooltip: "<h3>We Could Only Fit Three</h3><hr style='margin-bottom:4px'>Get 1 Dodecahedron ↻.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+        },
+        1213: {
+            name: "Midnight Zone",
+            image: "resources/achievements/12_13.png",
+            tooltip: "<h3>Midnight Zone</h3><hr style='margin-bottom:4px'>Obtain a δ ↻.<br><br>Reward: Gain 10%<br>more light well ↻<br>on collect.",
+            color: "#994d99",
+            complete() {return player.wel.modules[4].completions.gt(0)},
+            unlocked: true,
+            marked: true,
+        },
+        1214: {
+            name: "First Wonder of Interspace",
+            image: "resources/achievements/12_14.png",
+            tooltip: "<h3>First Wonder of Interspace</h3><hr style='margin-bottom:4px'>Get at least 1 ↻ for each<br>of the first nine pyramid<br>fountains.<br><br>Reward: Gain 20% more prisms.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+            marked: true,
+        },
+        1215: {
+            name: "Big Time",
+            image: "resources/achievements/12_15.png",
+            tooltip: "<h3>Big Time</h3><hr style='margin-bottom:4px'>Store at least 7,200<br>time capsules at once.<br><br>Reward: Generate twice<br>as much time energy.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+            marked: true,
+        },/*
+        1216: {
+            name: "Ultraviolet",
+            image: "resources/achievements/12_16.png",
+            tooltip: "<h3>Ultraviolet</h3><hr style='margin-bottom:4px'>Reset for starlight.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+        },
+        1217: {
+            name: "awwww kitty!!!",
+            image: "resources/achievements/12_17.png",
+            tooltip: "<h3>awwww kitty!!!</h3><hr style='margin-bottom:4px'>Unlock goobert.<br><br>Reward: Fragment<br>shop cooldowns<br>are 2% shorter.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+            marked: true,
+        },
+        1218: {
+            name: "okay this is getting ridiculous",
+            image: "resources/achievements/12_18.png",
+            tooltip: "<h3>okay this is getting<br>ridiculous</h3><hr style='margin-bottom:4px'>Get at least 1 ↻ for each<br>of the first twelve<br>pyramid fountains.<br><br>Reward: Pyramid fountains<br>are 20% cheaper.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+            marked: true,
+        },
+        1219: {
+            name: "Outerspace",
+            image: "resources/achievements/12_19.png",
+            tooltip: "<h3>Outerspace</h3><hr style='margin-bottom:4px'>Enter space zone<br>IV.<br><br>Reward: +2 max<br>ship health.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+            marked: true,
+        },
+        1220: {
+            name: "Advanced Classes",
+            image: "resources/achievements/12_20.png",
+            tooltip: "<h3>Advanced Classes</h3><hr style='margin-bottom:4px'>Get a project study ↻.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+        },
+        1221: {
+            name: "The Abyss",
+            image: "resources/achievements/12_21.png",
+            tooltip: "<h3>The Abyss</h3><hr style='margin-bottom:4px'>Obtain a ε ↻.<br><br>Reward: Gain 20%<br>more starlight.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+            marked: true,
+        },
+        1222: {
+            name: "Omen of Light",
+            image: "resources/achievements/12_22.png",
+            tooltip: "<h3>Omen of Light</h3><hr style='margin-bottom:4px'>Get at least 1 ↻ for<br>every pyramid fountain.<br><br>Reward: Gain +1 prism<br>well ↻ on collect after<br>multipliers.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+            marked: true,
+        },
+        1223: {
+            name: "I sure hope I keep this a while",
+            image: "resources/achievements/12_23.png",
+            tooltip: "<h3>I sure hope I keep<br>this a while</h3><hr style='margin-bottom:4px'>Obtain a θ ↻.<br><br>Reward: Gain 20%<br>more prism well ↻<br>on collect.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+            marked: true,
+        },
+        1224: {
+            name: "Elite Bumpy Knowledge",
+            image: "resources/achievements/12_24.png",
+            tooltip: "<h3>Elite Bumpy Knowledge</h3><hr style='margin-bottom:4px'>Have 60 total project ↻.",
+            color: "#994d99",
+            complete() {return false},
+            unlocked: true,
+        },*/
+        // Row 1: Wells of Light
+        // Row 2: Prisms to Light Well Delta
+        // Row 3: Light Well Delta to Wells of Prismatic
+        // Row 4: Wells of Prismatic to Cycle unlock
     },
     tooltip: "Achievements",
     color: "white",
     microtabs: {
         stars: {
-            1: {
+            1: { // Pre-Infinity
                 unlocked: true,
                 content: [
                     ["top-column", [
@@ -608,7 +1191,7 @@ addLayer("achievements", {
                     ], {width: "621px", height: "409px", background: "#111", borderLeft: "3px solid white", padding: "3px"}],
                 ],
             },
-            2: {
+            2: { // Infinity & IP Challenges
                 unlocked() {return hasAchievement("achievements", 101) || player.in.unlockedInfinity},
                 content: [
                     ["top-column", [
@@ -621,7 +1204,7 @@ addLayer("achievements", {
                     ], {width: "621px", height: "409px", background: "#191300", borderLeft: "3px solid white", padding: "3px"}],
                 ],
             },
-            3: {
+            3: { // Tav & NIP
                 unlocked() {return hasAchievement("achievements", 201) || (hasChallenge("ip", 18) || player.s.highestSingularityPoints.gt(0))},
                 content: [
                     ["top-column", [
@@ -634,20 +1217,23 @@ addLayer("achievements", {
                     ], {width: "621px", height: "409px", background: "#232b2b", borderLeft: "3px solid white", padding: "3px"}],
                 ],
             },
-            4: {
+            4: { // Early Break Infinity
                 unlocked() {return hasAchievement("achievements", 301) || player.in.unlockedBreak},
                 content: [
                     ["top-column", [
+                        ["raw-html", "WIP lol"],
+                        /*
                         ["row", [
                             ["achievement", 301], ["achievement", 302], ["achievement", 303], ["achievement", 304], ["achievement", 305], ["achievement", 306],
                             ["achievement", 307], ["achievement", 308], ["achievement", 309], ["achievement", 310], ["achievement", 311], ["achievement", 312],
                             ["achievement", 313], ["achievement", 314], ["achievement", 315], ["achievement", 316], ["achievement", 317], ["achievement", 318],
                             ["achievement", 319], ["achievement", 320], ["achievement", 321], ["achievement", 322], ["achievement", 323], ["achievement", 324],
                         ]],
+                        */
                     ], {width: "621px", height: "409px", background: "#081902", borderLeft: "3px solid white", padding: "3px"}],
                 ],
             },
-            5: {
+            5: { // Late BI, Cante, and Alt-Uni 1
                 unlocked() {return hasAchievement("achievements", 401) || (hasUpgrade("bi", 24) || player.s.highestSingularityPoints.gt(0))},
                 content: [
                     ["top-column", [
@@ -660,7 +1246,7 @@ addLayer("achievements", {
                     ], {width: "621px", height: "409px", background: "#021a25", borderLeft: "3px solid white", padding: "3px"}],
                 ],
             },
-            6: {
+            6: { // Early Singularity and Jocus
                 unlocked() {return hasAchievement("achievements", 501) || player.s.highestSingularityPoints.gt(0)},
                 content: [
                     ["top-column", [
@@ -673,7 +1259,7 @@ addLayer("achievements", {
                     ], {width: "621px", height: "409px", background: "#190606", borderLeft: "3px solid white", padding: "3px"}],
                 ],
             },
-            7: {
+            7: { // Starmetal Alloy, Dark-Uni 1, and Punchcards
                 unlocked() {return hasAchievement("achievements", 601) || hasUpgrade("s", 21)},
                 content: [
                     ["top-column", [
@@ -686,7 +1272,7 @@ addLayer("achievements", {
                     ], {width: "621px", height: "409px", background: "#000", borderLeft: "3px solid white", padding: "3px"}],
                 ],
             },
-            8: {
+            8: { // Matos and Early Black Heart
                 unlocked() {return hasAchievement("achievements", 701) || tmp.pu.levelables[302].canClick},
                 content: [
                     ["top-column", [
@@ -699,7 +1285,7 @@ addLayer("achievements", {
                     ], {width: "621px", height: "409px", background: "#1b0218", borderLeft: "3px solid white", padding: "3px"}],
                 ],
             },
-            9: {
+            9: { // Alt-Uni 2 and Iridite
                 unlocked() {return hasAchievement("achievements", 801) || player.matosLair.milestone[25] > 0},
                 content: [
                     ["top-column", [
@@ -712,7 +1298,7 @@ addLayer("achievements", {
                     ], {width: "621px", height: "409px", background: "#0b011c", borderLeft: "3px solid white", padding: "3px"}],
                 ],
             },
-            10: {
+            10: { // Early-Mid Hive
                 unlocked() {return hasAchievement("achievements", 901) || player.pol.unlockHive >= 2},
                 content: [
                     ["top-column", [
@@ -725,6 +1311,105 @@ addLayer("achievements", {
                     ], {width: "621px", height: "409px", background: "#191000", borderLeft: "3px solid white", padding: "3px"}],
                 ],
             },
+            11: {
+                unlocked() {return true},
+                content: [
+                    ["top-column", [
+                        ["row", [
+                            
+                        ]],
+                    ], {width: "621px", height: "409px", background: "#333", borderLeft: "3px solid white", padding: "3px"}],
+                ],
+            },
+            12: {
+                unlocked() {return true},
+                content: [
+                    ["top-column", [
+                        ["row", [
+                            
+                        ]],
+                    ], {width: "621px", height: "409px", background: "#333", borderLeft: "3px solid white", padding: "3px"}],
+                ],
+            },
+            13: { // Interspace before entering the cycle
+                unlocked() {return hasAchievement("achievements", 1201) || player.lightRift.interspaceUnlocked},
+                content: [
+                    ["top-column", [
+                        ["row", [
+                            ["achievement", 1201], ["achievement", 1202], ["achievement", 1203], ["achievement", 1204], ["achievement", 1205], ["achievement", 1206],
+                            ["achievement", 1207], ["achievement", 1208], ["achievement", 1209], ["achievement", 1210], ["achievement", 1211], ["achievement", 1212],
+                            ["achievement", 1213], ["achievement", 1214], ["achievement", 1215], ["achievement", 1216], ["achievement", 1217], ["achievement", 1218],
+                            ["achievement", 1219], ["achievement", 1220], ["achievement", 1221], ["achievement", 1222], ["achievement", 1223], ["achievement", 1224],
+                        ]],
+                    ], {width: "621px", height: "409px", background: "#1f0e1f", borderLeft: "3px solid white", padding: "3px"}],
+                ],
+            },
+            14: {
+                unlocked() {return true},
+                content: [
+                    ["top-column", [
+                        ["row", [
+                            
+                        ]],
+                    ], {width: "621px", height: "409px", background: "#333", borderLeft: "3px solid white", padding: "3px"}],
+                ],
+            },
+            15: {
+                unlocked() {return true},
+                content: [
+                    ["top-column", [
+                        ["row", [
+                            
+                        ]],
+                    ], {width: "621px", height: "409px", background: "#333", borderLeft: "3px solid white", padding: "3px"}],
+                ],
+            },
+            16: {
+                unlocked() {return true},
+                content: [
+                    ["top-column", [
+                        ["row", [
+                            
+                        ]],
+                    ], {width: "621px", height: "409px", background: "#333", borderLeft: "3px solid white", padding: "3px"}],
+                ],
+            },
+            17: { // Interspace after entering the cycle, before unlocking anti-singularity
+                unlocked() {return hasAchievement("achievements", 1701) || true},
+                content: [
+                    ["top-column", [
+                        ["row", [
+                            ["achievement", 1701], ["achievement", 1702], ["achievement", 1703], ["achievement", 1704], ["achievement", 1705], ["achievement", 1706],
+                            ["achievement", 1707], ["achievement", 1708], ["achievement", 1709], ["achievement", 1710], ["achievement", 1711], ["achievement", 1712],
+                            ["achievement", 1713], ["achievement", 1714], ["achievement", 1715], ["achievement", 1716], ["achievement", 1717], ["achievement", 1718],
+                            ["achievement", 1719], ["achievement", 1720], ["achievement", 1721], ["achievement", 1722], ["achievement", 1723], ["achievement", 1724],
+                        ]],
+                    ], {width: "621px", height: "409px", background: "#1f0e16", borderLeft: "3px solid white", padding: "3px"}],
+                ],
+            },
+            16: {
+                unlocked() {return true},
+                content: [
+                    ["top-column", [
+                        ["row", [
+                            
+                        ]],
+                    ], {width: "621px", height: "409px", background: "#333", borderLeft: "3px solid white", padding: "3px"}],
+                ],
+            },
+            19: { // Interspace after unlocking anti-singularity
+                unlocked() {return hasAchievement("achievements", 1901) || true},
+                content: [
+                    ["top-column", [
+                        ["row", [
+                            ["achievement", 1901], ["achievement", 1902], ["achievement", 1903], ["achievement", 1904], ["achievement", 1905], ["achievement", 1906],
+                            ["achievement", 1907], ["achievement", 1908], ["achievement", 1909], ["achievement", 1910], ["achievement", 1911], ["achievement", 1912],
+                            ["achievement", 1913], ["achievement", 1914], ["achievement", 1915], ["achievement", 1916], ["achievement", 1917], ["achievement", 1918],
+                            ["achievement", 1919], ["achievement", 1920], ["achievement", 1921], ["achievement", 1922], ["achievement", 1923], ["achievement", 1924],
+                        ]],
+                    ], {width: "621px", height: "409px", background: "#2e1522", borderLeft: "3px solid white", padding: "3px"}],
+                ],
+            },
         },
     },
     tabFormat: [
@@ -734,37 +1419,67 @@ addLayer("achievements", {
         ["style-row", [
             ["always-scroll-column", [
                 ["style-row", [
-                    ["category-button", ["<span style='color:#9bedff'>★</span>★★★★", "stars", 1], {width: "155px", height: "40px", color: "#aaa", background: "#333", borderRight: "3px solid white"}],
+                    ["category-button", ["~ 1 ~<br><h6>Start</h6>", "stars", 1], {width: "155px", height: "40px", color: "white", background: "#333", borderRight: "3px solid white"}],
                 ], {width: "155px", height: "40px", borderBottom: "3px solid white"}],
                 ["style-row", [
-                    ["category-button", ["<span style='color:#9bedff'>★★</span>★★★", "stars", 2], {width: "155px", height: "40px", color: "#aaa", background: "#332600", borderRight: "3px solid white"}],
+                    ["category-button", ["~ 2 ~<br><h6>Infinity</h6>", "stars", 2], {width: "155px", height: "40px", color: "#ffbf00", background: "#332600", borderRight: "3px solid white"}],
                 ], () => {return tmp.achievements.microtabs.stars[2].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
+                ["style-row", [
+                    ["category-button", ["~ 3 ~<br><h6>Tav</h6>", "stars", 3], {width: "155px", height: "40px", color: "#b2d8d8", background: "#354040", borderRight: "3px solid white"}],
+                ], () => {return tmp.achievements.microtabs.stars[3].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
                 /*
                 ["style-row", [
-                    ["category-button", ["<span style='color:#9bedff'>★★★</span>★★<br><small style='color:#c00'>[NOT IMPLEMENTED]</small>", "stars", 3], {width: "155px", height: "40px", color: "#aaa", background: "#354040", borderRight: "3px solid white"}],
-                ], () => {return tmp.achievements.microtabs.stars[3].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
-                ["style-row", [
-                    ["category-button", ["<span style='color:#9bedff'>★★★★</span>★<br><small style='color:#c00'>[NOT IMPLEMENTED]</small>", "stars", 4], {width: "155px", height: "40px", color: "#aaa", background: "#113204", borderRight: "3px solid white"}],
+                    ["category-button", ["~ 4 ~<br><h6>Break Infinity</h6>", "stars", 4], {width: "155px", height: "40px", color: "#2b7f0a", background: "#113204", borderRight: "3px solid white"}],
                 ], () => {return tmp.achievements.microtabs.stars[4].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
                 ["style-row", [
-                    ["category-button", ["★★★★★<br><small style='color:#c00'>[NOT IMPLEMENTED]</small>", "stars", 5], {width: "155px", height: "40px", color: "#9bedff", background: "#032737", borderRight: "3px solid white"}],
+                    ["category-button", ["~ 5 ~<br><h6>Cante</h6>", "stars", 5], {width: "155px", height: "40px", color: "#43aad9", background: "#032737", borderRight: "3px solid white"}],
                 ], () => {return tmp.achievements.microtabs.stars[5].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
                 ["style-row", [
-                    ["category-button", ["<span style='color:#88e688'>★</span>★★★★<br><small style='color:#c00'>[NOT IMPLEMENTED]</small>", "stars", 6], {width: "155px", height: "40px", color: "#9bedff", background: "#330d0d", borderRight: "3px solid white"}],
+                    ["category-button", ["~ 6 ~<br><h6>Singularity</h6>", "stars", 6], {width: "155px", height: "40px", color: "#aa0000", background: "#330d0d", borderRight: "3px solid white"}],
                 ], () => {return tmp.achievements.microtabs.stars[6].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
                 ["style-row", [
-                    ["category-button", ["<span style='color:#88e688'>★★</span>★★★<br><small style='color:#c00'>[NOT IMPLEMENTED]</small>", "stars", 7], {width: "155px", height: "40px", color: "#9bedff", background: "#111", borderRight: "3px solid white"}],
+                    ["category-button", ["~ 7 ~<br><h6>Starmetal</h6>", "stars", 7], {width: "155px", height: "40px", color: "#eb6077", background: "#111", borderRight: "3px solid white"}],
                 ], () => {return tmp.achievements.microtabs.stars[7].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
                 ["style-row", [
-                    ["category-button", ["<span style='color:#88e688'>★★★</span>★★<br><small style='color:#c00'>[NOT IMPLEMENTED]</small>", "stars", 8], {width: "155px", height: "40px", color: "#9bedff", background: "#370530", borderRight: "3px solid white"}],
+                    ["category-button", ["~ 8 ~<br><h6>Matos</h6>", "stars", 8], {width: "155px", height: "40px", color: "#8a0e79", background: "#370530", borderRight: "3px solid white"}],
                 ], () => {return tmp.achievements.microtabs.stars[8].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
                 ["style-row", [
-                    ["category-button", ["<span style='color:#88e688'>★★★★</span>★<br><small style='color:#c00'>[NOT IMPLEMENTED]</small>", "stars", 9], {width: "155px", height: "40px", color: "#9bedff", background: "#160239", borderRight: "3px solid white"}],
+                    ["category-button", ["~ 9 ~<br><h6>Iridite</h6>", "stars", 9], {width: "155px", height: "40px", color: "#5a4fcf", background: "#160239", borderRight: "3px solid white"}],
                 ], () => {return tmp.achievements.microtabs.stars[9].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
                 */
                 ["style-row", [
-                    ["category-button", ["★★★★★", "stars", 10], {width: "155px", height: "40px", color: "#88e688", background: "#312800", borderRight: "3px solid white"}],
+                    ["category-button", ["~ 10 ~<br><h6>Early Hive</h6>", "stars", 10], {width: "155px", height: "40px", color: "#f9c901", background: "#352300", borderRight: "3px solid white"}],
                 ], () => {return tmp.achievements.microtabs.stars[10].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
+                /*
+                ["style-row", [
+                    ["category-button", ["~ 11 ~<br><h6>Dice Space</h6>", "stars", 11], {width: "155px", height: "40px", color: "#c0c0c0", background: "#606060", borderRight: "3px solid white"}],
+                ], () => {return tmp.achievements.microtabs.stars[11].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
+                ["style-row", [
+                    ["category-button", ["~ 12 ~<br><h6>Late Hive</h6>", "stars", 12], {width: "155px", height: "40px", color: "#c0c0c0", background: "#606060", borderRight: "3px solid white"}],
+                ], () => {return tmp.achievements.microtabs.stars[12].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
+                */
+                ["style-row", [
+                    ["category-button", ["~ 13 ~<br><h6>Early Interspace</h6>", "stars", 13], {width: "155px", height: "40px", color: "#e0ffe0", background: "#402040", borderRight: "3px solid white"}],
+                ], () => {return tmp.achievements.microtabs.stars[13].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
+                /*
+                ["style-row", [
+                    ["category-button", ["~ 14 ~<br><h6>Early Tera</h6>", "stars", 14], {width: "155px", height: "40px", color: "#c0c0c0", background: "#606060", borderRight: "3px solid white"}],
+                ], () => {return tmp.achievements.microtabs.stars[14].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
+                ["style-row", [
+                    ["category-button", ["~ 15 ~<br><h6>Aniciffo</h6>", "stars", 15], {width: "155px", height: "40px", color: "#c0c0c0", background: "#606060", borderRight: "3px solid white"}],
+                ], () => {return tmp.achievements.microtabs.stars[15].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
+                ["style-row", [
+                    ["category-button", ["~ 16 ~<br><h6>Late Tera</h6>", "stars", 16], {width: "155px", height: "40px", color: "#c0c0c0", background: "#606060", borderRight: "3px solid white"}],
+                ], () => {return tmp.achievements.microtabs.stars[16].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
+                */
+               /*
+                ["style-row", [
+                    ["category-button", ["~ 17 ~<br><h6>Early Cycle</h6>", "stars", 17], {width: "155px", height: "40px", color: "#e0ffff", background: "#402030", borderRight: "3px solid white"}],
+                ], () => {return tmp.achievements.microtabs.stars[17].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
+                ["style-row", [
+                    ["category-button", ["~ 19 ~<br><h6>Late Cycle</h6>", "stars", 19], {width: "155px", height: "40px", color: "#ffe0f0", background: "#5e2441", borderRight: "3px solid white"}],
+                ], () => {return tmp.achievements.microtabs.stars[19].unlocked ? {width: "155px", height: "40px", borderBottom: "3px solid white"} : {display: "none !important"}}],
+                */
             ], {width: "170px", height: "415px"}],
             ["style-column", [
                 ["buttonless-microtabs", "stars", {borderWidth: "0"}],

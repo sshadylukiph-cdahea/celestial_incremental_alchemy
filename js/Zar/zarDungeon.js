@@ -453,7 +453,7 @@
         11: {
             costBase() { return new Decimal(1) },
             costGrowth() { return new Decimal(1.25) },
-            purchaseLimit() { return new Decimal(50) },
+            purchaseLimit() { return new Decimal(100) },
             currency() { return player.zd.zarChips},
             pay(amt) { player.zd.zarChips = this.currency().sub(amt) },
             effect(x) {return Decimal.pow(4, getBuyableAmount(this.layer, this.id))},
@@ -482,14 +482,14 @@
             purchaseLimit() { return new Decimal(50) },
             currency() { return player.zd.zarChips},
             pay(amt) { player.zd.zarChips = this.currency().sub(amt) },
-            effect(x) {return Decimal.pow(2, getBuyableAmount(this.layer, this.id))},
+            effect(x) {return getBuyableAmount(this.layer, this.id).add(1)},
             unlocked: true,
             cost(x) { return this.costGrowth().pow(x || getBuyableAmount(this.layer, this.id)).mul(this.costBase()).floor() },
             canAfford() {return this.currency().gte(this.cost())},
             display() {
                 return "<h3>ZC-2</h3> (" + formatWhole(getBuyableAmount(this.layer, this.id)) + "/50)\n\
-                    Double hex power gain\n\
-                    Currently: x" + formatWhole(tmp[this.layer].buyables[this.id].effect) + "\n\ \n\
+                    Raise dice score\n\
+                    Currently: ^" + formatSimple(tmp[this.layer].buyables[this.id].effect, 2) + "\n\ \n\
                     Cost: " + formatWhole(tmp[this.layer].buyables[this.id].cost) + "<br>Zar Chips"
             },
             buy() {
@@ -583,7 +583,7 @@
         16: {
             costBase() { return new Decimal(10) },
             costGrowth() { return new Decimal(3) },
-            purchaseLimit() { return new Decimal(10) },
+            purchaseLimit() { return new Decimal(20) },
             currency() { return player.zd.zarChips},
             pay(amt) { player.zd.zarChips = this.currency().sub(amt) },
             effect(x) {return getBuyableAmount(this.layer, this.id).pow(0.5).mul(0.2)},
@@ -902,53 +902,8 @@ addLayer("zarDungeon", {
             tooltip: "You can only select Nav and Dice Five into your party.",
             canClick() { return (player.zarDungeon.navToggle || player.zarDungeon.diceFiveToggle) && player.bh.currentStage != "zarDungeon" },
             unlocked: true,
-            onClick() {          
-                if (player.bh.characters[0].id != "none")player.bh.characterData[player.bh.characters[0].id].selected = 0
-                if (player.bh.characters[1].id != "none")player.bh.characterData[player.bh.characters[1].id].selected = 0
-                if (player.bh.characters[2].id != "none")player.bh.characterData[player.bh.characters[2].id].selected = 0
-                if (player.zarDungeon.navToggle) 
-                { 
-                    player.bh.characterData["nav"].selected = true
-                    player.bh.characters[0].id = "nav"
-                    for (let i = 0; i < 4; i++) {
-                        player.bh.characters[0].skills[i].id = player.bh.characterData["nav"].skills[i]
-                    }
-                }
-                else
-                {
-                    if (player.bh.characters[0].id != "none") player.bh.characterData[player.bh.characters[0].id].selected = false
-                    player.bh.characters[0].id = "none"
-
-                    for (let i = 0; i < 4; i++) {
-                        player.bh.characters[0].skills[i].id = "none"
-                    }
-                }
-                if (hasUpgrade("zd", 11) && player.zarDungeon.diceFiveToggle) 
-                {
-                    player.bh.characterData["diceFive"].selected = true
-                    player.bh.characters[1].id = "diceFive"
-                    for (let i = 0; i < 4; i++) {
-                        player.bh.characters[1].skills[i].id = player.bh.characterData["diceFive"].skills[i]
-                    }
-                }
-                else
-                {
-                    if (player.bh.characters[1].id != "none") player.bh.characterData[player.bh.characters[1].id].selected = false
-                    player.bh.characters[1].id = "none"
-
-                    for (let i = 0; i < 4; i++) {
-                        player.bh.characters[1].skills[i].id = "none"
-                    }
-                }
-
-                if (player.bh.characters[2].id != "none") player.bh.characterData[player.bh.characters[2].id].selected = false
-                player.bh.characters[2].id = "none"
-                for (let i = 0; i < 4; i++) {
-                    player.bh.characters[2].skills[i].id = "none"
-                }
-                player.tab = "bh"
-
-                BHStageEnter("zarDungeon")
+            onClick() {
+                BHStageEnter("zarDungeon", [player.zarDungeon.navToggle ? "nav" : "none", player.zarDungeon.diceFiveToggle ? "diceFive" : "none", "none"])
 
                 setTimeout(() => {
                     for (let i = 0; i < 3; i++) {
@@ -966,6 +921,34 @@ addLayer("zarDungeon", {
 
             },
             style: {width: "200px", minHeight: "75px", color: "white", background: "linear-gradient(45deg, #4e4e4e 0%, #868686 100%)", border: "3px solid #000", borderRadius: "20px", textShadow: "1px 1px 1px black, -1px 1px 1px black, -1px -1px 1px black, 1px -1px 1px black, 0px 0px 3px black"},
+        },
+        "Auto-Enter": {
+            title() {return player.bh.autoEnter ? "<div style='margin-bottom:-20px;line-height:1'>Auto Enter<br><small>[" + BHS[player.bh.autoEnter].nameCap + "]<br>[" + formatTime(Decimal.sub(30, player.bh.autoCooldown)) + "]</small></div>" : "Auto Enter<br><small>[Disabled]"},
+            canClick: true,
+            unlocked: true,
+            tooltip: "Activates after 30 seconds when exiting a BH stage",
+            onClick() {
+                if (player.bh.autoEnter) {
+                    player.bh.autoEnter = false
+                    player.bh.autoCooldown = new Decimal(0)
+                } else {
+                    player.bh.autoEnter = "zarDungeon"
+                }
+            },
+            style: {width: "110px", minHeight: "55px", color: "var(--textColor)", background: "var(--miscButtonHover)", border: "3px solid var(--miscButton)", borderRadius: "15px"},
+        },
+        "Auto-Exit": {
+            title() {return player.bh.autoExit ? "Auto Exit<br><small>[Enabled]" : "Auto Exit<br><small>[Disabled]"},
+            canClick: true,
+            unlocked: true,
+            onClick() {
+                if (player.bh.autoExit) {
+                    player.bh.autoExit = false
+                } else {
+                    player.bh.autoExit = true
+                }
+            },
+            style: {width: "110px", minHeight: "55px", color: "var(--textColor)", background: "var(--miscButtonHover)", border: "3px solid var(--miscButton)", borderRadius: "15px"},
         },
         "Nav-Toggle": {
             title() {return player.zarDungeon.navToggle ? "<div style='margin-bottom:-20px;line-height:1'>Nav<br><small>[Enabled]</small></div>" : "Nav<br><small>[Disabled]"},
@@ -994,19 +977,21 @@ addLayer("zarDungeon", {
                 ["top-column", [
                     ["blank", "5px"],
                     ["style-column", [
-                        ["raw-html", "Perks for defeating Zar", {color: "var(--textColor)", fontSize: "24px", fontFamily: "monospace"}],
+                        ["raw-html", "Perks for defeating Zar", {color: "white", fontSize: "24px", fontFamily: "monospace"}],
                     ], {width: "500px", height: "35px", borderBottom: "2px solid var(--regBorder)", marginBottom: "5px"}],
-                    ["raw-html", "<u>Unlocks</u>", {color: "var(--textColor)", fontSize: "20px", fontFamily: "monospace"}],
-                    ["raw-html", "+1 OTF Slot", {color: "var(--textColor)", fontSize: "18px", fontFamily: "monospace"}],
-                    ["raw-html", "Zar Punchcard", {color: "var(--textColor)", fontSize: "18px", fontFamily: "monospace"}],
-                    ["raw-html", "Rare Space Pets", {color: "var(--textColor)", fontSize: "18px", fontFamily: "monospace"}],
-                    ["raw-html", "Auto Card-Draw", {color: "var(--textColor)", fontSize: "18px", fontFamily: "monospace"}],
+                    ["raw-html", "<u>Unlocks</u>", {color: "white", fontSize: "20px", fontFamily: "monospace"}],
+                    ["raw-html", () => { return player.lightRift.interspaceUnlocked ? "Interspace" : "Light Rift (In Universe 3)" }, {color: "white", fontSize: "18px", fontFamily: "monospace"}],
+                    ["raw-html", () => { return player.n.pylonTier.gte(2) ? "New Singularity Upgrade." : "New Singularity Upgrade.<small> (requires tier 2 natural pylon)" }, {color: "white", fontSize: "18px", fontFamily: "monospace"}],
+                    ["raw-html", "+1 OTF Slot", {color: "white", fontSize: "18px", fontFamily: "monospace"}],
+                    ["raw-html", "Zar Punchcard", {color: "white", fontSize: "18px", fontFamily: "monospace"}],
+                    ["raw-html", "Rare Space Pets", {color: "white", fontSize: "18px", fontFamily: "monospace"}],
+                    ["raw-html", "Auto Card-Draw", {color: "white", fontSize: "18px", fontFamily: "monospace"}],
                     ["blank", "10px"],
-                    ["raw-html", "<u>Effects</u>", {color: "var(--textColor)", fontSize: "20px", fontFamily: "monospace"}],
-                    ["raw-html", () => { return "Divide Point Doom Softcap's Scaling Divider by /1.5." }, {color: "var(--textColor)", fontSize: "18px", fontFamily: "monospace"}],
-                    ["raw-html", () => { return "x1,000 to Chance Points." }, {color: "var(--textColor)", fontSize: "18px", fontFamily: "monospace"}],
-                    ["raw-html", () => { return "x100 to Wheel Points." }, {color: "var(--textColor)", fontSize: "18px", fontFamily: "monospace"}],
-                    ["raw-html", () => { return "x10 to all Chips." }, {color: "var(--textColor)", fontSize: "18px", fontFamily: "monospace"}],
+                    ["raw-html", "<u>Effects</u>", {color: "white", fontSize: "20px", fontFamily: "monospace"}],
+                    ["raw-html", () => { return "Divide Point Doom Softcap's Scaling Divider by /1.5." }, {color: "white", fontSize: "18px", fontFamily: "monospace"}],
+                    ["raw-html", () => { return "x1,000 to Chance Points." }, {color: "white", fontSize: "18px", fontFamily: "monospace"}],
+                    ["raw-html", () => { return "x100 to Wheel Points." }, {color: "white", fontSize: "18px", fontFamily: "monospace"}],
+                    ["raw-html", () => { return "x10 to all Chips." }, {color: "white", fontSize: "18px", fontFamily: "monospace"}],
 
                     // Zar punchcard 
                 ], () => {
@@ -1050,9 +1035,7 @@ addLayer("zarDungeon", {
                     }],
                 ], {width: "500px", height: "197px", background: "var(--layerBackground)"}],
                 ["style-row", [
-                    ["layer-proxy", ["bh", [
-                        ["row", [["clickable", "Auto-Enter"], ["blank", ["10px", "10px"]], ["clickable", "Auto-Exit"]]],
-                    ]]], ["blank", ["10px", "10px"]], ["clickable", "Nav-Toggle"], ["blank", ["10px", "10px"]], ["clickable", "DiceFive-Toggle"],
+                    ["clickable", "Auto-Enter"], ["blank", ["10px", "10px"]], ["clickable", "Auto-Exit"], ["blank", ["10px", "10px"]], ["clickable", "Nav-Toggle"], ["blank", ["10px", "10px"]], ["clickable", "DiceFive-Toggle"],
                 ], {width: "500px", height: "70px", background: "var(--miscButtonDisable)", borderTop: "3px solid var(--regBorder)", borderRadius: "0 0 27px 0"}],
             ], {width: "500px", height: "420px", borderLeft: "3px solid var(--regBorder)"}],
         ], {width: "1200px", height: "420px"}],
@@ -1961,7 +1944,7 @@ function zarAttackBarrage(attackVariable) {
 
 window.addEventListener('load', (event) => {
     setTimeout(() => {
-    if (player.zarDungeon.barrageActive)
+    if (player && player.zarDungeon && player.zarDungeon.barrageActive)
     {
         zarFinalAttack(0)
     }
