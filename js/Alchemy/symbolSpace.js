@@ -74,7 +74,7 @@ addLayer("ssp", {
         let onepersec = new Decimal(1)
 
         // anti-cheese fixes
-        if(player.points.gte("e10000000")) player.ssp.canAlSyReset = true
+        if(player.points.gte("e1000000")) player.ssp.canAlSyReset = true
 
         // Start of Alchemical Symbol Gain
         if (hasUpgrade("tlb", 13)) {player.ssp.alchemicalSymbolsGain = player.points.add(1).log10().add(1).log10().mul(2)}
@@ -95,11 +95,11 @@ addLayer("ssp", {
         thaumicOrb: { // activation button
             title() {
                 if(player.ssp.arcaneTableUnlocked == true && player.ssp.earthUnlocked == true && player.ssp.waterUnlocked == true && player.ssp.airUnlocked == true && player.ssp.fireUnlocked == true)
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-OrbBROKEN.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-OrbBROKEN.png' style='width:120px;height:120px;margin-top:4px'></img>"
                 else if(player.ssp.arcaneTableUnlocked == false && player.ssp.earthUnlocked == true && player.ssp.waterUnlocked == true && player.ssp.airUnlocked == true && player.ssp.fireUnlocked == true)
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-OrbON.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-OrbON.png' style='width:120px;height:120px;margin-top:4px'></img>"
                 else
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-OrbOFF.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-OrbOFF.png' style='width:120px;height:120px;margin-top:4px'></img>"
             },
             canClick() {return player.ssp.arcaneTableUnlocked == false && player.ssp.earthUnlocked == true && player.ssp.waterUnlocked == true && player.ssp.airUnlocked == true && player.ssp.fireUnlocked == true},
             unlocked() {return true},
@@ -145,33 +145,29 @@ addLayer("ssp", {
                 if(player.ssp.thaumicOrbHit >= 3) player.ssp.arcaneTableUnlocked = true
             },
             style() {
+                let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: "140px", height: "140px", border: "transparent", backgroundColor: "transparent", backgroundImage: "", borderRadius: "50%"}
                 if(player.ssp.arcaneTableUnlocked == true && player.ssp.earthUnlocked == true && player.ssp.waterUnlocked == true && player.ssp.airUnlocked == true && player.ssp.fireUnlocked == true)
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff55 10%, transparent 70%), radial-gradient(circle, #ff00ff 10%, transparent 70%)", borderRadius: "100px"}
+                    {look.backgroundImage = "radial-gradient(circle, #ff00ff 10%, transparent 70%)"}
                 else if(player.ssp.arcaneTableUnlocked == false && player.ssp.earthUnlocked == true && player.ssp.waterUnlocked == true && player.ssp.airUnlocked == true && player.ssp.fireUnlocked == true)
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff33 10%, transparent 70%), radial-gradient(circle, #ff00ff33 10%, transparent 70%)", borderRadius: "100px"}
+                    {look.backgroundImage = "radial-gradient(circle, #ff00ff33 10%, transparent 70%)"}
                 else
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff33 10%, transparent 70%)", borderRadius: "100px"}
-            }
+                    {look.backgroundImage = "radial-gradient(circle, #ffffff33 10%, transparent 70%)"}
+                return look
+            },
+            xPos: 0,
+            yPos: 0
         },
         earthOrb: { // activation button
             title() {
                 if(player.ssp.earthUnlocked == true && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-EarthBROKEN.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-EarthBROKEN.png' style='width:120px;height:120px;margin-top:4px'></img>"
                 else if(player.ssp.earthUnlocked == false && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-EarthON.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-EarthON.png' style='width:120px;height:120px;margin-top:4px'></img>"
                 else
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-EarthOFF.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-EarthOFF.png' style='width:120px;height:120px;margin-top:4px'></img>"
             },
             canClick() {return player.ssp.earthUnlocked == false && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true},
             unlocked() {return true},
-            branches() {
-                if(player.ssp.earthUnlocked == true)
-                    return [["thaumicOrb", "#008e4b"]]
-                else if(this.canClick())
-                    return [["thaumicOrb", "#008e4b55"]]
-                else
-                    return [["thaumicOrb", "#ffffff11"]]
-            },
             tooltip() {
                 if(player.ssp.earthOrbCount >= 4 && player.ssp.earthUnlocked == true)
                     return "The Earth Orb is BROKEN!"
@@ -190,33 +186,29 @@ addLayer("ssp", {
                 player.ssp.thaumicOrbCount = player.ssp.thaumicOrbCount.add(1)
             },
             style() {
-                if(player.ssp.earthUnlocked == true && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff55 10%, transparent 70%), radial-gradient(circle, #008e4b 10%, transparent 70%)", borderRadius: "100px"}
+                let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: "140px", height: "140px", border: "transparent", backgroundColor: "transparent", backgroundImage: "", borderRadius: "50%"}
+                if(player.ssp.earthUnlocked == true)
+                    {look.backgroundImage = "radial-gradient(circle, #008e4b 10%, transparent 70%)"}
                 else if(this.canClick())
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff33 10%, transparent 70%), radial-gradient(circle, #008e4b55 10%, transparent 70%)", borderRadius: "100px"}
+                    {look.backgroundImage = "radial-gradient(circle, #008e4b55 10%, transparent 70%)"}
                 else
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff33 10%, transparent 70%)", borderRadius: "100px"}
-            }
+                    {look.backgroundImage = "radial-gradient(circle, #ffffff33 10%, transparent 70%)"}
+                return look
+            },
+            xPos: 250,
+            yPos: 0
         },
         waterOrb: { // activation button
             title() {
                 if(player.ssp.waterUnlocked == true && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-WaterBROKEN.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-WaterBROKEN.png' style='width:120px;height:120px;margin-top:4px'></img>"
                 else if(player.ssp.waterUnlocked == false && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-WaterON.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-WaterON.png' style='width:120px;height:120px;margin-top:4px'></img>"
                 else
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-WaterOFF.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-WaterOFF.png' style='width:120px;height:120px;margin-top:4px'></img>"
             },
             canClick() {return player.ssp.waterUnlocked == false && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true},
             unlocked() {return true},
-            branches() {
-                if(player.ssp.waterUnlocked == true)
-                    return [["thaumicOrb", "#1d8eb3"]]
-                else if(this.canClick())
-                    return [["thaumicOrb", "#1d8eb355"]]
-                else
-                    return [["thaumicOrb", "#ffffff11"]]
-            },
             tooltip() {
                 if(player.ssp.waterOrbCount >= 4 && player.ssp.waterUnlocked == true)
                     return "The Water Orb is BROKEN!"
@@ -235,33 +227,29 @@ addLayer("ssp", {
                 player.ssp.thaumicOrbCount = player.ssp.thaumicOrbCount.add(1)
             },
             style() {
-                if(player.ssp.waterUnlocked == true && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff55 10%, transparent 70%), radial-gradient(circle, #1d8eb3 10%, transparent 70%)", borderRadius: "100px"}
-               else if(this.canClick())
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff33 10%, transparent 70%), radial-gradient(circle, #1d8eb355 10%, transparent 70%)", borderRadius: "100px"}
+                let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: "140px", height: "140px", border: "transparent", backgroundColor: "transparent", backgroundImage: "", borderRadius: "50%"}
+                if(player.ssp.waterUnlocked == true)
+                    {look.backgroundImage = "radial-gradient(circle, #1d8eb3 10%, transparent 70%)"}
+                else if(this.canClick())
+                    {look.backgroundImage = "radial-gradient(circle, #1d8eb355 10%, transparent 70%)"}
                 else
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff33 10%, transparent 70%)", borderRadius: "100px"}
-            }
+                    {look.backgroundImage = "radial-gradient(circle, #ffffff33 10%, transparent 70%)"}
+                return look
+            },
+            xPos: 0,
+            yPos: 250
         },
         airOrb: { // activation button
             title() {
                 if(player.ssp.airUnlocked == true && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-AirBROKEN.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-AirBROKEN.png' style='width:120px;height:120px;margin-top:4px'></img>"
                 else if(player.ssp.airUnlocked == false && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-AirON.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-AirON.png' style='width:120px;height:120px;margin-top:4px'></img>"
                 else
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-AirOFF.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-AirOFF.png' style='width:120px;height:120px;margin-top:4px'></img>"
             },
             canClick() {return player.ssp.airUnlocked == false && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true},
             unlocked() {return true},
-            branches() {
-                if(player.ssp.airUnlocked == true)
-                    return [["thaumicOrb", "#c7c796"]]
-                else if(this.canClick())
-                    return [["thaumicOrb", "#c7c79655"]]
-                else
-                    return [["thaumicOrb", "#ffffff11"]]
-            },
             tooltip() {
                 if(player.ssp.airOrbCount >= 4 && player.ssp.airUnlocked == true)
                     return "The Air Orb is BROKEN!"
@@ -280,33 +268,29 @@ addLayer("ssp", {
                 player.ssp.thaumicOrbCount = player.ssp.thaumicOrbCount.add(1)
             },
             style() {
+                let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: "140px", height: "140px", border: "transparent", backgroundColor: "transparent", backgroundImage: "", borderRadius: "50%"}
                 if(player.ssp.airUnlocked == true)
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff55 10%, transparent 70%), radial-gradient(circle, #c7c796 10%, transparent 70%)", borderRadius: "100px"}
+                    {look.backgroundImage = "radial-gradient(circle, #c7c796 10%, transparent 70%)"}
                 else if(this.canClick())
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff33 10%, transparent 70%), radial-gradient(circle, #c7c79655 10%, transparent 70%)", borderRadius: "100px"}
+                    {look.backgroundImage = "radial-gradient(circle, #c7c79655 10%, transparent 70%)"}
                 else
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff33 10%, transparent 70%)", borderRadius: "100px"}
-            }
+                    {look.backgroundImage = "radial-gradient(circle, #ffffff33 10%, transparent 70%)"}
+                return look
+            },
+            xPos: -250,
+            yPos: 0
         },
         fireOrb: { // activation button
             title() {
                 if(player.ssp.fireUnlocked == true && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-FireBROKEN.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-FireBROKEN.png' style='width:120px;height:120px;margin-top:4px'></img>"
                 else if(player.ssp.fireUnlocked == false && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-FireON.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-FireON.png' style='width:120px;height:120px;margin-top:4px'></img>"
                 else
-                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-FireOFF.png' style='width:80px;height:80px;margin-top:4px'></img>"
+                    return "<img src='resources/alchemyworld/alcNode-Thaumic-Orb-FireOFF.png' style='width:120px;height:120px;margin-top:4px'></img>"
             },
             canClick() {return player.ssp.fireUnlocked == false && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true},
             unlocked() {return true},
-            branches() {
-                if(player.ssp.fireUnlocked == true)
-                    return [["thaumicOrb", "#c7442f"]]
-                else if(this.canClick())
-                    return [["thaumicOrb", "#c7442f55"]]
-                else
-                    return [["thaumicOrb", "#ffffff11"]]
-            },
             tooltip() {
                 if(player.ssp.fireOrbCount >= 4 && player.ssp.fireUnlocked == true)
                     return "The Fire Orb is BROKEN!"
@@ -325,29 +309,28 @@ addLayer("ssp", {
                 player.ssp.thaumicOrbCount = player.ssp.thaumicOrbCount.add(1)
             },
             style() {
+                let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: "140px", height: "140px", border: "transparent", backgroundColor: "transparent", backgroundImage: "", borderRadius: "50%"}
                 if(player.ssp.fireUnlocked == true)
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff55 10%, transparent 70%), radial-gradient(circle, #c7442f 10%, transparent 70%)", borderRadius: "100px"}
+                    {look.backgroundImage = "radial-gradient(circle, #c7442f 10%, transparent 70%)"}
                 else if(this.canClick())
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff33 10%, transparent 70%), radial-gradient(circle, #c7442f55 10%, transparent 70%)", borderRadius: "100px"}
+                    {look.backgroundImage = "radial-gradient(circle, #c7442f55 10%, transparent 70%)"}
                 else
-                    return {width: "100px", minHeight: "100px", border: "transparent", backgroundColor: "transparent", backgroundImage: "radial-gradient(circle, #ffffff33 10%, transparent 70%)", borderRadius: "100px"}
-            }
+                    {look.backgroundImage = "radial-gradient(circle, #ffffff33 10%, transparent 70%)"}
+                return look
+            },
+            xPos: 0,
+            yPos: -250
         },
         earthOrbReq1: {
-            title() {return "Req.1"},
+            title() {return ""},
             canClick() {return player.ssp.earthReq1Get == false}, 
             unlocked() {return true},
-            branches() {
-                if(player.ssp.earthReq1Get == true) return [["earthOrb", "#008e4b"]]
-                else if (this.canClick()) return [["earthOrb", "#008e4b55"]]
-                else return [["earthOrb", "#ffffff11"]]
-            },
             onClick() {
                 player.ssp.earthReq1Get = true
                 player.ssp.earthOrbCount = player.ssp.earthOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.earthReq1Get == true) {
                 look.background = "linear-gradient(to bottom, #00ff00, #00bb00, #005500";
                 look.borderColor = "transparent";
@@ -368,23 +351,20 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: 250,
+            yPos: 150
         },
         earthOrbReq2: {
-            title() {return "Req.2"},
+            title() {return ""},
             canClick() {return player.ssp.earthReq2Get == false}, 
             unlocked() {return true},
-            branches() {
-                if(player.ssp.earthReq2Get == true) return [["earthOrb", "#008e4b"]]
-                else if (this.canClick()) return [["earthOrb", "#008e4b55"]]
-                else return [["earthOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.earthReq2Get = true
                 player.ssp.earthOrbCount = player.ssp.earthOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.earthReq2Get == true) {
                 look.background = "linear-gradient(to bottom, #00ff00, #00bb00, #005500";
                 look.borderColor = "transparent";
@@ -405,23 +385,20 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: 375,
+            yPos: 75
         },
         earthOrbReq3: {
-            title() {return "Req.3"},
+            title() {return ""},
             canClick() {return player.ssp.earthReq3Get == false}, 
             unlocked() {return true},
-            branches() {
-                if(player.ssp.earthReq3Get == true) return [["earthOrb", "#008e4b"]]
-                else if (this.canClick()) return [["earthOrb", "#008e4b55"]]
-                else return [["earthOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.earthReq3Get = true
                 player.ssp.earthOrbCount = player.ssp.earthOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.earthReq3Get == true) {
                 look.background = "linear-gradient(to bottom, #00ff00, #00bb00, #005500";
                 look.borderColor = "transparent";
@@ -442,23 +419,20 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: 375,
+            yPos: -75
         },
         earthOrbReq4: {
-            title() {return "Req.4"},
+            title() {return ""},
             canClick() {return player.ssp.earthReq4Get == false},  
             unlocked() {return true},
-            branches() {
-                if(player.ssp.earthReq4Get == true) return [["earthOrb", "#008e4b"]]
-                else if (this.canClick()) return [["earthOrb", "#008e4b55"]]
-                else return [["earthOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.earthReq4Get = true
                 player.ssp.earthOrbCount = player.ssp.earthOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.earthReq4Get == true) {
                 look.background = "linear-gradient(to bottom, #00ff00, #00bb00, #005500";
                 look.borderColor = "transparent";
@@ -479,23 +453,20 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: 250,
+            yPos: -150
         },
         waterOrbReq1: {
-            title() {return "Req.1"},
+            title() {return ""},
             canClick() {return player.ssp.waterReq1Get == false}, 
             unlocked() {return true},
-            branches() {
-                if(player.ssp.waterReq1Get == true) return [["waterOrb", "#1d8eb3"]]
-                else if (this.canClick()) return [["waterOrb", "#1d8eb355"]]
-                else return [["waterOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.waterReq1Get = true
                 player.ssp.waterOrbCount = player.ssp.waterOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.waterReq1Get == true) {
                 look.background = "linear-gradient(to bottom, #0000ff, #0000bb, #000055";
                 look.borderColor = "transparent";
@@ -516,23 +487,20 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: 150,
+            yPos: 250
         },
         waterOrbReq2: {
-            title() {return "Req.2"},
+            title() {return ""},
             canClick() {return player.ssp.waterReq2Get == false}, 
             unlocked() {return true},
-            branches() {
-                if(player.ssp.waterReq2Get == true) return [["waterOrb", "#1d8eb3"]]
-                else if (this.canClick()) return [["waterOrb", "#1d8eb355"]]
-                else return [["waterOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.waterReq2Get = true
                 player.ssp.waterOrbCount = player.ssp.waterOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.waterReq2Get == true) {
                 look.background = "linear-gradient(to bottom, #0000ff, #0000bb, #000055";
                 look.borderColor = "transparent";
@@ -553,23 +521,20 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: 75,
+            yPos: 375
         },
         waterOrbReq3: {
-            title() {return "Req.3"},
+            title() {return ""},
             canClick() {return player.ssp.waterReq3Get == false}, 
             unlocked() {return true},
-            branches() {
-                if(player.ssp.waterReq3Get == true) return [["waterOrb", "#1d8eb3"]]
-                else if (this.canClick()) return [["waterOrb", "#1d8eb355"]]
-                else return [["waterOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.waterReq3Get = true
                 player.ssp.waterOrbCount = player.ssp.waterOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.waterReq3Get == true) {
                 look.background = "linear-gradient(to bottom, #0000ff, #0000bb, #000055";
                 look.borderColor = "transparent";
@@ -590,23 +555,20 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: -75,
+            yPos: 375
         },
         waterOrbReq4: {
-            title() {return "Req.4"},
+            title() {return ""},
             canClick() {return player.ssp.waterReq4Get == false},  
             unlocked() {return true},
-            branches() {
-                if(player.ssp.waterReq4Get == true) return [["waterOrb", "#1d8eb3"]]
-                else if (this.canClick()) return [["waterOrb", "#1d8eb355"]]
-                else return [["waterOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.waterReq4Get = true
                 player.ssp.waterOrbCount = player.ssp.waterOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.waterReq4Get == true) {
                 look.background = "linear-gradient(to bottom, #0000ff, #0000bb, #000055";
                 look.borderColor = "transparent";
@@ -627,23 +589,20 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: -150,
+            yPos: 250
         },
         airOrbReq1: {
-            title() {return "Req.1"},
+            title() {return ""},
             canClick() {return player.ssp.airReq1Get == false}, 
             unlocked() {return true},
-            branches() {
-                if(player.ssp.airReq1Get == true) return [["airOrb", "#c7c796"]]
-                else if (this.canClick()) return [["airOrb", "#c7c79655"]]
-                else return [["airOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.airReq1Get = true
                 player.ssp.airOrbCount = player.ssp.airOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.airReq1Get == true) {
                 look.background = "linear-gradient(to bottom, #ffff00, #bbbb00, #555500";
                 look.borderColor = "transparent";
@@ -664,23 +623,20 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: -250,
+            yPos: -150
         },
         airOrbReq2: {
-            title() {return "Req.2"},
+            title() {return ""},
             canClick() {return player.ssp.airReq2Get == false}, 
             unlocked() {return true},
-            branches() {
-                if(player.ssp.airReq2Get == true) return [["airOrb", "#c7c796"]]
-                else if (this.canClick()) return [["airOrb", "#c7c79655"]]
-                else return [["airOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.airReq2Get = true
                 player.ssp.airOrbCount = player.ssp.airOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.airReq2Get == true) {
                 look.background = "linear-gradient(to bottom, #ffff00, #bbbb00, #555500";
                 look.borderColor = "transparent";
@@ -701,23 +657,20 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: -375,
+            yPos: -75
         },
         airOrbReq3: {
-            title() {return "Req.3"},
+            title() {return ""},
             canClick() {return player.ssp.airReq3Get == false}, 
             unlocked() {return true},
-            branches() {
-                if(player.ssp.airReq3Get == true) return [["airOrb", "#c7c796"]]
-                else if (this.canClick()) return [["airOrb", "#c7c79655"]]
-                else return [["airOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.airReq3Get = true
                 player.ssp.airOrbCount = player.ssp.airOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.airReq3Get == true) {
                 look.background = "linear-gradient(to bottom, #ffff00, #bbbb00, #555500";
                 look.borderColor = "transparent";
@@ -738,23 +691,20 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: -375,
+            yPos: 75
         },
         airOrbReq4: {
-            title() {return "Req.4"},
+            title() {return ""},
             canClick() {return player.ssp.airReq4Get == false},  
             unlocked() {return true},
-            branches() {
-                if(player.ssp.airReq4Get == true) return [["airOrb", "#c7c796"]]
-                else if (this.canClick()) return [["airOrb", "#c7c79655"]]
-                else return [["airOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.airReq4Get = true
                 player.ssp.airOrbCount = player.ssp.airOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.airReq4Get == true) {
                 look.background = "linear-gradient(to bottom, #ffff00, #bbbb00, #555500";
                 look.borderColor = "transparent";
@@ -775,24 +725,21 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: -250,
+            yPos: 150
         },
         fireOrbReq1: {
-            title() {return "The Singularity must be restricted at all costs to prevent overflow."},
+            title() {return ""},
             // actual requirement: Perform a Singularity Reset with all unlocked universes and singularity dimensions disabled.
             canClick() {return player.ssp.fireReq1Get == false}, 
             unlocked() {return true},
-            branches() {
-                if(player.ssp.fireReq1Get == true) return [["fireOrb", "#c7442f"]]
-                else if (this.canClick()) return [["fireOrb", "#c7442f55"]]
-                else return [["fireOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.fireReq1Get = true
                 player.ssp.fireOrbCount = player.ssp.fireOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.fireReq1Get == true) {
                 look.background = "linear-gradient(to bottom, #ff0000, #bb0000, #550000";
                 look.borderColor = "transparent";
@@ -813,24 +760,21 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: -150,
+            yPos: -250
         },
         fireOrbReq2: {
-            title() {return "When the hour of eclipse ends, shall there be an abundance of clouds."},
+            title() {return ""},
             // actual requirement: Run out of Eclipse Time with all cloud-related punchcards active.
             canClick() {return player.ssp.fireReq2Get == false}, 
             unlocked() {return true},
-            branches() {
-                if(player.ssp.fireReq2Get == true) return [["fireOrb", "#c7442f"]]
-                else if (this.canClick()) return [["fireOrb", "#c7442f55"]]
-                else return [["fireOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.fireReq2Get = true
                 player.ssp.fireOrbCount = player.ssp.fireOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.fireReq2Get == true) {
                 look.background = "linear-gradient(to bottom, #ff0000, #bb0000, #550000";
                 look.borderColor = "transparent";
@@ -851,24 +795,21 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: -75,
+            yPos: -375
         },
         fireOrbReq3: {
-            title() {return "A clash in a lifetime, sparked by the three humans and one machine."},
+            title() {return ""},
             // actual requirements: Initiate a boss fight against Matos with Kres, Nav and Sel, and then win the fight without Kres, Nav or Sel dying.
             canClick() {return player.ssp.fireReq3Get == false}, 
             unlocked() {return true},
-            branches() {
-                if(player.ssp.fireReq3Get == true) return [["fireOrb", "#c7442f"]]
-                else if (this.canClick()) return [["fireOrb", "#c7442f55"]]
-                else return [["fireOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.fireReq3Get = true
                 player.ssp.fireOrbCount = player.ssp.fireOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.fireReq3Get == true) {
                 look.background = "linear-gradient(to bottom, #ff0000, #bb0000, #550000";
                 look.borderColor = "transparent";
@@ -889,24 +830,21 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: 75,
+            yPos: -375
         },
         fireOrbReq4: {
-            title() {return "The red moon strikes above, as the crimson flames rain down."},
+            title() {return ""},
             // Actual requirement: Exit the Dark Universe with only Humanity Punchcard selected and Nox defeated.
             canClick() {return player.ssp.fireReq4Get == false},  
             unlocked() {return true},
-            branches() {
-                if(player.ssp.fireReq4Get == true) return [["fireOrb", "#c7442f"]]
-                else if (this.canClick()) return [["fireOrb", "#c7442f55"]]
-                else return [["fireOrb", "#ffffff11"]]
-            },
             onClick() { 
                 player.ssp.fireReq4Get = true
                 player.ssp.fireOrbCount = player.ssp.fireOrbCount.add(1)
             },
             style() {
-            let look = {width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
+            let look = {position: "relative", top: this.yPos + "px", left: this.xPos + "px", width: '100px', minHeight: '100px', fontSize: "8px", border: "3px solid rgba(0,0,0,0.3)", borderRadius: "0px"}
             if(player.ssp.fireReq4Get == true) {
                 look.background = "linear-gradient(to bottom, #ff0000, #bb0000, #550000";
                 look.borderColor = "transparent";
@@ -927,7 +865,9 @@ addLayer("ssp", {
                 look.boxShadow = "0 0 3px 1px black inset"
             }
             return look
-            }
+            },
+            xPos: 150,
+            yPos: -250
         },
         encoder1: {
             title() {
@@ -940,7 +880,7 @@ addLayer("ssp", {
                 else
                     return "<h2>You haven't unlocked this button yet!</h2>"
             },
-            canClick() {return player.ssp.arcaneTableUnlocked == true && player.ssp.canAlSyReset == true && player.points.gte("e10000000")},
+            canClick() {return player.ssp.arcaneTableUnlocked == true && player.ssp.canAlSyReset == true && player.points.gte("e1000000")},
             unlocked() {return true},
             onClick() { 
                 layers.ssp.alchemicalSymbolsReset()
@@ -1184,381 +1124,489 @@ addLayer("ssp", {
                             ["raw-html", () => {return "-<u>Forgotten Chamber</u>-."}, {color: "transparent", backgroundImage: "linear-gradient(-135deg, #ffffffcd 10%, transparent 20%, transparent 80%, #000000cd 90%), linear-gradient(-135deg, #ffffff12, #00000012), linear-gradient(-135deg, #ff00ff, #9a9a9a, #00ff00)", backgroundClip: "text", fontSize: "18px", 'text-shadow': " 0 0 5px #ffffffcd, 0 0 10px #000000, 0 0 10px #000000", fontFamily: "monospace"}],
                         ]
                     ],
-                    ["blank", "10px"],
-                    ["column",
-                        [
-                            ["column",
-                                [
-                                    ["row",
-                                        [
-                                            ["column",
-                                                [
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "fireOrbReq2"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ]
-                                                        ]
-                                                    ],
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "fireOrbReq1"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ]
-                                                        ]
-                                                    ]
-                                                ]
-                                            ],
-                                            ["raw-html", () => {
-                                                if(player.ssp.thaumicOrbHit == 0 && player.ssp.fireUnlocked == true && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Radioactive.png' style='width:112px;height:160px;margin-bottom:-144px'></img>"
-                                                else if(player.ssp.thaumicOrbHit >= 1 && player.ssp.fireUnlocked == true && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-verticalNone.png' style='width:112px;height:160px;margin-bottom:-124px'</img>"
-                                                else if(player.ssp.thaumicOrbHit == 0 && player.ssp.fireUnlocked == false && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Radioactive-active.png' style='width:112px;height:160px;margin-bottom:-4px'></img>"
-                                                else
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Radioactive.png' style='width:112px;height:160px;margin-bottom:-4px'></img>"
-                                                }
-                                            ],
-                                            ["column",
-                                                [
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "fireOrbReq3"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ]
-                                                        ]
-                                                    ],
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "fireOrbReq4"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ],
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
-                                    ],
-                                    ["row",
-                                        [
-                                            ["hoverless-clickable", "fireOrb"]
-                                        ]
-                                    ],
-                                ]
-                            ],
-                            ["row",
-                                [
-                                    ["column",
-                                        [
-                                            ["column",
-                                                [
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "airOrbReq1"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ]
-                                                        ]
-                                                    ],
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "airOrbReq2"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ],
-                                                        ]
-                                                    ]
-                                                ]
-                                            ],
-                                            ["raw-html", () => {
-                                                if(player.ssp.thaumicOrbHit == 0 && player.ssp.airUnlocked == true && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Technological.png' style='width:160px;height:112px;margin-right:-140px;margin-bottom:-4px'></img>"
-                                                else if(player.ssp.thaumicOrbHit >= 1 && player.ssp.airUnlocked == true && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-horizontalNone.png' style='width:160px;height:112px;margin-right:-120px;margin-bottom:-4px'></img>"
-                                                else if(player.ssp.thaumicOrbHit == 0 && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Technological-active.png' style='width:160px;height:112px;margin-bottom:-4px'></img>"
-                                                else
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Technological.png' style='width:160px;height:112px;margin-bottom:-4px'></img>"
-                                                }
-                                            ],
-                                            ["column",
-                                                [
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "airOrbReq3"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ],
-                                                        ]
-                                                    ],
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "airOrbReq4"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ]
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
-                                    ],
-                                    ["row",
-                                        [
-                                            ["hoverless-clickable", "airOrb"]
-                                        ]
-                                    ],
-                                    ["column",
-                                        [
-                                            ["row",
-                                                [
-                                                    ["raw-html", () => {
-                                                        if(player.ssp.thaumicOrbHit == 1)
-                                                            return "<img src='resources/alchemyworld/alcNode-Pylon-Radioactive.png' style='width:112px;height:160px;margin-bottom:-4px'></img>"
-                                                        else if(player.ssp.thaumicOrbHit == 2)
-                                                            return "<img src='resources/alchemyworld/alcNode-Pylon-Radioactive-active.png' style='width:112px;height:160px;margin-bottom:54px'></img>"
-                                                        else if(player.ssp.thaumicOrbHit >= 3)
-                                                            return "<img src='resources/alchemyworld/alcNode-Pylon-Radioactive.png' style='width:112px;height:160px;margin-bottom:-60px'></img>"
-                                                        }
-                                                    ]
-                                                ]
-                                            ],
-                                            ["row",
-                                                [
-                                                    ["raw-html", () => {
-                                                        if(player.ssp.thaumicOrbHit == 1)
-                                                            return "<img src='resources/alchemyworld/alcNode-Pylon-Technological.png' style='width:160px;height:112px;margin-bottom:-4px'></img>"
-                                                        else if(player.ssp.thaumicOrbHit == 2)
-                                                            return "<img src='resources/alchemyworld/alcNode-Pylon-Technological-active.png' style='width:160px;height:112px;margin-right:50px;margin-bottom:-4px'></img>"
-                                                        else if(player.ssp.thaumicOrbHit >= 3)
-                                                            return "<img src='resources/alchemyworld/alcNode-Pylon-Technological.png' style='width:160px;height:112px;margin-right:-50px;margin-bottom:-4px'></img>"
-                                                        }
-                                                    ],
-                                                    ["hoverless-clickable", "thaumicOrb"],
-                                                    ["raw-html", () => {
-                                                        if(player.ssp.thaumicOrbHit == 1)
-                                                            return "<img src='resources/alchemyworld/alcNode-Pylon-Natural.png' style='width:160px;height:112px;margin-bottom:-4px'></img>"
-                                                        else if(player.ssp.thaumicOrbHit == 2)
-                                                            return "<img src='resources/alchemyworld/alcNode-Pylon-Natural-active.png' style='width:160px;height:112px;margin-left:50px;margin-bottom:-4px'></img>"
-                                                        else if(player.ssp.thaumicOrbHit >= 3)
-                                                            return "<img src='resources/alchemyworld/alcNode-Pylon-Natural.png' style='width:160px;height:112px;margin-left:-50px;margin-bottom:-4px'></img>"
-                                                        }
-                                                    ]
-                                                ]
-                                            ],
-                                            ["row",
-                                                [
-                                                    ["raw-html", () => {
-                                                        if(player.ssp.thaumicOrbHit == 1)
-                                                            return "<img src='resources/alchemyworld/alcNode-Pylon-Paradox.png' style='width:112px;height:160px;margin-top:-4px'></img>"
-                                                        else if(player.ssp.thaumicOrbHit == 2)
-                                                            return "<img src='resources/alchemyworld/alcNode-Pylon-Paradox-active.png' style='width:112px;height:160px;margin-top:54px'></img>"
-                                                        else if(player.ssp.thaumicOrbHit >= 3)
-                                                            return "<img src='resources/alchemyworld/alcNode-Pylon-Paradox.png' style='width:112px;height:160px;margin-top:-56px'></img>"
-                                                        }
-                                                    ]
-                                                ]
-                                            ]
-                                        ], {width: "520px", height: "520px"}
+                    ["blank", "20px"],
+                    // test
 
-                                    ],
-                                    ["row",
-                                        [
-                                            ["hoverless-clickable", "earthOrb"]
-                                        ]
-                                    ],
-                                    ["column",
-                                        [
-                                            ["column",
-                                                [
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "earthOrbReq1"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ]
-                                                        ]
-                                                    ],
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "earthOrbReq2"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ]
-                                                        ]
-                                                    ]
-                                                ]
-                                            ],
-                                            ["raw-html", () => {
-                                                if(player.ssp.thaumicOrbHit == 0 && player.ssp.earthUnlocked == true && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Natural.png' style='width:160px;height:112px;margin-left:-140px;margin-bottom:-4px'></img>"
-                                                else if(player.ssp.thaumicOrbHit >= 1 && player.ssp.earthUnlocked == true && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-horizontalNone.png' style='width:160px;height:112px;margin-left:-120px;margin-bottom:-4px'></img>"
-                                                else if(player.ssp.thaumicOrbHit == 0 && player.ssp.earthUnlocked == false && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Natural-active.png' style='width:160px;height:112px;margin-bottom:-4px'></img>"
-                                                else
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Natural.png' style='width:160px;height:112px;margin-bottom:-4px'></img>"
-                                                }
-                                            ],
-                                            ["column",
-                                                [
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "earthOrbReq3"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ]
-                                                        ]
-                                                    ],
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "earthOrbReq4"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ]
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            ["column",
+                    ["centered-draggable-scroll-row",
+                        [
+                            ["style-column",
                                 [
-                                    ["row",
+                                    ["style-row",
                                         [
-                                            ["hoverless-clickable", "waterOrb"]
-                                        ]
+                                            // main connections
+                                            createOrbConnection("thaumicOrb", "earthOrb"),
+                                            createOrbConnection("thaumicOrb", "waterOrb"),
+                                            createOrbConnection("thaumicOrb", "airOrb"),
+                                            createOrbConnection("thaumicOrb", "fireOrb"),
+
+                                            createOrbConnection("earthOrb", "earthOrbReq1"),
+                                            createOrbConnection("earthOrb", "earthOrbReq2"),
+                                            createOrbConnection("earthOrb", "earthOrbReq3"),
+                                            createOrbConnection("earthOrb", "earthOrbReq4"),
+                                            createOrbConnection("waterOrb", "waterOrbReq1"),
+                                            createOrbConnection("waterOrb", "waterOrbReq2"),
+                                            createOrbConnection("waterOrb", "waterOrbReq3"),
+                                            createOrbConnection("waterOrb", "waterOrbReq4"),
+                                            createOrbConnection("airOrb", "airOrbReq1"),
+                                            createOrbConnection("airOrb", "airOrbReq2"),
+                                            createOrbConnection("airOrb", "airOrbReq3"),
+                                            createOrbConnection("airOrb", "airOrbReq4"),
+                                            createOrbConnection("fireOrb", "fireOrbReq1"),
+                                            createOrbConnection("fireOrb", "fireOrbReq2"),
+                                            createOrbConnection("fireOrb", "fireOrbReq3"),
+                                            createOrbConnection("fireOrb", "fireOrbReq4"),
+
+                                            createEarthOrbCompletionConnection("thaumicOrb", "earthOrb"),
+                                            createEarthOrbCompletionConnection("earthOrb", "earthOrbReq1"),
+                                            createEarthOrbCompletionConnection("earthOrb", "earthOrbReq2"),
+                                            createEarthOrbCompletionConnection("earthOrb", "earthOrbReq3"),
+                                            createEarthOrbCompletionConnection("earthOrb", "earthOrbReq4"),
+                                            createEarthOrbCompletionConnection2("thaumicOrb", "earthOrb"),
+                                            createEarthOrbCompletionConnection2("earthOrb", "earthOrbReq1"),
+                                            createEarthOrbCompletionConnection2("earthOrb", "earthOrbReq2"),
+                                            createEarthOrbCompletionConnection2("earthOrb", "earthOrbReq3"),
+                                            createEarthOrbCompletionConnection2("earthOrb", "earthOrbReq4"),
+
+                                            createWaterOrbCompletionConnection("thaumicOrb", "waterOrb"),
+                                            createWaterOrbCompletionConnection("waterOrb", "waterOrbReq1"),
+                                            createWaterOrbCompletionConnection("waterOrb", "waterOrbReq2"),
+                                            createWaterOrbCompletionConnection("waterOrb", "waterOrbReq3"),
+                                            createWaterOrbCompletionConnection("waterOrb", "waterOrbReq4"),
+                                            createWaterOrbCompletionConnection2("thaumicOrb", "waterOrb"),
+                                            createWaterOrbCompletionConnection2("waterOrb", "waterOrbReq1"),
+                                            createWaterOrbCompletionConnection2("waterOrb", "waterOrbReq2"),
+                                            createWaterOrbCompletionConnection2("waterOrb", "waterOrbReq3"),
+                                            createWaterOrbCompletionConnection2("waterOrb", "waterOrbReq4"),
+
+                                            createAirOrbCompletionConnection("thaumicOrb", "airOrb"),
+                                            createAirOrbCompletionConnection("airOrb", "airOrbReq1"),
+                                            createAirOrbCompletionConnection("airOrb", "airOrbReq2"),
+                                            createAirOrbCompletionConnection("airOrb", "airOrbReq3"),
+                                            createAirOrbCompletionConnection("airOrb", "airOrbReq4"),
+                                            createAirOrbCompletionConnection2("thaumicOrb", "airOrb"),
+                                            createAirOrbCompletionConnection2("airOrb", "airOrbReq1"),
+                                            createAirOrbCompletionConnection2("airOrb", "airOrbReq2"),
+                                            createAirOrbCompletionConnection2("airOrb", "airOrbReq3"),
+                                            createAirOrbCompletionConnection2("airOrb", "airOrbReq4"),
+
+                                            createFireOrbCompletionConnection("thaumicOrb", "fireOrb"),
+                                            createFireOrbCompletionConnection("fireOrb", "fireOrbReq1"),
+                                            createFireOrbCompletionConnection("fireOrb", "fireOrbReq2"),
+                                            createFireOrbCompletionConnection("fireOrb", "fireOrbReq3"),
+                                            createFireOrbCompletionConnection("fireOrb", "fireOrbReq4"),
+                                            createFireOrbCompletionConnection2("thaumicOrb", "fireOrb"),
+                                            createFireOrbCompletionConnection2("fireOrb", "fireOrbReq1"),
+                                            createFireOrbCompletionConnection2("fireOrb", "fireOrbReq2"),
+                                            createFireOrbCompletionConnection2("fireOrb", "fireOrbReq3"),
+                                            createFireOrbCompletionConnection2("fireOrb", "fireOrbReq4"),
+                                        ], {width: "0px", height: "0px"}
                                     ],
-                                    ["row",
-                                        [
-                                            ["column",
-                                                [
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "waterOrbReq1"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ]
-                                                        ]
-                                                    ],
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "waterOrbReq2"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ]
-                                                        ]
-                                                    ]
-                                                ]
-                                            ],
-                                            ["raw-html", () => {
-                                                if(player.ssp.thaumicOrbHit == 0 && player.ssp.waterUnlocked == true && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Paradox.png' style='width:112px;height:160px;margin-top:-136px'></img>"
-                                                else if(player.ssp.thaumicOrbHit >= 1 && player.ssp.waterUnlocked == true && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-verticalNone.png' style='width:112px;height:160px;margin-top:-116px'></img>"
-                                                else if(player.ssp.thaumicOrbHit == 0 && player.ssp.waterUnlocked == false && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Paradox-active.png' style='width:112px;height:160px;margin-top:-4px'></img>"
-                                                else
-                                                    return "<img src='resources/alchemyworld/alcNode-Pylon-Paradox.png' style='width:112px;height:160px;margin-top:-4px'></img>"
-                                                }
-                                            ],
-                                            ["column",
-                                                [
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "waterOrbReq4"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ], 
-                                                        ]
-                                                    ],
-                                                    ["row",
-                                                        [
-                                                            ["column",
-                                                                [
-                                                                    ["hoverless-clickable", "waterOrbReq3"],
-                                                                ], {width: "100px", height: "100px"}
-                                                            ],
-                                                            ["column",
-                                                                [], {width: "100px", height: "100px"}
-                                                            ]
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ]
+                                    
+                                    ["style-row", [["hoverless-clickable", "earthOrbReq1"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "earthOrbReq2"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "earthOrbReq3"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "earthOrbReq4"],], {width: "0px", height: "0px"}],
+
+                                    ["style-row", [["hoverless-clickable", "waterOrbReq1"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "waterOrbReq2"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "waterOrbReq3"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "waterOrbReq4"],], {width: "0px", height: "0px"}],
+
+                                    ["style-row", [["hoverless-clickable", "airOrbReq1"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "airOrbReq2"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "airOrbReq3"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "airOrbReq4"],], {width: "0px", height: "0px"}],
+
+                                    ["style-row", [["hoverless-clickable", "fireOrbReq1"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "fireOrbReq2"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "fireOrbReq3"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "fireOrbReq4"],], {width: "0px", height: "0px"}],
+
+                                    ["style-row", [["hoverless-clickable", "thaumicOrb"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "earthOrb"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "waterOrb"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "airOrb"],], {width: "0px", height: "0px"}],
+                                    ["style-row", [["hoverless-clickable", "fireOrb"],], {width: "0px", height: "0px"}],
+                                ], {backgroundImage:"", width:"1000px", height:"1000px"}
                             ]
-                        ], {width: "1200px", height: "1200px"}
+                        ], {backgroundColor: "#55005555", width:"800px", height:"800px", flexFlow:"column"}
                     ]
+
+                    // {use this as a template to remake the unlock sequence}
+                    // ["column",
+                    //     [
+                    //         ["column",
+                    //             [
+                    //                 ["row",
+                    //                     [
+                    //                         ["column",
+                    //                             [
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "fireOrbReq2"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ]
+                    //                                     ]
+                    //                                 ],
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "fireOrbReq1"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ]
+                    //                                     ]
+                    //                                 ]
+                    //                             ]
+                    //                         ],
+                    //                         ["raw-html", () => {
+                    //                             if(player.ssp.thaumicOrbHit == 0 && player.ssp.fireUnlocked == true && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-Radioactive.png' style='width:112px;height:160px;margin-bottom:-144px'></img>"
+                    //                             else if(player.ssp.thaumicOrbHit >= 1 && player.ssp.fireUnlocked == true && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-verticalNone.png' style='width:112px;height:160px;margin-bottom:-124px'</img>"
+                    //                             else if(player.ssp.thaumicOrbHit == 0 && player.ssp.fireUnlocked == false && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-Radioactive-active.png' style='width:112px;height:160px;margin-bottom:-4px'></img>"
+                    //                             else
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-Radioactive.png' style='width:112px;height:160px;margin-bottom:-4px'></img>"
+                    //                             }
+                    //                         ],
+                    //                         ["column",
+                    //                             [
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "fireOrbReq3"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ]
+                    //                                     ]
+                    //                                 ],
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "fireOrbReq4"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                     ]
+                    //                                 ]
+                    //                             ]
+                    //                         ]
+                    //                     ]
+                    //                 ],
+                    //                 ["row",
+                    //                     [
+                    //                         ["hoverless-clickable", "fireOrb"]
+                    //                     ]
+                    //                 ],
+                    //             ]
+                    //         ],
+                    //         ["row",
+                    //             [
+                    //                 ["column",
+                    //                     [
+                    //                         ["column",
+                    //                             [
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "airOrbReq1"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ]
+                    //                                     ]
+                    //                                 ],
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "airOrbReq2"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                     ]
+                    //                                 ]
+                    //                             ]
+                    //                         ],
+                    //                         ["raw-html", () => {
+                    //                             if(player.ssp.thaumicOrbHit == 0 && player.ssp.airUnlocked == true && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-Technological.png' style='width:160px;height:112px;margin-right:-140px;margin-bottom:-4px'></img>"
+                    //                             else if(player.ssp.thaumicOrbHit >= 1 && player.ssp.airUnlocked == true && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-horizontalNone.png' style='width:160px;height:112px;margin-right:-120px;margin-bottom:-4px'></img>"
+                    //                             else if(player.ssp.thaumicOrbHit == 0 && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-Technological-active.png' style='width:160px;height:112px;margin-bottom:-4px'></img>"
+                    //                             else
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-Technological.png' style='width:160px;height:112px;margin-bottom:-4px'></img>"
+                    //                             }
+                    //                         ],
+                    //                         ["column",
+                    //                             [
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "airOrbReq3"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                     ]
+                    //                                 ],
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "airOrbReq4"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ]
+                    //                                     ]
+                    //                                 ]
+                    //                             ]
+                    //                         ]
+                    //                     ]
+                    //                 ],
+                    //                 ["row",
+                    //                     [
+                    //                         ["hoverless-clickable", "airOrb"]
+                    //                     ]
+                    //                 ],
+                    //                 ["column",
+                    //                     [
+                    //                         ["row",
+                    //                             [
+                    //                                 ["raw-html", () => {
+                    //                                     if(player.ssp.thaumicOrbHit == 1)
+                    //                                         return "<img src='resources/alchemyworld/alcNode-Pylon-Radioactive.png' style='width:112px;height:160px;margin-bottom:-4px'></img>"
+                    //                                     else if(player.ssp.thaumicOrbHit == 2)
+                    //                                         return "<img src='resources/alchemyworld/alcNode-Pylon-Radioactive-active.png' style='width:112px;height:160px;margin-bottom:54px'></img>"
+                    //                                     else if(player.ssp.thaumicOrbHit >= 3)
+                    //                                         return "<img src='resources/alchemyworld/alcNode-Pylon-Radioactive.png' style='width:112px;height:160px;margin-bottom:-60px'></img>"
+                    //                                     }
+                    //                                 ]
+                    //                             ]
+                    //                         ],
+                    //                         ["row",
+                    //                             [
+                    //                                 ["raw-html", () => {
+                    //                                     if(player.ssp.thaumicOrbHit == 1)
+                    //                                         return "<img src='resources/alchemyworld/alcNode-Pylon-Technological.png' style='width:160px;height:112px;margin-bottom:-4px'></img>"
+                    //                                     else if(player.ssp.thaumicOrbHit == 2)
+                    //                                         return "<img src='resources/alchemyworld/alcNode-Pylon-Technological-active.png' style='width:160px;height:112px;margin-right:50px;margin-bottom:-4px'></img>"
+                    //                                     else if(player.ssp.thaumicOrbHit >= 3)
+                    //                                         return "<img src='resources/alchemyworld/alcNode-Pylon-Technological.png' style='width:160px;height:112px;margin-right:-50px;margin-bottom:-4px'></img>"
+                    //                                     }
+                    //                                 ],
+                    //                                 ["hoverless-clickable", "thaumicOrb"],
+                    //                                 ["raw-html", () => {
+                    //                                     if(player.ssp.thaumicOrbHit == 1)
+                    //                                         return "<img src='resources/alchemyworld/alcNode-Pylon-Natural.png' style='width:160px;height:112px;margin-bottom:-4px'></img>"
+                    //                                     else if(player.ssp.thaumicOrbHit == 2)
+                    //                                         return "<img src='resources/alchemyworld/alcNode-Pylon-Natural-active.png' style='width:160px;height:112px;margin-left:50px;margin-bottom:-4px'></img>"
+                    //                                     else if(player.ssp.thaumicOrbHit >= 3)
+                    //                                         return "<img src='resources/alchemyworld/alcNode-Pylon-Natural.png' style='width:160px;height:112px;margin-left:-50px;margin-bottom:-4px'></img>"
+                    //                                     }
+                    //                                 ]
+                    //                             ]
+                    //                         ],
+                    //                         ["row",
+                    //                             [
+                    //                                 ["raw-html", () => {
+                    //                                     if(player.ssp.thaumicOrbHit == 1)
+                    //                                         return "<img src='resources/alchemyworld/alcNode-Pylon-Paradox.png' style='width:112px;height:160px;margin-top:-4px'></img>"
+                    //                                     else if(player.ssp.thaumicOrbHit == 2)
+                    //                                         return "<img src='resources/alchemyworld/alcNode-Pylon-Paradox-active.png' style='width:112px;height:160px;margin-top:54px'></img>"
+                    //                                     else if(player.ssp.thaumicOrbHit >= 3)
+                    //                                         return "<img src='resources/alchemyworld/alcNode-Pylon-Paradox.png' style='width:112px;height:160px;margin-top:-56px'></img>"
+                    //                                     }
+                    //                                 ]
+                    //                             ]
+                    //                         ]
+                    //                     ], {width: "520px", height: "520px"}
+
+                    //                 ],
+                    //                 ["row",
+                    //                     [
+                    //                         ["hoverless-clickable", "earthOrb"]
+                    //                     ]
+                    //                 ],
+                    //                 ["column",
+                    //                     [
+                    //                         ["column",
+                    //                             [
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "earthOrbReq1"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ]
+                    //                                     ]
+                    //                                 ],
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "earthOrbReq2"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ]
+                    //                                     ]
+                    //                                 ]
+                    //                             ]
+                    //                         ],
+                    //                         ["raw-html", () => {
+                    //                             if(player.ssp.thaumicOrbHit == 0 && player.ssp.earthUnlocked == true && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-Natural.png' style='width:160px;height:112px;margin-left:-140px;margin-bottom:-4px'></img>"
+                    //                             else if(player.ssp.thaumicOrbHit >= 1 && player.ssp.earthUnlocked == true && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-horizontalNone.png' style='width:160px;height:112px;margin-left:-120px;margin-bottom:-4px'></img>"
+                    //                             else if(player.ssp.thaumicOrbHit == 0 && player.ssp.earthUnlocked == false && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-Natural-active.png' style='width:160px;height:112px;margin-bottom:-4px'></img>"
+                    //                             else
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-Natural.png' style='width:160px;height:112px;margin-bottom:-4px'></img>"
+                    //                             }
+                    //                         ],
+                    //                         ["column",
+                    //                             [
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "earthOrbReq3"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ]
+                    //                                     ]
+                    //                                 ],
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "earthOrbReq4"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ]
+                    //                                     ]
+                    //                                 ]
+                    //                             ]
+                    //                         ]
+                    //                     ]
+                    //                 ]
+                    //             ]
+                    //         ],
+                    //         ["column",
+                    //             [
+                    //                 ["row",
+                    //                     [
+                    //                         ["hoverless-clickable", "waterOrb"]
+                    //                     ]
+                    //                 ],
+                    //                 ["row",
+                    //                     [
+                    //                         ["column",
+                    //                             [
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "waterOrbReq1"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ]
+                    //                                     ]
+                    //                                 ],
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "waterOrbReq2"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ]
+                    //                                     ]
+                    //                                 ]
+                    //                             ]
+                    //                         ],
+                    //                         ["raw-html", () => {
+                    //                             if(player.ssp.thaumicOrbHit == 0 && player.ssp.waterUnlocked == true && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-Paradox.png' style='width:112px;height:160px;margin-top:-136px'></img>"
+                    //                             else if(player.ssp.thaumicOrbHit >= 1 && player.ssp.waterUnlocked == true && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-verticalNone.png' style='width:112px;height:160px;margin-top:-116px'></img>"
+                    //                             else if(player.ssp.thaumicOrbHit == 0 && player.ssp.waterUnlocked == false && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-Paradox-active.png' style='width:112px;height:160px;margin-top:-4px'></img>"
+                    //                             else
+                    //                                 return "<img src='resources/alchemyworld/alcNode-Pylon-Paradox.png' style='width:112px;height:160px;margin-top:-4px'></img>"
+                    //                             }
+                    //                         ],
+                    //                         ["column",
+                    //                             [
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "waterOrbReq4"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ], 
+                    //                                     ]
+                    //                                 ],
+                    //                                 ["row",
+                    //                                     [
+                    //                                         ["column",
+                    //                                             [
+                    //                                                 ["hoverless-clickable", "waterOrbReq3"],
+                    //                                             ], {width: "100px", height: "100px"}
+                    //                                         ],
+                    //                                         ["column",
+                    //                                             [], {width: "100px", height: "100px"}
+                    //                                         ]
+                    //                                     ]
+                    //                                 ]
+                    //                             ]
+                    //                         ]
+                    //                     ]
+                    //                 ]
+                    //             ]
+                    //         ]
+                    //     ], {width: "1200px", height: "1200px"}
+                    // ]
                 ]
             },
             "Arcane Table": {
@@ -2302,6 +2350,103 @@ addLayer("ssp", {
         ]
     }
 )
+
+// -----------|| FUNCTIONS AREA ||----------- //
+// 2nd Unlock Sequence
+function createOrbConnection(id_1, id_2) {
+    return ["style-row", [], {
+        position: "relative",
+            left: () => {return ((layers.ssp.clickables[id_1].xPos + layers.ssp.clickables[id_2].xPos)/2) + "px"},
+            top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
+            transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
+            width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
+            height: "0px", border: "12px solid #00000033", margin: "-12px"
+    }]
+}
+function createEarthOrbCompletionConnection(id_1, id_2) {
+    return ["style-row", [], {
+        position: "relative",
+            left: () => {return ((layers.ssp.clickables[id_1].xPos + layers.ssp.clickables[id_2].xPos)/2) + "px"},
+            top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
+            transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
+            width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
+            height: "0px", border: "8px solid #00ff0033", margin: "-8px"
+    }]
+}
+function createEarthOrbCompletionConnection2(id_1, id_2) {
+    return ["style-row", [], {
+        position: "relative",
+            left: () => {return ((layers.ssp.clickables[id_1].xPos + layers.ssp.clickables[id_2].xPos)/2) + "px"},
+            top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
+            transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
+            width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
+            height: "0px", border: "4px solid #008e4b33", margin: "-4px"
+    }]
+}
+
+function createWaterOrbCompletionConnection(id_1, id_2) {
+    return ["style-row", [], {
+        position: "relative",
+            left: () => {return ((layers.ssp.clickables[id_1].xPos + layers.ssp.clickables[id_2].xPos)/2) + "px"},
+            top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
+            transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
+            width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
+            height: "0px", border: "8px solid #0000ff33", margin: "-8px"
+    }]
+}
+function createWaterOrbCompletionConnection2(id_1, id_2) {
+    return ["style-row", [], {
+        position: "relative",
+            left: () => {return ((layers.ssp.clickables[id_1].xPos + layers.ssp.clickables[id_2].xPos)/2) + "px"},
+            top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
+            transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
+            width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
+            height: "0px", border: "4px solid #1d8eb333", margin: "-4px"
+    }]
+}
+
+function createAirOrbCompletionConnection(id_1, id_2) {
+    return ["style-row", [], {
+        position: "relative",
+            left: () => {return ((layers.ssp.clickables[id_1].xPos + layers.ssp.clickables[id_2].xPos)/2) + "px"},
+            top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
+            transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
+            width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
+            height: "0px", border: "8px solid #ffff0033", margin: "-8px"
+    }]
+}
+function createAirOrbCompletionConnection2(id_1, id_2) {
+    return ["style-row", [], {
+        position: "relative",
+            left: () => {return ((layers.ssp.clickables[id_1].xPos + layers.ssp.clickables[id_2].xPos)/2) + "px"},
+            top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
+            transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
+            width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
+            height: "0px", border: "4px solid #c7c79633", margin: "-4px"
+    }]
+}
+
+
+function createFireOrbCompletionConnection(id_1, id_2) {
+    return ["style-row", [], {
+        position: "relative",
+            left: () => {return ((layers.ssp.clickables[id_1].xPos + layers.ssp.clickables[id_2].xPos)/2) + "px"},
+            top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
+            transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
+            width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
+            height: "0px", border: "8px solid #ff000033", margin: "-8px"
+    }]
+}
+function createFireOrbCompletionConnection2(id_1, id_2) {
+    return ["style-row", [], {
+        position: "relative",
+            left: () => {return ((layers.ssp.clickables[id_1].xPos + layers.ssp.clickables[id_2].xPos)/2) + "px"},
+            top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
+            transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
+            width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
+            height: "0px", border: "4px solid #c7442f33", margin: "-4px"
+    }]
+}
 
 // -----------|| PARTICLE CREATION AREA ||----------- //
 // Earth Unlock
