@@ -1138,7 +1138,7 @@ addLayer("ssp", {
                                             createOrbConnection("thaumicOrb", "waterOrb"),
                                             createOrbConnection("thaumicOrb", "airOrb"),
                                             createOrbConnection("thaumicOrb", "fireOrb"),
-
+                                            // main connections 2
                                             createOrbConnection("earthOrb", "earthOrbReq1"),
                                             createOrbConnection("earthOrb", "earthOrbReq2"),
                                             createOrbConnection("earthOrb", "earthOrbReq3"),
@@ -1156,6 +1156,8 @@ addLayer("ssp", {
                                             createOrbConnection("fireOrb", "fireOrbReq3"),
                                             createOrbConnection("fireOrb", "fireOrbReq4"),
 
+                                            // inactive connections
+                                            // earth
                                             createEarthOrbCompletionConnection("thaumicOrb", "earthOrb"),
                                             createEarthOrbCompletionConnection("earthOrb", "earthOrbReq1"),
                                             createEarthOrbCompletionConnection("earthOrb", "earthOrbReq2"),
@@ -1166,7 +1168,7 @@ addLayer("ssp", {
                                             createEarthOrbCompletionConnection2("earthOrb", "earthOrbReq2"),
                                             createEarthOrbCompletionConnection2("earthOrb", "earthOrbReq3"),
                                             createEarthOrbCompletionConnection2("earthOrb", "earthOrbReq4"),
-
+                                            // water
                                             createWaterOrbCompletionConnection("thaumicOrb", "waterOrb"),
                                             createWaterOrbCompletionConnection("waterOrb", "waterOrbReq1"),
                                             createWaterOrbCompletionConnection("waterOrb", "waterOrbReq2"),
@@ -1177,7 +1179,7 @@ addLayer("ssp", {
                                             createWaterOrbCompletionConnection2("waterOrb", "waterOrbReq2"),
                                             createWaterOrbCompletionConnection2("waterOrb", "waterOrbReq3"),
                                             createWaterOrbCompletionConnection2("waterOrb", "waterOrbReq4"),
-
+                                            // air
                                             createAirOrbCompletionConnection("thaumicOrb", "airOrb"),
                                             createAirOrbCompletionConnection("airOrb", "airOrbReq1"),
                                             createAirOrbCompletionConnection("airOrb", "airOrbReq2"),
@@ -1188,7 +1190,7 @@ addLayer("ssp", {
                                             createAirOrbCompletionConnection2("airOrb", "airOrbReq2"),
                                             createAirOrbCompletionConnection2("airOrb", "airOrbReq3"),
                                             createAirOrbCompletionConnection2("airOrb", "airOrbReq4"),
-
+                                            // fire
                                             createFireOrbCompletionConnection("thaumicOrb", "fireOrb"),
                                             createFireOrbCompletionConnection("fireOrb", "fireOrbReq1"),
                                             createFireOrbCompletionConnection("fireOrb", "fireOrbReq2"),
@@ -2360,7 +2362,9 @@ function createOrbConnection(id_1, id_2) {
             top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
             transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
             width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
-            height: "0px", border: "12px solid #00000033", margin: "-12px"
+            height: "0px",
+            border: "12px solid #00000033",
+            margin: "-12px"
     }]
 }
 function createEarthOrbCompletionConnection(id_1, id_2) {
@@ -2370,7 +2374,15 @@ function createEarthOrbCompletionConnection(id_1, id_2) {
             top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
             transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
             width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
-            height: "0px", border: "8px solid #00ff0033", margin: "-8px"
+            height: "0px",
+            border: () => {
+                if(player.ssp.earthUnlocked == true && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
+                    return "8px solid #00ff0088"
+                else if(player.ssp.earthUnlocked == false && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
+                    return "8px solid #00ff0033"
+                else return "8px solid #00ff0011"
+            },
+            margin: "-8px"
     }]
 }
 function createEarthOrbCompletionConnection2(id_1, id_2) {
@@ -2380,10 +2392,17 @@ function createEarthOrbCompletionConnection2(id_1, id_2) {
             top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
             transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
             width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
-            height: "0px", border: "4px solid #008e4b33", margin: "-4px"
+            height: "0px",
+            border: () => {
+                if(player.ssp.earthUnlocked == true && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
+                    return "4px solid #008e4b88"
+                else if(player.ssp.earthUnlocked == false && player.ssp.earthReq1Get == true && player.ssp.earthReq2Get == true && player.ssp.earthReq3Get == true && player.ssp.earthReq4Get == true)
+                    return "4px solid #008e4b33"
+                else return "4px solid #008e4b11"
+            },
+            margin: "-4px"
     }]
 }
-
 function createWaterOrbCompletionConnection(id_1, id_2) {
     return ["style-row", [], {
         position: "relative",
@@ -2391,7 +2410,15 @@ function createWaterOrbCompletionConnection(id_1, id_2) {
             top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
             transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
             width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
-            height: "0px", border: "8px solid #0000ff33", margin: "-8px"
+            height: "0px",
+            border: () => {
+                if(player.ssp.waterUnlocked == true && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
+                    return "8px solid #0000ff88"
+                else if(player.ssp.waterUnlocked == false && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
+                    return "8px solid #0000ff33"
+                else return "8px solid #0000ff11"
+            },
+            margin: "-8px"
     }]
 }
 function createWaterOrbCompletionConnection2(id_1, id_2) {
@@ -2401,10 +2428,17 @@ function createWaterOrbCompletionConnection2(id_1, id_2) {
             top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
             transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
             width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
-            height: "0px", border: "4px solid #1d8eb333", margin: "-4px"
+            height: "0px",
+            border: () => {
+                if(player.ssp.waterUnlocked == true && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
+                    return "4px solid #1d8eb388"
+                else if(player.ssp.waterUnlocked == false && player.ssp.waterReq1Get == true && player.ssp.waterReq2Get == true && player.ssp.waterReq3Get == true && player.ssp.waterReq4Get == true)
+                    return "4px solid #1d8eb333"
+                else return "4px solid #1d8eb311"
+            },
+            margin: "-4px"
     }]
 }
-
 function createAirOrbCompletionConnection(id_1, id_2) {
     return ["style-row", [], {
         position: "relative",
@@ -2412,7 +2446,15 @@ function createAirOrbCompletionConnection(id_1, id_2) {
             top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
             transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
             width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
-            height: "0px", border: "8px solid #ffff0033", margin: "-8px"
+            height: "0px",
+            border: () => {
+                if(player.ssp.airUnlocked == true && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
+                    return "8px solid #ffff0088"
+                else if(player.ssp.airUnlocked == false && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
+                    return "8px solid #ffff0033"
+                else return "8px solid #ff000011"
+            },
+            margin: "-8px"
     }]
 }
 function createAirOrbCompletionConnection2(id_1, id_2) {
@@ -2422,11 +2464,17 @@ function createAirOrbCompletionConnection2(id_1, id_2) {
             top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
             transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
             width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
-            height: "0px", border: "4px solid #c7c79633", margin: "-4px"
+            height: "0px",
+            border: () => {
+                if(player.ssp.airUnlocked == true && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
+                    return "4px solid #c7c79688"
+                else if(player.ssp.airUnlocked == false && player.ssp.airReq1Get == true && player.ssp.airReq2Get == true && player.ssp.airReq3Get == true && player.ssp.airReq4Get == true)
+                    return "4px solid #c7c79633"
+                else return "4px solid #c7c79611"
+            },
+            margin: "-4px"
     }]
 }
-
-
 function createFireOrbCompletionConnection(id_1, id_2) {
     return ["style-row", [], {
         position: "relative",
@@ -2434,7 +2482,15 @@ function createFireOrbCompletionConnection(id_1, id_2) {
             top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
             transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
             width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
-            height: "0px", border: "8px solid #ff000033", margin: "-8px"
+            height: "0px",
+            border: () => {
+                if(player.ssp.fireUnlocked == true && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
+                    return "8px solid #ff000088"
+                else if(player.ssp.fireUnlocked == false && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
+                    return "8px solid #ff000033"
+                else return "8px solid #ff000011"
+            },
+            margin: "-8px"
     }]
 }
 function createFireOrbCompletionConnection2(id_1, id_2) {
@@ -2444,7 +2500,15 @@ function createFireOrbCompletionConnection2(id_1, id_2) {
             top: () => {return ((layers.ssp.clickables[id_1].yPos + layers.ssp.clickables[id_2].yPos)/2) + "px"},
             transform: () => {return "rotate(" + Math.atan2(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos) + "rad)"},
             width: () => {return Math.sqrt(Math.pow(layers.ssp.clickables[id_2].yPos - layers.ssp.clickables[id_1].yPos, 2) + Math.pow(layers.ssp.clickables[id_2].xPos - layers.ssp.clickables[id_1].xPos, 2)) + "px"},
-            height: "0px", border: "4px solid #c7442f33", margin: "-4px"
+            height: "0px",
+            border: () => {
+                if(player.ssp.fireUnlocked == true && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
+                    return "4px solid #c7442f88"
+                else if(player.ssp.fireUnlocked == false && player.ssp.fireReq1Get == true && player.ssp.fireReq2Get == true && player.ssp.fireReq3Get == true && player.ssp.fireReq4Get == true)
+                    return "4px solid #c7442f33"
+                else return "4px solid #c7442f11"
+            },
+            margin: "-4px"
     }]
 }
 
