@@ -382,7 +382,7 @@ addUniverse("DS", {
 addUniverse("LU", {
 	name: "Universe η<br>The Alchemical World",
 	symbol: "η",
-	tree: [["ssp"], [["tlb"], ["ctb"], ["aal"]]], // , ["btb"], ["aal"], ["phl"]
+	tree: [["ssp"], ["lu-ssp"], [["tlb"], ["ctb"], ["aal"]]], // , ["btb"], ["aal"], ["phl"]
 	nodeStyle() {
 		let style = {
 			background: "linear-gradient(to bottom, #8b609c, #ff00ff, #ffc0cb)",

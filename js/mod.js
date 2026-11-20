@@ -41,6 +41,7 @@
 		"Puzzle World/Puzzle Fighting/puzzleFighting.js",
 
 		"Alchemy/symbolSpace.js", "Alchemy/tomeLibrary.js", "Alchemy/craftingTable.js", "Alchemy/alchemyAltar.js",
+		"Alchemy/1-draggableSymbolSpace.js",
 
 		// delete later, these are the old code that somehow remained intact
 		// "Alchemy/knowledgeTable.js", "Alchemy/blueprintTable.js", "Alchemy/elementFusion.js", "Alchemy/tomeLibrary.js", "Alchemy/alchemyAltar.js", "Alchemy/philozoth.js",
